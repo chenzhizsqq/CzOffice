@@ -54,10 +54,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="1dp"
-                        android:background="@drawable/textview_style"
+                        android:background="@drawable/ic_round_edge_red"
                         android:gravity="center"
                         android:text="未承認"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                 </TableRow>
                 <TableRow
@@ -115,10 +115,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="1dp"
-                        android:background="@drawable/textview_style"
+                        android:background="@drawable/ic_round_edge_red"
                         android:gravity="center"
                         android:text="未承認"
-                        android:textColor="#000000" />
+                        android:textColor="#FFFFFF" />
 
                 </TableRow>
                 <TableRow
