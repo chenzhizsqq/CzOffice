@@ -1,4 +1,4 @@
-package com.example.etoffice.ui
+package com.example.etoffice.ui.MyPage
 
 import android.content.Intent
 import android.os.Bundle

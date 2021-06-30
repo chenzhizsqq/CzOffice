@@ -1,4 +1,4 @@
-package com.example.etoffice.ui
+package com.example.etoffice.ui.report
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,15 +1,14 @@
-package com.example.etoffice.ui
+package com.example.etoffice.ui.MyPage
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import com.example.etoffice.R
 
-class MyPagePlaceSettingActivity : AppCompatActivity() {
+class MyPageChangeCompanyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_page_place_setting)
+        setContentView(R.layout.activity_my_page_change_company)
     }
-
     override fun onBackPressed() {
         finish()
     }

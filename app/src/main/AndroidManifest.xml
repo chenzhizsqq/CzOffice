@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EtOffice">
         <activity
-            android:name=".ui.MyPageChangeCompanyActivity"
+            android:name=".ui.MyPage.MyPageChangeCompanyActivity"
             android:label="@string/title_activity_my_page_change_company" />
         <activity
-            android:name=".ui.MyPagePlaceSettingActivity"
+            android:name=".ui.MyPage.MyPagePlaceSettingActivity"
             android:label="@string/title_activity_my_page_place_setting" />
         <activity
             android:name=".MainActivity"
