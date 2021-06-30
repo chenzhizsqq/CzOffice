@@ -16,4 +16,10 @@ class ReportFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_scrolling_report, container, false)
     }
+
+    companion object {
+        fun newInstance(): ReportFragment {
+            return ReportFragment()
+        }
+    }
 }
