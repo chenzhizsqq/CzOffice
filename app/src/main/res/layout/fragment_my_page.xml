@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_MyPage_Logo"
         android:layout_width="99dp"
         android:layout_height="84dp"
         android:src="@drawable/ic_home_black_24dp"
@@ -217,6 +217,7 @@
                 android:textColor="@color/black" />
 
             <TextView
+                android:id="@+id/PlaceSettingEnter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
