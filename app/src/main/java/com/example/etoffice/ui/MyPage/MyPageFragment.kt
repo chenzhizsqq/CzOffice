@@ -25,8 +25,8 @@ class MyPageFragment : Fragment() {
         testTV.text = "my page ok"
 
         //Place　Setting
-        val pImageView: ImageView = root.findViewById(R.id.imageView_MyPage_Logo) as ImageView
-        pImageView.setOnClickListener(View.OnClickListener {
+        val pTableRowPlaceManagement: TableRow = root.findViewById(R.id.place_management) as TableRow
+        pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
             val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
             startActivity(intent)
         })
