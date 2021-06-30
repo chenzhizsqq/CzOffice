@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/ScrollingFragmentReport"
-        android:name="com.example.etoffice.ui.ScrollingFragmentReport"
+        android:name="com.example.etoffice.ui.ReportFragment"
         android:label="@string/title_report"
         tools:layout="@layout/fragment_scrolling_report" />
     <fragment

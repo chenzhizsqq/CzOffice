@@ -23,7 +23,7 @@ class MyPageFragment : Fragment() {
 
         val pImageView: ImageView = root.findViewById(R.id.imageView_MyPage_Logo) as ImageView
         pImageView.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, MyPagePlaceSetting::class.java)
+            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
             startActivity(intent)
         })
         return root

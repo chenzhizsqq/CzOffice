@@ -10,7 +10,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.EtOffice">
-        <activity android:name=".ui.MyPagePlaceSetting"
+        <activity android:name=".ui.MyPagePlaceSettingActivity"
             android:label="@string/title_activity_my_page_place_setting">
         </activity>
         <activity

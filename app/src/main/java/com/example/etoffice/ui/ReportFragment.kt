@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.etoffice.R
 
-class ScrollingFragmentReport : Fragment() {
+class ReportFragment : Fragment() {
 
     override fun onCreateView(
             inflater: LayoutInflater,
