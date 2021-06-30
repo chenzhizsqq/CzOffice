@@ -246,6 +246,7 @@
             android:background="@color/white"
             android:orientation="vertical"
             android:layout_margin="2dp"
+            android:id="@+id/change_company"
             android:weightSum="2">
 
             <TextView
