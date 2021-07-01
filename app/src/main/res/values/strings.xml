@@ -8,5 +8,6 @@
     <string name="title_my_page">マイページ</string>
     <string name="title_activity_my_page_place_setting">作業場所管理</string>
     <string name="title_activity_my_page_change_company">切り替え</string>
+    <string name="title_activity_report_detail">日報詳しい</string>
 
 </resources>

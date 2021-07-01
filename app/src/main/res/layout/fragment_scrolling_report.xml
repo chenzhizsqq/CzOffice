@@ -27,6 +27,7 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/report_info_title_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"

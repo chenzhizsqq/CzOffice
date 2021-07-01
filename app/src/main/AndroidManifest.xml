@@ -11,11 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EtOffice">
         <activity
+            android:name=".ui.report.ReportDetail"
+            android:label="@string/title_activity_report_detail"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.MyPage.MyPageChangeCompanyActivity"
-            android:label="@string/title_activity_my_page_change_company" />
+            android:label="@string/title_activity_my_page_change_company"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MyPage.MyPagePlaceSettingActivity"
-            android:label="@string/title_activity_my_page_place_setting" />
+            android:label="@string/title_activity_my_page_place_setting"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
