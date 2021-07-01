@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import java.util.*
 import com.example.etoffice.R
+import java.util.*
 
 class ReportAddDialog : DialogFragment() {
     override fun onCreateView(
@@ -19,9 +19,10 @@ class ReportAddDialog : DialogFragment() {
         @Nullable savedInstanceState: Bundle?
     ): View {
         val view: View = inflater.inflate(R.layout.dialog_report_add, container)
-        val buttonTimeOpen = view.findViewById<TextView>(R.id.time_open)
 
-        buttonTimeOpen.setOnClickListener {
+
+        val textView = view.findViewById<TextView>(R.id.time_open)
+        textView.setOnClickListener {
             val myCalender = Calendar.getInstance()
             val hour = myCalender[Calendar.HOUR_OF_DAY]
             val minute = myCalender[Calendar.MINUTE]
@@ -33,8 +34,8 @@ class ReportAddDialog : DialogFragment() {
                     }
                 }
             val timePickerDialog = TimePickerDialog(
-                getActivity(),
-                R.style.Theme_MaterialComponents_NoActionBar_Bridge,
+                activity,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
                 myTimeListener,
                 hour,
                 minute,
@@ -46,17 +47,17 @@ class ReportAddDialog : DialogFragment() {
             val window = timePickerDialog.window
             //去掉dialog默认的padding
             window!!.decorView.setPadding(0, 0, 0, 0)
-            val lp = window.attributes
+            val lp = window!!.attributes
             lp.width = WindowManager.LayoutParams.MATCH_PARENT
             lp.height = WindowManager.LayoutParams.WRAP_CONTENT
             //设置dialog的位置在底部
             lp.gravity = Gravity.BOTTOM
             //设置dialog的动画
             lp.windowAnimations = R.style.BottomDialogAnimation
-            window.attributes = lp
-            window.setBackgroundDrawable(ColorDrawable())
+            window!!.attributes = lp
+            window!!.setBackgroundDrawable(ColorDrawable())
             timePickerDialog.setTitle("Choose hour:")
-            timePickerDialog.window!!.setBackgroundDrawableResource(R.color.design_default_color_secondary_variant)
+            timePickerDialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
             timePickerDialog.show()
         }
 

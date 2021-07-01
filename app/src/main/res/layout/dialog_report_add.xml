@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -13,8 +21,9 @@
         android:textStyle="bold"
         android:gravity="center"
         />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="プロジェクト名"
@@ -23,7 +32,7 @@
         android:gravity="center|left"
         />
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="選択する"
@@ -32,7 +41,7 @@
         android:gravity="center"
         />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="作業コード"
@@ -40,9 +49,8 @@
         android:textColor="#555"
         android:gravity="center|left"
         />
-
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="選択する"
@@ -50,111 +58,31 @@
         android:textColor="#FFFFFF"
         android:gravity="center"
         />
-    <LinearLayout
+    <EditText
+        android:id="@+id/editTextDate"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="工数"
-            android:textSize="14dp"
-            android:textColor="#555"
-            android:gravity="center|left"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="選択する"
-            android:textSize="14dp"
-            android:textColor="#FFFFFF"
-            android:gravity="center|left"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="作業場所"
-            android:textSize="14dp"
-            android:textColor="#555"
-            android:gravity="center|left"
-            />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="時間帯"
-            android:textSize="14dp"
-            android:textColor="#555"
-            android:gravity="center|left"
-            />
-        <Button
-            android:id="@+id/time_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="選択する"
-            android:textSize="14dp"
-            android:textColor="#FFFFFF"
-            android:gravity="center|left"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="〜"
-            android:textSize="14dp"
-            android:textColor="#555"
-            android:gravity="center|left"
-            />
-
-        <Button
-            android:id="@+id/time_open2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="選択する"
-            android:textSize="14dp"
-            android:textColor="#FFFFFF"
-            android:gravity="center|left"
-            />
-    </LinearLayout>
-
-
-    <TextView
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:ems="10"
+        android:inputType="date" />
+    <Button
+        android:id="@+id/time_open"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        android:text="作業報告"
+        android:text="時間選択する"
         android:textSize="14dp"
-        android:textColor="#555"
+        android:textColor="#FFFFFF"
         android:gravity="center|left"
         />
 
-    <EditText
-        android:id="@+id/editTextTextMultiLine"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:ems="200"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:text="登録する"
+        android:textSize="18dp"
+        android:gravity="center"
+        />
 
 
 </LinearLayout>
