@@ -73,6 +73,7 @@
                 android:layout_height="match_parent">
 
                 <TableRow
+                    android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -87,6 +88,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:gravity="right"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -239,6 +241,8 @@
             </TableLayout>
         </TableRow>
         <TableRow
+            android:id="@+id/tableRow_report_add"
+            android:gravity="center"
             android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -254,8 +258,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageButton
-                        android:id="@+id/imageButton"
+                    <ImageView
+                        android:id="@+id/imageButton1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
