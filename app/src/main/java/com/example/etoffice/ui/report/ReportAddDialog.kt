@@ -14,9 +14,9 @@ import java.util.*
 
 class ReportAddDialog : DialogFragment() {
     override fun onCreateView(
-        @NonNull inflater: LayoutInflater,
-        @Nullable container: ViewGroup?,
-        @Nullable savedInstanceState: Bundle?
+            @NonNull inflater: LayoutInflater,
+            @Nullable container: ViewGroup?,
+            @Nullable savedInstanceState: Bundle?
     ): View {
         val view: View = inflater.inflate(R.layout.dialog_report_add, container)
 
@@ -28,6 +28,7 @@ class ReportAddDialog : DialogFragment() {
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
         window.attributes = attributes
 
+        //時間選択を表示
         val textView = view.findViewById<TextView>(R.id.time_open)
         textView.setOnClickListener {
             val myCalender = Calendar.getInstance()
@@ -41,33 +42,40 @@ class ReportAddDialog : DialogFragment() {
                     }
                 }
             val timePickerDialog = TimePickerDialog(
-                activity,
-                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                myTimeListener,
-                hour,
-                minute,
-                true
+                    activity,
+                    android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                    myTimeListener,
+                    hour,
+                    minute,
+                    true
             )
 
-            //去掉dialog的标题，需要在setContentView()之前
-            timePickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            val window = timePickerDialog.window
-            //去掉dialog默认的padding
-            window!!.decorView.setPadding(0, 0, 0, 0)
-            val lp = window!!.attributes
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-            //设置dialog的位置在底部
-            lp.gravity = Gravity.BOTTOM
-            //设置dialog的动画
-            lp.windowAnimations = R.style.BottomDialogAnimation
-            window!!.attributes = lp
-            window!!.setBackgroundDrawable(ColorDrawable())
-            timePickerDialog.setTitle("Choose hour:")
-            timePickerDialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-            timePickerDialog.show()
+            selectTime(timePickerDialog)
+        }
+
+        //ボタン　保存後に閉じる
+        val btnSaveAndClose = view.findViewById<TextView>(R.id.btn_save_and_close)
+        btnSaveAndClose.setOnClickListener {
+            dialog!!.dismiss()
         }
 
         return view
+    }
+
+    //時間選択を表示　ボタンから表示します
+    private fun selectTime(timePickerDialog: TimePickerDialog) {
+        timePickerDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val window = timePickerDialog.window
+        window!!.decorView.setPadding(0, 0, 0, 0)
+        val lp = window!!.attributes
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.gravity = Gravity.BOTTOM
+        lp.windowAnimations = R.style.BottomDialogAnimation
+        window!!.attributes = lp
+        window!!.setBackgroundDrawable(ColorDrawable())
+        timePickerDialog.setTitle("開始時間を選択する")
+        timePickerDialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        timePickerDialog.show()
     }
 }
