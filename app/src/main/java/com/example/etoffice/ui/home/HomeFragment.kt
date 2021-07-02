@@ -24,11 +24,6 @@ class HomeFragment : Fragment() {
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-
         val textTitle1: TextView = root.findViewById(R.id.text_title1)
         homeViewModel.title1.observe(viewLifecycleOwner, Observer {
             textTitle1.text = it

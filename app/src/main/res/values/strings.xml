@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">EtOffice</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_activity_main">EtOffice</string>
+    <string name="title_home">ホーム</string>
+    <string name="title_dashboard">メッセージ</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_report">日報</string>
     <string name="title_my_page">マイページ</string>
