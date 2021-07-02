@@ -20,6 +20,13 @@ class ReportAddDialog : DialogFragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.dialog_report_add, container)
 
+        //フルスクリーン　Full screen
+        val window = dialog!!.window
+        window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        val attributes = window.attributes
+        //attributes.gravity = Gravity.BOTTOM //下方
+        attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
+        window.attributes = attributes
 
         val textView = view.findViewById<TextView>(R.id.time_open)
         textView.setOnClickListener {
