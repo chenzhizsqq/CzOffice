@@ -1,6 +1,7 @@
 package com.example.etoffice.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +11,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.etoffice.R
 
-class HomeFragment : Fragment() {
+
+class HomeFragment : Fragment(), View.OnClickListener {
 
     private lateinit var homeViewModel: HomeViewModel
 
+    private val TAG = "Frag01SelectFragment"
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -43,6 +47,16 @@ class HomeFragment : Fragment() {
         homeViewModel.title4.observe(viewLifecycleOwner, Observer {
             textTitle4.text = it
         })
+
+        //chenzhi:还差调用
+        val button: TextView = root.findViewById(R.id.record_table) as TextView
+        button.setOnClickListener(this)
+        Log.d(TAG, "ok")
         return root
     }
+
+
+    override fun onClick(view: View?) {
+    }
+
 }
