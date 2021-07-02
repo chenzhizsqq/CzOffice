@@ -228,6 +228,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
+            android:id="@+id/record_table"
             android:background="@drawable/ic_round_edge_white"
             >
 
@@ -241,7 +242,6 @@
                     android:layout_margin="5dp"
                     android:background="#FFFFFF"
                     android:gravity="left"
-                    android:id="@+id/record_table"
                     android:text="2021.06.28 勤務中" />
             </TableRow>
             <TableRow
