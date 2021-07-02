@@ -17,11 +17,16 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
-    <fragment
+<!--    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.etoffice.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications" />-->
+    <fragment
+        android:id="@+id/member_fragment"
+        android:name="com.example.etoffice.ui.member.MemberFragment"
+        android:label="@string/title_member_fragment"
+        tools:layout="@layout/fragment_member" />
     <fragment
         android:id="@+id/ScrollingFragmentReport"
         android:name="com.example.etoffice.ui.report.ReportFragment"
