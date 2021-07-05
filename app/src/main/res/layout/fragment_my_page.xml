@@ -4,320 +4,307 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="30dp"
     tools:context=".ui.MyPage.MyPageFragment"
     android:background="#E8E8E8">
 
-
-    <ImageView
-        android:id="@+id/imageView_MyPage_Logo"
-        android:layout_width="99dp"
-        android:layout_height="84dp"
-        app:srcCompat="@drawable/ic_home_black_24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="60dp"
-        android:textColor="@color/black"
-        android:text="ユーザー　１2"
-        android:textSize="12dp"
-
+        android:gravity="center|left"
+        android:orientation="vertical"
+        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/user_name_mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="88dp"
-        android:text="demo1@xieyi.co.jp"
-        android:textSize="12dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    PERSONAL_INFO_title-->
-    <TextView
-        android:id="@+id/PERSONAL_INFO_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="164dp"
-        android:text="PERSONAL INFO"
-
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TableLayout
-        android:id="@+id/PERSONAL_INFO"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="188dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/ic_round_edge_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <TableRow
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:weightSum="2">
+            android:gravity="left"
+            android:orientation="horizontal">
 
-            <TextView
+            <ImageView
+                android:id="@+id/imageView_MyPage_Logo"
+                android:layout_width="99dp"
+                android:layout_height="84dp"
+                app:srcCompat="@drawable/ic_home_black_24dp"
+
+                />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Name"
-                android:textColor="@color/black"
                 android:gravity="left"
-                android:singleLine="true"/>
+                android:padding="30dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="ユーザー　１2"
+                    android:textSize="12dp"/>
 
-            <TextView
+                <TextView
+                    android:id="@+id/user_name_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="demo1@xieyi.co.jp"
+                    android:textSize="12dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--    PERSONAL_INFO_title-->
+        <TextView
+            android:id="@+id/PERSONAL_INFO_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PERSONAL INFO"
+            android:paddingTop="30dp"
+
+            android:textSize="12dp"/>
+
+        <TableLayout
+            android:id="@+id/PERSONAL_INFO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_round_edge_white"
+            >
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="text"
-                android:singleLine="true"/>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:weightSum="2">
 
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E8E8E8"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="text"
+                    android:singleLine="true"/>
+
+            </TableRow>
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="#E8E8E8"
+                android:orientation="vertical">
 
-        </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:weightSum="2">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
-            <TextView
+            </TableRow>
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:text="Mobile"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:weightSum="2">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="text"
-                android:singleLine="true"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Mail"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
-        </TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="text"
+                    android:singleLine="true"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E8E8E8"
-            android:orientation="vertical">
+            </TableRow>
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="#E8E8E8"
+                android:orientation="vertical">
 
-        </TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:weightSum="2">
+            </TableRow>
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:text="Mail"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:weightSum="2">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="text"
-                android:singleLine="true"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Mail"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
-        </TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="text"
+                    android:singleLine="true"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E8E8E8"
-            android:orientation="vertical">
+            </TableRow>
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="#E8E8E8"
+                android:orientation="vertical">
 
-        </TableRow>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:id="@+id/place_management"
-            android:weightSum="2">
+            </TableRow>
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:singleLine="true"
-                android:text="Place Management"
-                android:textColor="@color/black" />
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:id="@+id/place_management"
+                android:weightSum="2">
 
-            <TextView
-                android:id="@+id/PlaceSettingEnter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:singleLine="true"
-                android:text=" > " />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:singleLine="true"
+                    android:text="Place Management"
+                    android:textColor="@color/black" />
 
-        </TableRow>
+                <TextView
+                    android:id="@+id/PlaceSettingEnter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:singleLine="true"
+                    android:text=" > " />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E8E8E8"
-            android:orientation="vertical">
+            </TableRow>
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="#E8E8E8"
+                android:orientation="vertical">
 
-        </TableRow>
-        <TableRow
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:gravity="left"
+                    android:singleLine="true"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:id="@+id/change_company"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Change Company"
+                    android:textColor="@color/black"
+                    android:gravity="left"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text=" > "
+                    android:singleLine="true"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+        <!--    SYSTEM_title-->
+        <TextView
+            android:id="@+id/SYSTEM_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:text="SYSTEM"
+
+            android:textSize="12dp"
+            />
+
+        <TableLayout
+            android:id="@+id/SYSTEM_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:id="@+id/change_company"
-            android:weightSum="2">
-
-            <TextView
+            android:background="@drawable/ic_round_edge_white"
+            >
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Change Company"
-                android:textColor="@color/black"
-                android:gravity="left"
-                android:singleLine="true"/>
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:weightSum="1">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text=" > "
-                android:singleLine="true"/>
-
-        </TableRow>
-
-    </TableLayout>
-
-    <!--    SYSTEM_title-->
-    <TextView
-        android:id="@+id/SYSTEM_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="440dp"
-        android:text="SYSTEM"
-
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TableLayout
-        android:id="@+id/SYSTEM_info"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="460dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/ic_round_edge_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            android:weightSum="1">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                android:text="Signout"
-                android:gravity="left"
-                android:singleLine="true"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="Signout"
+                    android:gravity="left"
+                    android:singleLine="true"/>
 
 
-        </TableRow>
-    </TableLayout>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 
 
 
