@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -56,6 +57,15 @@ class HomeFragment : Fragment() {
             mHomeReportDialog.setTargetFragment(this@HomeFragment, 1)
             fragmentManager?.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
 
+        }
+
+        //出勤ステータスを表示します
+        val mStatusLinearLayout: LinearLayout = root.findViewById(R.id.status_linearLayout) as LinearLayout
+        mStatusLinearLayout.setOnClickListener {
+
+            val mHomeStatusDialog = HomeStatusDialog()
+            mHomeStatusDialog.setTargetFragment(this@HomeFragment, 1)
+            fragmentManager?.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
 
         }
         //Log.d(TAG, "ok")
