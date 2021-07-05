@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="10dp"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_margin="30dp"
+        android:text="ログアウト"
+        android:textSize="20dp"
+        android:textColor="#222"
+        android:textStyle="bold"
+        android:gravity="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="ログアウトを確認しますか"
+        android:textColor="#222"
+        android:textStyle="bold"
+        android:layout_margin="30dp"
+        android:gravity="center"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#656565"
+        android:orientation="horizontal"/>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Cancel"
+            android:gravity="center"
+            />
+        <Button
+            android:id="@+id/btn_Logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="OK"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

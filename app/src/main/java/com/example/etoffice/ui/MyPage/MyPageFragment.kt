@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.etoffice.LoginActivity
 import com.example.etoffice.R
+import com.example.etoffice.ui.home.HomeReportDialog
 
 
 class MyPageFragment : Fragment() {
@@ -42,8 +43,13 @@ class MyPageFragment : Fragment() {
         //ログアウト
         val pTableLayout: TableLayout = root.findViewById(R.id.SYSTEM_info) as TableLayout
         pTableLayout.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
+
+            val mMyPageLogoutDialog = MyPageLogoutDialog()
+            mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
+            fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
+//            val intent = Intent(activity, LoginActivity::class.java)
+//            startActivity(intent)
+//            getActivity()?.finish()
         })
 
 
