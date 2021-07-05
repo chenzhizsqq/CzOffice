@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:padding="10dp"
+    android:gravity="center"
     android:layout_height="wrap_content">
 
     <TableLayout
@@ -17,30 +17,38 @@
             android:layout_height="match_parent" />
     </TableLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:text="出勤ステータス"
-        android:textSize="20dp"
-        android:textColor="#222"
-        android:textStyle="bold"
-        android:gravity="center"
-        />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="30px"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:gravity="center"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="10px"
+        android:layout_marginBottom="50px"
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="44dp"
             android:hint="備考"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:padding="10px"
+            android:layout_marginLeft="80dp"
             android:textColor="@color/black"
             android:gravity="center|left"
             />
@@ -49,14 +57,47 @@
             android:layout_height="44dp"
             android:text="更新"
             android:background="@drawable/ic_round_edge_blue"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:textColor="@color/white"
             android:gravity="center"
             />
     </LinearLayout>
 
 
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="未登録場所"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:gravity="center|right"
+        />
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:text="43542542345"
+            android:textColor="@color/black"
+            android:gravity="center|right"
+            />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:text="67868657846"
+            android:textColor="@color/black"
+            android:gravity="center|right"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="50px"
+        android:layout_marginTop="50px"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -64,10 +105,11 @@
         android:orientation="horizontal">
 
         <EditText
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="44dp"
             android:hint="自宅、カフェ、事務所等"
-            android:textSize="14dp"
+            android:textSize="12dp"
+            android:layout_marginLeft="80dp"
             android:padding="10px"
             android:textColor="@color/black"
             android:gravity="center|left"
@@ -77,7 +119,7 @@
             android:layout_height="44dp"
             android:text="地名登録"
             android:background="@drawable/ic_round_edge_blue"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:textColor="@color/white"
             android:gravity="center"
             />
@@ -90,6 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:layout_margin="30dp"
         android:orientation="horizontal">
 
         <Button
@@ -101,6 +144,7 @@
             android:gravity="center"
             />
     </LinearLayout>
+
 
 
 </LinearLayout>
