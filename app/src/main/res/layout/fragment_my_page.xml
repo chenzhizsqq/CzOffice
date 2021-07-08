@@ -92,6 +92,7 @@
                     android:singleLine="true"/>
 
                 <TextView
+                    android:id="@+id/name_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -126,11 +127,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textColor="@color/black"
-                    android:text="Mail"
+                    android:text="Mobile"
                     android:gravity="left"
                     android:singleLine="true"/>
 
                 <TextView
+                    android:id="@+id/mobile_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -172,6 +174,7 @@
                     android:singleLine="true"/>
 
                 <TextView
+                    android:id="@+id/mail_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

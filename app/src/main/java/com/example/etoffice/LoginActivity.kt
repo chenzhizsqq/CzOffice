@@ -37,6 +37,8 @@ class LoginActivity : AppCompatActivity() {
 
             val r:String=JsonCenter.loginPost(mEditTextTextEmailAddress,mEditTextTextPassword)
             Log.e(TAG,JsonCenter.lastLoginResultJson)
+            Log.e(TAG+" token",JsonCenter.loginResult("token"))
+
             if(r=="0"){
                 val intent: Intent = Intent(this@LoginActivity,MainActivity::class.java)
                 startActivity(intent)
