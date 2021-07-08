@@ -2,12 +2,18 @@ package com.example.etoffice
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
+    val TAG:String ="LoginActivity"
     private var editTextTextPersonNameLogin: EditText? = null
     private var editTextTextPasswordLogin: EditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,40 +26,43 @@ class LoginActivity : AppCompatActivity() {
 
     //EtCampLogin、json登録
     private fun postRequest(view: View) {
-        val mEditTextTextEmailAddress: String = editTextTextPersonNameLogin?.text.toString()
-        val mEditTextTextPassword: String = editTextTextPasswordLogin?.text.toString()
+        var mEditTextTextEmailAddress: String = editTextTextPersonNameLogin?.text.toString()
+        var mEditTextTextPassword: String = editTextTextPasswordLogin?.text.toString()
         Thread {
-//            if (DataCenter.pData.LoginInit(mEditTextTextEmailAddress, mEditTextTextPassword)) {
-//
-//                // 「pref_data」という設定データファイルを読み込み
-//                val prefData = getSharedPreferences(SharedPreferences_Login, MODE_PRIVATE)
-//                val editor = prefData.edit()
-//
-//                // 入力されたログインIDとログインパスワード
-//                editor.putString("account", editTextTextEmailAddress.getText().toString())
-//
-//                // 保存
-//                editor.apply()
-//                DataCenter.UpdateData()
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+
+            //test-chen:テスト使い物
+            mEditTextTextEmailAddress = "demo1@xieyi.co.jp"
+            mEditTextTextPassword = "pass"
+            //test-chen:テスト使い物
+
+            val r:String=JsonCenter.loginPost(mEditTextTextEmailAddress,mEditTextTextPassword)
+            Log.e(TAG,JsonCenter.lastLoginResultJson)
+            if(r=="0"){
+                val intent: Intent = Intent(this@LoginActivity,MainActivity::class.java)
                 startActivity(intent)
                 finish()
-//            } else {
-//                Snackbar.make(view, "「アカウント」や「パスウード」が間違います。", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null)
-//                        .show()
-//            }
+            }else if(r=="6") {
+                Snackbar.make(view, "入力してください", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+            }else if(r=="1"){
+
+                Snackbar.make(view, "「アカウント」や「パスウード」が間違います。", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+            }else{
+                Snackbar.make(view, "Error", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+            }
         }.start()
     }
+
 
     fun login(view: View) {
 
         Snackbar.make(view, "登録中....", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            .setAction("Action", null).show()
         postRequest(view)
-//        val intent: Intent = Intent(this@LoginActivity,
-//                MainActivity::class.java)
-//        startActivity(intent)
-//        finish()
     }
 }
