@@ -1,11 +1,14 @@
 package com.xieyi.etoffice
 
 import android.util.Log
+import com.google.gson.Gson
+import com.xieyi.etoffice.Gson.GetUserStatus.GetUserStatusJson
 import com.xieyi.etoffice.jsonData.EtOfficeLogin
 import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -15,6 +18,14 @@ class JsonCenter {
         val TAG = "JsonCenter"
         var lastLoginResultJson:String = ""
         var lastUserInfoJson:String = ""
+        var lastUserStatusJson:String = ""
+
+        //result Array Length   結果の配列長
+        fun resultArrayLength(jsonName:String,resultArray:String,select:String):Int {
+            val mJsonResult = JSONObject(jsonName)
+            val r = mJsonResult.getJSONObject("result").getJSONArray(resultArray).length()
+            return r
+        }
 
         /*
         {"app":"EtOfficeLogin"
@@ -50,6 +61,7 @@ class JsonCenter {
                         var mJsonResult = JSONObject(getResult)
 
                         status = mJsonResult.getString("status")
+
 
                         EtOfficeLogin.token =  loginResult("token")
                         EtOfficeLogin.tenantid =  loginResult("tenantid")
@@ -152,6 +164,94 @@ message     処理結果メッセージ
             val mJsonResult = JSONObject(lastUserInfoJson)
             val r = mJsonResult.getJSONObject("result").getString(select)
             return r
+        }
+
+        fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
+            when (val value = this[it])
+            {
+                is JSONArray ->
+                {
+                    val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
+                    JSONObject(map).toMap().values.toList()
+                }
+                is JSONObject -> value.toMap()
+                JSONObject.NULL -> null
+                else            -> value
+            }
+        }
+
+
+
+        /*
+        {"app":"EtOfficeGetUserStatus"
+        , "token":"202011291352391050000000090010000000000000010125"
+        ,"tenant":"1"
+        , "hpid":"6"
+        , "device":"android"}
+         */
+        //ユーザー最新勤務状態の一覧取得
+        fun userStatusPost(): String {
+            var status:String = "-1"
+            val client: OkHttpClient = OkHttpClient()
+            val url:String = Config.LoginUrl
+
+            try {
+                val jsonObject = JSONObject()
+                jsonObject.put("app", "EtOfficeGetUserStatus")
+                jsonObject.put("token", EtOfficeLogin.token)
+                jsonObject.put("tenant",EtOfficeLogin.tenantid)
+                jsonObject.put("hpid", EtOfficeLogin.hpid)
+                jsonObject.put("device","android")
+                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+                val request = Request.Builder().url(url).post(body).build()
+
+                val response: Response? = client.newCall(request).execute();
+                if (response != null) {
+                    if(response.isSuccessful){
+
+                        var json:String = response.body!!.string()
+                        lastUserStatusJson = json
+                        var mJsonResult = JSONObject(json)
+                        Log.e(TAG, "postRequest: userStatusPost:$mJsonResult" )
+
+                        status = mJsonResult.getString("status")
+
+
+
+
+
+//                        EtOfficeGetUserStatus.usercode =  UserStatusInfo("usercode")
+//                        EtOfficeGetUserStatus.username =  UserStatusInfo("username")
+//                        EtOfficeGetUserStatus.userkana =  UserStatusInfo("userkana")
+//                        EtOfficeGetUserStatus.statusvalue =  UserStatusInfo("statusvalue")
+//                        EtOfficeGetUserStatus.statustext =  UserStatusInfo("statustext")
+//                        EtOfficeGetUserStatus.statustime =  UserStatusInfo("statustime")
+//                        EtOfficeGetUserStatus.location =  UserStatusInfo("location")
+//                        EtOfficeGetUserStatus.memo =  UserStatusInfo("memo")
+                        return status
+                    }else{
+                        Log.e(TAG, "postRequest: false" )
+                    }
+                }
+            }catch (e: Exception){
+                Log.e(TAG, e.toString())
+            }
+            return status
+        }
+
+        //ユーザー情報取得
+        fun UserStatusInfo(index:Int,select:String):String {
+
+            val gson = Gson()
+
+            val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastUserStatusJson, GetUserStatusJson::class.java)
+
+
+            Log.e("mGetUserStatusJson",
+                mGetUserStatusJson.result.userstatuslist[index].location
+            )
+            return mGetUserStatusJson.result.userstatuslist[index].location
         }
     }
 

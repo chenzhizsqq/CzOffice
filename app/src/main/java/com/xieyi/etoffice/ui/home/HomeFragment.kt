@@ -1,6 +1,5 @@
 package com.xieyi.etoffice.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.JsonCenter
-import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 
 
@@ -28,21 +26,22 @@ class HomeFragment : Fragment() {
 
 
         Thread {
-            val r:String=JsonCenter.userInfoPost()
-            Log.e(TAG, "onCreate: r==$r" )
-            if(r=="0"){
-            }
+            var r: String = JsonCenter.userInfoPost()
+            Log.e(TAG, "onCreate: r==$r")
+
+            r = JsonCenter.userStatusPost()
+            Log.e(TAG, "onCreate: r==$r")
 
         }.start()
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this).get(HomeViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -67,7 +66,8 @@ class HomeFragment : Fragment() {
         })
 
         //出勤記録を表示します
-        val recordTableTableLayout: TableLayout = root.findViewById(R.id.record_table) as TableLayout
+        val recordTableTableLayout: TableLayout =
+            root.findViewById(R.id.record_table) as TableLayout
         recordTableTableLayout.setOnClickListener {
 
             val mHomeReportDialog = HomeReportDialog()
@@ -77,7 +77,8 @@ class HomeFragment : Fragment() {
         }
 
         //出勤ステータスを表示します
-        val mStatusLinearLayout: LinearLayout = root.findViewById(R.id.status_linearLayout) as LinearLayout
+        val mStatusLinearLayout: LinearLayout =
+            root.findViewById(R.id.status_linearLayout) as LinearLayout
         mStatusLinearLayout.setOnClickListener {
 
             val mHomeStatusDialog = HomeStatusDialog()
@@ -85,7 +86,6 @@ class HomeFragment : Fragment() {
             fragmentManager?.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
 
         }
-
 
 
         //Log.d(TAG, "ok")
