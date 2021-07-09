@@ -22,6 +22,11 @@ class LoginActivity : AppCompatActivity() {
 
         editTextTextPersonNameLogin = findViewById<View>(R.id.editTextTextPersonNameLogin) as EditText
         editTextTextPasswordLogin = findViewById<View>(R.id.editTextTextPasswordLogin) as EditText
+
+        //test-chen:テスト使い物
+        editTextTextPersonNameLogin!!.setText("demo1@xieyi.co.jp")
+        editTextTextPasswordLogin!!.setText("pass")
+        //test-chen:テスト使い物
     }
 
     //EtCampLogin、json登録
@@ -29,11 +34,6 @@ class LoginActivity : AppCompatActivity() {
         var mEditTextTextEmailAddress: String = editTextTextPersonNameLogin?.text.toString()
         var mEditTextTextPassword: String = editTextTextPasswordLogin?.text.toString()
         Thread {
-
-            //test-chen:テスト使い物
-            mEditTextTextEmailAddress = "demo1@xieyi.co.jp"
-            mEditTextTextPassword = "pass"
-            //test-chen:テスト使い物
 
             val r:String=JsonCenter.loginPost(mEditTextTextEmailAddress,mEditTextTextPassword)
             Log.e(TAG,JsonCenter.lastLoginResultJson)
