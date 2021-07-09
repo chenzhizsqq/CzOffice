@@ -1,6 +1,8 @@
 package com.xieyi.etoffice.ui.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.xieyi.etoffice.JsonCenter
+import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 
 
@@ -18,6 +22,19 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     private val TAG = "Frag01SelectFragment"
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+        Thread {
+            val r:String=JsonCenter.userInfoPost()
+            Log.e(TAG, "onCreate: r==$r" )
+            if(r=="0"){
+            }
+
+        }.start()
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -68,6 +85,9 @@ class HomeFragment : Fragment() {
             fragmentManager?.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
 
         }
+
+
+
         //Log.d(TAG, "ok")
         return root
     }

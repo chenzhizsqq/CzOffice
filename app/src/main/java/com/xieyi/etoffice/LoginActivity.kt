@@ -23,10 +23,10 @@ class LoginActivity : AppCompatActivity() {
         editTextTextPersonNameLogin = findViewById<View>(R.id.editTextTextPersonNameLogin) as EditText
         editTextTextPasswordLogin = findViewById<View>(R.id.editTextTextPasswordLogin) as EditText
 
-        //test-chen:テスト使い物
+        //test:テスト使い物
         editTextTextPersonNameLogin!!.setText("demo1@xieyi.co.jp")
         editTextTextPasswordLogin!!.setText("pass")
-        //test-chen:テスト使い物
+        //test:テスト使い物
     }
 
     //EtCampLogin、json登録
@@ -36,8 +36,9 @@ class LoginActivity : AppCompatActivity() {
         Thread {
 
             val r:String=JsonCenter.loginPost(mEditTextTextEmailAddress,mEditTextTextPassword)
-            Log.e(TAG,JsonCenter.lastLoginResultJson)
-            Log.e(TAG+" token",JsonCenter.loginResult("token"))
+//            Log.e(TAG,JsonCenter.lastLoginResultJson)
+//            Log.e(TAG+" token",JsonCenter.loginResult("token"))
+
 
             if(r=="0"){
                 val intent: Intent = Intent(this@LoginActivity,MainActivity::class.java)
