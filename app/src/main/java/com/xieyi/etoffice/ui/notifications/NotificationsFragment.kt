@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.notifications
+package com.xieyi.etoffice.ui.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.etoffice.R
+import com.xieyi.etoffice.R
 
 class NotificationsFragment : Fragment() {
 

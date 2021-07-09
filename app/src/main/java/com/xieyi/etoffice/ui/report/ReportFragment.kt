@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.report
+package com.xieyi.etoffice.ui.report
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import androidx.fragment.app.Fragment
-import com.example.etoffice.R
-import com.example.etoffice.ui.MyPage.MyPagePlaceSettingActivity
+import com.xieyi.etoffice.R
+import com.xieyi.etoffice.ui.MyPage.MyPagePlaceSettingActivity
 
 class ReportFragment : Fragment() {
 

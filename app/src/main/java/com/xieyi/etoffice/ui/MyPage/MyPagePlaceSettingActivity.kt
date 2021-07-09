@@ -1,8 +1,8 @@
-package com.example.etoffice.ui.MyPage
+package com.xieyi.etoffice.ui.MyPage
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.etoffice.R
+import com.xieyi.etoffice.R
 
 class MyPagePlaceSettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

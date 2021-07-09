@@ -1,10 +1,10 @@
-package com.example.etoffice.ui.report
+package com.xieyi.etoffice.ui.report
 
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.etoffice.R
+import com.xieyi.etoffice.R
 
 
 class ReportDetail : AppCompatActivity(), View.OnClickListener {

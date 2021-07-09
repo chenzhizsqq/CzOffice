@@ -1,4 +1,4 @@
-package com.example.etoffice
+package com.xieyi.etoffice
 
 class Config {
     companion object {

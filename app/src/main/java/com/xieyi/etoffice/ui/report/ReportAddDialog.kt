@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.report
+package com.xieyi.etoffice.ui.report
 
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import com.example.etoffice.R
+import com.xieyi.etoffice.R
 import java.util.*
 
 class ReportAddDialog : DialogFragment() {

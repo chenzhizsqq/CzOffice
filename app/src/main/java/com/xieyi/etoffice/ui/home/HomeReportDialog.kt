@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.home
+package com.xieyi.etoffice.ui.home
 
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
@@ -9,16 +9,16 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import com.example.etoffice.R
+import com.xieyi.etoffice.R
 import java.util.*
 
-class HomeStatusDialog : DialogFragment() {
+class HomeReportDialog : DialogFragment() {
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
             @Nullable container: ViewGroup?,
             @Nullable savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.dialog_home_status, container)
+        val view: View = inflater.inflate(R.layout.dialog_home_report, container)
 
         //フルスクリーン　Full screen
         val window = dialog!!.window
@@ -30,7 +30,7 @@ class HomeStatusDialog : DialogFragment() {
 
 
         //ボタン　保存後に閉じる
-        val btnSaveAndClose = view.findViewById<TextView>(R.id.btn_cancel_and_close)
+        val btnSaveAndClose = view.findViewById<TextView>(R.id.btn_save_and_close)
         btnSaveAndClose.setOnClickListener {
             dialog!!.dismiss()
         }

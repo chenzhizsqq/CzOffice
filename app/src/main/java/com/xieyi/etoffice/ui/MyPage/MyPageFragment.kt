@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.MyPage
+package com.xieyi.etoffice.ui.MyPage
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.etoffice.JsonCenter
-import com.example.etoffice.R
+import com.xieyi.etoffice.JsonCenter
+import com.xieyi.etoffice.R
 
 
 class MyPageFragment : Fragment() {

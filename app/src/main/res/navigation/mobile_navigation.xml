@@ -7,28 +7,28 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.etoffice.ui.home.HomeFragment"
+        android:name="com.xieyi.etoffice.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.etoffice.ui.notifications.NotificationsFragment"
+        android:name="com.xieyi.etoffice.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/member_fragment"
-        android:name="com.example.etoffice.ui.member.MemberFragment"
+        android:name="com.xieyi.etoffice.ui.member.MemberFragment"
         android:label="@string/title_member_fragment"
         tools:layout="@layout/fragment_member" />
     <fragment
         android:id="@+id/ScrollingFragmentReport"
-        android:name="com.example.etoffice.ui.report.ReportFragment"
+        android:name="com.xieyi.etoffice.ui.report.ReportFragment"
         android:label="@string/title_report"
         tools:layout="@layout/fragment_scrolling_report" />
     <fragment
         android:id="@+id/MyPageFragment"
-        android:name="com.example.etoffice.ui.MyPage.MyPageFragment"
+        android:name="com.xieyi.etoffice.ui.MyPage.MyPageFragment"
         android:label="@string/title_my_page"
         tools:layout="@layout/fragment_my_page" />
 </navigation>

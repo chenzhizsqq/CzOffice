@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.member
+package com.xieyi.etoffice.ui.member
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.etoffice.R
+import com.xieyi.etoffice.R
 
 class MemberFragment : Fragment() {
 

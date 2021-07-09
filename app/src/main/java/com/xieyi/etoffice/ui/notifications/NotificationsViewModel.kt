@@ -1,4 +1,4 @@
-package com.example.etoffice.ui.notifications
+package com.xieyi.etoffice.ui.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
