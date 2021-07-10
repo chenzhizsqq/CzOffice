@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                     .setAction("Action", null)
                     .show()
             }else{
-                Snackbar.make(view, "Error", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Error:$r", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
             }

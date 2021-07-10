@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.JsonCenter
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.GetUserStatus
+import com.xieyi.etoffice.jsonData.UserInfo
 
 
 class HomeFragment : Fragment() {
@@ -27,14 +28,18 @@ class HomeFragment : Fragment() {
 
 
         Thread {
-            var r: String = JsonCenter.userInfoPost()
+            var r: String = ""
+
+            r = UserInfo.post()
             Log.e(TAG, "onCreate: r==$r")
+            Log.e("UserInfo ",
+                UserInfo.infoUserStatusList().toString()
+            )
 
             r = GetUserStatus.post()
             Log.e(TAG, "onCreate: r==$r")
-
-            Log.e("UserStatusInfo location",
-                GetUserStatus.infoUserStatusList(0,).location.toString()
+            Log.e("GetUserStatus 0",
+                GetUserStatus.infoUserStatusList(0,).toString()
             )
 
         }.start()

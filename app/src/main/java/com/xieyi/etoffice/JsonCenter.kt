@@ -1,17 +1,10 @@
 package com.xieyi.etoffice
 
 import android.util.Log
-import com.google.gson.Gson
-//import com.xieyi.etoffice.Gson.GetUserStatus.GetUserStatusJson
-//import com.xieyi.etoffice.Gson.GetUserStatus.Userstatuslist
 import com.xieyi.etoffice.jsonData.EtOfficeLogin
-import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
-import com.xieyi.etoffice.jsonData.GetUserStatusJson
-import com.xieyi.etoffice.jsonData.Userstatuslist
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-import org.json.JSONArray
 import org.json.JSONObject
 
 
@@ -20,15 +13,6 @@ class JsonCenter {
     companion object {
         val TAG = "JsonCenter"
         var lastLoginResultJson:String = ""
-        var lastUserInfoJson:String = ""
-        var lastUserStatusJson:String = ""
-
-        //result Array Length   結果の配列長
-        fun resultArrayLength(jsonName:String,resultArray:String,select:String):Int {
-            val mJsonResult = JSONObject(jsonName)
-            val r = mJsonResult.getJSONObject("result").getJSONArray(resultArray).length()
-            return r
-        }
 
         /*
         {"app":"EtOfficeLogin"
@@ -107,80 +91,6 @@ message     処理結果メッセージ
             val mJsonResult = JSONObject(lastLoginResultJson)
             val r = mJsonResult.getJSONObject("result").getString(select)
             return r
-        }
-
-
-        /*
-        {"app":"EtOfficeUserInfo"
-        , "token":"202011291352391050000000090010000000000000010125"
-        ,"tenant":"1"
-        , "hpid":"6"
-        , "device":"android"}
-         */
-        //ユーザー情報取得
-        fun userInfoPost(): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
-
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", "EtOfficeUserInfo")
-                jsonObject.put("token", EtOfficeLogin.token)
-                jsonObject.put("tenant",EtOfficeLogin.tenantid)
-                jsonObject.put("hpid", EtOfficeLogin.hpid)
-                jsonObject.put("device","android")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-                val request = Request.Builder().url(url).post(body).build()
-
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
-
-                        var getResult:String = response.body!!.string()
-                        lastUserInfoJson = getResult
-                        var mJsonResult = JSONObject(getResult)
-                        Log.e(TAG, "postRequest: userInfoPost:$mJsonResult" )
-
-                        status = mJsonResult.getString("status")
-
-                        EtOfficeUserInfo.userid =  userInfoResult("userid")
-                        EtOfficeUserInfo.usercode =  userInfoResult("usercode")
-                        EtOfficeUserInfo.username =  userInfoResult("username")
-                        EtOfficeUserInfo.userkana =  userInfoResult("userkana")
-                        EtOfficeUserInfo.mail =  userInfoResult("mail")
-                        EtOfficeUserInfo.phone =  userInfoResult("phone")
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
-            }
-            return status
-        }
-
-        //ユーザー情報取得
-        fun userInfoResult(select:String):String {
-            val mJsonResult = JSONObject(lastUserInfoJson)
-            val r = mJsonResult.getJSONObject("result").getString(select)
-            return r
-        }
-
-        fun JSONObject.toMap(): Map<String, *> = keys().asSequence().associateWith {
-            when (val value = this[it])
-            {
-                is JSONArray ->
-                {
-                    val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
-                    JSONObject(map).toMap().values.toList()
-                }
-                is JSONObject -> value.toMap()
-                JSONObject.NULL -> null
-                else            -> value
-            }
         }
 
 
