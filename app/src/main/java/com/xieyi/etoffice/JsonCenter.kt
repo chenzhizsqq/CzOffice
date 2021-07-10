@@ -2,10 +2,12 @@ package com.xieyi.etoffice
 
 import android.util.Log
 import com.google.gson.Gson
-import com.xieyi.etoffice.Gson.GetUserStatus.GetUserStatusJson
-import com.xieyi.etoffice.Gson.GetUserStatus.Userstatuslist
+//import com.xieyi.etoffice.Gson.GetUserStatus.GetUserStatusJson
+//import com.xieyi.etoffice.Gson.GetUserStatus.Userstatuslist
 import com.xieyi.etoffice.jsonData.EtOfficeLogin
 import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
+import com.xieyi.etoffice.jsonData.GetUserStatusJson
+import com.xieyi.etoffice.jsonData.Userstatuslist
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -183,66 +185,6 @@ message     処理結果メッセージ
 
 
 
-        /*
-        {"app":"EtOfficeGetUserStatus"
-        , "token":"202011291352391050000000090010000000000000010125"
-        ,"tenant":"1"
-        , "hpid":"6"
-        , "device":"android"}
-         */
-        //ユーザー最新勤務状態の一覧取得
-        fun userStatusPost(): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
-
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", "EtOfficeGetUserStatus")
-                jsonObject.put("token", EtOfficeLogin.token)
-                jsonObject.put("tenant",EtOfficeLogin.tenantid)
-                jsonObject.put("hpid", EtOfficeLogin.hpid)
-                jsonObject.put("device","android")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-                val request = Request.Builder().url(url).post(body).build()
-
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
-
-                        var json:String = response.body!!.string()
-                        lastUserStatusJson = json
-                        var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "postRequest: userStatusPost:$mJsonResult" )
-
-                        status = mJsonResult.getString("status")
-
-                        Log.e("UserStatusInfo location",
-                            UserStatusInfo(0,).location.toString()
-                        )
-
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
-            }
-            return status
-        }
-
-        //ユーザー情報取得
-        fun UserStatusInfo(index:Int): Userstatuslist {
-
-            val gson = Gson()
-
-            val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastUserStatusJson, GetUserStatusJson::class.java)
-
-
-            return mGetUserStatusJson.result.userstatuslist[index]
-        }
     }
 
 

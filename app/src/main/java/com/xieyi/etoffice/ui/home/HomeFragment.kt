@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.JsonCenter
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.UserStatus.UserStatusJson
+import com.xieyi.etoffice.jsonData.UserStatusJson
 
 
 class HomeFragment : Fragment() {

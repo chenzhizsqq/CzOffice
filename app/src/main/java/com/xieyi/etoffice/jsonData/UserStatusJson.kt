@@ -1,15 +1,13 @@
-package com.xieyi.etoffice.jsonData.UserStatus
+package com.xieyi.etoffice.jsonData
 
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
-import com.xieyi.etoffice.Gson.GetUserStatus.GetUserStatusJson
-import com.xieyi.etoffice.Gson.GetUserStatus.Userstatuslist
-import com.xieyi.etoffice.jsonData.EtOfficeLogin
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+
 
 //ユーザー最新勤務状態の一覧取得
 class UserStatusJson {
@@ -17,9 +15,6 @@ class UserStatusJson {
     companion object {
         val TAG = "UserStatusJson"
         var lastJson:String = ""
-
-
-
 
         /*
         {"app":"EtOfficeGetUserStatus"
@@ -74,8 +69,25 @@ class UserStatusJson {
         }
     }
 
-
-
-
-
 }
+
+
+data class GetUserStatusJson(
+    val message: String,
+    val result: Result,
+    val status: Int
+)
+data class Result(
+    val userstatuslist: List<Userstatuslist>
+)
+data class Userstatuslist(
+    val location: String,
+    val memo: String,
+    val statustext: String,
+    val statustime: String,
+    val statusvalue: String,
+    val usercode: String,
+    val userid: String,
+    val userkana: String,
+    val username: String
+)
