@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.JsonCenter
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.UserStatusJson
+import com.xieyi.etoffice.jsonData.GetUserStatus
 
 
 class HomeFragment : Fragment() {
@@ -30,11 +30,11 @@ class HomeFragment : Fragment() {
             var r: String = JsonCenter.userInfoPost()
             Log.e(TAG, "onCreate: r==$r")
 
-            r = UserStatusJson.post()
+            r = GetUserStatus.post()
             Log.e(TAG, "onCreate: r==$r")
 
             Log.e("UserStatusInfo location",
-                UserStatusJson.infoUserStatusList(0,).location.toString()
+                GetUserStatus.infoUserStatusList(0,).location.toString()
             )
 
         }.start()

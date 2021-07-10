@@ -9,8 +9,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 
-//ユーザー最新勤務状態の一覧取得
-class UserStatusJson {
+//EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
+class GetUserStatus {
 
     companion object {
         val TAG = "UserStatusJson"
@@ -62,6 +62,7 @@ class UserStatusJson {
             return status
         }
 
+        //userstatuslist    一覧
         fun infoUserStatusList(index:Int): Userstatuslist {
             val gson = Gson()
             val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastJson, GetUserStatusJson::class.java)
