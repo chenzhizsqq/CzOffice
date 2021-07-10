@@ -3,6 +3,7 @@ package com.xieyi.etoffice
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Gson.GetUserStatus.GetUserStatusJson
+import com.xieyi.etoffice.Gson.GetUserStatus.Userstatuslist
 import com.xieyi.etoffice.jsonData.EtOfficeLogin
 import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
 import okhttp3.*
@@ -217,18 +218,10 @@ message     処理結果メッセージ
 
                         status = mJsonResult.getString("status")
 
+                        Log.e("UserStatusInfo location",
+                            UserStatusInfo(0,).location.toString()
+                        )
 
-
-
-
-//                        EtOfficeGetUserStatus.usercode =  UserStatusInfo("usercode")
-//                        EtOfficeGetUserStatus.username =  UserStatusInfo("username")
-//                        EtOfficeGetUserStatus.userkana =  UserStatusInfo("userkana")
-//                        EtOfficeGetUserStatus.statusvalue =  UserStatusInfo("statusvalue")
-//                        EtOfficeGetUserStatus.statustext =  UserStatusInfo("statustext")
-//                        EtOfficeGetUserStatus.statustime =  UserStatusInfo("statustime")
-//                        EtOfficeGetUserStatus.location =  UserStatusInfo("location")
-//                        EtOfficeGetUserStatus.memo =  UserStatusInfo("memo")
                         return status
                     }else{
                         Log.e(TAG, "postRequest: false" )
@@ -241,17 +234,14 @@ message     処理結果メッセージ
         }
 
         //ユーザー情報取得
-        fun UserStatusInfo(index:Int,select:String):String {
+        fun UserStatusInfo(index:Int): Userstatuslist {
 
             val gson = Gson()
 
             val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastUserStatusJson, GetUserStatusJson::class.java)
 
 
-            Log.e("mGetUserStatusJson",
-                mGetUserStatusJson.result.userstatuslist[index].location
-            )
-            return mGetUserStatusJson.result.userstatuslist[index].location
+            return mGetUserStatusJson.result.userstatuslist[index]
         }
     }
 
