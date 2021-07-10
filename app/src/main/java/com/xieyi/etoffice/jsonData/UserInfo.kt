@@ -9,7 +9,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 
-//EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
+//EtOfficeUserInfo ユーザー情報取得
 class UserInfo {
 
     companion object {
