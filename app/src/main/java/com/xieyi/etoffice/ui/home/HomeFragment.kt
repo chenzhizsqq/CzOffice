@@ -64,6 +64,9 @@ class HomeFragment : Fragment() {
                 EtOfficeGetTenant.infoTenantList(0).toString()
             )
 
+            r = EtOfficeSetTenant.post()
+            Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
+
         }.start()
     }
 
