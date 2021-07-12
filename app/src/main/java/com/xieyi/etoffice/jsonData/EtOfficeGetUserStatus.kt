@@ -47,7 +47,7 @@ class EtOfficeGetUserStatus {
                         var json:String = response.body!!.string()
                         lastJson = json
                         var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "postRequest: userStatusPost:$mJsonResult" )
+                        Log.e(TAG, "mJsonResult:$mJsonResult" )
 
                         status = mJsonResult.getString("status")
 
