@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserStatus
+import com.xieyi.etoffice.jsonData.EtOfficeSetUserStatus
 import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
 
 
@@ -39,6 +40,12 @@ class HomeFragment : Fragment() {
             Log.e(TAG, "onCreate: r==$r")
             Log.e("GetUserStatus 0",
                 EtOfficeGetUserStatus.infoUserStatusList(0,).toString()
+            )
+
+            r = EtOfficeSetUserStatus.post()
+            Log.e(TAG, "onCreate: r==$r")
+            Log.e("EtOfficeSetUserStatus 0",
+                EtOfficeSetUserStatus.infoUserStatusList(0,).toString()
             )
 
         }.start()
