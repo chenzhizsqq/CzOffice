@@ -66,14 +66,56 @@ class EtOfficeSetTenant {
 
 
 
-//        fun infoTenantList(index:Int): Tenantlist {
-//            val gson = Gson()
-//            val mJson : EtOfficeGetTenantJson = gson.fromJson(lastJson, EtOfficeGetTenantJson::class.java)
-//            return mJson.result.tenantlist[index]
-//        }
+
+        /*
+        {
+          "status": 0,
+          "result": {
+            "tenantlist": [
+              {
+                "tenantid": "3",
+                "startflg": "1",
+                "tenantname": "株式会社テスト3",
+                "hpid": "6",
+                "posturl": "https:\/\/ssl.ethp.net\/EthpPost.aspx"
+              },
+              {
+                "tenantid": "1",
+                "startflg": "",
+                "tenantname": "株式会社写易",
+                "hpid": "8",
+                "posturl": "https:\/\/ssl.ethp.net\/EthpPost.aspx"
+              }
+            ]
+          },
+          "message": ""
+        }
+         */
+
+        fun infoTenantList(index:Int): Tenantlist {
+            val gson = Gson()
+            val mJson : EtOfficeSetTenantJson = gson.fromJson(lastJson, EtOfficeSetTenantJson::class.java)
+            return mJson.result.tenantlist[index]
+        }
     }
 
+    data class EtOfficeSetTenantJson(
+        val message: String,
+        val result: EtOfficeSetTenantResult,
+        val status: Int
+    )
 
+    data class EtOfficeSetTenantResult(
+        val tenantlist: List<Tenantlist>
+    )
+
+    data class Tenantlist(
+        val hpid: String,
+        val posturl: String,
+        val startflg: String,
+        val tenantid: String,
+        val tenantname: String
+    )
 
 }
 

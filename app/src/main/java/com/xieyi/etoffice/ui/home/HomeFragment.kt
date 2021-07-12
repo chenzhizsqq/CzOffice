@@ -66,6 +66,9 @@ class HomeFragment : Fragment() {
 
             r = EtOfficeSetTenant.post()
             Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
+            Log.e("GetUserLocation 0",
+                EtOfficeSetTenant.infoTenantList(0).toString()
+            )
 
         }.start()
     }
