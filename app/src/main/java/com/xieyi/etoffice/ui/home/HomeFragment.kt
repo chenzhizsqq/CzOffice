@@ -12,10 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
-import com.xieyi.etoffice.jsonData.EtOfficeGetUserStatus
-import com.xieyi.etoffice.jsonData.EtOfficeSetUserStatus
-import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
+import com.xieyi.etoffice.jsonData.*
 
 
 class HomeFragment : Fragment() {
@@ -53,6 +50,12 @@ class HomeFragment : Fragment() {
             Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
             Log.e("GetUserLocation 0",
                 EtOfficeGetUserLocation.infoUserstatuslist(0,).toString()
+            )
+
+            r = EtOfficeSetUserLocation.post()
+            Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
+            Log.e("GetUserLocation 0",
+                EtOfficeSetUserLocation.infoLocationList(0,).toString()
             )
 
         }.start()
