@@ -9,16 +9,16 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 
 
-//EtOfficeUserInfo ユーザー情報取得
-class UserInfo {
+//EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
+class EtOfficeGetUserStatus {
 
     companion object {
-        private const val TAG = "UserInfo"
-        private var lastJson:String = ""
-        const val app:String = "EtOfficeUserInfo"
+        val TAG = "EtOfficeGetUserStatus"
+        var lastJson:String = ""
+        const val app:String = "EtOfficeGetUserStatus"
 
         /*
-        {"app":"EtOfficeUserInfo"
+        {"app":"EtOfficeGetUserStatus"
         , "token":"202011291352391050000000090010000000000000010125"
         ,"tenant":"1"
         , "hpid":"6"
@@ -32,9 +32,9 @@ class UserInfo {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.token)
-                jsonObject.put("tenant",EtOfficeLogin.tenantid)
-                jsonObject.put("hpid", EtOfficeLogin.hpid)
+                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", EtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("device","android")
                 val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -47,7 +47,7 @@ class UserInfo {
                         var json:String = response.body!!.string()
                         lastJson = json
                         var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult: :$mJsonResult" )
+                        Log.e(TAG, "postRequest: userStatusPost:$mJsonResult" )
 
                         status = mJsonResult.getString("status")
 
@@ -63,28 +63,35 @@ class UserInfo {
             return status
         }
 
-        //result    一覧
-        fun infoUserStatusList(): Result {
+        //userstatuslist    一覧
+        fun infoUserStatusList(index:Int): Userstatuslist {
             val gson = Gson()
-            val mUserInfoJson : UserInfoJson = gson.fromJson(lastJson, UserInfoJson::class.java)
-            return mUserInfoJson.result
+            val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastJson, GetUserStatusJson::class.java)
+            return mGetUserStatusJson.result.userstatuslist[index]
         }
     }
 
-    data class UserInfoJson(
+
+    data class GetUserStatusJson(
         val message: String,
         val result: Result,
         val status: Int
     )
-
     data class Result(
-        val userid: String,     //ユーザー識別ID
-        val usercode: String,   //社員コード
-        val username: String,    //username
-        val userkana: String,   //userkana
-        val mail: String,       //mail
-        val phone: String,      //phone
+        val userstatuslist: List<Userstatuslist>
     )
 
+    data class Userstatuslist(
+        val userid: String,         //ユーザー識別ID
+        val usercode: String,       //社員コード
+        val username: String,       //氏名
+        val userkana: String,       //カナ
+        val location: String,       //最新勤務状態更新場所
+        val memo: String,           //備考
+        val statustext: String,     //最新勤務状態文字列
+        val statustime: String,     //最新勤務状態更新時刻
+        val statusvalue: String,    //最新勤務状態値
+    )
 
 }
+

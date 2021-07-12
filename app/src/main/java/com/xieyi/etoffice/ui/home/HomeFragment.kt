@@ -11,10 +11,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.xieyi.etoffice.JsonCenter
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.GetUserStatus
-import com.xieyi.etoffice.jsonData.UserInfo
+import com.xieyi.etoffice.jsonData.EtOfficeGetUserStatus
+import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
 
 
 class HomeFragment : Fragment() {
@@ -30,16 +29,16 @@ class HomeFragment : Fragment() {
         Thread {
             var r: String = ""
 
-            r = UserInfo.post()
+            r = EtOfficeUserInfo.post()
             Log.e(TAG, "onCreate: r==$r")
             Log.e("UserInfo ",
-                UserInfo.infoUserStatusList().toString()
+                EtOfficeUserInfo.infoUserStatusList().toString()
             )
 
-            r = GetUserStatus.post()
+            r = EtOfficeGetUserStatus.post()
             Log.e(TAG, "onCreate: r==$r")
             Log.e("GetUserStatus 0",
-                GetUserStatus.infoUserStatusList(0,).toString()
+                EtOfficeGetUserStatus.infoUserStatusList(0,).toString()
             )
 
         }.start()

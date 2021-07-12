@@ -9,8 +9,8 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.xieyi.etoffice.JsonCenter
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.jsonData.EtOfficeLogin
 
 
 class MyPageFragment : Fragment() {
@@ -22,19 +22,19 @@ class MyPageFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_my_page, container, false)
 
         var mUserName:TextView= root.findViewById(R.id.user_name)
-        mUserName.text = JsonCenter.loginResult("username")
+        mUserName.text = EtOfficeLogin.infoLoginResult().username
 
         var mUserMail:TextView= root.findViewById(R.id.user_mail)
-        mUserMail.text = JsonCenter.loginResult("mail")
+        mUserMail.text = EtOfficeLogin.infoLoginResult().mail
 
         var mNameValue:TextView= root.findViewById(R.id.name_value)
-        mNameValue.text = JsonCenter.loginResult("username")
+        mNameValue.text = EtOfficeLogin.infoLoginResult().username
 
         var mMobileValue:TextView= root.findViewById(R.id.mobile_value)
-        mMobileValue.text = JsonCenter.loginResult("phone")
+        mMobileValue.text = EtOfficeLogin.infoLoginResult().phone
 
         var mMailValue:TextView= root.findViewById(R.id.mail_value)
-        mMailValue.text = JsonCenter.loginResult("mail")
+        mMailValue.text = EtOfficeLogin.infoLoginResult().mail
 
         //Place　Setting
         val pTableRowPlaceManagement: TableRow = root.findViewById(R.id.place_management) as TableRow
