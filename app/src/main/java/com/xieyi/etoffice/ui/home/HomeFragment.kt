@@ -30,44 +30,50 @@ class HomeFragment : Fragment() {
 
             r = EtOfficeUserInfo.post()
             Log.e(TAG, "onCreate: r==$r")
-            Log.e("UserInfo ",
+            Log.e("infoUserStatusList 0",
                 EtOfficeUserInfo.infoUserStatusList().toString()
             )
 
             r = EtOfficeGetUserStatus.post()
             Log.e(TAG, "onCreate: r==$r")
-            Log.e("GetUserStatus 0",
+            Log.e("infoUserStatusList 0",
                 EtOfficeGetUserStatus.infoUserStatusList(0,).toString()
             )
 
             r = EtOfficeSetUserStatus.post()
             Log.e(TAG, "onCreate: r==$r")
-            Log.e("EtOfficeSetUserStatus 0",
+            Log.e("infoUserStatusList 0",
                 EtOfficeSetUserStatus.infoUserStatusList(0,).toString()
             )
 
             r = EtOfficeGetUserLocation.post()
             Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
-            Log.e("GetUserLocation 0",
+            Log.e("infoUserstatuslist 0",
                 EtOfficeGetUserLocation.infoUserstatuslist(0,).toString()
             )
 
             r = EtOfficeSetUserLocation.post()
             Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
-            Log.e("GetUserLocation 0",
+            Log.e("infoLocationList 0",
                 EtOfficeSetUserLocation.infoLocationList(0,).toString()
             )
 
             r = EtOfficeGetTenant.post()
             Log.e(TAG, "EtOfficeGetTenant.post(): r==$r")
-            Log.e("GetUserLocation 0",
+            Log.e("infoTenantList 0",
                 EtOfficeGetTenant.infoTenantList(0).toString()
             )
 
             r = EtOfficeSetTenant.post()
             Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
-            Log.e("GetUserLocation 0",
+            Log.e("infoTenantList 0",
                 EtOfficeSetTenant.infoTenantList(0).toString()
+            )
+
+            r = EtOfficeGetMessage.post()
+            Log.e(TAG, "EtOfficeGetMessage.post(): r==$r")
+            Log.e("infoRecordlist 0",
+                EtOfficeGetMessage.infoRecordlist(0).toString()
             )
 
         }.start()
