@@ -110,6 +110,11 @@ class EtOfficeGetMessage {
             val mJson : EtOfficeGetMessageJson = gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
             return mJson.result.recordlist[index]
         }
+        fun getResult(): EtOfficeGetMessageResult {
+            val gson = Gson()
+            val mJson : EtOfficeGetMessageJson = gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
+            return mJson.result
+        }
     }
 
     data class Recordlist(
