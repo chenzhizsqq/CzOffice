@@ -38,4 +38,20 @@ object Tools {
         val str = _data.substring(6, 8)
         return str.toInt()
     }
+
+
+    //array -> String Json
+    fun jsonArray2String(arrayString: Array<String>): String {
+        var r1:String = "["
+        for ((index, value) in arrayString.withIndex()) {
+            r1 += "\""
+            r1 += value
+            r1 += "\""
+            if (index<arrayString.size-1){
+                r1 += ","
+            }
+        }
+        r1+="],"
+        return r1
+    }
 }
