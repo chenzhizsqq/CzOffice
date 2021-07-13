@@ -36,6 +36,7 @@ class EtOfficeGetUserStatus {
                 jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
                 jsonObject.put("hpid", EtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("device","android")
+                Log.e(TAG, "jsonObject:$jsonObject" )
                 val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
@@ -68,6 +69,19 @@ class EtOfficeGetUserStatus {
             val gson = Gson()
             val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastJson, GetUserStatusJson::class.java)
             return mGetUserStatusJson.result.userstatuslist[index]
+        }
+
+        fun infoUserStatusList(): List<Userstatuslist> {
+            val gson = Gson()
+            val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastJson, GetUserStatusJson::class.java)
+            return mGetUserStatusJson.result.userstatuslist
+        }
+
+        //userstatuslist    一覧
+        fun infoUserStatusListCount(): Int {
+            val gson = Gson()
+            val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastJson, GetUserStatusJson::class.java)
+            return mGetUserStatusJson.result.userstatuslist.count()
         }
     }
 

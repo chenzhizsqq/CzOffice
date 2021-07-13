@@ -65,180 +65,21 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-            <TableLayout
-                android:padding="5dp"
+            <LinearLayout
+                android:id="@+id/report_id"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="100dp"
+                android:layout_marginBottom="1dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
 
-                <TableRow
-                    android:gravity="right"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="00:13"
-                        android:textColor="#000000"
-                        android:background="#D8D8D8" />
-                </TableRow>
 
-                <TableRow
-                    android:gravity="right"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="勤務中"
-                        android:textColor="#000000"
-                        android:background="#FFEB3B"/>
-                </TableRow>
+            </LinearLayout>
 
-            </TableLayout>
-            <TableLayout
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="00:13"
-                        android:textColor="#000000"
-                        android:background="#D8D8D8" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="勤務中"
-                        android:textColor="#000000"
-                        android:background="#FFEB3B"/>
-                </TableRow>
-
-            </TableLayout>
-            <TableLayout
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="00:13"
-                        android:textColor="#000000"
-                        android:background="#D8D8D8" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="勤務中"
-                        android:textColor="#000000"
-                        android:background="#FFEB3B"/>
-                </TableRow>
-
-            </TableLayout>
-            <TableLayout
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="00:13"
-                        android:textColor="#000000"
-                        android:background="#D8D8D8" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="勤務中"
-                        android:textColor="#000000"
-                        android:background="#FFEB3B"/>
-                </TableRow>
-
-            </TableLayout>
-            <TableLayout
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="00:13"
-                        android:textColor="#000000"
-                        android:background="#D8D8D8" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="勤務中"
-                        android:textColor="#000000"
-                        android:background="#FFEB3B"/>
-                </TableRow>
-
-            </TableLayout>
         </TableRow>
         <TableRow
             android:id="@+id/tableRow_report_add"
