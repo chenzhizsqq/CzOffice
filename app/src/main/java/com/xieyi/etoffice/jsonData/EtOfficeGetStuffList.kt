@@ -86,7 +86,23 @@ class EtOfficeGetStuffList {
     )
 
     data class Result(
-        val sectionlist: List<Any>
+        val sectionlist: List<SectionList>
+    )
+
+    data class SectionList(
+        val sectioncd: String,
+        val sectionname: String,
+        var stufflist:List<StuffList>
+    )
+
+    data class StuffList(
+        val tenant: String,
+        val hpid: String,
+        val userid: String,
+        val username: String,
+        val userkana: String,
+        val phone: String,
+        val mail: String,
     )
 
 }
