@@ -43,36 +43,38 @@ class MyPageFragment : Fragment() {
             var mMailValue: TextView = root.findViewById(R.id.mail_value)
             mMailValue.text = EtOfficeLogin.infoLoginResult().mail
 
-            //Place　Setting
-            val pTableRowPlaceManagement: TableRow =
-                root.findViewById(R.id.place_management) as TableRow
-            pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
-                val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
-                startActivity(intent)
-            })
 
-            //change　company
-            val pTableRow: TableRow = root.findViewById(R.id.change_company) as TableRow
-            pTableRow.setOnClickListener(View.OnClickListener {
-                val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
-                startActivity(intent)
-            })
-
-
-            //ログアウト
-            val pTableLayout: TableLayout = root.findViewById(R.id.SYSTEM_info) as TableLayout
-            pTableLayout.setOnClickListener(View.OnClickListener {
-
-                val mMyPageLogoutDialog = MyPageLogoutDialog()
-                mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
-                fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
-//            val intent = Intent(activity, LoginActivity::class.java)
-//            startActivity(intent)
-//            getActivity()?.finish()
-            })
         } catch (e: Exception) {
             Log.e(TAG, "TAG", e)
         }
+
+        //Place　Setting
+        val pTableRowPlaceManagement: TableRow =
+            root.findViewById(R.id.place_management) as TableRow
+        pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
+            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
+            startActivity(intent)
+        })
+
+        //change　company
+        val pTableRow: TableRow = root.findViewById(R.id.change_company) as TableRow
+        pTableRow.setOnClickListener(View.OnClickListener {
+            val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
+            startActivity(intent)
+        })
+
+
+        //ログアウト
+        val pTableLayout: TableLayout = root.findViewById(R.id.SYSTEM_info) as TableLayout
+        pTableLayout.setOnClickListener(View.OnClickListener {
+
+            val mMyPageLogoutDialog = MyPageLogoutDialog()
+            mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
+            fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
+//            val intent = Intent(activity, LoginActivity::class.java)
+//            startActivity(intent)
+//            getActivity()?.finish()
+        })
 
         return root
     }

@@ -13,6 +13,7 @@ import androidx.core.view.setPadding
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserStatus
+import java.lang.Exception
 
 
 class ReportDetail : AppCompatActivity(), View.OnClickListener {
@@ -29,34 +30,39 @@ class ReportDetail : AppCompatActivity(), View.OnClickListener {
         mLinearLayout = findViewById(R.id.report_id)
         val textWidth:Int = 120
 
-
-        Log.e(TAG,"count:"+EtOfficeGetUserStatus.infoUserStatusListCount())
-        for (i in EtOfficeGetUserStatus.infoUserStatusList()){
-            Log.e(TAG,"index:$i")
-
-            var tLinearLayout = LinearLayout(this)
-            tLinearLayout.orientation = LinearLayout.VERTICAL
-            tLinearLayout.gravity = Gravity.CENTER
-            tLinearLayout.setPadding(10)
+        try {
+            Log.e(TAG,"count:"+EtOfficeGetUserStatus.infoUserStatusListCount())
 
 
+            for (i in EtOfficeGetUserStatus.infoUserStatusList()){
+                Log.e(TAG,"index:$i")
 
-            var _text = TextView(this)
-            _text.setBackgroundColor(Color.parseColor("#FFBCBCBC") )
-            _text.width = textWidth
-            _text.height = 100
-            _text.text = Tools.srcContent(i.statustime,8)
-            tLinearLayout.addView(_text)
-
-            var _text2 = TextView(this)
-            _text2.setBackgroundColor(Color.YELLOW)
-            _text2.width = textWidth
-            _text.height = 100
-            _text2.text = "勤務中"
-            tLinearLayout.addView(_text2)
+                var tLinearLayout = LinearLayout(this)
+                tLinearLayout.orientation = LinearLayout.VERTICAL
+                tLinearLayout.gravity = Gravity.CENTER
+                tLinearLayout.setPadding(10)
 
 
-            mLinearLayout.addView(tLinearLayout)
+
+                var _text = TextView(this)
+                _text.setBackgroundColor(Color.parseColor("#FFBCBCBC") )
+                _text.width = textWidth
+                _text.height = 100
+                _text.text = Tools.srcContent(i.statustime,8)
+                tLinearLayout.addView(_text)
+
+                var _text2 = TextView(this)
+                _text2.setBackgroundColor(Color.YELLOW)
+                _text2.width = textWidth
+                _text.height = 100
+                _text2.text = "勤務中"
+                tLinearLayout.addView(_text2)
+
+
+                mLinearLayout.addView(tLinearLayout)
+            }
+        }catch (e:Exception){
+            Log.e(TAG,e.toString())
         }
     }
 
