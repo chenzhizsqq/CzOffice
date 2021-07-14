@@ -2,96 +2,128 @@ package com.xieyi.etoffice
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.xieyi.etoffice.jsonData.*
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
     val TAG:String ="MainActivity"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val view: View = findViewById(android.R.id.content)
 
 
 
         Thread {
-            var r: String = ""
+            try {    var r: String = ""
 
-            r = EtOfficeUserInfo.post()
-            Log.e(TAG, "onCreate: r==$r")
-            Log.e("infoUserStatusList 0",
-                EtOfficeUserInfo.infoUserStatusList().toString()
-            )
+                r = EtOfficeUserInfo.post()
+                Log.e(TAG, "onCreate: r==$r")
+                Log.e("infoUserStatusList 0",
+                    EtOfficeUserInfo.infoUserStatusList().toString()
+                )
 
-            r = EtOfficeGetUserStatus.post()
-            Log.e(TAG, "infoUserStatusList: r==$r")
-            Log.e("infoUserStatusList 0",
-                EtOfficeGetUserStatus.infoUserStatusList(0,).toString()
-            )
+                r = EtOfficeGetUserStatus.post()
+                Log.e(TAG, "infoUserStatusList: r==$r")
+                Log.e("infoUserStatusList 0",
+                    EtOfficeGetUserStatus.infoUserStatusList(0).toString()
+                )
 
-            r = EtOfficeSetUserStatus.post()
-            Log.e(TAG, "onCreate: r==$r")
-            Log.e("infoUserStatusList 0",
-                EtOfficeSetUserStatus.infoUserStatusList(0,).toString()
-            )
+                r = EtOfficeSetUserStatus.post()
+                Log.e(TAG, "onCreate: r==$r")
+                Log.e("infoUserStatusList 0",
+                    EtOfficeSetUserStatus.infoUserStatusList(0).toString()
+                )
 
-            r = EtOfficeGetUserLocation.post()
-            Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
-            Log.e("infoUserstatuslist 0",
-                EtOfficeGetUserLocation.infoUserstatuslist(0,).toString()
-            )
+                r = EtOfficeGetUserLocation.post()
+                Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
+                Log.e("infoUserstatuslist 0",
+                    EtOfficeGetUserLocation.infoUserstatuslist(0).toString()
+                )
 
-            r = EtOfficeSetUserLocation.post()
-            Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
-            Log.e("infoLocationList 0",
-                EtOfficeSetUserLocation.infoLocationList(0,).toString()
-            )
+                r = EtOfficeSetUserLocation.post()
+                Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
+                Log.e("infoLocationList 0",
+                    EtOfficeSetUserLocation.infoLocationList(0).toString()
+                )
 
-            r = EtOfficeGetTenant.post()
-            Log.e(TAG, "EtOfficeGetTenant.post(): r==$r")
-            Log.e("infoTenantList 0",
-                EtOfficeGetTenant.infoTenantList(0).toString()
-            )
+                r = EtOfficeGetTenant.post()
+                Log.e(TAG, "EtOfficeGetTenant.post(): r==$r")
+                Log.e("infoTenantList 0",
+                    EtOfficeGetTenant.infoTenantList(0).toString()
+                )
 
-            r = EtOfficeSetTenant.post()
-            Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
-            Log.e("infoTenantList 0",
-                EtOfficeSetTenant.infoTenantList(0).toString()
-            )
+                r = EtOfficeSetTenant.post()
+                Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
+                Log.e("infoTenantList 0",
+                    EtOfficeSetTenant.infoTenantList(0).toString()
+                )
 
-            r = EtOfficeGetMessage.post()
-            Log.e(TAG, "EtOfficeGetMessage.post(): r==$r")
-            Log.e(TAG,"infoRecordlist 0"+
-                    EtOfficeGetMessage.infoRecordlist(0).toString()
-            )
-            Log.e(TAG,"getResult():"+
-                    EtOfficeGetMessage.getResult()
-            )
+                r = EtOfficeGetMessage.post()
+                Log.e(TAG, "EtOfficeGetMessage.post(): r==$r")
+                Log.e(TAG,"infoRecordlist 0"+
+                        EtOfficeGetMessage.infoRecordlist(0).toString()
+                )
+                Log.e(TAG,"getResult():"+
+                        EtOfficeGetMessage.getResult()
+                )
 
-            r = EtOfficeGetStuffList.post()
-            Log.e(TAG, "EtOfficeGetStuffList post(): r==$r")
-            Log.e(TAG,"EtOfficeGetStuffList result:"
-                    +EtOfficeGetStuffList.getResult().toString()
-            )
+                r = EtOfficeGetStuffList.post()
+                Log.e(TAG, "EtOfficeGetStuffList post(): r==$r")
+                Log.e(TAG,"EtOfficeGetStuffList result:"
+                        +EtOfficeGetStuffList.getResult().toString()
+                )
 
 
-            //EtOfficeSetMessage test
-            var arrayString: Array<String> = emptyArray()
-            arrayString += "2020111320070768"
-            arrayString += "2020111320065968"
-            arrayString += "2020111319510968"
+                //EtOfficeSetMessage test
+                var arrayString: Array<String> = emptyArray()
+                arrayString += "2020111320070768"
+                arrayString += "2020111320065968"
+                arrayString += "2020111319510968"
 
-            r = EtOfficeSetMessage.post(arrayString)
-            Log.e(TAG, "EtOfficeSetMessageJson post(Tools.array2String(arrayString)): r==$r")
-            Log.e(TAG,"EtOfficeSetMessageJson result:"
-                    + EtOfficeSetMessage.getResult()
-            )
+                r = EtOfficeSetMessage.post(arrayString)
+                Log.e(TAG, "EtOfficeSetMessageJson post(Tools.array2String(arrayString)): r==$r")
+                Log.e(TAG,"EtOfficeSetMessageJson result:"
+                        + EtOfficeSetMessage.getResult()
+                )
+
+
+                //EtOfficeJson test
+                var pEtOfficeJson = EtOfficeJson()
+                val jsonObject = JSONObject()
+                jsonObject.put("app", EtOfficeUserInfo.app)
+                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", EtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("device","android")
+                r = pEtOfficeJson.post(jsonObject)
+                Log.e(TAG, "r = pEtOfficeJson.post(jsonObject): r==$r")
+                Log.e(TAG,"pEtOfficeJson result:"
+                        + pEtOfficeJson.getResult().toJson()
+                )
+                Log.e(TAG,"pEtOfficeJson mJson result:"
+                        + pEtOfficeJson.mJson()
+                )
+            } catch (e: Exception) {
+
+                Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show()
+                Log.e(TAG, "TAG", e)
+            }
+
+
 
         }.start()
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
