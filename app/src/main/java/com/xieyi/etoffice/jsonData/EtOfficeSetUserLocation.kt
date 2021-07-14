@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeSetUserLocation   ユーザー勤務場所設定
 class EtOfficeSetUserLocation {
 
-    companion object {
         val TAG = "EtOfficeSetUserLocation"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeSetUserLocation"
+        var lastJson: String = ""
+    val app: String = "EtOfficeSetUserLocation"
 
         /*
             {
@@ -39,14 +38,15 @@ class EtOfficeSetUserLocation {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", EtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("device","android")
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("device", "android")
                 jsonObject.put("longitude", "140.00468200000000")
                 jsonObject.put("latitude", "35.70148346348169")
                 jsonObject.put("location", "船橋事務所")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                val body = jsonObject.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
 
@@ -86,7 +86,6 @@ class EtOfficeSetUserLocation {
             }
             return null
         }
-    }
     data class EtOfficeSetUserLocationJson(
         val message: String,
         val result: EtOfficeSetUserLocationResult,

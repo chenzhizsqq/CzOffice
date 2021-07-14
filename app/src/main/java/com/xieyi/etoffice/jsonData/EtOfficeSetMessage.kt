@@ -15,10 +15,9 @@ import org.json.JSONObject
 //EtOfficeSetMessage   最新メッセージ一覧set
 class EtOfficeSetMessage {
 
-    companion object {
         val TAG = "EtOfficeSetMessage"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeSetMessage"
+        var lastJson: String = ""
+    val app: String = "EtOfficeSetMessage"
 
         /*
             {
@@ -46,15 +45,16 @@ class EtOfficeSetMessage {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("device","android")
-                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid",EtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("count","50")
-                jsonObject.put("updateid",updateid)
-                jsonObject.put("readflg","1")
-                Log.e(TAG, "post: jsonObject:"+jsonObject )
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("device", "android")
+                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("count", "50")
+                jsonObject.put("updateid", updateid)
+                jsonObject.put("readflg", "1")
+                Log.e(TAG, "post: jsonObject:" + jsonObject)
+                val body = jsonObject.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
 
@@ -117,7 +117,6 @@ class EtOfficeSetMessage {
             }
             return null
         }
-    }
 
     data class EtOfficeGetMessageJson(
         val message: String,

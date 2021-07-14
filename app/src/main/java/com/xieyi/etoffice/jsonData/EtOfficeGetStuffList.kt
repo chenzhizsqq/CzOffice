@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeGetStuffList   社員一覧取得
 class EtOfficeGetStuffList {
 
-    companion object {
         val TAG = "EtOfficeGetStuffList"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeGetStuffList"
+        var lastJson: String = ""
+    val app: String = "EtOfficeGetStuffList"
 
         /*
             {
@@ -36,19 +35,20 @@ class EtOfficeGetStuffList {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid",EtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("device","android")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("device", "android")
+                val body = jsonObject.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
 
                 val response: Response? = client.newCall(request).execute();
                 if (response != null) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
 
-                        var json:String = response.body!!.string()
+                        var json: String = response.body!!.string()
                         lastJson = json
                         var mJsonResult = JSONObject(json)
                         Log.e(TAG, "mJsonResult:$mJsonResult" )
@@ -84,7 +84,6 @@ class EtOfficeGetStuffList {
             }
             return null
         }
-    }
     data class EtOfficeGetStuffListJson(
         val message: String,
         val result: Result,

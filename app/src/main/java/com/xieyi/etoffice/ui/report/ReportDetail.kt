@@ -12,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.EtOfficeGetUserStatus
-import java.lang.Exception
+import com.xieyi.etoffice.jsonData.jsonCenter
 
 
 class ReportDetail : AppCompatActivity(), View.OnClickListener {
@@ -31,17 +30,16 @@ class ReportDetail : AppCompatActivity(), View.OnClickListener {
         val textWidth:Int = 120
 
         try {
-            Log.e(TAG,"count:"+EtOfficeGetUserStatus.infoUserStatusListCount())
+            Log.e(TAG, "count:" + jsonCenter.pEtOfficeGetUserStatus.infoUserStatusListCount())
 
 
-            for (i in EtOfficeGetUserStatus.infoUserStatusList()){
-                Log.e(TAG,"index:$i")
+            for (i in jsonCenter.pEtOfficeGetUserStatus.infoUserStatusList()) {
+                Log.e(TAG, "index:$i")
 
                 var tLinearLayout = LinearLayout(this)
                 tLinearLayout.orientation = LinearLayout.VERTICAL
                 tLinearLayout.gravity = Gravity.CENTER
                 tLinearLayout.setPadding(10)
-
 
 
                 var _text = TextView(this)

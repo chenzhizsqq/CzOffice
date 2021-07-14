@@ -10,11 +10,8 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.Config
-import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.EtOfficeLogin
+import com.xieyi.etoffice.jsonData.jsonCenter
 
 
 class MyPageFragment : Fragment() {
@@ -29,19 +26,19 @@ class MyPageFragment : Fragment() {
         try {
 
             var mUserName: TextView = root.findViewById(R.id.user_name)
-            mUserName.text = EtOfficeLogin.infoLoginResult().username
+            mUserName.text = jsonCenter.pEtOfficeLogin.infoLoginResult().username
 
             var mUserMail: TextView = root.findViewById(R.id.user_mail)
-            mUserMail.text = EtOfficeLogin.infoLoginResult().mail
+            mUserMail.text = jsonCenter.pEtOfficeLogin.infoLoginResult().mail
 
             var mNameValue: TextView = root.findViewById(R.id.name_value)
-            mNameValue.text = EtOfficeLogin.infoLoginResult().username
+            mNameValue.text = jsonCenter.pEtOfficeLogin.infoLoginResult().username
 
             var mMobileValue: TextView = root.findViewById(R.id.mobile_value)
-            mMobileValue.text = EtOfficeLogin.infoLoginResult().phone
+            mMobileValue.text = jsonCenter.pEtOfficeLogin.infoLoginResult().phone
 
             var mMailValue: TextView = root.findViewById(R.id.mail_value)
-            mMailValue.text = EtOfficeLogin.infoLoginResult().mail
+            mMailValue.text = jsonCenter.pEtOfficeLogin.infoLoginResult().mail
 
 
         } catch (e: Exception) {

@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeGetTenant   所属会社一覧
 class EtOfficeGetTenant {
 
-    companion object {
         val TAG = "EtOfficeGetTenant"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeGetTenant"
+        var lastJson: String = ""
+    val app: String = "EtOfficeGetTenant"
 
         /*
             {
@@ -34,8 +33,8 @@ class EtOfficeGetTenant {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("device","android")
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("device", "android")
                 val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
@@ -106,7 +105,6 @@ class EtOfficeGetTenant {
             }
             return null
         }
-    }
 
 
     data class EtOfficeGetTenantJson(

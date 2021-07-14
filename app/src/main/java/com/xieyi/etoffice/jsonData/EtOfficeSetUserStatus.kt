@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeSetUserStatus ユーザー勤務状態の設定
 class EtOfficeSetUserStatus {
 
-    companion object {
         val TAG = "EtOfficeSetUserStatus"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeSetUserStatus"
+        var lastJson: String = ""
+    val app: String = "EtOfficeSetUserStatus"
 
 
         fun post(): String {
@@ -28,26 +27,20 @@ class EtOfficeSetUserStatus {
             try {
                 /*
                     {
-                      "app": "EtOfficeSetUserLocation",
-                      "token": "202011291352391050000000090010000000000000010125",
-                      "tenant": "1",
-                      "hpid": "6",
-                      "device": "android",
-                      "longitude": "140.00468200000000",
-                      "latitude": "35.70148346348169",
-                      "location": "船橋事務所"
+                      "app": "EtOfficeSetUserStatus",
                     }
                  */
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", EtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("device","android")
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("device", "android")
                 jsonObject.put("longitude", "140.00468200000000")
                 jsonObject.put("latitude", "35.70148346348169")
                 jsonObject.put("location", "船橋事務所")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                val body = jsonObject.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
 
@@ -87,7 +80,6 @@ class EtOfficeSetUserStatus {
             }
             return null
         }
-    }
 
     data class EtOfficeGetUserStatusJson(
         val message: String,

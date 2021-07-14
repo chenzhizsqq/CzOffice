@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
 class EtOfficeGetUserStatus {
 
-    companion object {
         val TAG = "EtOfficeGetUserStatus"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeGetUserStatus"
+        var lastJson: String = ""
+    val app: String = "EtOfficeGetUserStatus"
 
         /*
         {"app":"EtOfficeGetUserStatus"
@@ -34,18 +33,19 @@ class EtOfficeGetUserStatus {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", EtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("device","android")
-                Log.e(TAG, "jsonObject:$jsonObject" )
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("device", "android")
+                Log.e(TAG, "jsonObject:$jsonObject")
+                val body = jsonObject.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
 
                 val response: Response? = client.newCall(request).execute();
                 if (response != null) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
 
                         var json:String = response.body!!.string()
                         lastJson = json
@@ -91,7 +91,6 @@ class EtOfficeGetUserStatus {
             val mGetUserStatusJson : GetUserStatusJson = gson.fromJson(lastJson, GetUserStatusJson::class.java)
             return mGetUserStatusJson.result.userstatuslist.count()
         }
-    }
 
 
     data class GetUserStatusJson(

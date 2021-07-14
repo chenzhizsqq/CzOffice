@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeSetTenant   起動会社設定登録
 class EtOfficeSetTenant {
 
-    companion object {
         val TAG = "EtOfficeSetTenant"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeSetTenant"
+        var lastJson: String = ""
+    val app: String = "EtOfficeSetTenant"
 
         /*
             {
@@ -35,8 +34,8 @@ class EtOfficeSetTenant {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("device","android")
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("device", "android")
                 jsonObject.put("tenantid","3")
                 val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 Log.e(TAG, "post: $jsonObject", )
@@ -105,7 +104,6 @@ class EtOfficeSetTenant {
             }
             return null
         }
-    }
 
     data class EtOfficeSetTenantJson(
         val message: String,

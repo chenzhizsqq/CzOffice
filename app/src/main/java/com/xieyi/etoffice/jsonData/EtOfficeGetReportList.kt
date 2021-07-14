@@ -11,35 +11,119 @@ import okhttp3.Response
 import org.json.JSONObject
 
 
-//EtOfficeGetReportList   日報一覧取得
-class EtOfficeGetReportList: EtOfficeJson() {
+//EtOfficeGetReportList
+class EtOfficeGetReportList {
 
-    companion object {
-        val TAG = "EtOfficeGetReportList"
+    val TAG = "EtOfficeGetReportList"
+    var lastJson: String = ""
+    val app: String = "EtOfficeGetReportList"
 
-        /*
-            {"app":"EtOfficeGetReportList"
+    /*
+        {"app":"EtOfficeGetReportList"
             ,"token":"202107141727590980000000090010001502491490940587"
             ,"device":"android"
             ,"tenant":"3"
             ,"hpid":"6"
             ,"startym":""
             ,"months":""}
-         */
-        fun post(): String {
+     */
+    fun post(): String {
+        var status: String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url: String = Config.LoginUrl
+
+        try {
             val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetReportList")
-            jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-            jsonObject.put("device","android")
-            jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-            jsonObject.put("hpid",EtOfficeLogin.infoLoginResult().hpid)
-            jsonObject.put("startym","")
-            jsonObject.put("months","")
-            Log.e(TAG,jsonObject.toString())
-            return post(jsonObject)
+            jsonObject.put("app", app)
+            jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+            jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+            jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+            jsonObject.put("device", "android")
+            jsonObject.put("startym", "")
+            jsonObject.put("months", "")
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+            val request = Request.Builder().url(url).post(body).build()
+
+            val response: Response? = client.newCall(request).execute();
+            if (response != null) {
+                if (response.isSuccessful) {
+
+                    var json: String = response.body!!.string()
+                    lastJson = json
+                    var mJsonResult = JSONObject(json)
+                    Log.e(TAG, "mJsonResult:$mJsonResult")
+
+                    status = mJsonResult.getString("status")
+
+
+                    return status
+                } else {
+                    Log.e(TAG, "postRequest: false")
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
         }
+        return status
     }
 
+
+    /*
+    {"status":0,"result":{"sectionlist":[]},"message":""}
+     */
+
+
+    fun getGsonJson(): String {
+        try {
+            val gson = Gson()
+            val mJson: Json =
+                gson.fromJson(lastJson, Json::class.java)
+            return mJson.toString()
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+        return ""
+    }
+
+    fun getResult(): Result? {
+        try {
+            val gson = Gson()
+            val mJson: Json =
+                gson.fromJson(lastJson, Json::class.java)
+            return mJson.result
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+        return null
+    }
+
+    data class Json(
+        val message: String,
+        val result: Result,
+        val status: Int
+    )
+
+    data class Result(
+        val sectionlist: List<SectionList>
+    )
+
+    data class SectionList(
+        val sectioncd: String,
+        val sectionname: String,
+        var stufflist: List<StuffList>
+    )
+
+    data class StuffList(
+        val tenant: String,
+        val hpid: String,
+        val userid: String,
+        val username: String,
+        val userkana: String,
+        val phone: String,
+        val mail: String,
+    )
 
 }
 

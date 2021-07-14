@@ -14,10 +14,9 @@ import org.json.JSONObject
 //EtOfficeGetMessage   最新メッセージ一覧取得
 class EtOfficeGetMessage {
 
-    companion object {
         val TAG = "EtOfficeGetMessage"
-        var lastJson:String = ""
-        const val app:String = "EtOfficeGetMessage"
+        var lastJson: String = ""
+    val app: String = "EtOfficeGetMessage"
 
         /*
             {
@@ -39,20 +38,21 @@ class EtOfficeGetMessage {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("device","android")
-                jsonObject.put("tenant",EtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid",EtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("count","50")
-                jsonObject.put("lasttime","")
-                jsonObject.put("lastsubid","")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("device", "android")
+                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("count", "50")
+                jsonObject.put("lasttime", "")
+                jsonObject.put("lastsubid", "")
+                val body = jsonObject.toString()
+                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
                 val request = Request.Builder().url(url).post(body).build()
 
                 val response: Response? = client.newCall(request).execute();
                 if (response != null) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
 
                         var json:String = response.body!!.string()
                         lastJson = json
@@ -130,7 +130,7 @@ class EtOfficeGetMessage {
             }
             return null
         }
-    }
+
 
     data class Recordlist(
         val memo: String,

@@ -3,23 +3,24 @@ package com.xieyi.etoffice.jsonData
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
-import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import org.json.JSONObject
 
 
 //EtOfficeLogin ログイン処理、ユーザー情報取得
 class EtOfficeLogin {
 
-    companion object {
         val TAG = "EtOfficeLogin"
 
         //入力後、取得した結果
         var lastJson:String = ""
 
 
-        const val app:String = "EtOfficeLogin"
+        val app: String = "EtOfficeLogin"
 
         /*
         {"app":"EtOfficeGetUserStatus"
@@ -92,7 +93,6 @@ class EtOfficeLogin {
             return mJson.result
         }
 
-    }
 
 
     data class LoginResult(

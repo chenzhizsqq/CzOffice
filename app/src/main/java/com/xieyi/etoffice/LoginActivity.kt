@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.jsonData.EtOfficeLogin
+import com.xieyi.etoffice.jsonData.jsonCenter
 import okhttp3.*
 
 class LoginActivity : AppCompatActivity() {
@@ -36,8 +36,9 @@ class LoginActivity : AppCompatActivity() {
 
             try {
 
-                val r = EtOfficeLogin.post(mEditTextTextEmailAddress, mEditTextTextPassword)
-                Log.e("$TAG Login :", EtOfficeLogin.infoLoginResult().toString())
+                val r =
+                    jsonCenter.pEtOfficeLogin.post(mEditTextTextEmailAddress, mEditTextTextPassword)
+                Log.e("$TAG Login :", jsonCenter.pEtOfficeLogin.infoLoginResult().toString())
 
 
                 if (r == "0") {
