@@ -3,9 +3,11 @@ package com.xieyi.etoffice.jsonData
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
-import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import org.json.JSONObject
 
 
@@ -56,20 +58,26 @@ class EtOfficeGetUserLocation {
 
                         return status
                     }else{
-                        Log.e(TAG, "postRequest: false" )
+                        Log.e(TAG, "postRequest: false")
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e(TAG, e.toString())
             }
             return status
         }
 
 
-        fun infoUserstatuslist(index:Int): Locationlist {
-            val gson = Gson()
-            val mJson : EtOfficeGetUserLocationJson = gson.fromJson(lastJson, EtOfficeGetUserLocationJson::class.java)
-            return mJson.result.locationlist[index]
+        fun infoUserstatuslist(index: Int): Locationlist? {
+            try {
+                val gson = Gson()
+                val mJson: EtOfficeGetUserLocationJson =
+                    gson.fromJson(lastJson, EtOfficeGetUserLocationJson::class.java)
+                return mJson.result.locationlist[index]
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+            }
+            return null
         }
     }
 

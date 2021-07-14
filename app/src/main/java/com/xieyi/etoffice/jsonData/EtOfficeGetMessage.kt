@@ -3,9 +3,11 @@ package com.xieyi.etoffice.jsonData
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
-import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import org.json.JSONObject
 
 
@@ -105,15 +107,28 @@ class EtOfficeGetMessage {
          */
 
 
-        fun infoRecordlist(index:Int): Recordlist {
-            val gson = Gson()
-            val mJson : EtOfficeGetMessageJson = gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
-            return mJson.result.recordlist[index]
+        fun infoRecordlist(index: Int): Recordlist? {
+            try {
+                val gson = Gson()
+                val mJson: EtOfficeGetMessageJson =
+                    gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
+                return mJson.result.recordlist[index]
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+            }
+            return null
         }
-        fun getResult(): EtOfficeGetMessageResult {
-            val gson = Gson()
-            val mJson : EtOfficeGetMessageJson = gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
-            return mJson.result
+
+        fun getResult(): EtOfficeGetMessageResult? {
+            try {
+                val gson = Gson()
+                val mJson: EtOfficeGetMessageJson =
+                    gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
+                return mJson.result
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+            }
+            return null
         }
     }
 

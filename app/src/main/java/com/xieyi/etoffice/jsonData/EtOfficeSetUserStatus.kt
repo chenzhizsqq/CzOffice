@@ -3,9 +3,11 @@ package com.xieyi.etoffice.jsonData
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
-import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
 import org.json.JSONObject
 
 
@@ -73,10 +75,17 @@ class EtOfficeSetUserStatus {
         }
 
         //userstatuslist    一覧
-        fun infoUserStatusList(index:Int): Userstatuslist {
-            val gson = Gson()
-            val mEtOfficeGetUserStatusJson : EtOfficeGetUserStatusJson = gson.fromJson(lastJson, EtOfficeGetUserStatusJson::class.java)
-            return mEtOfficeGetUserStatusJson.result.userstatuslist[index]
+        fun infoUserStatusList(index: Int): Userstatuslist? {
+            try {
+
+                val gson = Gson()
+                val mEtOfficeGetUserStatusJson: EtOfficeGetUserStatusJson =
+                    gson.fromJson(lastJson, EtOfficeGetUserStatusJson::class.java)
+                return mEtOfficeGetUserStatusJson.result.userstatuslist[index]
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+            }
+            return null
         }
     }
 
