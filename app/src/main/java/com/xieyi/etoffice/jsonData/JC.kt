@@ -43,5 +43,8 @@ class JC {
 
         //EtOfficeGetReportList
         var pEtOfficeGetReportList = EtOfficeGetReportList()
+
+        //EtOfficeSetApprovalJsk    勤務実績承認
+        var pEtOfficeSetApprovalJsk = EtOfficeSetApprovalJsk()
     }
 }

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         view = findViewById(android.R.id.content)
 
-        //testJson()
+        testJson()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -145,6 +145,7 @@ class MainActivity : AppCompatActivity() {
                 r = JC.pEtOfficeGetReportList.post()
 
                 //EtOfficeSetApprovalJsk test
+                r = JC.pEtOfficeSetApprovalJsk.post()
 
                 //EtOfficeGetReportInfo test
 
