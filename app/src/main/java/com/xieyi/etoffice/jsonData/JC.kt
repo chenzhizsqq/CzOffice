@@ -49,5 +49,8 @@ class JC {
 
         //EtOfficeGetReportInfo    日報詳細取得
         var pEtOfficeGetReportInfo = EtOfficeGetReportInfo()
+
+        //EtOfficeGetProject    プロジェクト一覧
+        var pEtOfficeGetProject = EtOfficeGetProject()
     }
 }

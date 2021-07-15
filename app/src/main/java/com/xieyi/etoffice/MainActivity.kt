@@ -154,6 +154,13 @@ class MainActivity : AppCompatActivity() {
                 )
 
 
+                //pEtOfficeGetProject プロジェクト一覧
+                r = JC.pEtOfficeGetProject.post()
+                Log.e(TAG,"pEtOfficeGetProject infoResult:"
+                        +JC.pEtOfficeGetProject.infoResult().toString()
+                )
+
+
             } catch (e: Exception) {
 
                 Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
