@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.ui.MyPage.MyPagePlaceSettingActivity
 
@@ -23,8 +24,10 @@ class ReportFragment : Fragment() {
         //report_info_title
         val pTableRowInfoTitle: TableRow = root.findViewById(R.id.report_info_title_1) as TableRow
         pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, ReportDetail::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity, ReportDetail::class.java)
+//            startActivity(intent)
+
+            Navigation.findNavController(root).navigate(R.id.ReportDetail);		//就是用这句去转了
         })
 
         return root

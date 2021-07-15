@@ -43,4 +43,9 @@
         android:name="com.xieyi.etoffice.ui.MyPage.MyPageChangeCompanyActivity"
         android:label="MyPageChangeCompanyActivity"
         tools:layout="@layout/activity_my_page_change_company" />
+    <fragment
+        android:id="@+id/ReportDetail"
+        android:name="com.xieyi.etoffice.ui.report.ReportDetail"
+        android:label="ReportDetail"
+        tools:layout="@layout/activity_report_detail" />
 </navigation>
