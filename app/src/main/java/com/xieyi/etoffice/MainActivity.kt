@@ -160,6 +160,15 @@ class MainActivity : AppCompatActivity() {
                         +JC.pEtOfficeGetProject.infoResult().toString()
                 )
 
+                //EtOfficeSetReport     日報登録
+                r = JC.pEtOfficeSetReport.post()
+                Log.e(TAG,"EtOfficeSetReport infoJson:"
+                        +JC.pEtOfficeSetReport.infoJson()
+                )
+
+
+                //EtOfficeSetComment    コメント登録
+
 
             } catch (e: Exception) {
 

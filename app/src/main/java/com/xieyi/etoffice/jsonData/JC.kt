@@ -52,5 +52,9 @@ class JC {
 
         //EtOfficeGetProject    プロジェクト一覧
         var pEtOfficeGetProject = EtOfficeGetProject()
+
+        //EtOfficeSetReport     日報登録
+        var pEtOfficeSetReport = EtOfficeSetReport()
+
     }
 }
