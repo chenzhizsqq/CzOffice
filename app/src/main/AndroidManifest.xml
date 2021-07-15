@@ -22,10 +22,10 @@
             android:name=".ui.MyPage.MyPageChangeCompanyActivity"
             android:label="@string/title_activity_my_page_change_company"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.MyPage.MyPagePlaceSettingActivity"
-            android:label="@string/title_activity_my_page_place_setting"
-            android:screenOrientation="portrait" />
+<!--        <activity-->
+<!--            android:name=".ui.MyPage.MyPagePlaceSettingActivity"-->
+<!--            android:label="@string/title_activity_my_page_place_setting"-->
+<!--            android:screenOrientation="portrait" />-->
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

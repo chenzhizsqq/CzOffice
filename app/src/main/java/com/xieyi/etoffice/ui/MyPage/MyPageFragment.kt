@@ -10,6 +10,7 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 
@@ -49,8 +50,11 @@ class MyPageFragment : Fragment() {
         val pTableRowPlaceManagement: TableRow =
             root.findViewById(R.id.place_management) as TableRow
         pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
+//            startActivity(intent)
+
+            Navigation.findNavController(root).navigate(R.id.MyPagePlaceSettingActivity);		//就是用这句去转了
+
         })
 
         //change　company
