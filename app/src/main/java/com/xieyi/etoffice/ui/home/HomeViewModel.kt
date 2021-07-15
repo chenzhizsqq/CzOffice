@@ -3,7 +3,7 @@ package com.xieyi.etoffice.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.xieyi.etoffice.jsonData.jsonCenter
+import com.xieyi.etoffice.jsonData.JC
 
 class HomeViewModel : ViewModel() {
 
@@ -27,8 +27,8 @@ class HomeViewModel : ViewModel() {
 
         value = "Message"
         Thread {
-            if (jsonCenter.pEtOfficeUserInfo.post() == "0") {
-                postValue(jsonCenter.pEtOfficeUserInfo.infoUserStatusList()?.mail)
+            if (JC.pEtOfficeUserInfo.post() == "0") {
+                postValue(JC.pEtOfficeUserInfo.infoUserStatusList()?.mail)
             }
         }.start()
     }

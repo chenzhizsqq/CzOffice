@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.jsonCenter
+import com.xieyi.etoffice.jsonData.JC
 
 
 class ReportDetail : AppCompatActivity(), View.OnClickListener {
@@ -30,10 +30,10 @@ class ReportDetail : AppCompatActivity(), View.OnClickListener {
         val textWidth:Int = 120
 
         try {
-            Log.e(TAG, "count:" + jsonCenter.pEtOfficeGetUserStatus.infoUserStatusListCount())
+            Log.e(TAG, "count:" + JC.pEtOfficeGetUserStatus.infoUserStatusListCount())
 
 
-            for (i in jsonCenter.pEtOfficeGetUserStatus.infoUserStatusList()) {
+            for (i in JC.pEtOfficeGetUserStatus.infoUserStatusList()) {
                 Log.e(TAG, "index:$i")
 
                 var tLinearLayout = LinearLayout(this)

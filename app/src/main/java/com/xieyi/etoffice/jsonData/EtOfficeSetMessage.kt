@@ -45,10 +45,10 @@ class EtOfficeSetMessage {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
                 jsonObject.put("device", "android")
-                jsonObject.put("tenant", jsonCenter.pEtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", jsonCenter.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("count", "50")
                 jsonObject.put("updateid", updateid)
                 jsonObject.put("readflg", "1")

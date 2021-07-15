@@ -33,7 +33,7 @@ class EtOfficeGetTenant {
             try {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
-                jsonObject.put("token", jsonCenter.pEtOfficeLogin.infoLoginResult().token)
+                jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
                 jsonObject.put("device", "android")
                 val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

@@ -14,85 +14,85 @@ import org.json.JSONObject
 //EtOfficeLogin ログイン処理、ユーザー情報取得
 class EtOfficeLogin {
 
-        val TAG = "EtOfficeLogin"
+    val TAG = "EtOfficeLogin"
 
-        //入力後、取得した結果
-        var lastJson:String = ""
-
-
-        val app: String = "EtOfficeLogin"
-
-        /*
-        {"app":"EtOfficeGetUserStatus"
-        , "token":"202011291352391050000000090010000000000000010125"
-        ,"tenant":"1"
-        , "hpid":"6"
-        , "device":"android"}
-         */
-        //入力
-        fun post(uid:String,password:String): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
-
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", "EtOfficeLogin")
-                jsonObject.put("uid", uid)
-                jsonObject.put("password", password)
-                jsonObject.put("registrationid", "pass")
-                jsonObject.put("device","android")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-                val request = Request.Builder().url(url).post(body).build()
-
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
-
-                        var json:String = response.body!!.string()
-                        lastJson = json
-                        /*{
-                              "status": 0,
-                              "result": {
-                                "token": "202107121212507840000000090010001502491490940935",
-                                "tenantid": "3",
-                                "hpid": "6",
-                                "userid": "9001",
-                                "usercode": "demo1",
-                                "username": "ユーザー１",
-                                "userkana": "カタカナ１",
-                                "mail": "demo1@xieyi.co.jp",
-                                "phone": "07473626478"
-                              },
-                              "message": ""
-                            }
-                         */
-
-                        var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
-
-                        status = mJsonResult.getString("status")
+    //入力後、取得した結果
+    var lastJson: String = ""
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
+    val app: String = "EtOfficeLogin"
+
+    /*
+    {"app":"EtOfficeGetUserStatus"
+    , "token":"202011291352391050000000090010000000000000010125"
+    ,"tenant":"1"
+    , "hpid":"6"
+    , "device":"android"}
+     */
+    //入力
+    fun post(uid: String, password: String): String {
+        var status: String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url: String = Config.LoginUrl
+
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("app", "EtOfficeLogin")
+            jsonObject.put("uid", uid)
+            jsonObject.put("password", password)
+            jsonObject.put("registrationid", "pass")
+            jsonObject.put("device", "android")
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+            val request = Request.Builder().url(url).post(body).build()
+
+            val response: Response? = client.newCall(request).execute()
+            if (response != null) {
+                if (response.isSuccessful) {
+
+                    var json: String = response.body!!.string()
+                    lastJson = json
+                    /*{
+                          "status": 0,
+                          "result": {
+                            "token": "202107121212507840000000090010001502491490940935",
+                            "tenantid": "3",
+                            "hpid": "6",
+                            "userid": "9001",
+                            "usercode": "demo1",
+                            "username": "ユーザー１",
+                            "userkana": "カタカナ１",
+                            "mail": "demo1@xieyi.co.jp",
+                            "phone": "07473626478"
+                          },
+                          "message": ""
+                        }
+                     */
+
+                    var mJsonResult = JSONObject(json)
+                    Log.e(TAG, "mJsonResult:$mJsonResult")
+
+                    status = mJsonResult.getString("status")
+
+
+                    return status
+                } else {
+                    Log.e(TAG, "postRequest: false")
                 }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
             }
-            return status
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
         }
+        return status
+    }
 
-        //出力    result
-        fun infoLoginResult(): LoginResult {
-            val gson = Gson()
-            val mJson : LoginJson = gson.fromJson(lastJson, LoginJson::class.java)
-            return mJson.result
-        }
-
+    //出力    result
+    fun infoLoginResult(): LoginResult {
+        val gson = Gson()
+        val mJson: LoginJson = gson.fromJson(lastJson, LoginJson::class.java)
+        return mJson.result
+    }
 
 
     data class LoginResult(
@@ -106,6 +106,7 @@ class EtOfficeLogin {
         val userkana: String,
         val username: String
     )
+
     data class LoginJson(
         val message: String,
         val result: LoginResult,

@@ -11,7 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import com.xieyi.etoffice.jsonData.jsonCenter
+import com.xieyi.etoffice.jsonData.JC
 
 class MainActivity : AppCompatActivity() {
     val TAG: String = "MainActivity"
@@ -50,49 +50,49 @@ class MainActivity : AppCompatActivity() {
             try {
                 var r: String = ""
 
-                r = jsonCenter.pEtOfficeUserInfo.post()
+                r = JC.pEtOfficeUserInfo.post()
 //                Log.e(TAG, "onCreate: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeUserInfo.infoUserStatusList().toString()
 //                )
 
-                r = jsonCenter.pEtOfficeGetUserStatus.post()
+                r = JC.pEtOfficeGetUserStatus.post()
 //                Log.e(TAG, "infoUserStatusList: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeGetUserStatus.infoUserStatusList(0).toString()
 //                )
 
-                r = jsonCenter.pEtOfficeSetUserStatus.post()
+                r = JC.pEtOfficeSetUserStatus.post()
 //                Log.e(TAG, "onCreate: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeSetUserStatus.infoUserStatusList(0).toString()
 //                )
 
-                r = jsonCenter.pEtOfficeGetUserLocation.post()
+                r = JC.pEtOfficeGetUserLocation.post()
 //                Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
 //                Log.e("infoUserstatuslist 0",
 //                    EtOfficeGetUserLocation.infoUserstatuslist(0).toString()
 //                )
 
-                r = jsonCenter.pEtOfficeSetUserLocation.post()
+                r = JC.pEtOfficeSetUserLocation.post()
 //                Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
 //                Log.e("infoLocationList 0",
 //                    EtOfficeSetUserLocation.infoLocationList(0).toString()
 //                )
 
-                r = jsonCenter.pEtOfficeGetTenant.post()
+                r = JC.pEtOfficeGetTenant.post()
 //                Log.e(TAG, "EtOfficeGetTenant.post(): r==$r")
 //                Log.e("infoTenantList 0",
 //                    EtOfficeGetTenant.infoTenantList(0).toString()
 //                )
 
-                r = jsonCenter.pEtOfficeSetTenant.post()
+                r = JC.pEtOfficeSetTenant.post()
 //                Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
 //                Log.e("infoTenantList 0",
 //                    EtOfficeSetTenant.infoTenantList(0).toString()
 //                )
 
-                r = jsonCenter.pEtOfficeGetMessage.post()
+                r = JC.pEtOfficeGetMessage.post()
 //                Log.e(TAG, "EtOfficeGetMessage.post(): r==$r")
 //                Log.e(TAG,"infoRecordlist 0"+
 //                        EtOfficeGetMessage.infoRecordlist(0).toString()
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 //                        EtOfficeGetMessage.getResult()
 //                )
 
-                r = jsonCenter.pEtOfficeGetStuffList.post()
+                r = JC.pEtOfficeGetStuffList.post()
 //                Log.e(TAG, "EtOfficeGetStuffList post(): r==$r")
 //                Log.e(TAG,"EtOfficeGetStuffList result:"
 //                        +EtOfficeGetStuffList.getResult().toString()
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                 arrayString += "2020111320065968"
                 arrayString += "2020111319510968"
 
-                r = jsonCenter.pEtOfficeSetMessage.post(arrayString)
+                r = JC.pEtOfficeSetMessage.post(arrayString)
 //                Log.e(TAG, "EtOfficeSetMessageJson post(Tools.array2String(arrayString)): r==$r")
 //                Log.e(TAG,"EtOfficeSetMessageJson result:"
 //                        + EtOfficeSetMessage.getResult()
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                  */
 
                 //EtOfficeGetStatusList test
-                r = jsonCenter.pEtOfficeGetStatusList.post()
+                r = JC.pEtOfficeGetStatusList.post()
                 /*
                 Log.e(TAG, "EtOfficeGetStatusList post(): r==$r")
                 Log.e(TAG,"EtOfficeGetStatusList getJson:"
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                  */
 
                 //EtOfficeGetReportList test
-                r = jsonCenter.pEtOfficeGetReportList.post()
+                r = JC.pEtOfficeGetReportList.post()
 
                 //EtOfficeSetApprovalJsk test
 
