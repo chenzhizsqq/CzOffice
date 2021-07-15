@@ -60,8 +60,11 @@ class MyPageFragment : Fragment() {
         //change　company
         val pTableRow: TableRow = root.findViewById(R.id.change_company) as TableRow
         pTableRow.setOnClickListener(View.OnClickListener {
-            val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
+//            startActivity(intent)
+
+            Navigation.findNavController(root).navigate(R.id.MyPageChangeCompanyActivity);		//就是用这句去转了
+
         })
 
 

@@ -38,4 +38,9 @@
         android:name="com.xieyi.etoffice.ui.MyPage.MyPagePlaceSettingActivity"
         android:label="MyPagePlaceSettingActivity"
         tools:layout="@layout/activity_my_page_place_setting" />
+    <fragment
+        android:id="@+id/MyPageChangeCompanyActivity"
+        android:name="com.xieyi.etoffice.ui.MyPage.MyPageChangeCompanyActivity"
+        android:label="MyPageChangeCompanyActivity"
+        tools:layout="@layout/activity_my_page_change_company" />
 </navigation>
