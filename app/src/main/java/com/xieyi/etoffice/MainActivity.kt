@@ -148,6 +148,11 @@ class MainActivity : AppCompatActivity() {
                 r = JC.pEtOfficeSetApprovalJsk.post()
 
                 //EtOfficeGetReportInfo test
+                r = JC.pEtOfficeGetReportInfo.post()
+                Log.e(TAG,"pEtOfficeGetReportInfo infoResult:"
+                        +JC.pEtOfficeGetReportInfo.infoResult().toString()
+                )
+
 
             } catch (e: Exception) {
 
