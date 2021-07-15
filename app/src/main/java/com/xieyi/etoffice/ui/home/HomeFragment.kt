@@ -33,32 +33,32 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val textTitle1: TextView = root.findViewById(R.id.text_title1)
+        val textTitle1: TextView = view.findViewById(R.id.text_title1)
         homeViewModel.title1.observe(viewLifecycleOwner, Observer {
             textTitle1.text = it
         })
 
 
-        val textTitle2: TextView = root.findViewById(R.id.text_title2)
+        val textTitle2: TextView = view.findViewById(R.id.text_title2)
         homeViewModel.title2.observe(viewLifecycleOwner, Observer {
             textTitle2.text = it
         })
 
-        val textTitle3: TextView = root.findViewById(R.id.text_title3)
+        val textTitle3: TextView = view.findViewById(R.id.text_title3)
         homeViewModel.title3.observe(viewLifecycleOwner, Observer {
             textTitle3.text = it
         })
 
-        val textTitle4: TextView = root.findViewById(R.id.text_title4)
+        val textTitle4: TextView = view.findViewById(R.id.text_title4)
         homeViewModel.title4.observe(viewLifecycleOwner, Observer {
             textTitle4.text = it
         })
 
         //出勤記録を表示します
         val recordTableTableLayout: TableLayout =
-            root.findViewById(R.id.record_table) as TableLayout
+            view.findViewById(R.id.record_table) as TableLayout
         recordTableTableLayout.setOnClickListener {
 
             val mHomeReportDialog = HomeReportDialog()
@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
 
         //出勤ステータスを表示します
         val mStatusLinearLayout: LinearLayout =
-            root.findViewById(R.id.status_linearLayout) as LinearLayout
+            view.findViewById(R.id.status_linearLayout) as LinearLayout
         mStatusLinearLayout.setOnClickListener {
 
             val mHomeStatusDialog = HomeStatusDialog()
@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
 
 
         //Log.d(TAG, "ok")
-        return root
+        return view
     }
 
 }

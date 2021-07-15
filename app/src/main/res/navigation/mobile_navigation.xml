@@ -35,17 +35,17 @@
     //特定fragment
     <fragment
         android:id="@+id/MyPagePlaceSettingActivity"
-        android:name="com.xieyi.etoffice.ui.MyPage.MyPagePlaceSettingActivity"
-        android:label="MyPagePlaceSettingActivity"
+        android:name="com.xieyi.etoffice.ui.MyPage.MyPagePlaceSettingFragment"
+        android:label="@string/title_my_page_place_setting"
         tools:layout="@layout/activity_my_page_place_setting" />
     <fragment
         android:id="@+id/MyPageChangeCompanyActivity"
-        android:name="com.xieyi.etoffice.ui.MyPage.MyPageChangeCompanyActivity"
-        android:label="MyPageChangeCompanyActivity"
+        android:name="com.xieyi.etoffice.ui.MyPage.MyPageChangeCompanyFragment"
+        android:label="@string/title_my_page_change_company"
         tools:layout="@layout/activity_my_page_change_company" />
     <fragment
         android:id="@+id/ReportDetail"
-        android:name="com.xieyi.etoffice.ui.report.ReportDetail"
-        android:label="ReportDetail"
+        android:name="com.xieyi.etoffice.ui.report.ReportDetailFragment"
+        android:label="@string/title_report_detail"
         tools:layout="@layout/activity_report_detail" />
 </navigation>

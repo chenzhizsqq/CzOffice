@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.report
 
+
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +17,8 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 
-class ReportDetail : Fragment() {
+
+class ReportDetailFragment : Fragment() {
 
     val TAG = "ReportDetail"
     lateinit var buttonImageButton1: ImageView
@@ -26,8 +28,8 @@ class ReportDetail : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.activity_report_detail, container, false)
-        buttonImageButton1 = root.findViewById(R.id.imageButton1)
+        val view = inflater.inflate(R.layout.activity_report_detail, container, false)
+        buttonImageButton1 = view.findViewById(R.id.imageButton1)
         buttonImageButton1.setOnClickListener {
 
             val pReportAddDialog = ReportAddDialog()
@@ -36,7 +38,7 @@ class ReportDetail : Fragment() {
         }
 
         //report_id
-        mLinearLayout = root.findViewById(R.id.report_id)
+        mLinearLayout = view.findViewById(R.id.report_id)
         val textWidth: Int = 120
 
         try {
@@ -72,8 +74,8 @@ class ReportDetail : Fragment() {
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
         }
-
-
-        return root
+        return view
     }
+
+
 }

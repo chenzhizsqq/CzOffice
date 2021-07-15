@@ -20,12 +20,12 @@ class NotificationsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
+            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val view = inflater.inflate(R.layout.fragment_notifications, container, false)
+        val textView: TextView = view.findViewById(R.id.text_notifications)
         notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-        return root
+        return view
     }
 }

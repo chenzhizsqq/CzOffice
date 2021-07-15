@@ -1,6 +1,5 @@
 package com.xieyi.etoffice.ui.MyPage
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,22 +22,22 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_my_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_page, container, false)
         try {
 
-            var mUserName: TextView = root.findViewById(R.id.user_name)
+            var mUserName: TextView = view.findViewById(R.id.user_name)
             mUserName.text = JC.pEtOfficeLogin.infoLoginResult().username
 
-            var mUserMail: TextView = root.findViewById(R.id.user_mail)
+            var mUserMail: TextView = view.findViewById(R.id.user_mail)
             mUserMail.text = JC.pEtOfficeLogin.infoLoginResult().mail
 
-            var mNameValue: TextView = root.findViewById(R.id.name_value)
+            var mNameValue: TextView = view.findViewById(R.id.name_value)
             mNameValue.text = JC.pEtOfficeLogin.infoLoginResult().username
 
-            var mMobileValue: TextView = root.findViewById(R.id.mobile_value)
+            var mMobileValue: TextView = view.findViewById(R.id.mobile_value)
             mMobileValue.text = JC.pEtOfficeLogin.infoLoginResult().phone
 
-            var mMailValue: TextView = root.findViewById(R.id.mail_value)
+            var mMailValue: TextView = view.findViewById(R.id.mail_value)
             mMailValue.text = JC.pEtOfficeLogin.infoLoginResult().mail
 
 
@@ -48,28 +47,30 @@ class MyPageFragment : Fragment() {
 
         //Place　Setting
         val pTableRowPlaceManagement: TableRow =
-            root.findViewById(R.id.place_management) as TableRow
+            view.findViewById(R.id.place_management) as TableRow
         pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
 //            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
 //            startActivity(intent)
 
-            Navigation.findNavController(root).navigate(R.id.MyPagePlaceSettingActivity);		//就是用这句去转了
+            Navigation.findNavController(view)
+                .navigate(R.id.MyPagePlaceSettingActivity);        //就是用这句去转了
 
         })
 
         //change　company
-        val pTableRow: TableRow = root.findViewById(R.id.change_company) as TableRow
+        val pTableRow: TableRow = view.findViewById(R.id.change_company) as TableRow
         pTableRow.setOnClickListener(View.OnClickListener {
 //            val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
 //            startActivity(intent)
 
-            Navigation.findNavController(root).navigate(R.id.MyPageChangeCompanyActivity);		//就是用这句去转了
+            Navigation.findNavController(view)
+                .navigate(R.id.MyPageChangeCompanyActivity);        //就是用这句去转了
 
         })
 
 
         //ログアウト
-        val pTableLayout: TableLayout = root.findViewById(R.id.SYSTEM_info) as TableLayout
+        val pTableLayout: TableLayout = view.findViewById(R.id.SYSTEM_info) as TableLayout
         pTableLayout.setOnClickListener(View.OnClickListener {
 
             val mMyPageLogoutDialog = MyPageLogoutDialog()
@@ -80,7 +81,7 @@ class MyPageFragment : Fragment() {
 //            getActivity()?.finish()
         })
 
-        return root
+        return view
     }
 
     companion object {
