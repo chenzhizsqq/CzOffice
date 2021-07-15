@@ -168,6 +168,10 @@ class MainActivity : AppCompatActivity() {
 
 
                 //EtOfficeSetComment    コメント登録
+                r = JC.pEtOfficeSetComment.post()
+                Log.e(TAG,"EtOfficeSetComment infoJson:"
+                        + JC.pEtOfficeSetComment.infoJson()?.result.toString()
+                )
 
 
             } catch (e: Exception) {

@@ -56,5 +56,9 @@ class JC {
         //EtOfficeSetReport     日報登録
         var pEtOfficeSetReport = EtOfficeSetReport()
 
+        //EtOfficeSetComment    コメント登録
+        var pEtOfficeSetComment = EtOfficeSetComment()
+
+
     }
 }

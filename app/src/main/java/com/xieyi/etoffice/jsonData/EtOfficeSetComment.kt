@@ -9,14 +9,15 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
+import javax.security.auth.login.LoginException
 
 
-//EtOfficeSetReport 日報登録
-class EtOfficeSetReport {
+//EtOfficeSetComment    コメント登録
+class EtOfficeSetComment {
 
-    private val TAG = "EtOfficeSetReport"
+    private val TAG = "EtOfficeSetComment"
     private var lastJson: String = ""
-    val app: String = "EtOfficeSetReport"
+    val app: String = "EtOfficeSetComment"
 
     fun post(): String {
         var status:String = "-1"
@@ -24,16 +25,29 @@ class EtOfficeSetReport {
         val url:String = Config.LoginUrl
 
         /*
-        {"app":"EtOfficeSetReport",
-        "token":"202011291352391050000000090010000000000000010125",
-        "device":"ios",
-        "tenant":"1",
-        "hpid":"8",
-        "userid":"2025",
-        "ymd":"20210305",
-        "projectcd":"ETHP",
-        "wbscd":"E202103",
-        "totaltime":"0800"}
+        app
+        EtOfficeSetComment
+
+        token
+        共 仕様.入力引数.tokenを参照
+
+        tenant
+        共 仕様.入力引数.tenantを参照
+
+        hpid
+        共 仕様.入力引数.hpidを参照
+
+        device
+        共 仕様.入力引数.tokenを参照
+
+        userid
+        更新対象:ユーザーID
+
+        ymd
+        更新対象:年月日
+
+        comment
+        更新対象:コメント内容
          */
         try {
             val jsonObject = JSONObject()
@@ -44,9 +58,7 @@ class EtOfficeSetReport {
             jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
             jsonObject.put("ymd", "20210305")
-            jsonObject.put("projectcd", "ETHP")
-            jsonObject.put("wbscd", "E202103")
-            jsonObject.put("totaltime", "0800")
+            jsonObject.put("comment", "comment  fdsafdsa")
             Log.e(TAG, jsonObject.toString(), )
 
             val body = jsonObject.toString()
@@ -80,7 +92,21 @@ class EtOfficeSetReport {
     fun infoJson(): JsonClass? {
         try {
             val gson = Gson()
-            return gson.fromJson(lastJson, JsonClass::class.java)
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+        return null
+    }
+
+    fun infoResult(): Result? {
+        try {
+            val gson = Gson()
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson.result
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
         }
@@ -89,7 +115,17 @@ class EtOfficeSetReport {
 
     data class JsonClass(
         val message: String,
-        val result: String,
+        val result: Result,
         val status: Int
+    )
+
+    data class Result(
+        val commentlist: List<Commentlist>
+    )
+
+    data class Commentlist(
+        val comment: String,
+        val time: String,
+        val username: String
     )
 }
