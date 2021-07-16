@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,9 +62,21 @@ class HomeFragment : Fragment() {
             view.findViewById(R.id.record_table) as TableLayout
         recordTableTableLayout.setOnClickListener {
 
-            val mHomeReportDialog = HomeReportDialog()
-            mHomeReportDialog.setTargetFragment(this@HomeFragment, 1)
-            fragmentManager?.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+            Thread {
+                try {
+                    var r: String = ""
+                    r = JC.pEtOfficeGetUserStatus.post()
+                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
+
+                    val mHomeReportDialog = HomeReportDialog()
+                    mHomeReportDialog.setTargetFragment(this@HomeFragment, 1)
+                    fragmentManager?.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+                }catch (e:Exception){
+
+
+                }
+            }.start()
+
 
         }
 

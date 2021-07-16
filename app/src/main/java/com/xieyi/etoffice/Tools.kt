@@ -3,7 +3,8 @@ package com.xieyi.etoffice
 object Tools {
     private const val TAG = "Tools"
 
-    fun dataChange(_data: String?, _insert: String?): String {
+
+    fun dateChange(_data: String?, _insert: String?): String {
         var rStr = _data
         val sb = StringBuilder(rStr)
         sb.insert(6, _insert)
@@ -21,23 +22,51 @@ object Tools {
         return rString
     }
 
-    fun dataGetYear(_data: String): Int {
+    fun dateGetYear(_data: String): Int {
         if (_data.isEmpty()) return 0
         val str = _data.substring(0, 4)
         return str.toInt()
     }
 
-    fun dataGetMonth(_data: String): Int {
+    fun dateGetMonth(_data: String): Int {
         if (_data.isEmpty()) return 0
         val str = _data.substring(4, 6)
         return str.toInt()
     }
 
-    fun dataGetDay(_data: String): Int {
+    fun dateGetDay(_data: String): Int {
         if (_data.isEmpty()) return 0
         val str = _data.substring(6, 8)
         return str.toInt()
     }
+
+    fun dateGetHH(_data: String): Int {
+        if (_data.isEmpty()) return 0
+        val str = _data.substring(8, 10)
+        return str.toInt()
+    }
+
+    fun dateGetMM(_data: String): Int {
+        if (_data.isEmpty()) return 0
+        val str = _data.substring(10, 12)
+        return str.toInt()
+    }
+
+    fun dateGetSS(_data: String): Int {
+        if (_data.isEmpty()) return 0
+        val str = _data.substring(12, 14)
+        return str.toInt()
+    }
+
+    //2021.07.15 16:56:56
+    fun allDate(_data: String):String {
+        var str = ""
+        str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}" +
+                " ${dateGetHH(_data)}:${dateGetMM(_data)}:${dateGetSS(_data)}"
+
+        return str
+    }
+
 
 
     //array -> String Json

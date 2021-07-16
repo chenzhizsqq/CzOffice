@@ -1,23 +1,28 @@
 package com.xieyi.etoffice.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.util.TypedValue
+import android.view.*
+import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
+
 
 class HomeReportDialog : DialogFragment() {
     private val TAG: String? = "HomeReportDialog"
+
+    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
+    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
@@ -42,72 +47,71 @@ class HomeReportDialog : DialogFragment() {
         }
 
         //record_linearLayout
+        //JC.pEtOfficeGetUserStatus
 
-
-        //这里测试了，这个Thread不能实现
-        Thread {Runnable {
-            try {
-                var r: String = ""
-                r=JC.pEtOfficeGetUserStatus.post()
-                Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
-
-                val recordLinearLayout = view.findViewById<LinearLayout>(R.id.record_linearLayout)
-
-
-                val textView = TextView(activity)
-                textView.setText("Button1")
-                recordLinearLayout.addView(textView)
-
-
-                //TableLayout処理
-                val mTableLayout = view.findViewById<TableLayout>(R.id.frag03_予約一覧)
-
-                //状態表示
-                val mTableRowState = TableRow(activity)
-                mTableRowState.addView(makeTextView("検索条件：　"))
-                mTableRowState.addView(makeTextView("名前：" ))
-
-                mTableRowState.addView(
-                    makeTextView(
-                        "宿泊日:"
-                    )
-                )
-
-                mTableRowState.addView(
-                    makeTextView(
-                        "予約日:"
-                    )
-                )
-                mTableLayout.addView(mTableRowState, mTableLayout.childCount)
-
-            } catch (e: Exception) {
-                Log.e(TAG, "TAG", e)
-            }}
-        }.start()
-        //这里测试了，这个Thread不能实现
-
-
-        //这里测试了，是这样添加的
-        val mTableLayout = view.findViewById<TableLayout>(R.id.frag03_予約一覧)
-
-        //状態表示
-        val mTableRowState = TableRow(activity)
-        mTableRowState.addView(makeTextView("検索条件：　"))
-        mTableRowState.addView(makeTextView("名前：" ))
-
-        mTableRowState.addView(
-            makeTextView(
-                "宿泊日:"
-            )
+        Log.e("infoUserStatusList() ",
+            JC.pEtOfficeGetUserStatus.infoUserStatusList().toString()
         )
 
-        mTableRowState.addView(
-            makeTextView(
-                "予約日:"
-            )
-        )
-        mTableLayout.addView(mTableRowState, mTableLayout.childCount)
-        //这里测试了，是这样添加的
+
+        val recordLinearLayout = view.findViewById<LinearLayout>(R.id.record_linearLayout)
+        recordLinearLayout.setPadding(10)
+
+
+
+        val size=JC.pEtOfficeGetUserStatus.infoUserStatusList().size
+
+        for (i in 0 .. size-1){
+
+            val mLinearLayout=LinearLayout(activity)
+
+            mLinearLayout.setOrientation(LinearLayout.HORIZONTAL)
+
+            val lp = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            mLinearLayout.layoutParams = lp
+
+
+
+            //left
+            val textView = TextView(activity)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+            textView.setTextColor(Color.parseColor("#000000"))
+            textView.text = Tools.allDate(JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].statustime)
+            mLinearLayout.addView(textView)
+
+
+            //right
+            val textViewRight = TextView(activity)
+            textViewRight.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+            textViewRight.layoutParams = FrameLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT)
+            if (JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].location.isEmpty()){
+
+                textViewRight.text = "..."
+            }else{
+                textViewRight.text = JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].location
+
+            }
+            textViewRight.gravity = Gravity.RIGHT;
+            mLinearLayout.addView(textViewRight)
+
+
+
+            mLinearLayout.setPadding(10)
+            recordLinearLayout.addView(mLinearLayout)
+
+
+
+            //線
+
+            val mLinearLayout2=LinearLayout(activity)
+            val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+            mLinearLayout2.layoutParams = lp2
+            mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+            recordLinearLayout.addView(mLinearLayout2)
+
+        }
+
+
 
         return view
     }
