@@ -39,7 +39,7 @@
         android:label="@string/title_my_page_place_setting"
         tools:layout="@layout/activity_my_page_place_setting" />
     <fragment
-        android:id="@+id/MyPageChangeCompanyActivity"
+        android:id="@+id/MyPageChangeCompanyFragment"
         android:name="com.xieyi.etoffice.ui.MyPage.MyPageChangeCompanyFragment"
         android:label="@string/title_my_page_change_company"
         tools:layout="@layout/activity_my_page_change_company" />

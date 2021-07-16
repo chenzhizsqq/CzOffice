@@ -90,10 +90,21 @@ class EtOfficeLogin {
     //出力    result
     fun infoLoginResult(): LoginResult {
         val gson = Gson()
-        val mJson: LoginJson = gson.fromJson(lastJson, LoginJson::class.java)
-        return mJson.result
+        val mJsonClass: JsonClass = gson.fromJson(lastJson, JsonClass::class.java)
+        return mJsonClass.result
     }
 
+    fun infoJson(): JsonClass? {
+        try {
+            val gson = Gson()
+            val mJsonClass: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJsonClass
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+        return null
+    }
 
     data class LoginResult(
         val hpid: String,
@@ -107,7 +118,7 @@ class EtOfficeLogin {
         val username: String
     )
 
-    data class LoginJson(
+    data class JsonClass(
         val message: String,
         val result: LoginResult,
         val status: Int

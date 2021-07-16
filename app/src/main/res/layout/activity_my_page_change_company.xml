@@ -9,93 +9,195 @@
     android:background="#E8E8E8">
 
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textStart">
+<!--    <TableLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textAlignment="textStart">-->
 
-        <TableRow
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            >-->
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:gravity="left"-->
+<!--                android:text="Change Company"-->
+<!--                android:textColor="#000000" />-->
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="1dp"-->
+<!--            android:background="#FFFFFF"-->
+<!--            android:gravity="left"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="10dp">-->
+
+
+<!--            <TableLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <TableRow-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent" >-->
+<!--                    <TextView-->
+<!--                        android:text="株式会社テスト３"-->
+<!--                        android:textColor="@color/black"/>-->
+<!--                </TableRow>-->
+<!--                <TableRow-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent" >-->
+<!--                    <TextView-->
+<!--                        android:text="http://www.google.com"-->
+<!--                        android:textColor="@color/black"/>-->
+<!--                </TableRow>-->
+
+
+<!--            </TableLayout>-->
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="1dp"-->
+<!--            android:background="#FFFFFF"-->
+<!--            android:gravity="left"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="10dp">-->
+
+
+<!--            <TableLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <TableRow-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent" >-->
+<!--                    <TextView-->
+<!--                        android:text="株式会社テスト３"-->
+<!--                        android:textColor="@color/black"/>-->
+<!--                </TableRow>-->
+<!--                <TableRow-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent" >-->
+<!--                    <TextView-->
+<!--                        android:text="http://www.google.com"-->
+<!--                        android:textColor="@color/black"/>-->
+<!--                </TableRow>-->
+
+
+<!--            </TableLayout>-->
+<!--        </TableRow>-->
+
+
+<!--    </TableLayout>-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/activity_my_page_change_company_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="left"
-                android:text="Change Company"
-                android:textColor="#000000" />
-        </TableRow>
-
-        <TableRow
+                android:layout_height="50dp"
+                android:text="切り替え"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:gravity="center"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/record_linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+<!--        demo　begin-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:text="株式会社テスト３"-->
+<!--                    android:textSize="14dp"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:gravity="center|left"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:text="http://www.google.com"-->
+<!--                    android:textSize="14dp"-->
+<!--                    android:gravity="center|left"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="#656565"-->
+<!--                android:orientation="horizontal"/>-->
+
+<!--        </LinearLayout>-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:text="株式会社テスト３"-->
+<!--                    android:textSize="14dp"-->
+<!--                    android:textColor="#000000"-->
+<!--                    android:gravity="center|left"-->
+<!--                    />-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:text="http://www.google.com"-->
+<!--                    android:textSize="14dp"-->
+<!--                    android:gravity="center|left"-->
+<!--                    />-->
+<!--            </LinearLayout>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:background="#656565"-->
+<!--                android:orientation="horizontal"/>-->
+
+<!--        </LinearLayout>-->
+
+        <!--        demo　end-->
 
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                    <TextView
-                        android:text="株式会社テスト３"
-                        android:textColor="@color/black"/>
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                    <TextView
-                        android:text="http://www.google.com"
-                        android:textColor="@color/black"/>
-                </TableRow>
-
-
-            </TableLayout>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="#FFFFFF"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                    <TextView
-                        android:text="株式会社テスト３"
-                        android:textColor="@color/black"/>
-                </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                    <TextView
-                        android:text="http://www.google.com"
-                        android:textColor="@color/black"/>
-                </TableRow>
-
-
-            </TableLayout>
-        </TableRow>
-
-
-    </TableLayout>
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

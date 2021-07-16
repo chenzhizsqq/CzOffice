@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         view = findViewById(android.R.id.content)
 
         //Jsonテスト
-        testJson()
+        //testJson()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 

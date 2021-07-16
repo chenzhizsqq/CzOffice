@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.ui.home.HomeReportDialog
 
 
 class MyPageFragment : Fragment() {
@@ -63,8 +64,19 @@ class MyPageFragment : Fragment() {
 //            val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
 //            startActivity(intent)
 
-            Navigation.findNavController(view)
-                .navigate(R.id.MyPageChangeCompanyActivity);        //就是用这句去转了
+            Thread {
+                try {
+                    var r: String = ""
+                    r = JC.pEtOfficeGetTenant.post()                    //Json 送信
+                    Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
+
+                    Navigation.findNavController(view)
+                        .navigate(R.id.MyPageChangeCompanyFragment);
+                }catch (e:Exception){
+
+
+                }
+            }.start()
 
         })
 

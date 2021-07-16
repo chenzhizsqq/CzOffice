@@ -94,25 +94,47 @@ class EtOfficeGetTenant {
 //        }
 
 
-        fun infoTenantList(index: Int): Tenantlist? {
-            try {
-                val gson = Gson()
-                val mJson: EtOfficeGetTenantJson =
-                    gson.fromJson(lastJson, EtOfficeGetTenantJson::class.java)
-                return mJson.result.tenantlist[index]
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
+    fun infoJson(): JsonClass {
+            val gson = Gson()
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson
+    }
+
+    fun infoResult(): Result {
+            val gson = Gson()
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson.result
+    }
+
+
+    fun infoTenantList(): List<Tenantlist> {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson.result.tenantlist
+    }
+
+    fun infoTenantList(index: Int): Tenantlist? {
+        try {
+            val gson = Gson()
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson.result.tenantlist[index]
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
         }
+        return null
+    }
 
 
-    data class EtOfficeGetTenantJson(
+    data class JsonClass(
         val message: String,
-        val result: EtOfficeGetTenantJsonResult,
+        val result: Result,
         val status: Int
     )
-    data class EtOfficeGetTenantJsonResult(
+    data class Result(
         val tenantlist: List<Tenantlist>
     )
     data class Tenantlist(
