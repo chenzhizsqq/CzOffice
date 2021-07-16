@@ -26,7 +26,7 @@ class EtOfficeSetTenant {
               "tenant": "1"
             }
          */
-        fun post(): String {
+        fun post(tenantid:String): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl
@@ -36,7 +36,7 @@ class EtOfficeSetTenant {
                 jsonObject.put("app", app)
                 jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
                 jsonObject.put("device", "android")
-                jsonObject.put("tenantid","3")
+                jsonObject.put("tenantid",tenantid)
                 val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
                 Log.e(TAG, "post: $jsonObject", )
 

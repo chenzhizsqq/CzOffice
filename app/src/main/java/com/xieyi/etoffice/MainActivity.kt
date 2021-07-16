@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 //                    EtOfficeGetTenant.infoTenantList(0).toString()
 //                )
 
-                r = JC.pEtOfficeSetTenant.post()
+                //r = JC.pEtOfficeSetTenant.post()
 //                Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
 //                Log.e("infoTenantList 0",
 //                    EtOfficeSetTenant.infoTenantList(0).toString()

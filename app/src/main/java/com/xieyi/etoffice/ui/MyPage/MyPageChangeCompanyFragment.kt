@@ -22,8 +22,13 @@ import com.xieyi.etoffice.jsonData.JC
 class MyPageChangeCompanyFragment : Fragment() {
 
     private val TAG: String? = "MyPageChangeCompanyFragment"
+    private var beSelected: Boolean = false
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
+
+    private val tagName: String = "ChangeCompany"
+    private var jsonPostResult:String ="-1"
+
 
 
     override fun onCreateView(
@@ -49,6 +54,9 @@ class MyPageChangeCompanyFragment : Fragment() {
             mLinearLayout.layoutParams = lp
 
 
+            //mLinearLayout tag
+            mLinearLayout.tag = tagName+"_"+i
+
 
             //up
             val textView = TextView(activity)
@@ -69,6 +77,42 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             mLinearLayout.setBackgroundColor(Color.WHITE)
             mLinearLayout.setPadding(20)
+
+            //check tenantid
+            if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[0].tenantid == JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid){
+                mLinearLayout.setBackgroundColor(Color.GREEN)
+            }
+
+
+
+            //mLinearLayout touch   begin
+            mLinearLayout.setOnClickListener {
+                Thread {
+                    try {
+                        //
+                        for (j in 0 .. size-1){
+                            val ll=recordLinearLayout.findViewWithTag<LinearLayout>(tagName+"_"+j)
+                            ll.setBackgroundColor(Color.WHITE)
+                        }
+
+                        val r:String = JC.pEtOfficeSetTenant.post(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid)
+                        Log.e(TAG, "tenantid post r="+r )
+
+
+                        //check tenantid
+                        if(r=="0"){
+                            mLinearLayout.setBackgroundColor(Color.GREEN)
+                        }
+
+                    }catch (e:Exception){
+                        Log.e(TAG, "onCreateView: ",e )
+                    }
+                }.start()
+            }
+            //mLinearLayout touch end
+
+
+
             recordLinearLayout.addView(mLinearLayout)
 
 
@@ -83,6 +127,12 @@ class MyPageChangeCompanyFragment : Fragment() {
 
         }
 
+
+
         return view
+    }
+
+    fun check(){
+
     }
 }
