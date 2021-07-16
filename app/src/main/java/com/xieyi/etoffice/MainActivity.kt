@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
 //                    EtOfficeUserInfo.infoUserStatusList().toString()
 //                )
 
-                //r = JC.pEtOfficeGetUserStatus.post()          //HomeReportDialogで、完成しました
+                //  3	出勤記録    HomeReportDialogで、完成しました
+                //r = JC.pEtOfficeGetUserStatus.post()
 //                Log.e(TAG, "infoUserStatusList: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeGetUserStatus.infoUserStatusList(0).toString()
