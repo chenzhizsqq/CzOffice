@@ -4,30 +4,25 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 
 
 class MyPageChangeCompanyFragment : Fragment() {
 
-    private val TAG: String? = "MyPageChangeCompanyFragment"
-    private var beSelected: Boolean = false
+    private val TAG = "MyPageChangeCompanyFragment"
+
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
     private val tagName: String = "ChangeCompany"
-    private var jsonPostResult:String ="-1"
 
 
 
@@ -50,8 +45,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             mLinearLayout.setOrientation(LinearLayout.VERTICAL)
 
-            val lp = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-            mLinearLayout.layoutParams = lp
+            mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
 
             //mLinearLayout tag
@@ -63,7 +57,6 @@ class MyPageChangeCompanyFragment : Fragment() {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
             textView.setTextColor(Color.parseColor("#000000"))
             textView.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantname
-            //JC.pEtOfficeGetTenant.infoTenantList(i).
             mLinearLayout.addView(textView)
 
 
@@ -76,7 +69,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
 
             mLinearLayout.setBackgroundColor(Color.WHITE)
-            mLinearLayout.setPadding(20)
+            mLinearLayout.setPadding(30)
 
             //check tenantid
             if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[0].tenantid == JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid){
