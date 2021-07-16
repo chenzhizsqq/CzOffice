@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         view = findViewById(android.R.id.content)
 
         //Jsonテスト
-        //testJson()
+        testJson()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 //                    EtOfficeUserInfo.infoUserStatusList().toString()
 //                )
 
-                r = JC.pEtOfficeGetUserStatus.post()
+                //r = JC.pEtOfficeGetUserStatus.post()          //HomeReportDialogで、完成しました
 //                Log.e(TAG, "infoUserStatusList: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeGetUserStatus.infoUserStatusList(0).toString()

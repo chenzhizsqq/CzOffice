@@ -49,9 +49,9 @@ class HomeReportDialog : DialogFragment() {
         //record_linearLayout
         //JC.pEtOfficeGetUserStatus
 
-        Log.e("infoUserStatusList() ",
-            JC.pEtOfficeGetUserStatus.infoUserStatusList().toString()
-        )
+//        Log.e("infoUserStatusList() ",
+//            JC.pEtOfficeGetUserStatus.infoUserStatusList().toString()
+//        )
 
 
         val recordLinearLayout = view.findViewById<LinearLayout>(R.id.record_linearLayout)
