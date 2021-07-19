@@ -53,8 +53,15 @@ class MyPageFragment : Fragment() {
 //            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
 //            startActivity(intent)
 
+            Thread {
+                try {
             Navigation.findNavController(view)
                 .navigate(R.id.MyPagePlaceSettingActivity);        //就是用这句去转了
+                }catch (e:Exception){
+
+
+                }
+            }.start()
 
         })
 

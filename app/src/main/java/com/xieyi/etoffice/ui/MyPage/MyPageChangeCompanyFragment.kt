@@ -7,10 +7,12 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 
@@ -120,6 +122,21 @@ class MyPageChangeCompanyFragment : Fragment() {
 
         }
 
+
+        //returnHome
+        val returnHome = view.findViewById<ImageView>(R.id.returnHome)
+        returnHome.setOnClickListener {
+            Thread {
+                try {
+
+                    Navigation.findNavController(view)
+                        .navigate(R.id.MyPageFragment);
+                }catch (e:Exception){
+                    Log.e(TAG, "returnHome: ",e )
+                }
+            }.start()
+
+        }
 
 
         return view
