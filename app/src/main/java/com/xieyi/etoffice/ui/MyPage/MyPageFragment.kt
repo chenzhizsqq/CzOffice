@@ -18,10 +18,31 @@ class MyPageFragment : Fragment() {
 
     private val TAG: String? = "MyPageFragment"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate: begin", )
+        Thread {
+            try {
+                var r: String = JC.pEtOfficeGetUserLocation.post()                   //Json 送信
+                Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
+
+                r = JC.pEtOfficeGetTenant.post()                                    //Json 送信
+                Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
+
+
+            }catch (e:Exception){
+                Log.e(TAG, "onCreate .post() :$e")
+
+            }
+        }.start()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.e(TAG, "onCreateView: begin", )
+
         val view = inflater.inflate(R.layout.fragment_my_page, container, false)
         try {
 
@@ -49,42 +70,21 @@ class MyPageFragment : Fragment() {
         val pTableRowPlaceManagement: TableRow =
             view.findViewById(R.id.place_management) as TableRow
         pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
-//            val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
-//            startActivity(intent)
 
-            Thread {
-                try {
-                    val r: String = JC.pEtOfficeGetUserLocation.post()                    //Json 送信
-                    Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
 
                     Navigation.findNavController(view)
-                    .navigate(R.id.MyPagePlaceSettingFragment);        //就是用这句去转了
-                }catch (e:Exception){               //Json 送信
-                    Log.e(TAG, "pEtOfficeGetUserLocation.post() :$e")
+                    .navigate(R.id.MyPagePlaceSettingFragment);
 
-                }
-            }.start()
 
         })
 
         //change　company
         val pTableRow: TableRow = view.findViewById(R.id.change_company) as TableRow
         pTableRow.setOnClickListener(View.OnClickListener {
-//            val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
-//            startActivity(intent)
-
-            Thread {
-                try {
-                    val r = JC.pEtOfficeGetTenant.post()                    //Json 送信
-                    Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
 
                     Navigation.findNavController(view)
                         .navigate(R.id.MyPageChangeCompanyFragment);
-                }catch (e:Exception){
-                    Log.e(TAG, "pEtOfficeGetTenant.post() :$e")
 
-                }
-            }.start()
 
         })
 
@@ -96,9 +96,7 @@ class MyPageFragment : Fragment() {
             val mMyPageLogoutDialog = MyPageLogoutDialog()
             mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
             fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
-//            val intent = Intent(activity, LoginActivity::class.java)
-//            startActivity(intent)
-//            getActivity()?.finish()
+
         })
 
         return view

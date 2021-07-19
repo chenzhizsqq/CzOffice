@@ -27,6 +27,22 @@ class MyPagePlaceSettingFragment : Fragment() {
 
     private val tagName: String = "PlaceSetting"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate: begin", )
+        Thread {
+            try {
+                val r: String = JC.pEtOfficeGetUserLocation.post()                   //Json 送信
+                Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
+
+
+            }catch (e:Exception){
+                Log.e(TAG, "pEtOfficeGetUserLocation.post() :$e")
+
+            }
+        }.start()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,27 +99,25 @@ class MyPagePlaceSettingFragment : Fragment() {
 
             //mLinearLayout touch   begin
             mLinearLayout.setOnClickListener {
-                Thread {
-                    try {
-                        //all linearLayouts of recordLinearLayout change WHITE
-                        for (j in 0 .. size-1){
-                            val ll=recordLinearLayout.findViewWithTag<LinearLayout>(tagName+"_"+j)
-                            ll.setBackgroundColor(Color.WHITE)
-                        }
-
-                        //!!!!!!!!!!!!!!!!!!!   set place   !!!!!!!!!!!!!!!!!!!
-                        var r:String = "0"
-
-
-                        //this mLinearLayout green
-                        if(r=="0"){
-                            mLinearLayout.setBackgroundColor(Color.GREEN)
-                        }
-
-                    }catch (e:Exception){
-                        Log.e(TAG, "mLinearLayout.setOnClickListener: ",e )
+                try {
+                    //all linearLayouts of recordLinearLayout change WHITE
+                    for (j in 0 .. size-1){
+                        val ll=recordLinearLayout.findViewWithTag<LinearLayout>(tagName+"_"+j)
+                        ll.setBackgroundColor(Color.WHITE)
                     }
-                }.start()
+
+                    //!!!!!!!!!!!!!!!!!!!   set place   !!!!!!!!!!!!!!!!!!!
+                    var r:String = "0"
+
+
+                    //this mLinearLayout green
+                    if(r=="0"){
+                        mLinearLayout.setBackgroundColor(Color.GREEN)
+                    }
+
+                }catch (e:Exception){
+                    Log.e(TAG, "mLinearLayout.setOnClickListener: ",e )
+                }
             }
             //mLinearLayout touch end
 

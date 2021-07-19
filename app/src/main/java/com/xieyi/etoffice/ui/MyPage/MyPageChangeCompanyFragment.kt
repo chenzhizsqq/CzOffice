@@ -26,6 +26,22 @@ class MyPageChangeCompanyFragment : Fragment() {
 
     private val tagName: String = "ChangeCompany"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate: begin", )
+        Thread {
+            try {
+
+                val r = JC.pEtOfficeGetTenant.post()                                    //Json 送信
+                Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
+
+
+            }catch (e:Exception){
+                Log.e(TAG, "pEtOfficeGetTenant.post() :$e")
+
+            }
+        }.start()
+    }
 
 
     override fun onCreateView(
@@ -82,27 +98,25 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             //mLinearLayout touch   begin
             mLinearLayout.setOnClickListener {
-                Thread {
-                    try {
-                        //
-                        for (j in 0 .. size-1){
-                            val ll=recordLinearLayout.findViewWithTag<LinearLayout>(tagName+"_"+j)
-                            ll.setBackgroundColor(Color.WHITE)
-                        }
-
-                        val r:String = JC.pEtOfficeSetTenant.post(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid)
-                        Log.e(TAG, "tenantid post r="+r )
-
-
-                        //check tenantid
-                        if(r=="0"){
-                            mLinearLayout.setBackgroundColor(Color.GREEN)
-                        }
-
-                    }catch (e:Exception){
-                        Log.e(TAG, "onCreateView: ",e )
+                try {
+                    //
+                    for (j in 0 .. size-1){
+                        val ll=recordLinearLayout.findViewWithTag<LinearLayout>(tagName+"_"+j)
+                        ll.setBackgroundColor(Color.WHITE)
                     }
-                }.start()
+
+                    val r:String = JC.pEtOfficeSetTenant.post(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid)
+                    Log.e(TAG, "tenantid post r="+r )
+
+
+                    //check tenantid
+                    if(r=="0"){
+                        mLinearLayout.setBackgroundColor(Color.GREEN)
+                    }
+
+                }catch (e:Exception){
+                    Log.e(TAG, "mLinearLayout.setOnClickListener: ",e )
+                }
             }
             //mLinearLayout touch end
 
