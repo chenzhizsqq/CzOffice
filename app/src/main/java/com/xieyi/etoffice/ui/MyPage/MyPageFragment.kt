@@ -59,8 +59,8 @@ class MyPageFragment : Fragment() {
 
                     Navigation.findNavController(view)
                     .navigate(R.id.MyPagePlaceSettingFragment);        //就是用这句去转了
-                }catch (e:Exception){
-
+                }catch (e:Exception){               //Json 送信
+                    Log.e(TAG, "pEtOfficeGetUserLocation.post() :$e")
 
                 }
             }.start()
@@ -75,14 +75,13 @@ class MyPageFragment : Fragment() {
 
             Thread {
                 try {
-                    var r: String = ""
-                    r = JC.pEtOfficeGetTenant.post()                    //Json 送信
+                    val r = JC.pEtOfficeGetTenant.post()                    //Json 送信
                     Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
 
                     Navigation.findNavController(view)
                         .navigate(R.id.MyPageChangeCompanyFragment);
                 }catch (e:Exception){
-
+                    Log.e(TAG, "pEtOfficeGetTenant.post() :$e")
 
                 }
             }.start()

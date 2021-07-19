@@ -126,15 +126,9 @@ class MyPageChangeCompanyFragment : Fragment() {
         //returnHome
         val returnHome = view.findViewById<ImageView>(R.id.returnHome)
         returnHome.setOnClickListener {
-            Thread {
-                try {
 
-                    Navigation.findNavController(view)
-                        .navigate(R.id.MyPageFragment);
-                }catch (e:Exception){
-                    Log.e(TAG, "returnHome: ",e )
-                }
-            }.start()
+            Navigation.findNavController(view)
+                .navigate(R.id.MyPageFragment);
 
         }
 
