@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
-import com.xieyi.etoffice.ui.home.HomeReportDialog
 
 
 class MyPageFragment : Fragment() {
@@ -56,7 +55,7 @@ class MyPageFragment : Fragment() {
             Thread {
                 try {
             Navigation.findNavController(view)
-                .navigate(R.id.MyPagePlaceSettingActivity);        //就是用这句去转了
+                .navigate(R.id.MyPagePlaceSettingFragment);        //就是用这句去转了
                 }catch (e:Exception){
 
 
