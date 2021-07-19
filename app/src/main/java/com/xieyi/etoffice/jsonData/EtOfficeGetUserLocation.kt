@@ -91,11 +91,11 @@ class EtOfficeGetUserLocation {
 
     data class JsonClass(
         val message: String,
-        val result: EtOfficeGetUserLocationResult,
+        val result: Result,
         val status: Int
     )
 
-    data class EtOfficeGetUserLocationResult(
+    data class Result(
         val locationlist: List<Locationlist>
     )
 
