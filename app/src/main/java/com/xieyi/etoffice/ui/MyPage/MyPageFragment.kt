@@ -54,8 +54,11 @@ class MyPageFragment : Fragment() {
 
             Thread {
                 try {
-            Navigation.findNavController(view)
-                .navigate(R.id.MyPagePlaceSettingFragment);        //就是用这句去转了
+                    val r: String = JC.pEtOfficeGetUserLocation.post()                    //Json 送信
+                    Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
+
+                    Navigation.findNavController(view)
+                    .navigate(R.id.MyPagePlaceSettingFragment);        //就是用这句去转了
                 }catch (e:Exception){
 
 

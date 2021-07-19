@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.jsonData.JC
 
 class MyPagePlaceSettingFragment : Fragment() {
     private val TAG = "MyPagePlaceSettingFragment"
@@ -23,8 +24,12 @@ class MyPagePlaceSettingFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.activity_my_page_place_setting, container, false)
 
+        val size= JC.pEtOfficeGetUserLocation.infoJson().result.locationlist.size
 
-        //returnHome
+        Log.e(TAG, "locationlist.size: $size", )
+
+
+        //returnpHome
         val returnHome = view.findViewById<ImageView>(R.id.returnHome)
         returnHome.setOnClickListener {
             Thread {
