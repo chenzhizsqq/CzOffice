@@ -1,22 +1,31 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
+
 
 class MyPagePlaceSettingFragment : Fragment() {
     private val TAG = "MyPagePlaceSettingFragment"
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
+
+    private val tagName: String = "PlaceSetting"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +35,54 @@ class MyPagePlaceSettingFragment : Fragment() {
 
         val size= JC.pEtOfficeGetUserLocation.infoJson().result.locationlist.size
 
-        Log.e(TAG, "locationlist.size: $size", )
+        //info
+
+        val recordLinearLayout = view.findViewById<LinearLayout>(R.id.record_linearLayout)
+
+        Log.e(TAG, "locationlist.size: $size")
+
+
+        for (i in 0 .. size-1){
+            //LinearLayout init
+            val mLinearLayout= LinearLayout(activity)
+            mLinearLayout.setOrientation(LinearLayout.HORIZONTAL)
+            mLinearLayout.gravity = (Gravity.CENTER or Gravity.LEFT)
+            mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+            //mLinearLayout tag
+            mLinearLayout.tag = tagName+"_"+i
+
+            //location info
+
+
+            //image logo
+            val imageView = ImageView(activity)
+            val myDrawable = ResourcesCompat.getDrawable(
+                resources, R.drawable.icons8_plus_50, null
+            )
+
+            //image logo size
+            val layoutParams = LinearLayout.LayoutParams(50, 50)
+            imageView.layoutParams = layoutParams
+
+
+
+            imageView.setImageDrawable(myDrawable)
+            mLinearLayout.addView(imageView)
+
+            val textView = TextView(activity)
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+            textView.setTextColor(Color.parseColor("#000000"))
+            textView.text = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location
+            mLinearLayout.addView(textView)
+
+            //design
+            mLinearLayout.setBackgroundColor(Color.WHITE)
+            mLinearLayout.setPadding(30)
+
+            //over to add
+            recordLinearLayout.addView(mLinearLayout)
+        }
 
 
         //returnpHome

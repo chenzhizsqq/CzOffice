@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 //                    EtOfficeGetUserLocation.infoUserstatuslist(0).toString()
 //                )
 
-                r = JC.pEtOfficeSetUserLocation.post()
+                //r = JC.pEtOfficeSetUserLocation.post()
 //                Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
 //                Log.e("infoLocationList 0",
 //                    EtOfficeSetUserLocation.infoLocationList(0).toString()
