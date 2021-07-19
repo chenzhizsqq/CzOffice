@@ -65,8 +65,7 @@ class MyPagePlaceSettingFragment : Fragment() {
             val layoutParams = LinearLayout.LayoutParams(50, 50)
             imageView.layoutParams = layoutParams
 
-
-
+            //image logo add
             imageView.setImageDrawable(myDrawable)
             mLinearLayout.addView(imageView)
 
@@ -80,9 +79,46 @@ class MyPagePlaceSettingFragment : Fragment() {
             mLinearLayout.setBackgroundColor(Color.WHITE)
             mLinearLayout.setPadding(30)
 
+
+
+            //mLinearLayout touch   begin
+            mLinearLayout.setOnClickListener {
+                Thread {
+                    try {
+                        //all linearLayouts of recordLinearLayout change WHITE
+                        for (j in 0 .. size-1){
+                            val ll=recordLinearLayout.findViewWithTag<LinearLayout>(tagName+"_"+j)
+                            ll.setBackgroundColor(Color.WHITE)
+                        }
+
+                        //!!!!!!!!!!!!!!!!!!!   set place   !!!!!!!!!!!!!!!!!!!
+                        var r:String = "0"
+
+
+                        //this mLinearLayout green
+                        if(r=="0"){
+                            mLinearLayout.setBackgroundColor(Color.GREEN)
+                        }
+
+                    }catch (e:Exception){
+                        Log.e(TAG, "mLinearLayout.setOnClickListener: ",e )
+                    }
+                }.start()
+            }
+            //mLinearLayout touch end
+
             //over to add
             recordLinearLayout.addView(mLinearLayout)
+
+
+            //線
+            val mLinearLayout2= LinearLayout(activity)
+            val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+            mLinearLayout2.layoutParams = lp2
+            mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+            recordLinearLayout.addView(mLinearLayout2)
         }
+
 
 
         //returnpHome
