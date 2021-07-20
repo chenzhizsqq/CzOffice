@@ -37,7 +37,7 @@ class EtOfficeGetUserStatus {
                 jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
                 jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("device", "android")
-                Log.e(TAG, "jsonObject:$jsonObject")
+                //Log.e(TAG, "jsonObject:$jsonObject")
                 val body = jsonObject.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -50,7 +50,7 @@ class EtOfficeGetUserStatus {
                         var json:String = response.body!!.string()
                         lastJson = json
                         var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                        //Log.e(TAG, "mJsonResult:$mJsonResult" )
 
                         status = mJsonResult.getString("status")
 

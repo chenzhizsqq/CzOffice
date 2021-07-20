@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
                 try {
                     var r: String = ""
                     r = JC.pEtOfficeGetUserStatus.post()
-                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
+                    //Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
                     val mHomeReportDialog = HomeReportDialog()
                     mHomeReportDialog.setTargetFragment(this@HomeFragment, 1)
