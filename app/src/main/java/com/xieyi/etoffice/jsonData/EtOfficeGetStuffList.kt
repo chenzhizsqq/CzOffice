@@ -73,18 +73,27 @@ class EtOfficeGetStuffList {
          */
 
 
-        fun getResult(): Result? {
-            try {
-                val gson = Gson()
-                val mJson: EtOfficeGetStuffListJson =
-                    gson.fromJson(lastJson, EtOfficeGetStuffListJson::class.java)
-                return mJson.result
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
+    fun getResult(): Result? {
+        try {
+            val gson = Gson()
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson.result
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
         }
-    data class EtOfficeGetStuffListJson(
+        return null
+    }
+
+
+    fun infoJson(): JsonClass {
+            val gson = Gson()
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson
+    }
+
+    data class JsonClass(
         val message: String,
         val result: Result,
         val status: Int

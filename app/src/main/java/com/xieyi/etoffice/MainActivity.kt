@@ -77,13 +77,13 @@ class MainActivity : AppCompatActivity() {
 //                )
 
                 //  3	出勤記録    HomeReportDialogで、完成しました
-                //r = JC.pEtOfficeGetUserStatus.post()
+                r = JC.pEtOfficeGetUserStatus.post()
 //                Log.e(TAG, "infoUserStatusList: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeGetUserStatus.infoUserStatusList(0).toString()
 //                )
 
-                r = JC.pEtOfficeSetUserStatus.post()
+                //r = JC.pEtOfficeSetUserStatus.post()
 //                Log.e(TAG, "onCreate: r==$r")
 //                Log.e("infoUserStatusList 0",
 //                    EtOfficeSetUserStatus.infoUserStatusList(0).toString()
