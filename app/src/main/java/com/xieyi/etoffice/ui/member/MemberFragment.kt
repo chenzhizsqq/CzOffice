@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
@@ -56,7 +57,7 @@ class MemberFragment : Fragment() {
 
         val size= JC.pEtOfficeGetStuffList.infoJson().result.sectionlist.size
 
-        for (i in 0 until 3){
+        for (i in 0 until 4){
 
 
 
@@ -73,17 +74,28 @@ class MemberFragment : Fragment() {
             ll.addView(imageView)
 
 
-            //test
+            //info left
             val tl_Left = funTableLayoutL()
             ll.addView(tl_Left)
 
+            //info right
             val tl_right = funTableLayoutR()
             tl_right.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT)
-
             ll.addView(tl_right)
 
+            //recordLinearLayout setting
+            recordLinearLayout.setBackgroundColor(Color.WHITE)
+            recordLinearLayout.setPadding(10)
 
+            //over to add
             recordLinearLayout.addView(ll)
+
+            //線
+            val mLinearLayout2= LinearLayout(activity)
+            val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+            mLinearLayout2.layoutParams = lp2
+            mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+            recordLinearLayout.addView(mLinearLayout2)
 
         }
 
@@ -201,7 +213,7 @@ class MemberFragment : Fragment() {
         val r = TableLayout(activity)
 
 
-        makeRowRight(r,"ok1432432")
+        makeRowRightS(r,"ok1432432")
 
         makeRowRight(r,"ok22")
 
@@ -222,6 +234,27 @@ class MemberFragment : Fragment() {
         val tr = TableRow(activity)
 
         tr.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT)
+        val text = makeText(s)
+        text.gravity = Gravity.RIGHT;
+
+        tr.addView(text)
+        tr.gravity = Gravity.RIGHT;
+
+        r.addView(tr)
+    }
+
+    private fun makeRowRightS(r: TableLayout, s:String) {
+        val tr = TableRow(activity)
+
+        tr.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT)
+
+
+        val text_mr = makeText(" ● ")
+        text_mr.gravity = Gravity.RIGHT;
+        tr.addView(text_mr)
+        text_mr.textSize = 20F
+        text_mr.setTextColor(Color.GREEN)
+
         val text = makeText(s)
         text.gravity = Gravity.RIGHT;
 
