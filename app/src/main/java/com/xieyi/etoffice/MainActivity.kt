@@ -49,9 +49,13 @@ class MainActivity : AppCompatActivity() {
         //データ更新
         Thread {
             try {
-                val r = JC.pEtOfficeGetStuffList.post()
+                //社員一覧取得
+                var r = JC.pEtOfficeGetStuffList.post()
                 Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
 
+                //日報一覧取得
+                r = JC.pEtOfficeGetReportList.post()
+                Log.e(TAG, "pEtOfficeGetReportList.post():$r")
 
             }catch (e:Exception){
                 Log.e(TAG, "onCreate .post() :$e")

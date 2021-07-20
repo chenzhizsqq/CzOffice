@@ -75,7 +75,7 @@ class EtOfficeGetReportList {
      */
 
 
-    fun getGsonJson(): String {
+    fun infoJson(): String {
         try {
             val gson = Gson()
             val mJson: Json =

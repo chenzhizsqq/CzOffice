@@ -1,15 +1,42 @@
 package com.xieyi.etoffice.ui.report
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TableRow
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.jsonData.JC
 
 class ReportFragment : Fragment() {
+
+    private val TAG = javaClass.simpleName
+
+    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
+    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate: begin", )
+
+        //データ更新
+        Thread {
+            try {
+
+                val r = JC.pEtOfficeGetReportList.post()
+                Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
+
+
+            }catch (e:Exception){
+                Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
+
+            }
+        }.start()
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
