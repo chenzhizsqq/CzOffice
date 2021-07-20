@@ -5,12 +5,11 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.xieyi.etoffice.R
@@ -61,31 +60,30 @@ class MemberFragment : Fragment() {
 
 
 
-            val mLinearLayout= LinearLayout(activity)
+            val ll= LinearLayout(activity)
 
-            mLinearLayout.setOrientation(LinearLayout.HORIZONTAL)
+            ll.setOrientation(LinearLayout.HORIZONTAL)
 
-            mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            ll.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
 
             //image logo
-            val imageView = funImage()
+            val imageView = makeImage(180)
+
+            ll.addView(imageView)
 
 
-            mLinearLayout.addView(imageView)
+            //test
+            val tl_Left = funTableLayoutL()
+            ll.addView(tl_Left)
+
+            val tl_right = funTableLayoutR()
+            tl_right.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT)
+
+            ll.addView(tl_right)
 
 
-            var ml = greanLL()
-
-            mLinearLayout.addView(ml)
-
-            var ml_bb = greanBB()
-
-            mLinearLayout.addView(ml_bb)
-
-
-
-            recordLinearLayout.addView(mLinearLayout)
+            recordLinearLayout.addView(ll)
 
         }
 
@@ -105,7 +103,7 @@ class MemberFragment : Fragment() {
     }
 
     private fun greanLL(): LinearLayout {
-        var ml = funML()
+        val ml = funML()
         val imageView2 = funImage2()
         val imageView3 = funImage2()
         val imageView4 = funImage2()
@@ -152,14 +150,14 @@ class MemberFragment : Fragment() {
         return ml
     }
 
-    private fun funImage():ImageView {
+    private fun makeImage(size:Int):ImageView {
         val imageView = ImageView(activity)
         val myDrawable = ResourcesCompat.getDrawable(
             resources, R.drawable.icons8_plus_50, null
         )
 
         //image logo size
-        val layoutParams = LinearLayout.LayoutParams(200, 200)
+        val layoutParams = LinearLayout.LayoutParams(size, size)
         imageView.layoutParams = layoutParams
 
         //image logo add
@@ -182,5 +180,60 @@ class MemberFragment : Fragment() {
         imageView.setImageDrawable(myDrawable)
 
         return imageView
+    }
+
+
+
+    private fun funTableLayoutL(): TableLayout {
+        val r = TableLayout(activity)
+
+
+        makeRowLeft(r,"321")
+        makeRowLeft(r,"okeqe3dfdsa")
+        makeRowLeft(r,"fgfds")
+
+
+        return r
+    }
+
+
+    private fun funTableLayoutR(): TableLayout {
+        val r = TableLayout(activity)
+
+
+        makeRowRight(r,"ok1432432")
+
+        makeRowRight(r,"ok22")
+
+        makeRowRight(r,"ok343")
+
+        r.gravity = Gravity.RIGHT;
+        return r
+    }
+
+    private fun makeRowLeft(r: TableLayout,s:String) {
+        val tableRow = TableRow(activity)
+        val t = makeText(s)
+        tableRow.addView(t)
+        r.addView(tableRow)
+    }
+
+    private fun makeRowRight(r: TableLayout, s:String) {
+        val tr = TableRow(activity)
+
+        tr.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT)
+        val text = makeText(s)
+        text.gravity = Gravity.RIGHT;
+
+        tr.addView(text)
+        tr.gravity = Gravity.RIGHT;
+
+        r.addView(tr)
+    }
+
+    private fun makeText(s:String):TextView {
+        val t = TextView(activity)
+        t.text = s
+        return t
     }
 }
