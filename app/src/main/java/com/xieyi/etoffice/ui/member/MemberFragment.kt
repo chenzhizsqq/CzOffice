@@ -18,7 +18,7 @@ import com.xieyi.etoffice.jsonData.JC
 
 class MemberFragment : Fragment() {
 
-    private val TAG = "MemberFragment"
+    private val TAG = javaClass.simpleName
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
@@ -76,6 +76,7 @@ class MemberFragment : Fragment() {
 
             //info left
             val tl_Left = funTableLayoutL()
+            tl_Left.minimumWidth = 500
             ll.addView(tl_Left)
 
             //info right
@@ -136,9 +137,9 @@ class MemberFragment : Fragment() {
         val r = TableLayout(activity)
 
 
-        makeRowLeft(r,"321")
-        makeRowLeft(r,"okeqe3dfdsa")
-        makeRowLeft(r,"fgfds")
+        makeRowLeft(r,"321",14F)
+        makeRowLeft(r,"okeqe3dfdsa",20F)
+        makeRowLeft(r,"fgfds",14F)
 
 
         return r
@@ -153,15 +154,16 @@ class MemberFragment : Fragment() {
 
         makeRowRight(r,"ok22")
 
-        makeRowRight(r,"ok343")
+        makeRowLeft(r,"ok343",14F)
 
         r.gravity = Gravity.RIGHT;
         return r
     }
 
-    private fun makeRowLeft(r: TableLayout,s:String) {
+    private fun makeRowLeft(r: TableLayout,s:String ,ts:Float) {
         val tableRow = TableRow(activity)
         val t = makeText(s)
+        t.textSize = ts
         tableRow.addView(t)
         r.addView(tableRow)
     }
