@@ -26,20 +26,20 @@ class MainActivity : AppCompatActivity() {
         //Jsonテスト
         try {
 
-//            Thread {
-//                try {
-//                    var r: String = ""
-//                    r = JC.pEtOfficeGetUserLocation.post()
-//                } catch (e: Exception) {
-//
-//                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null)
-//                        .show()
-//                    Log.e(TAG, "TAG", e)
-//                }
-//
-//
-//            }.start()
+            Thread {
+                try {
+                    val r = JC.pEtOfficeGetStuffList.post()
+                    Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
+                } catch (e: Exception) {
+
+                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show()
+                    Log.e(TAG, "TAG", e)
+                }
+
+
+            }.start()
             //testJson()
         }catch (e:Exception){
             Log.e(TAG, "testJson: ", )
