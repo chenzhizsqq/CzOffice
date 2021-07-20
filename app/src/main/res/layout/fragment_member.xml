@@ -20,6 +20,17 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="30dp" />
+
+        <!--内容-->
+        <LinearLayout
+            android:id="@+id/record_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </LinearLayout>
+        <!--内容-->
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="90dp"

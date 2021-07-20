@@ -24,10 +24,12 @@ class MemberFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate: begin", )
+
+        //データ更新
         Thread {
             try {
 
-                val r = JC.pEtOfficeGetStuffList.post()                                    //Json 送信
+                val r = JC.pEtOfficeGetStuffList.post()
                 Log.e(TAG, "pEtOfficeGetStuffList.post() :$r")
 
 

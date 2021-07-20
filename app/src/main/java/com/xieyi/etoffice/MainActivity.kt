@@ -23,27 +23,41 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         view = findViewById(android.R.id.content)
 
-        //Jsonテスト
+        //Jsonテスト   begin
         try {
 
-            Thread {
-                try {
-                    val r = JC.pEtOfficeGetStuffList.post()
-                    Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
-                } catch (e: Exception) {
-
-                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show()
-                    Log.e(TAG, "TAG", e)
-                }
-
-
-            }.start()
+//            Thread {
+//                try {
+//                    val r = JC.pEtOfficeGetStuffList.post()
+//                    Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
+//                } catch (e: Exception) {
+//
+//                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null)
+//                        .show()
+//                    Log.e(TAG, "TAG", e)
+//                }
+//
+//
+//            }.start()
             //testJson()
         }catch (e:Exception){
             Log.e(TAG, "testJson: ", )
         }
+        //Jsonテスト   end
+
+        //データ更新
+        Thread {
+            try {
+                val r = JC.pEtOfficeGetStuffList.post()
+                Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
+
+
+            }catch (e:Exception){
+                Log.e(TAG, "onCreate .post() :$e")
+
+            }
+        }.start()
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
