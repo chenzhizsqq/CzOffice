@@ -114,54 +114,6 @@ class MemberFragment : Fragment() {
 
     }
 
-    private fun greanLL(): LinearLayout {
-        val ml = funML()
-        val imageView2 = funImage2()
-        val imageView3 = funImage2()
-        val imageView4 = funImage2()
-
-        ml.addView(imageView2)
-        ml.addView(imageView3)
-        ml.addView(imageView4)
-
-        ml.setBackgroundColor(Color.GREEN)
-        return ml
-    }
-
-    private fun greanBB(): LinearLayout {
-        var ml = funML2()
-        val imageView2 = funImage2()
-        val imageView3 = funImage2()
-        val imageView4 = funImage2()
-
-        ml.addView(imageView2)
-        ml.addView(imageView3)
-        ml.addView(imageView4)
-
-        ml.setBackgroundColor(Color.BLUE)
-        return ml
-    }
-
-    private fun funML():LinearLayout {
-        val ml = LinearLayout(activity)
-
-        ml.orientation = LinearLayout.VERTICAL
-
-        ml.layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, MATCH_PARENT)
-
-        return ml
-    }
-
-    private fun funML2():LinearLayout {
-        val ml = LinearLayout(activity)
-
-        ml.orientation = LinearLayout.VERTICAL
-
-        ml.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-
-        return ml
-    }
-
     private fun makeImage(size:Int):ImageView {
         val imageView = ImageView(activity)
         val myDrawable = ResourcesCompat.getDrawable(
@@ -170,22 +122,6 @@ class MemberFragment : Fragment() {
 
         //image logo size
         val layoutParams = LinearLayout.LayoutParams(size, size)
-        imageView.layoutParams = layoutParams
-
-        //image logo add
-        imageView.setImageDrawable(myDrawable)
-
-        return imageView
-    }
-
-    private fun funImage2():ImageView {
-        val imageView = ImageView(activity)
-        val myDrawable = ResourcesCompat.getDrawable(
-            resources, R.drawable.ic_home_black_24dp, null
-        )
-
-        //image logo size
-        val layoutParams = LinearLayout.LayoutParams(50, 50)
         imageView.layoutParams = layoutParams
 
         //image logo add
