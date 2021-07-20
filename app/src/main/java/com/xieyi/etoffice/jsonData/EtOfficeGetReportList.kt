@@ -75,55 +75,56 @@ class EtOfficeGetReportList {
      */
 
 
-    fun infoJson(): String {
-        try {
+    fun infoJson(): JsonClass {
             val gson = Gson()
-            val mJson: Json =
-                gson.fromJson(lastJson, Json::class.java)
-            return mJson.toString()
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return ""
+            val mJson: JsonClass =
+                gson.fromJson(lastJson, JsonClass::class.java)
+            return mJson
     }
-
-    fun getResult(): Result? {
-        try {
-            val gson = Gson()
-            val mJson: Json =
-                gson.fromJson(lastJson, Json::class.java)
-            return mJson.result
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return null
-    }
-
-    data class Json(
+    data class JsonClass(
         val message: String,
         val result: Result,
         val status: Int
     )
 
+//    data class Result(
+//        val sectionlist: List<SectionList>
+//    )
+//
+//    data class SectionList(
+//        val sectioncd: String,
+//        val sectionname: String,
+//        var stufflist: List<StuffList>
+//    )
+//
+//    data class StuffList(
+//        val tenant: String,
+//        val hpid: String,
+//        val userid: String,
+//        val username: String,
+//        val userkana: String,
+//        val phone: String,
+//        val mail: String,
+//    )
+
+    data class Group(
+    val month: String,
+    val reportlist: List<Reportlist>
+)
+
+    data class Reportlist(
+    val approval: String,
+    val content: String,
+    val holiday: String,
+    val itemid: String,
+    val title: String,
+    val warning: String,
+    val yyyymmdd: String
+)
     data class Result(
-        val sectionlist: List<SectionList>
-    )
-
-    data class SectionList(
-        val sectioncd: String,
-        val sectionname: String,
-        var stufflist: List<StuffList>
-    )
-
-    data class StuffList(
-        val tenant: String,
-        val hpid: String,
-        val userid: String,
-        val username: String,
-        val userkana: String,
-        val phone: String,
-        val mail: String,
-    )
+    val authflag: String,
+    val group: List<Group>
+)
 
 }
 
