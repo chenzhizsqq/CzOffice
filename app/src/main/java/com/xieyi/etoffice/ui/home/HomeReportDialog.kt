@@ -2,7 +2,6 @@ package com.xieyi.etoffice.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.FrameLayout
@@ -115,6 +114,7 @@ class HomeReportDialog : DialogFragment() {
 
         return view
     }
+
 
 
     private fun makeTextView(text: String): TextView? {
