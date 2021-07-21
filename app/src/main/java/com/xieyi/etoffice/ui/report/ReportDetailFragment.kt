@@ -14,6 +14,7 @@ import android.widget.TableLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
@@ -131,6 +132,15 @@ class ReportDetailFragment() : Fragment() {
             val pReportAddDialog = ReportAddDialog()
             pReportAddDialog.setTargetFragment(this, 1)
             fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
+        }
+
+
+        //returnpHome
+        val returnHome = view.findViewById<ImageView>(R.id.returnHome)
+        returnHome.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.report_fragment);
+
         }
 
 

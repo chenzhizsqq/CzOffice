@@ -22,7 +22,7 @@
         android:label="@string/title_member_fragment"
         tools:layout="@layout/fragment_member" />
     <fragment
-        android:id="@+id/ScrollingFragmentReport"
+        android:id="@+id/report_fragment"
         android:name="com.xieyi.etoffice.ui.report.ReportFragment"
         android:label="@string/title_report"
         tools:layout="@layout/fragment_scrolling_report" />

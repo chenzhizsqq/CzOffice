@@ -144,14 +144,12 @@ class ReportFragment : Fragment() {
 
 
 
-        //report_info_title
-        val pTableRowInfoTitle: TableRow = view.findViewById(R.id.report_info_title_1) as TableRow
-        pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
-//            val intent = Intent(activity, ReportDetail::class.java)
-//            startActivity(intent)
-
-            Navigation.findNavController(view).navigate(R.id.ReportDetail);        //就是用这句去转了
-        })
+        //demo
+//        val pTableRowInfoTitle: TableRow = view.findViewById(R.id.report_info_title_1) as TableRow
+//        pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
+//
+//            Navigation.findNavController(view).navigate(R.id.ReportDetail);        //就是用这句去转了
+//        })
 
         return view
     }
