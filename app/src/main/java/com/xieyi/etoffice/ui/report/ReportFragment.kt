@@ -55,11 +55,12 @@ class ReportFragment : Fragment() {
         val recordLinearLayout = view.findViewById<LinearLayout>(R.id.record_linearLayout)
 
 
-        Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
+        //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
 
         val size= JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist.size
 
 
+        var yyyymmdd:String=""
 
         for (i in 0 .. size-1) {
 
@@ -76,7 +77,8 @@ class ReportFragment : Fragment() {
             m1.setOrientation(LinearLayout.HORIZONTAL)
             m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
-            val yyyymmdd =JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
+            yyyymmdd = JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
+            //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
             val y_m_d = Tools.allDate(yyyymmdd)
 
             val TV_up = makeTextView("$y_m_d  ")
@@ -101,13 +103,16 @@ class ReportFragment : Fragment() {
 
 
             //setOnClickListener
-            recordLinearLayout.setOnClickListener(View.OnClickListener {
+            mLinearLayout.setOnClickListener(View.OnClickListener {
 
                 Thread {
                     try {
 
+//                        Log.e(TAG, "reportlist[i]:i = $i")
+                        yyyymmdd = JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
                         val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
-                        Log.e(TAG, "pEtOfficeGetReportInfo.post() :$r")
+//                        Log.e(TAG, "pEtOfficeGetReportInfo.post() :$r")
+//                        Log.e(TAG, "pEtOfficeGetReportInfo.post() yyyymmdd:$yyyymmdd")
 
                         val bundle = Bundle()
                         bundle.putString("date", yyyymmdd)
