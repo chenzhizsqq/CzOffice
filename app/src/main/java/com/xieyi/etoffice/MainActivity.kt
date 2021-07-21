@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                 r = JC.pEtOfficeSetApprovalJsk.post()
 
                 //EtOfficeGetReportInfo test
-                r = JC.pEtOfficeGetReportInfo.post()
+                r = JC.pEtOfficeGetReportInfo.post("20210305")
                 Log.e(TAG,"pEtOfficeGetReportInfo infoResult:"
                         +JC.pEtOfficeGetReportInfo.infoResult().toString()
                 )

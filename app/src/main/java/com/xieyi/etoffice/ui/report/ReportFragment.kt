@@ -55,7 +55,7 @@ class ReportFragment : Fragment() {
         val recordLinearLayout = view.findViewById<LinearLayout>(R.id.record_linearLayout)
 
 
-        //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
+        Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
 
         val size= JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist.size
 
@@ -103,7 +103,19 @@ class ReportFragment : Fragment() {
             //setOnClickListener
             recordLinearLayout.setOnClickListener(View.OnClickListener {
 
-                Navigation.findNavController(view).navigate(R.id.ReportDetail);        //就是用这句去转了
+                Thread {
+                    try {
+
+                        val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
+                        Log.e(TAG, "pEtOfficeGetReportInfo.post() :$r")
+
+                        Navigation.findNavController(view).navigate(R.id.ReportDetail);        //ReportDetail
+
+                    }catch (e:Exception){
+                        Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
+
+                    }
+                }.start()
             })
 
 

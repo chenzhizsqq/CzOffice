@@ -18,17 +18,30 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 
 
-class ReportDetailFragment : Fragment() {
+class ReportDetailFragment() : Fragment() {
 
     val TAG = "ReportDetail"
     lateinit var buttonImageButton1: ImageView
     lateinit var mLinearLayout: LinearLayout
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate: begin")
+
+        //データ更新
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_report_detail, container, false)
+
+
+        Log.e(TAG, "JC.pEtOfficeGetReportInfo:"+JC.pEtOfficeGetReportInfo.lastJson )
+
+
+
         buttonImageButton1 = view.findViewById(R.id.imageButton1)
         buttonImageButton1.setOnClickListener {
 

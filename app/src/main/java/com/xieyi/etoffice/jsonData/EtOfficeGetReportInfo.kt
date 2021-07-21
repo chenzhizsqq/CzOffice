@@ -16,10 +16,10 @@ import javax.security.auth.login.LoginException
 class EtOfficeGetReportInfo {
 
     private val TAG = "EtOfficeGetReportInfo"
-    private var lastJson: String = ""
+    var lastJson: String = ""
     val app: String = "EtOfficeGetReportInfo"
 
-    fun post(): String {
+    fun post(ymd:String): String {
         var status:String = "-1"
         val client: OkHttpClient = OkHttpClient()
         val url:String = Config.LoginUrl
@@ -41,7 +41,8 @@ class EtOfficeGetReportInfo {
             jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
             jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
-            jsonObject.put("ymd", "20210305")
+            //jsonObject.put("ymd", "20210305")
+            jsonObject.put("ymd", ymd)
             Log.e(TAG, jsonObject.toString(), )
 
             val body = jsonObject.toString()
