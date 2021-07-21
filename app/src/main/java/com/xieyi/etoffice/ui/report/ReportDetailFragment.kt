@@ -27,7 +27,31 @@ class ReportDetailFragment() : Fragment() {
     //検索の日付
     var date:String=""
 
+/*
+    {
+        "status": 0,
+        "result": {
+        "authflag": "",
+        "planworktime": "",
+        "worktime": "通常勤務 19:02-",
+        "planworklist": [],
+        "workstatuslist": [
+        {
+            "time": "19:02",
+            "status": "会議中"
+        },
+        {
+            "time": "19:02",
+            "status": "移動中"
+        }
+        ],
+        "reportlist": [],
+        "commentlist": []
+    },
+        "message": ""
+    }
 
+ */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate: begin")
@@ -47,8 +71,16 @@ class ReportDetailFragment() : Fragment() {
         Log.e(TAG, "JC.pEtOfficeGetReportInfo:"+JC.pEtOfficeGetReportInfo.lastJson )
 
 
+        //検索の日付
         val record_date:TextView = view.findViewById(R.id.record_date)
         record_date.text = date
+
+
+        val size= JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
+
+        for (i in 0 .. size-1){
+
+        }
 
 
         //design code
