@@ -14,11 +14,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="left"
-            android:text="2021.06"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="日報"
+            android:background="#FFFFFF"
             android:textColor="#000000" />
 
         <!--内容-->

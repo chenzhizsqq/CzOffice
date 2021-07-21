@@ -57,87 +57,102 @@ class ReportFragment : Fragment() {
 
         //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
 
-        val size= JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist.size
+        val groupSum = JC.pEtOfficeGetReportList.infoJson().result.group.size
+
+        for (j in 0..groupSum -1) {
+
+            val yyyy=Tools.dateGetYear(JC.pEtOfficeGetReportList.infoJson().result.group[j].month)
+            val mm=Tools.dateGetMonth(JC.pEtOfficeGetReportList.infoJson().result.group[j].month)
+
+            val yyyymmTextView=makeTextView("$yyyy.$mm")
+
+            yyyymmTextView.setPadding(20)
+            yyyymmTextView.height = 100
+            yyyymmTextView.gravity = (Gravity.CENTER or Gravity.LEFT)
+
+            recordLinearLayout.addView(yyyymmTextView)
+
+            val size = JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist.size
+
+            for (i in 0..size - 1) {
+
+                val mLinearLayout = LinearLayout(activity)
+
+                mLinearLayout.setOrientation(LinearLayout.VERTICAL)
+
+                mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
 
-        var yyyymmdd:String=""
+                //up
 
-        for (i in 0 .. size-1) {
+                val m1 = LinearLayout(activity)
+                m1.setOrientation(LinearLayout.HORIZONTAL)
+                m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
-            val mLinearLayout = LinearLayout(activity)
+                val yyyymmdd =
+                    JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
+                //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
+                val y_m_d = Tools.allDate(yyyymmdd)
 
-            mLinearLayout.setOrientation(LinearLayout.VERTICAL)
+                val TV_up = makeTextView("$y_m_d  ")
+                m1.addView(TV_up)
 
-            mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                val TV_2 = makeButton("未承認")
 
-
-            //up
-
-            val m1 = LinearLayout(activity)
-            m1.setOrientation(LinearLayout.HORIZONTAL)
-            m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-
-            yyyymmdd = JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
-            //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
-            val y_m_d = Tools.allDate(yyyymmdd)
-
-            val TV_up = makeTextView("$y_m_d  ")
-            m1.addView(TV_up)
-
-            val TV_2 = makeButton("未承認")
-
-            m1.addView(TV_2)
+                m1.addView(TV_2)
 
 
-            mLinearLayout.addView(m1)
+                mLinearLayout.addView(m1)
 
 
-            //down
-            val TV_down = makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].title)
-            mLinearLayout.addView(TV_down)
+                //down
+                val TV_down =
+                    makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].title)
+                mLinearLayout.addView(TV_down)
 
 
-            //setting
-            mLinearLayout.setBackgroundColor(Color.WHITE)
-            mLinearLayout.setPadding(30)
+                //setting
+                mLinearLayout.setBackgroundColor(Color.WHITE)
+                mLinearLayout.setPadding(30)
 
 
-            //setOnClickListener
-            mLinearLayout.setOnClickListener(View.OnClickListener {
+                //setOnClickListener
+                mLinearLayout.setOnClickListener(View.OnClickListener {
 
-                Thread {
-                    try {
+                    Thread {
+                        try {
 
-                        val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
+                            val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
 
-                        val bundle = Bundle()
-                        bundle.putString("date", yyyymmdd)
+                            val bundle = Bundle()
+                            bundle.putString("date", yyyymmdd)
 
-                        Navigation.findNavController(view).navigate(R.id.ReportDetail,bundle);        //ReportDetail
+                            Navigation.findNavController(view)
+                                .navigate(R.id.ReportDetail, bundle);        //ReportDetail
 
-                    }catch (e:Exception){
-                        Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
+                        } catch (e: Exception) {
+                            Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
 
-                    }
-                }.start()
-            })
+                        }
+                    }.start()
+                })
 
 
-            //recordLinearLayout end
-            recordLinearLayout.addView(mLinearLayout)
+                //recordLinearLayout end
+                recordLinearLayout.addView(mLinearLayout)
 
-            //線
+                //線
 
-            val mLinearLayout2= LinearLayout(activity)
-            val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
-            mLinearLayout2.layoutParams = lp2
-            mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
-            recordLinearLayout.addView(mLinearLayout2)
+                val mLinearLayout2 = LinearLayout(activity)
+                val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+                mLinearLayout2.layoutParams = lp2
+                mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+                recordLinearLayout.addView(mLinearLayout2)
 
+
+            }
 
         }
-
-
 
 
         //demo
