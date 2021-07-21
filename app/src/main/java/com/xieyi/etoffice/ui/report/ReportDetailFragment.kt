@@ -63,7 +63,20 @@ class ReportDetailFragment() : Fragment() {
 
         val bundle = arguments
         date = bundle!!.getString("date").toString()
+
+
+
         //データ更新
+        Thread {
+            try {
+
+                val r = JC.pEtOfficeGetReportInfo.post(date)
+
+            }catch (e:Exception){
+                Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
+
+            }
+        }.start()
     }
 
     override fun onCreateView(

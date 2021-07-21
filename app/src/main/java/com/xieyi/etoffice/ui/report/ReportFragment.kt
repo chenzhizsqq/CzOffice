@@ -108,11 +108,7 @@ class ReportFragment : Fragment() {
                 Thread {
                     try {
 
-//                        Log.e(TAG, "reportlist[i]:i = $i")
-                        yyyymmdd = JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
                         val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
-//                        Log.e(TAG, "pEtOfficeGetReportInfo.post() :$r")
-//                        Log.e(TAG, "pEtOfficeGetReportInfo.post() yyyymmdd:$yyyymmdd")
 
                         val bundle = Bundle()
                         bundle.putString("date", yyyymmdd)
