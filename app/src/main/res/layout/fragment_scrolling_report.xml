@@ -30,6 +30,7 @@
         </LinearLayout>
         <!--内容-->
 
+        <!--demo-->
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -158,6 +159,7 @@
             </TableRow>
 
         </TableLayout>
+        <!--demo-->
     </LinearLayout>
 
 

@@ -28,7 +28,7 @@ class ReportDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.activity_report_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_report_detail, container, false)
         buttonImageButton1 = view.findViewById(R.id.imageButton1)
         buttonImageButton1.setOnClickListener {
 
