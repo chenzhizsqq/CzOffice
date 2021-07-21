@@ -24,10 +24,16 @@ class ReportDetailFragment() : Fragment() {
     lateinit var buttonImageButton1: ImageView
     lateinit var mLinearLayout: LinearLayout
 
+    //検索の日付
+    var date:String=""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate: begin")
 
+        val bundle = arguments
+        date = bundle!!.getString("date").toString()
         //データ更新
     }
 
@@ -41,7 +47,11 @@ class ReportDetailFragment() : Fragment() {
         Log.e(TAG, "JC.pEtOfficeGetReportInfo:"+JC.pEtOfficeGetReportInfo.lastJson )
 
 
+        val record_date:TextView = view.findViewById(R.id.record_date)
+        record_date.text = date
 
+
+        //design code
         buttonImageButton1 = view.findViewById(R.id.imageButton1)
         buttonImageButton1.setOnClickListener {
 
@@ -87,6 +97,7 @@ class ReportDetailFragment() : Fragment() {
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
         }
+        //design code
         return view
     }
 

@@ -109,7 +109,10 @@ class ReportFragment : Fragment() {
                         val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
                         Log.e(TAG, "pEtOfficeGetReportInfo.post() :$r")
 
-                        Navigation.findNavController(view).navigate(R.id.ReportDetail);        //ReportDetail
+                        val bundle = Bundle()
+                        bundle.putString("date", yyyymmdd)
+
+                        Navigation.findNavController(view).navigate(R.id.ReportDetail,bundle);        //ReportDetail
 
                     }catch (e:Exception){
                         Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
