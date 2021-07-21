@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         view = findViewById(android.R.id.content)
-
+        supportActionBar?.hide()
         //Jsonテスト   begin
         try {
 
