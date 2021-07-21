@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -128,7 +127,7 @@ class ReportFragment : Fragment() {
                             bundle.putString("date", yyyymmdd)
 
                             Navigation.findNavController(view)
-                                .navigate(R.id.ReportDetail, bundle);        //ReportDetail
+                                .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
 
                         } catch (e: Exception) {
                             Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
@@ -143,10 +142,7 @@ class ReportFragment : Fragment() {
 
                 //線
 
-                val mLinearLayout2 = LinearLayout(activity)
-                val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
-                mLinearLayout2.layoutParams = lp2
-                mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+                val mLinearLayout2 = linearLayout_line()
                 recordLinearLayout.addView(mLinearLayout2)
 
 
@@ -163,6 +159,14 @@ class ReportFragment : Fragment() {
 //        })
 
         return view
+    }
+
+    private fun linearLayout_line(): LinearLayout {
+        val mLinearLayout2 = LinearLayout(activity)
+        val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+        mLinearLayout2.layoutParams = lp2
+        mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+        return mLinearLayout2
     }
 
     private fun makeTextView(ym: String): TextView {

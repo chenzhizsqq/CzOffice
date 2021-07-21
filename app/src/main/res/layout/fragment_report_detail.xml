@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:background="#DDDFDFDF"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/returnHome"
@@ -90,6 +91,16 @@
                 android:text="予定："
                 android:textColor="#000000"/>
         </LinearLayout>
+
+        <!--線-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:gravity="center"
+            android:background="#9F9F9F"
+            android:orientation="horizontal">
+        </LinearLayout>
+
 <!--        実績：-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,44 +144,59 @@
         </LinearLayout>
 <!--    !!!    content !!! -->
 
-        <TableLayout
-            android:id="@+id/addView"
-            android:background="@drawable/ic_round_edge_grey"
-            android:padding="10dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+<!--線-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:gravity="center"
-            android:layout_margin="20dp"
-            >
+            android:background="@color/black"
+            android:orientation="horizontal">
+        </LinearLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/imageButton1"
-                    android:layout_width="46dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="#FFFFFF"
-                    app:srcCompat="@android:drawable/ic_input_add" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TableLayout
+                android:id="@+id/addView"
+                android:background="@drawable/ic_round_edge_grey"
+                android:padding="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:gravity="center"
-                android:layout_height="match_parent">
+                android:layout_margin="20dp"
+                >
 
-                <TextView
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="追加する"
-                    android:textColor="#000000"/>
-            </TableRow>
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-        </TableLayout>
+                    <ImageView
+                        android:id="@+id/imageButton1"
+                        android:layout_width="46dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:background="#FFFFFF"
+                        app:srcCompat="@android:drawable/ic_input_add" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="追加する"
+                        android:textColor="#000000"/>
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
     </LinearLayout>
     <!--内容-->
 
