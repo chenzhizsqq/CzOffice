@@ -133,257 +133,163 @@
         </LinearLayout>
 <!--    !!!    content !!! -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+        <TableLayout
+            android:id="@+id/addView"
+            android:background="@drawable/ic_round_edge_grey"
             android:padding="10dp"
-            android:orientation="horizontal">
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_margin="20dp"
+            >
 
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
+            <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@drawable/ic_round_edge_white"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:gravity="center">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_on" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton1"
+                    android:layout_width="46dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="勤務中"
-                    android:textColor="#000000" />
-            </LinearLayout>
+                    android:background="#FFFFFF"
+                    app:srcCompat="@android:drawable/ic_input_add" />
+            </TableRow>
 
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <TableRow
+                android:layout_width="match_parent"
                 android:gravity="center"
-                android:background="@drawable/ic_round_edge_white"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <ImageView
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_on" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
                     android:gravity="center"
-                    android:text="勤務外"
-                    android:textColor="#000000" />
-            </LinearLayout>
+                    android:text="追加する"
+                    android:textColor="#000000"/>
+            </TableRow>
 
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@drawable/ic_round_edge_white"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_on" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center"
-                    android:text="休憩中"
-                    android:textColor="#000000" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@drawable/ic_round_edge_white"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_on" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center"
-                    android:text="移動中"
-                    android:textColor="#000000" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="@drawable/ic_round_edge_white"
-                android:layout_margin="4dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/btn_star_big_on" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:gravity="center"
-                    android:text="会議中"
-                    android:textColor="#000000" />
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-<!--        追加：-->
-
-        <ImageView
-            android:id="@+id/imageAdd"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="#FFFFFF"
-            app:srcCompat="@drawable/icons8_plus_50" />
-
+        </TableLayout>
     </LinearLayout>
     <!--内容-->
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="textStart"
-        android:background="#FFFFFF">
+<!--    <TableLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textAlignment="textStart"-->
+<!--        android:background="#FFFFFF">-->
 
-        <TableRow
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <TableRow-->
+<!--            android:padding="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
-            <TextView
-                android:background="@drawable/ic_round_edge_grey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:text="Jun 28, 2021"
-                android:textColor="#000000"
-                android:layout_span="2"/>
-        </TableRow>
+<!--            <TextView-->
+<!--                android:background="@drawable/ic_round_edge_grey"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="20dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="Jun 28, 2021"-->
+<!--                android:textColor="#000000"-->
+<!--                android:layout_span="2"/>-->
+<!--        </TableRow>-->
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="#E8E8E8"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-
-            <TextView
-                android:text="予定："
-                android:textColor="@color/black"   android:layout_span="5"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="1dp"
-            android:background="#E8E8E8"
-            android:gravity="left"
-            android:orientation="vertical"
-            android:padding="10dp">
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="1dp"-->
+<!--            android:background="#E8E8E8"-->
+<!--            android:gravity="left"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="10dp">-->
 
 
-            <TextView
-                android:text="実績：通常勤務　00:13-"
-                android:textColor="@color/black"   android:layout_span="5"/>
-        </TableRow>
+<!--            <TextView-->
+<!--                android:text="予定："-->
+<!--                android:textColor="@color/black"   android:layout_span="5"/>-->
+<!--        </TableRow>-->
 
-        <TableRow
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/report_id"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="1dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp">
+<!--        <TableRow-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="1dp"-->
+<!--            android:background="#E8E8E8"-->
+<!--            android:gravity="left"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="10dp">-->
 
 
+<!--            <TextView-->
+<!--                android:text="実績：通常勤務　00:13-"-->
+<!--                android:textColor="@color/black"   android:layout_span="5"/>-->
+<!--        </TableRow>-->
+
+<!--        <TableRow-->
+<!--            android:gravity="center"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/report_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingLeft="30dp"-->
+<!--                android:paddingRight="30dp">-->
 
 
-            </LinearLayout>
-
-        </TableRow>
-        <TableRow
-            android:id="@+id/tableRow_report_add"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TableLayout
-                android:background="@drawable/ic_round_edge_grey"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageButton1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        app:srcCompat="@android:drawable/ic_input_add" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="追加する"
-                        android:textColor="#000000"/>
-                </TableRow>
-
-            </TableLayout>
 
 
-        </TableRow>
+<!--            </LinearLayout>-->
 
-    </TableLayout>
+<!--        </TableRow>-->
+<!--        <TableRow-->
+<!--            android:id="@+id/tableRow_report_add"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="10dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <TableLayout-->
+<!--                android:background="@drawable/ic_round_edge_grey"-->
+<!--                android:padding="10dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                >-->
+
+<!--                <TableRow-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageButton1"-->
+<!--                        android:layout_width="46dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:background="#FFFFFF"-->
+<!--                        app:srcCompat="@android:drawable/ic_input_add" />-->
+<!--                </TableRow>-->
+
+<!--                <TableRow-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="追加する"-->
+<!--                        android:textColor="#000000"/>-->
+<!--                </TableRow>-->
+
+<!--            </TableLayout>-->
+
+
+<!--        </TableRow>-->
+
+<!--    </TableLayout>-->
 </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

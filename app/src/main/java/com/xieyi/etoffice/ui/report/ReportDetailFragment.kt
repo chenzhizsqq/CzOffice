@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -92,11 +93,12 @@ class ReportDetailFragment() : Fragment() {
 
         val size= JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
 
-//        val quotient = size / 5
-//        for (j in 0 until quotient) {
+        //content：
+        val content:LinearLayout = view.findViewById(R.id.content)
+        val quotient = size / 5 + 1
+        for (j in 0 until quotient) {
 
-            //content：
-            val content:LinearLayout = view.findViewById(R.id.content)
+            val getLinearLayoutContent = getLinearLayoutContent()
 
             val remainder = size % 5
             for (i in 0 until remainder) {
@@ -106,72 +108,96 @@ class ReportDetailFragment() : Fragment() {
                 val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
 
                 val getTextView_time = getTextView(time)
+                getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
                 getLinearLayout_1.addView(getTextView_time)
 
 
                 val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
 
                 val getTextView_1 = getTextView(text)
+                getTextView_1.setBackgroundColor(Color.YELLOW)
                 getLinearLayout_1.addView(getTextView_1)
 
 
 
-                content.addView(getLinearLayout_1)
+                getLinearLayoutContent.addView(getLinearLayout_1)
 
             }
-//        }
-
-
-        //设计的代码
-        buttonImageButton1 = view.findViewById(R.id.imageButton1)
-        buttonImageButton1.setOnClickListener {
+            content.addView(getLinearLayoutContent)
+        }
+        val addView: TableLayout = view.findViewById(R.id.addView)
+        addView.setOnClickListener {
 
             val pReportAddDialog = ReportAddDialog()
             pReportAddDialog.setTargetFragment(this, 1)
             fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
         }
 
+
+        //设计的代码
+//        buttonImageButton1 = view.findViewById(R.id.imageButton1)
+//        buttonImageButton1.setOnClickListener {
+//
+//            val pReportAddDialog = ReportAddDialog()
+//            pReportAddDialog.setTargetFragment(this, 1)
+//            fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
+//        }
+
         //report_id
-        mLinearLayout = view.findViewById(R.id.report_id)
-        val textWidth: Int = 120
-
-        try {
-            Log.e(TAG, "count:" + JC.pEtOfficeGetUserStatus.infoUserStatusListCount())
-
-
-            for (i in JC.pEtOfficeGetUserStatus.infoUserStatusList()) {
-                Log.e(TAG, "index:$i")
-
-                val tLinearLayout = LinearLayout(activity)
-                tLinearLayout.orientation = LinearLayout.VERTICAL
-                tLinearLayout.gravity = Gravity.CENTER
-                tLinearLayout.setPadding(10)
-
-
-                val _text = TextView(activity)
-                _text.setBackgroundColor(Color.parseColor("#FFBCBCBC") )
-                _text.width = textWidth
-                _text.height = 100
-                _text.text = Tools.srcContent(i.statustime,8)
-                tLinearLayout.addView(_text)
-
-                val _text2 = TextView(activity)
-                _text2.setBackgroundColor(Color.YELLOW)
-                _text2.width = textWidth
-                _text.height = 100
-                _text2.text = "勤務中"
-                tLinearLayout.addView(_text2)
-
-
-                mLinearLayout.addView(tLinearLayout)
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
+//        mLinearLayout = view.findViewById(R.id.report_id)
+//        val textWidth: Int = 120
+//
+//        try {
+//            Log.e(TAG, "count:" + JC.pEtOfficeGetUserStatus.infoUserStatusListCount())
+//
+//
+//            for (i in JC.pEtOfficeGetUserStatus.infoUserStatusList()) {
+//                Log.e(TAG, "index:$i")
+//
+//                val tLinearLayout = LinearLayout(activity)
+//                tLinearLayout.orientation = LinearLayout.VERTICAL
+//                tLinearLayout.gravity = Gravity.CENTER
+//                tLinearLayout.setPadding(10)
+//
+//
+//                val _text = TextView(activity)
+//                _text.setBackgroundColor(Color.parseColor("#FFBCBCBC") )
+//                _text.width = textWidth
+//                _text.height = 100
+//                _text.text = Tools.srcContent(i.statustime,8)
+//                tLinearLayout.addView(_text)
+//
+//                val _text2 = TextView(activity)
+//                _text2.setBackgroundColor(Color.YELLOW)
+//                _text2.width = textWidth
+//                _text.height = 100
+//                _text2.text = "勤務中"
+//                tLinearLayout.addView(_text2)
+//
+//
+//                mLinearLayout.addView(tLinearLayout)
+//            }
+//        } catch (e: Exception) {
+//            Log.e(TAG, e.toString())
+//        }
         //design code
         return view
     }
 
+
+
+    private fun getLinearLayoutContent(): LinearLayout {
+        val r=LinearLayout(activity)
+
+        val ll = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        r.layoutParams = ll
+
+        r.gravity = Gravity.CENTER
+
+        r.orientation = LinearLayout.HORIZONTAL
+
+        return r
+    }
 
 
     private fun getLinearLayout(): LinearLayout {
@@ -184,19 +210,10 @@ class ReportDetailFragment() : Fragment() {
 
         r.setBackgroundResource(R.drawable.ic_round_edge_white)
 
+        r.setPadding(20)
+
         r.orientation = LinearLayout.VERTICAL
 
-        return r
-    }
-
-    private fun getImageView(): ImageView {
-        val r=ImageView(activity)
-
-        val ll = LinearLayout.LayoutParams( MATCH_PARENT,WRAP_CONTENT)
-        r.layoutParams = ll
-
-
-        r.setImageResource(R.drawable.ic_dashboard_black_24dp)
         return r
     }
 
@@ -209,6 +226,10 @@ class ReportDetailFragment() : Fragment() {
         r.gravity = Gravity.CENTER
 
         r.text=text
+
+        r.width = 200
+
+        r.height = 100
 
         r.setTextColor(Color.BLACK)
 
