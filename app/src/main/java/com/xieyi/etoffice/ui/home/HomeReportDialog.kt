@@ -75,7 +75,7 @@ class HomeReportDialog : DialogFragment() {
             val textView = TextView(activity)
             textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
             textView.setTextColor(Color.parseColor("#000000"))
-            textView.text = Tools.allDate(JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].statustime)
+            textView.text = Tools.allDateTime(JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].statustime)
             mLinearLayout.addView(textView)
 
 

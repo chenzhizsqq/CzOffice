@@ -22,47 +22,49 @@ object Tools {
         return rString
     }
 
-    fun dateGetYear(_data: String): Int {
-        if (_data.isEmpty()) return 0
-        val str = _data.substring(0, 4)
-        return str.toInt()
+    fun dateGetYear(_data: String): String {
+        if (_data.isEmpty()) return "0000"
+        return _data.substring(0, 4)
     }
 
-    fun dateGetMonth(_data: String): Int {
-        if (_data.isEmpty()) return 0
-        val str = _data.substring(4, 6)
-        return str.toInt()
+    fun dateGetMonth(_data: String): String {
+        if (_data.isEmpty()) return "00"
+        return _data.substring(4, 6)
     }
 
-    fun dateGetDay(_data: String): Int {
-        if (_data.isEmpty()) return 0
-        val str = _data.substring(6, 8)
-        return str.toInt()
+    fun dateGetDay(_data: String): String {
+        if (_data.isEmpty()) return "00"
+        return _data.substring(6, 8)
     }
 
-    fun dateGetHH(_data: String): Int {
-        if (_data.isEmpty()) return 0
-        val str = _data.substring(8, 10)
-        return str.toInt()
+    fun dateGetHH(_data: String): String {
+        if (_data.isEmpty()) return "00"
+        return _data.substring(8, 10)
     }
 
-    fun dateGetMM(_data: String): Int {
-        if (_data.isEmpty()) return 0
-        val str = _data.substring(10, 12)
-        return str.toInt()
+    fun dateGetMM(_data: String): String {
+        if (_data.isEmpty()) return "00"
+        return _data.substring(10, 12)
     }
 
-    fun dateGetSS(_data: String): Int {
-        if (_data.isEmpty()) return 0
-        val str = _data.substring(12, 14)
-        return str.toInt()
+    fun dateGetSS(_data: String): String {
+        if (_data.isEmpty()) return "00"
+        return _data.substring(12, 14)
     }
 
     //2021.07.15 16:56:56
-    fun allDate(_data: String):String {
+    fun allDateTime(_data: String):String {
         var str = ""
         str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}" +
                 " ${dateGetHH(_data)}:${dateGetMM(_data)}:${dateGetSS(_data)}"
+
+        return str
+    }
+
+    //2021.07.15
+    fun allDate(_data: String):String {
+        var str = ""
+        str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}"
 
         return str
     }

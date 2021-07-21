@@ -15,6 +15,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 
 class ReportFragment : Fragment() {
@@ -75,7 +76,10 @@ class ReportFragment : Fragment() {
             m1.setOrientation(LinearLayout.HORIZONTAL)
             m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
-            val TV_up = makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd + "  ")
+            val yyyymmdd =JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
+            val y_m_d = Tools.allDate(yyyymmdd)
+
+            val TV_up = makeTextView("$y_m_d  ")
             m1.addView(TV_up)
 
             val TV_2 = makeButton("未承認")
