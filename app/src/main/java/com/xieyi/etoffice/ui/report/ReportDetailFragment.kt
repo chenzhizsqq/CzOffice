@@ -24,6 +24,9 @@ class ReportDetailFragment() : Fragment() {
     lateinit var buttonImageButton1: ImageView
     lateinit var mLinearLayout: LinearLayout
 
+    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
+    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
+
     //検索の日付
     var date:String=""
 
@@ -73,17 +76,53 @@ class ReportDetailFragment() : Fragment() {
 
         //検索の日付
         val record_date:TextView = view.findViewById(R.id.record_date)
-        record_date.text = date
+        record_date.text = Tools.allDate(date)
+
+        //予定
+        val appointment:TextView = view.findViewById(R.id.appointment)
+        appointment.text = JC.pEtOfficeGetReportInfo.infoJson().result.planworktime
+
+
+        //実績：
+        val worktime:TextView = view.findViewById(R.id.worktime)
+        worktime.text = JC.pEtOfficeGetReportInfo.infoJson().result.worktime
+
+
 
 
         val size= JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
 
-        for (i in 0 .. size-1){
+//        val quotient = size / 5
+//        for (j in 0 until quotient) {
 
-        }
+            //content：
+            val content:LinearLayout = view.findViewById(R.id.content)
+
+            val remainder = size % 5
+            for (i in 0 until remainder) {
+                val getLinearLayout_1 = getLinearLayout()
 
 
-        //design code
+                val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
+
+                val getTextView_time = getTextView(time)
+                getLinearLayout_1.addView(getTextView_time)
+
+
+                val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
+
+                val getTextView_1 = getTextView(text)
+                getLinearLayout_1.addView(getTextView_1)
+
+
+
+                content.addView(getLinearLayout_1)
+
+            }
+//        }
+
+
+        //设计的代码
         buttonImageButton1 = view.findViewById(R.id.imageButton1)
         buttonImageButton1.setOnClickListener {
 
@@ -133,5 +172,47 @@ class ReportDetailFragment() : Fragment() {
         return view
     }
 
+
+
+    private fun getLinearLayout(): LinearLayout {
+        val r=LinearLayout(activity)
+
+        val ll = LinearLayout.LayoutParams(0, MATCH_PARENT,1.0F)
+        r.layoutParams = ll
+
+        r.gravity = Gravity.CENTER
+
+        r.setBackgroundResource(R.drawable.ic_round_edge_white)
+
+        r.orientation = LinearLayout.VERTICAL
+
+        return r
+    }
+
+    private fun getImageView(): ImageView {
+        val r=ImageView(activity)
+
+        val ll = LinearLayout.LayoutParams( MATCH_PARENT,WRAP_CONTENT)
+        r.layoutParams = ll
+
+
+        r.setImageResource(R.drawable.ic_dashboard_black_24dp)
+        return r
+    }
+
+    private fun getTextView(text:String): TextView {
+        val r=TextView(activity)
+
+        val ll = LinearLayout.LayoutParams( WRAP_CONTENT,WRAP_CONTENT)
+        r.layoutParams = ll
+
+        r.gravity = Gravity.CENTER
+
+        r.text=text
+
+        r.setTextColor(Color.BLACK)
+
+        return r
+    }
 
 }
