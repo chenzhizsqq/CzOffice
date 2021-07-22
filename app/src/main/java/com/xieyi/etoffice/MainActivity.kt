@@ -49,9 +49,10 @@ class MainActivity : AppCompatActivity() {
         //データ更新
         Thread {
             try {
+                var r="-1"
                 //社員一覧取得
-                var r = JC.pEtOfficeGetStuffList.post()
-                Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
+//                var r = JC.pEtOfficeGetStuffList.post()
+//                Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
 
                 //日報一覧取得
                 r = JC.pEtOfficeGetReportList.post()
