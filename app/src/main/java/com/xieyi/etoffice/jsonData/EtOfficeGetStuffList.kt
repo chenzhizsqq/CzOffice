@@ -36,9 +36,12 @@ class EtOfficeGetStuffList {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
                 jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
+//                jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
+                jsonObject.put("tenant", "3")
+//                jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("hpid", "6")
                 jsonObject.put("device", "android")
+                //Log.e(TAG, "!!!! jsonObject:$jsonObject" )
                 val body = jsonObject.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
@@ -51,7 +54,7 @@ class EtOfficeGetStuffList {
                         var json: String = response.body!!.string()
                         lastJson = json
                         var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                        //Log.e(TAG, "!!!! mJsonResult:$mJsonResult" )
 
                         status = mJsonResult.getString("status")
 
@@ -71,6 +74,85 @@ class EtOfficeGetStuffList {
         /*
         {"status":0,"result":{"sectionlist":[]},"message":""}
          */
+    /*
+    {
+      "status": 0,
+      "result": {
+        "sectionlist": [
+          {
+            "sectioncd": "SYS",
+            "sectionname": "システムサービス部",
+            "stufflist": [
+              {
+                "tenant": "3",
+                "hpid": "6",
+                "userid": "9003",
+                "username": "ユーザー３",
+                "userkana": "カタカナ３",
+                "phone": "05884885890",
+                "mail": "demo3@xieyi.co.jp"
+              },
+              {
+                "tenant": "3",
+                "hpid": "6",
+                "userid": "9004",
+                "username": "ユーザー４",
+                "userkana": "カタカナ４",
+                "phone": "85756737734",
+                "mail": "demo4@xieyi.co.jp"
+              }
+            ]
+          },
+          {
+            "sectioncd": "INF",
+            "sectionname": "インフラサービス部",
+            "stufflist": [
+              {
+                "tenant": "3",
+                "hpid": "6",
+                "userid": "9002",
+                "username": "ユーザー２",
+                "userkana": "カタカナ２",
+                "phone": "09684773899",
+                "mail": "demo2@xieyi.co.jp"
+              }
+            ]
+          },
+          {
+            "sectioncd": "GAD",
+            "sectionname": "業務統括部",
+            "stufflist": [
+              {
+                "tenant": "3",
+                "hpid": "6",
+                "userid": "9005",
+                "username": "ユーザー５",
+                "userkana": "カタカナ５",
+                "phone": "90487578484",
+                "mail": "demo5@xieyi.co.jp"
+              }
+            ]
+          },
+          {
+            "sectioncd": "EXO",
+            "sectionname": "役員",
+            "stufflist": [
+              {
+                "tenant": "3",
+                "hpid": "6",
+                "userid": "9001",
+                "username": "ユーザー１",
+                "userkana": "カタカナ１",
+                "phone": "07473626478",
+                "mail": "demo1@xieyi.co.jp"
+              }
+            ]
+          }
+        ]
+      },
+      "message": ""
+    }
+     */
 
 
     fun getResult(): Result? {

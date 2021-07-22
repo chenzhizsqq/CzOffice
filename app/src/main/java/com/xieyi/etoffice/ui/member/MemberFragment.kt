@@ -1,6 +1,8 @@
 package com.xieyi.etoffice.ui.member
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -10,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -20,12 +24,16 @@ class MemberFragment : Fragment() {
 
     private val TAG = javaClass.simpleName
 
+
+    private val REQUEST_CALL_PERMISSION = 10111 //電話　申し込む
+
+
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin", )
+        Log.e(TAG, "onCreate: begin")
 
         //データ更新
         Thread {
@@ -55,50 +63,85 @@ class MemberFragment : Fragment() {
 
         Log.e(TAG, "JC.pEtOfficeGetStuffList:"+JC.pEtOfficeGetStuffList.lastJson )
 
-        val size= JC.pEtOfficeGetStuffList.infoJson().result.sectionlist.size
+        val sectionlistSize = JC.pEtOfficeGetStuffList.infoJson().result.sectionlist.size
+        for (j in 0 until sectionlistSize){
 
-        for (i in 0 until 4){
+            val size= JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist.size
 
-
-
-            val ll= LinearLayout(activity)
-
-            ll.setOrientation(LinearLayout.HORIZONTAL)
-
-            ll.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+            for (i in 0 until size){
 
 
-            //image logo
-            val imageView = makeImage(180)
 
-            ll.addView(imageView)
+                val ll= LinearLayout(activity)
+
+                ll.setOrientation(LinearLayout.HORIZONTAL)
+
+                ll.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
 
-            //info left
-            val tl_Left = funTableLayoutL()
-            tl_Left.minimumWidth = 500
-            ll.addView(tl_Left)
+                //image logo
+                val imageView = makeImage(180)
 
-            //info right
-            val tl_right = funTableLayoutR()
-            tl_right.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT)
-            ll.addView(tl_right)
+                ll.addView(imageView)
 
-            //recordLinearLayout setting
-            recordLinearLayout.setBackgroundColor(Color.WHITE)
-            recordLinearLayout.setPadding(10)
 
-            //over to add
-            recordLinearLayout.addView(ll)
+                //info left
+                val tl_Left = funTableLayoutL(
+                    JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].userkana,
+                    JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].username,
+                    JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone,
+                )
+                tl_Left.minimumWidth = 500
+                ll.addView(tl_Left)
 
-            //線
-            val mLinearLayout2= LinearLayout(activity)
-            val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
-            mLinearLayout2.layoutParams = lp2
-            mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
-            recordLinearLayout.addView(mLinearLayout2)
+                //info right
+                val tl_right = funTableLayoutR(
+                    JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].tenant,
+                    JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].hpid,
+                    JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].mail,
+                )
+                tl_right.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT)
+                ll.addView(tl_right)
 
+                //recordLinearLayout setting
+                recordLinearLayout.setBackgroundColor(Color.WHITE)
+                recordLinearLayout.setPadding(10)
+
+                //telephone
+                recordLinearLayout.setOnClickListener(View.OnClickListener {
+                    if (ContextCompat.checkSelfPermission(
+                            requireActivity(),
+                            Manifest.permission.CALL_PHONE
+                        ) !== PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // CALL_PHONE 権利　ない
+                        ActivityCompat.requestPermissions(
+                            requireActivity(),
+                            arrayOf<String>(Manifest.permission.CALL_PHONE),
+                            REQUEST_CALL_PERMISSION
+                        )
+                    } else {
+                        //CALL_PHONE 権利　ある
+                        val uri: Uri = Uri.parse("tel:"+JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
+                        val intent = Intent(Intent.ACTION_CALL, uri)
+                        startActivity(intent)
+                    }
+                })
+
+                //over to add
+                recordLinearLayout.addView(ll)
+
+                //線
+                val mLinearLayout2= LinearLayout(activity)
+                val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+                mLinearLayout2.layoutParams = lp2
+                mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+                recordLinearLayout.addView(mLinearLayout2)
+
+            }
         }
+
+
 
 
 
@@ -133,28 +176,28 @@ class MemberFragment : Fragment() {
 
 
 
-    private fun funTableLayoutL(): TableLayout {
+    private fun funTableLayoutL(t1:String,t2:String,t3:String): TableLayout {
         val r = TableLayout(activity)
 
 
-        makeRowLeft(r,"321",14F)
-        makeRowLeft(r,"okeqe3dfdsa",20F)
-        makeRowLeft(r,"fgfds",14F)
+        makeRowLeft(r,t1,14F)
+        makeRowLeft(r,t2,20F)
+        makeRowLeft(r,t3,14F)
 
 
         return r
     }
 
 
-    private fun funTableLayoutR(): TableLayout {
+    private fun funTableLayoutR(t1:String,t2:String,t3:String): TableLayout {
         val r = TableLayout(activity)
 
 
-        makeRowRightS(r,"ok1432432")
+        makeRowRightS(r,t1)
 
-        makeRowRight(r,"ok22")
+        makeRowRight(r,t2)
 
-        makeRowLeft(r,"ok343",14F)
+        makeRowLeft(r,t3,14F)
 
         r.gravity = Gravity.RIGHT;
         return r
