@@ -20,7 +20,7 @@ class MyPageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin", )
+        Log.e(TAG, "onCreate: begin")
         Thread {
             try {
                 var r: String = JC.pEtOfficeGetUserLocation.post()                   //Json 送信
@@ -41,7 +41,7 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e(TAG, "onCreateView: begin", )
+        Log.e(TAG, "onCreateView: begin")
 
         val view = inflater.inflate(R.layout.fragment_my_page, container, false)
         try {
@@ -94,8 +94,12 @@ class MyPageFragment : Fragment() {
         pTableLayout.setOnClickListener(View.OnClickListener {
 
             val mMyPageLogoutDialog = MyPageLogoutDialog()
-            mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
-            fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
+
+//            mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
+//            fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
+
+            val fragmentManager = this@MyPageFragment.parentFragmentManager
+            fragmentManager.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog")  }
 
         })
 

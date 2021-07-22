@@ -69,8 +69,12 @@ class HomeFragment : Fragment() {
                     //Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
                     val mHomeReportDialog = HomeReportDialog()
-                    mHomeReportDialog.setTargetFragment(this@HomeFragment, 1)
-                    fragmentManager?.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+//                    mHomeReportDialog.setTargetFragment(this@HomeFragment, 1)
+//                    fragmentManager?.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+
+                    val fragmentManager = this@HomeFragment.parentFragmentManager
+                    fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog")  }
+
                 }catch (e:Exception){
 
 
@@ -86,8 +90,12 @@ class HomeFragment : Fragment() {
         mStatusLinearLayout.setOnClickListener {
 
             val mHomeStatusDialog = HomeStatusDialog()
-            mHomeStatusDialog.setTargetFragment(this@HomeFragment, 1)
-            fragmentManager?.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
+
+//            mHomeStatusDialog.setTargetFragment(this@HomeFragment, 1)
+//            fragmentManager?.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
+
+            val fragmentManager = this@HomeFragment.parentFragmentManager
+            fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog")  }
 
         }
 

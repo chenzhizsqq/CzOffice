@@ -143,8 +143,13 @@ class ReportDetailFragment() : Fragment() {
         addView.setOnClickListener {
 
             val pReportAddDialog = ReportAddDialog()
-            pReportAddDialog.setTargetFragment(this, 1)
-            fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
+
+//            pReportAddDialog.setTargetFragment(this, 1)
+//            fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
+
+            val fragmentManager = this@ReportDetailFragment.parentFragmentManager
+            fragmentManager.let { it1 -> pReportAddDialog.show(it1, "pReportAddDialog")  }
+
         }
 
 
