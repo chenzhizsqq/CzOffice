@@ -12,11 +12,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.xieyi.etoffice.jsonData.JC
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     val TAG: String = "MainActivity"
     lateinit var view: View
 
+
+    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        // 发生异常时的捕获
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +29,11 @@ class MainActivity : AppCompatActivity() {
         view = findViewById(android.R.id.content)
         supportActionBar?.hide()
         //Jsonテスト   begin
-        try {
 
-//            Thread {
+        GlobalScope.launch(errorHandler) {
+            withContext(Dispatchers.IO) {
+
+                //特別データ　テスト
 //                try {
 //                    val r = JC.pEtOfficeGetStuffList.post()
 //                    Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
@@ -37,32 +44,18 @@ class MainActivity : AppCompatActivity() {
 //                        .show()
 //                    Log.e(TAG, "TAG", e)
 //                }
-//
-//
-//            }.start()
-            //testJson()
-        }catch (e:Exception){
-            Log.e(TAG, "testJson: ", )
-        }
-        //Jsonテスト   end
 
-        //データ更新
-        Thread {
-            try {
-                var r="-1"
-                //社員一覧取得
-//                var r = JC.pEtOfficeGetStuffList.post()
-//                Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
-
-                //日報一覧取得
-                //r = JC.pEtOfficeGetReportList.post()
-                //Log.e(TAG, "pEtOfficeGetReportList.post():$r")
-
-            }catch (e:Exception){
-                Log.e(TAG, "onCreate .post() :$e")
+                //全部データ　テスト
+                try {
+                    Log.e(TAG, "GlobalScope.launch try: ", )
+                    //testJson()
+                } catch (e: Exception) {
+                    Log.e(TAG, "GlobalScope.launch catch:$e")
+                }
 
             }
-        }.start()
+        }
+        //Jsonテスト   end
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -85,7 +78,6 @@ class MainActivity : AppCompatActivity() {
 
     fun testJson() {
 
-        Thread {
             try {
                 var r: String = ""
 
@@ -223,7 +215,6 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-        }.start()
     }
 
     fun Any.toJson(): String = Gson().toJson(this)
