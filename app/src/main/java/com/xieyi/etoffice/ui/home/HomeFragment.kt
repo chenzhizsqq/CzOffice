@@ -63,10 +63,10 @@ class HomeFragment : Fragment() {
         recordTableTableLayout.setOnClickListener {
 
             //データ更新
-            Thread {
-                try {
-                    var r: String = ""
-                    r = JC.pEtOfficeGetUserStatus.post()
+//            Thread {
+//                try {
+//                    var r: String = ""
+//                    r = JC.pEtOfficeGetUserStatus.post()
                     //Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
                     val mHomeReportDialog = HomeReportDialog()
@@ -76,11 +76,11 @@ class HomeFragment : Fragment() {
                     val fragmentManager = this@HomeFragment.parentFragmentManager
                     fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog")  }
 
-                }catch (e:Exception){
-
-
-                }
-            }.start()
+//                }catch (e:Exception){
+//
+//
+//                }
+//            }.start()
 
 
         }
