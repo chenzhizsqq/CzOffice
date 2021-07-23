@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //            }.start()
-            testJson()
+            //testJson()
         }catch (e:Exception){
             Log.e(TAG, "testJson: ", )
         }
@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
 //                Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
 
                 //日報一覧取得
-                r = JC.pEtOfficeGetReportList.post()
-                Log.e(TAG, "pEtOfficeGetReportList.post():$r")
+                //r = JC.pEtOfficeGetReportList.post()
+                //Log.e(TAG, "pEtOfficeGetReportList.post():$r")
 
             }catch (e:Exception){
                 Log.e(TAG, "onCreate .post() :$e")
