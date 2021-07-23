@@ -29,9 +29,6 @@ class ReportFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate: begin")
 
-//        //データ更新
-//        Thread {
-//        }.start()
     }
     private lateinit var mainView: View
 
@@ -146,10 +143,10 @@ class ReportFragment : Fragment() {
                     //setOnClickListener
                     mLinearLayout.setOnClickListener(View.OnClickListener {
 
-                        Thread {
+                        //Thread {
                             try {
 
-                                val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
+//                                val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
 
                                 val bundle = Bundle()
                                 bundle.putString("date", yyyymmdd)
@@ -161,7 +158,7 @@ class ReportFragment : Fragment() {
                                 Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
 
                             }
-                        }.start()
+                        //}.start()
                     })
 
 
