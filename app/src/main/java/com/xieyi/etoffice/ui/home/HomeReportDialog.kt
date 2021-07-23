@@ -76,13 +76,6 @@ class HomeReportDialog : DialogFragment() {
             }
 
             //record_linearLayout
-            //JC.pEtOfficeGetUserStatus
-
-            //        Log.e("infoUserStatusList() ",
-            //            JC.pEtOfficeGetUserStatus.infoUserStatusList().toString()
-            //        )
-
-
             val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
             recordLinearLayout.setPadding(10)
 

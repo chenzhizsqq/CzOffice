@@ -143,22 +143,18 @@ class ReportFragment : Fragment() {
                     //setOnClickListener
                     mLinearLayout.setOnClickListener(View.OnClickListener {
 
-                        //Thread {
-                            try {
+                        try {
 
-//                                val r = JC.pEtOfficeGetReportInfo.post(yyyymmdd)
+                            val bundle = Bundle()
+                            bundle.putString("date", yyyymmdd)
 
-                                val bundle = Bundle()
-                                bundle.putString("date", yyyymmdd)
+                            Navigation.findNavController(mainView)
+                                .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
 
-                                Navigation.findNavController(mainView)
-                                    .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
+                        } catch (e: Exception) {
+                            Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
 
-                            } catch (e: Exception) {
-                                Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
-
-                            }
-                        //}.start()
+                        }
                     })
 
 

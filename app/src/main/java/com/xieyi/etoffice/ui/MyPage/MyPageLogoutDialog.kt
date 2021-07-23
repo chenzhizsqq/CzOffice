@@ -18,8 +18,6 @@ class MyPageLogoutDialog : DialogFragment() {
     ): View {
         val view: View = inflater.inflate(R.layout.dialog_my_page_logout, container)
 
-
-
         //ボタン　保存後に閉じる
         val btnCancel = view.findViewById<TextView>(R.id.btn_Cancel)
         btnCancel.setOnClickListener {

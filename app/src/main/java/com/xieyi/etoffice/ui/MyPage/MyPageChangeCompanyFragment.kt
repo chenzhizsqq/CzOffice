@@ -110,7 +110,7 @@ class MyPageChangeCompanyFragment : Fragment() {
                 }
 
 
-                //mLinearLayout touch   begin
+                //データ　発信
                 mLinearLayout.setOnClickListener {
                     GlobalScope.launch(errorHandler) {
                         withContext(Dispatchers.IO) {

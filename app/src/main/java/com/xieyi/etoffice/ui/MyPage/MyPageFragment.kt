@@ -33,19 +33,19 @@ class MyPageFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_my_page, container, false)
         try {
 
-            var mUserName: TextView = view.findViewById(R.id.user_name)
+            val mUserName: TextView = view.findViewById(R.id.user_name)
             mUserName.text = JC.pEtOfficeLogin.infoLoginResult().username
 
-            var mUserMail: TextView = view.findViewById(R.id.user_mail)
+            val mUserMail: TextView = view.findViewById(R.id.user_mail)
             mUserMail.text = JC.pEtOfficeLogin.infoLoginResult().mail
 
-            var mNameValue: TextView = view.findViewById(R.id.name_value)
+            val mNameValue: TextView = view.findViewById(R.id.name_value)
             mNameValue.text = JC.pEtOfficeLogin.infoLoginResult().username
 
-            var mMobileValue: TextView = view.findViewById(R.id.mobile_value)
+            val mMobileValue: TextView = view.findViewById(R.id.mobile_value)
             mMobileValue.text = JC.pEtOfficeLogin.infoLoginResult().phone
 
-            var mMailValue: TextView = view.findViewById(R.id.mail_value)
+            val mMailValue: TextView = view.findViewById(R.id.mail_value)
             mMailValue.text = JC.pEtOfficeLogin.infoLoginResult().mail
 
 
@@ -81,9 +81,6 @@ class MyPageFragment : Fragment() {
         pTableLayout.setOnClickListener(View.OnClickListener {
 
             val mMyPageLogoutDialog = MyPageLogoutDialog()
-
-//            mMyPageLogoutDialog.setTargetFragment(this@MyPageFragment, 1)
-//            fragmentManager?.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
 
             val fragmentManager = this@MyPageFragment.parentFragmentManager
             fragmentManager.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog")  }
