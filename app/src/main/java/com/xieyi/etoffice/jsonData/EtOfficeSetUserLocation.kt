@@ -78,20 +78,26 @@ class EtOfficeSetUserLocation {
             try {
 
                 val gson = Gson()
-                val mJson: EtOfficeSetUserLocationJson =
-                    gson.fromJson(lastJson, EtOfficeSetUserLocationJson::class.java)
+                val mJson: JsonClass =
+                    gson.fromJson(lastJson, JsonClass::class.java)
                 return mJson.result.locationlist[index]
             } catch (e: Exception) {
                 Log.e(TAG, e.toString())
             }
             return null
         }
-    data class EtOfficeSetUserLocationJson(
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
+    data class JsonClass(
         val message: String,
-        val result: EtOfficeSetUserLocationResult,
+        val result: Result,
         val status: Int
     )
-    data class EtOfficeSetUserLocationResult(
+    data class Result(
         val locationlist: List<EtOfficeSetUserLocationlist>
     )
     data class EtOfficeSetUserLocationlist(

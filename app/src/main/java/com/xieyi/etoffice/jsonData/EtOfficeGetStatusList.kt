@@ -74,34 +74,18 @@ class EtOfficeGetStatusList {
          */
 
 
-        fun getJson(): String {
-            try {
-                val gson = Gson()
-                val mJson: Json =
-                    gson.fromJson(lastJson, Json::class.java)
-                return mJson.toString()
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return ""
-        }
-
-        fun getResult(): Result? {
-            try {
-                val gson = Gson()
-                val mJson: Json =
-                    gson.fromJson(lastJson, Json::class.java)
-                return mJson.result
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
-        }
-    data class Json(
+    data class JsonClass(
         val message: String,
         val result: Result,
         val status: Int
     )
+
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
 
     data class Result(
         val sectionlist: List<SectionList>

@@ -16,7 +16,7 @@ import com.xieyi.etoffice.jsonData.JC
 
 class MyPageFragment : Fragment() {
 
-    private val TAG: String? = "MyPageFragment"
+    private val TAG: String = "MyPageFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -70,7 +70,7 @@ class EtOfficeUserInfo {
             try {
 
                 val gson = Gson()
-                val mUserInfoJson: UserInfoJson = gson.fromJson(lastJson, UserInfoJson::class.java)
+                val mUserInfoJson: JsonClass = gson.fromJson(lastJson, JsonClass::class.java)
                 return mUserInfoJson.result
             } catch (e: Exception) {
                 Log.e(TAG, e.toString())
@@ -78,8 +78,14 @@ class EtOfficeUserInfo {
             return null
         }
 
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
 
-    data class UserInfoJson(
+    data class JsonClass(
         val message: String,
         val result: Result,
         val status: Int

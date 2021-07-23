@@ -107,30 +107,6 @@ class EtOfficeGetMessage {
          */
 
 
-        fun infoRecordlist(index: Int): Recordlist? {
-            try {
-                val gson = Gson()
-                val mJson: EtOfficeGetMessageJson =
-                    gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
-                return mJson.result.recordlist[index]
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
-        }
-
-        fun getResult(): EtOfficeGetMessageResult? {
-            try {
-                val gson = Gson()
-                val mJson: EtOfficeGetMessageJson =
-                    gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
-                return mJson.result
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
-        }
-
 
     data class Recordlist(
         val memo: String,
@@ -138,15 +114,22 @@ class EtOfficeGetMessage {
         val statustime: String,
         val statusvalue: String
     )
-    data class EtOfficeGetMessageResult(
+    data class Result(
         val messagelist: List<Any>,
         val recordlist: List<Recordlist>
     )
-    data class EtOfficeGetMessageJson(
+    data class JsonClass(
         val message: String,
-        val result: EtOfficeGetMessageResult,
+        val result: Result,
         val status: Int
     )
 
+
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
 }
 

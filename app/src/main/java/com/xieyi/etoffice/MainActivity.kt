@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //            }.start()
-            //testJson()
+            testJson()
         }catch (e:Exception){
             Log.e(TAG, "testJson: ", )
         }

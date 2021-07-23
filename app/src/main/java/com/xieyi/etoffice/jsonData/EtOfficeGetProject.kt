@@ -84,6 +84,14 @@ class EtOfficeGetProject {
         return null
     }
 
+
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
+
     data class JsonClass(
         val message: String,
         val result: Result,

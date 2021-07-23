@@ -109,16 +109,22 @@ class EtOfficeSetMessage {
         fun getResult(): String? {
             try {
                 val gson = Gson()
-                val mJson: EtOfficeGetMessageJson =
-                    gson.fromJson(lastJson, EtOfficeGetMessageJson::class.java)
+                val mJson: JsonClass =
+                    gson.fromJson(lastJson, JsonClass::class.java)
                 return mJson.result
             } catch (e: Exception) {
                 Log.e(TAG, e.toString())
             }
             return null
         }
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
 
-    data class EtOfficeGetMessageJson(
+    data class JsonClass(
         val message: String,
         val result: String,
         val status: Int
