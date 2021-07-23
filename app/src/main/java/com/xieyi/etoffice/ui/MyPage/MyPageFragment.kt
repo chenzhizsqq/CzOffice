@@ -21,20 +21,7 @@ class MyPageFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate: begin")
-        Thread {
-            try {
-                var r: String = JC.pEtOfficeGetUserLocation.post()                   //Json 送信
-                Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
 
-                r = JC.pEtOfficeGetTenant.post()                                    //Json 送信
-                Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
-
-
-            }catch (e:Exception){
-                Log.e(TAG, "onCreate .post() :$e")
-
-            }
-        }.start()
     }
 
     override fun onCreateView(

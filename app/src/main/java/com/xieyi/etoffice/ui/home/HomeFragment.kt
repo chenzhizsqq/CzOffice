@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
             view.findViewById(R.id.record_table) as TableLayout
         recordTableTableLayout.setOnClickListener {
 
+            //データ更新
             Thread {
                 try {
                     var r: String = ""
