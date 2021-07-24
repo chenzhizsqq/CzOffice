@@ -184,7 +184,7 @@ class MemberFragment : Fragment() {
     private fun makeImage(size:Int):ImageView {
         val imageView = ImageView(activity)
         val myDrawable = ResourcesCompat.getDrawable(
-            resources, R.drawable.icons8_plus_50, null
+            resources, R.drawable.ic_baseline_add_circle_outline_24, null
         )
 
         //image logo size

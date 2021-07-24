@@ -30,7 +30,7 @@ class MyPagePlaceSettingFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin", )
+        Log.e(TAG, "onCreate: begin")
     }
     private lateinit var mainView: View
 
@@ -96,7 +96,7 @@ class MyPagePlaceSettingFragment : Fragment() {
                 //image logo
                 val imageView = ImageView(activity)
                 val myDrawable = ResourcesCompat.getDrawable(
-                    resources, R.drawable.icons8_plus_50, null
+                    resources, R.drawable.ic_baseline_adjust_24, null
                 )
 
                 //image logo size
