@@ -99,13 +99,17 @@ class MemberFragment : Fragment() {
 
                     val ll= LinearLayout(activity)
 
+                    ll.gravity = Gravity.CENTER
+
+                    ll.setPadding(10)
+
                     ll.setOrientation(LinearLayout.HORIZONTAL)
 
                     ll.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
 
                     //image logo
-                    val imageView = makeImage(180)
+                    val imageView = makeImage(100)
 
                     ll.addView(imageView)
 
@@ -121,8 +125,8 @@ class MemberFragment : Fragment() {
 
                     //info right
                     val tl_right = funTableLayoutR(
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].tenant,
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].hpid,
+                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].sectioncd,
+                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].sectionname,
                         JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].mail,
                     )
                     tl_right.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT)
@@ -170,21 +174,21 @@ class MemberFragment : Fragment() {
 
 
 
-            //call_telephone 電話します
-            val pTableRowInfoTitle: TextView = mainView.findViewById(R.id.call_telephone) as TextView
-            pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
-                var textTitle:CharSequence = pTableRowInfoTitle.text;
-                val uri: Uri = Uri.parse("tel:"+textTitle)
-                val intent = Intent(Intent.ACTION_CALL, uri)
-                startActivity(intent)
-            })
+//            //call_telephone 電話します
+//            val pTableRowInfoTitle: TextView = mainView.findViewById(R.id.call_telephone) as TextView
+//            pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
+//                var textTitle:CharSequence = pTableRowInfoTitle.text;
+//                val uri: Uri = Uri.parse("tel:"+textTitle)
+//                val intent = Intent(Intent.ACTION_CALL, uri)
+//                startActivity(intent)
+//            })
         }
     }
 
     private fun makeImage(size:Int):ImageView {
         val imageView = ImageView(activity)
         val myDrawable = ResourcesCompat.getDrawable(
-            resources, R.drawable.ic_baseline_add_circle_outline_24, null
+            resources, R.drawable.ic_baseline_account_circle_24_blue, null
         )
 
         //image logo size
