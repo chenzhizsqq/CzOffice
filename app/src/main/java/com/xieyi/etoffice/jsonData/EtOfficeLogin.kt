@@ -99,6 +99,14 @@ class EtOfficeLogin {
             val gson = Gson()
             val mJsonClass: JsonClass =
                 gson.fromJson(lastJson, JsonClass::class.java)
+
+
+            if(Config.isTest) {
+//            "tenantid": "3",
+//            "hpid": "6",
+                mJsonClass.result.tenantid = "3"
+                mJsonClass.result.hpid = "6"
+            }
             return mJsonClass
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
@@ -107,10 +115,10 @@ class EtOfficeLogin {
     }
 
     data class LoginResult(
-        val hpid: String,
+        var hpid: String,
         val mail: String,
         val phone: String,
-        val tenantid: String,
+        var tenantid: String,
         val token: String,
         val usercode: String,
         val userid: String,
