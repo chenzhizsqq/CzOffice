@@ -157,6 +157,84 @@ class MyPagePlaceSettingFragment : Fragment() {
             }
 
 
+            //test
+            for (i in 0..size - 1) {
+                //LinearLayout init
+                val mLinearLayout = LinearLayout(activity)
+                mLinearLayout.setOrientation(LinearLayout.HORIZONTAL)
+                mLinearLayout.gravity = (Gravity.CENTER or Gravity.LEFT)
+                mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+                //mLinearLayout tag
+                mLinearLayout.tag = tagName + "_" + i
+
+                //location info
+
+
+                //image logo
+                val imageView = ImageView(activity)
+                val myDrawable = ResourcesCompat.getDrawable(
+                    resources, R.drawable.ic_baseline_adjust_24, null
+                )
+
+                //image logo size
+                val layoutParams = LinearLayout.LayoutParams(50, 50)
+                imageView.layoutParams = layoutParams
+
+                //image logo add
+                imageView.setImageDrawable(myDrawable)
+                mLinearLayout.addView(imageView)
+
+                val textView = TextView(activity)
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+                textView.setTextColor(Color.parseColor("#000000"))
+                textView.text =
+                    JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location
+                mLinearLayout.addView(textView)
+
+                //design
+                mLinearLayout.setBackgroundColor(Color.WHITE)
+                mLinearLayout.setPadding(30)
+
+
+                //mLinearLayout touch   begin
+                mLinearLayout.setOnClickListener {
+                    try {
+                        //all linearLayouts of recordLinearLayout change WHITE
+                        for (j in 0..size - 1) {
+                            val ll =
+                                recordLinearLayout.findViewWithTag<LinearLayout>(tagName + "_" + j)
+                            ll.setBackgroundColor(Color.WHITE)
+                        }
+
+                        //!!!!!!!!!!!!!!!!!!!   set place   !!!!!!!!!!!!!!!!!!!
+                        var r: String = "0"
+
+
+                        //this mLinearLayout green
+                        if (r == "0") {
+                            mLinearLayout.setBackgroundColor(Color.GREEN)
+                        }
+
+                    } catch (e: Exception) {
+                        Log.e(TAG, "mLinearLayout.setOnClickListener: ", e)
+                    }
+                }
+                //mLinearLayout touch end
+
+                //over to add
+                recordLinearLayout.addView(mLinearLayout)
+
+
+                //線
+                val mLinearLayout2 = LinearLayout(activity)
+                val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+                mLinearLayout2.layoutParams = lp2
+                mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+                recordLinearLayout.addView(mLinearLayout2)
+            }
+
+
             //returnpHome
             val returnHome = mainView.findViewById<ImageView>(R.id.returnHome)
             returnHome.setOnClickListener {

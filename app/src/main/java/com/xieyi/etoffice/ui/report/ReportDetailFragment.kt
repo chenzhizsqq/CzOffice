@@ -124,8 +124,6 @@ class ReportDetailFragment() : Fragment() {
             worktime.text = JC.pEtOfficeGetReportInfo.infoJson().result.worktime
 
 
-            val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
-            Log.e(TAG, "doOnUiCode: size:$size" )
 
             //content：
             val content: LinearLayout = mainView.findViewById(R.id.content)
@@ -133,39 +131,10 @@ class ReportDetailFragment() : Fragment() {
 
             val sizeEachY=5
 
-            val l_Y: Array<LinearLayout> = Array(size/sizeEachY+1){getLinearLayoutContent()}
-            var x=0
-            var y=0
-            for (i in 0 until size) {
-                x = i % sizeEachY
-                y = i / sizeEachY
-
-                val l_X = getLinearLayout()
-
-                val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
-
-                val getTextView_time = getTextView(time)
-                getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
-                l_X.addView(getTextView_time)
+            funContent(sizeEachY, content)
 
 
-                val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
-
-                val getTextView_1 = getTextView(text)
-                getTextView_1.setBackgroundColor(Color.YELLOW)
-                l_X.addView(getTextView_1)
-
-
-                l_Y[y].addView(l_X)
-
-                if(x == sizeEachY-1){
-                    content.addView(l_Y[y])
-                }
-            }
-            content.addView(l_Y[y])
-
-
-            val addView: TableLayout = mainView.findViewById(R.id.addView)
+            val addView: ImageView = mainView.findViewById(R.id.addView)
             addView.setOnClickListener {
 
                 val pReportAddDialog = ReportAddDialog()
@@ -233,6 +202,41 @@ class ReportDetailFragment() : Fragment() {
             //        }
             //design code
         }
+    }
+
+    private fun funContent(sizeEachY: Int, content: LinearLayout) {
+        val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
+        Log.e(TAG, "doOnUiCode: size:$size")
+        val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
+        var x = 0
+        var y = 0
+        for (i in 0 until size) {
+            x = i % sizeEachY
+            y = i / sizeEachY
+
+            val l_X = getLinearLayout()
+
+            val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
+
+            val getTextView_time = getTextView(time)
+            getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
+            l_X.addView(getTextView_time)
+
+
+            val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
+
+            val getTextView_1 = getTextView(text)
+            getTextView_1.setBackgroundColor(Color.YELLOW)
+            l_X.addView(getTextView_1)
+
+
+            l_Y[y].addView(l_X)
+
+            if (x == sizeEachY - 1) {
+                content.addView(l_Y[y])
+            }
+        }
+        content.addView(l_Y[y])
     }
 
 

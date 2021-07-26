@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.report.ReportFragment"
+    tools:context=".ui.report.ReportDetailFragment"
 
     android:background="#D1D1D1">
 
@@ -14,191 +14,168 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:background="#DDDFDFDF"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/returnHome"
-                android:layout_width="1dp"
-                android:layout_weight="1"
-                android:layout_height="30dp"
-                android:gravity="center"
-                app:srcCompat="?attr/homeAsUpIndicator" />
-            <TextView
-                android:layout_width="1dp"
-                android:layout_weight="1"
-                android:layout_height="50dp"
-                android:text="日報"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:gravity="center"
-                />
-            <TextView
-                android:layout_width="1dp"
-                android:layout_weight="1"
-                android:layout_height="50dp"
-                android:text=""
-                />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!--内容-->
-    <LinearLayout
-        android:id="@+id/record_linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
-<!--        date-->
-        <TextView
-            android:id="@+id/record_date"
-            android:background="@drawable/ic_round_edge_grey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:textColor="#000000"/>
-<!--        予定：-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60AAAAAA"
-            android:padding="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="center|left"
-                android:text="予定："
-                android:textColor="#000000"/>
-            <TextView
-                android:id="@+id/appointment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="center|left"
-                android:text="予定："
-                android:textColor="#000000"/>
-        </LinearLayout>
-
-        <!--線-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:gravity="center"
-            android:background="#9F9F9F"
-            android:orientation="horizontal">
-        </LinearLayout>
-
-<!--        実績：-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#60AAAAAA"
-            android:padding="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="center|left"
-                android:text="実績："
-                android:textColor="#000000"/>
-            <TextView
-                android:id="@+id/worktime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:gravity="center|left"
-                android:text="実績："
-                android:textColor="#000000"/>
-        </LinearLayout>
-
-<!--        time：-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:orientation="horizontal">
-        </LinearLayout>
-
-<!--      !!!  content !!!-->
-        <LinearLayout
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="10dp"
             android:orientation="vertical">
-        </LinearLayout>
-<!--    !!!    content !!! -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="#DDDFDFDF"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/returnHome"
+                    android:layout_width="1dp"
+                    android:layout_weight="1"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    app:srcCompat="?attr/homeAsUpIndicator" />
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:text="日報"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:text=""
+                    />
+            </LinearLayout>
 
-<!--線-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:gravity="center"
-            android:background="@color/black"
-            android:orientation="horizontal">
         </LinearLayout>
 
+        <!--内容-->
         <LinearLayout
+            android:id="@+id/record_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <TableLayout
-                android:id="@+id/addView"
+            android:background="@color/white"
+            android:orientation="vertical">
+    <!--        date-->
+            <TextView
+                android:id="@+id/record_date"
                 android:background="@drawable/ic_round_edge_grey"
-                android:padding="10dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
                 android:gravity="center"
-                android:layout_margin="20dp"
-                >
+                android:layout_margin="10dp"
+                android:textColor="#000000"/>
+    <!--        予定：-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#60AAAAAA"
+                android:padding="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="center|left"
+                    android:text="予定："
+                    android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/appointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="center|left"
+                    android:text="予定："
+                    android:textColor="#000000"/>
+            </LinearLayout>
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
+            <!--線-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:gravity="center"
+                android:background="#9F9F9F"
+                android:orientation="horizontal">
+            </LinearLayout>
 
+    <!--        実績：-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#60AAAAAA"
+                android:padding="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="center|left"
+                    android:text="実績："
+                    android:textColor="#000000"/>
+                <TextView
+                    android:id="@+id/worktime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="center|left"
+                    android:text="実績："
+                    android:textColor="#000000"/>
+            </LinearLayout>
+
+
+    <!--      !!!  content !!!-->
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="10dp"
+                android:orientation="vertical">
+            </LinearLayout>
+    <!--    !!!    content !!! -->
+
+    <!--線-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:background="@drawable/ic_round_edge_grey"
+                    android:padding="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/imageButton1"
-                        android:layout_width="46dp"
-                        android:layout_height="match_parent"
+                        android:id="@+id/addView"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:gravity="center"
                         android:background="#FFFFFF"
-                        app:srcCompat="@android:drawable/ic_input_add" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:layout_height="match_parent">
-
+                        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
                         android:text="追加する"
-                        android:textColor="#000000"/>
-                </TableRow>
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
 
-            </TableLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:orientation="vertical"/>
         </LinearLayout>
-    </LinearLayout>
-    <!--内容-->
+        <!--内容-->
 
 <!--    <TableLayout-->
 <!--        android:layout_width="match_parent"-->
@@ -316,6 +293,6 @@
 <!--        </TableRow>-->
 
 <!--    </TableLayout>-->
-</LinearLayout>
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
