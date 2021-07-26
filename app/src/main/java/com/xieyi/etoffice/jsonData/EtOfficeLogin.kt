@@ -51,7 +51,7 @@ class EtOfficeLogin {
             if (response != null) {
                 if (response.isSuccessful) {
 
-                    var json: String = response.body!!.string()
+                    val json: String = response.body!!.string()
                     lastJson = json
                     /*{
                           "status": 0,
@@ -70,7 +70,7 @@ class EtOfficeLogin {
                         }
                      */
 
-                    var mJsonResult = JSONObject(json)
+                    val mJsonResult = JSONObject(json)
                     Log.e(TAG, "mJsonResult:$mJsonResult")
 
                     status = mJsonResult.getString("status")

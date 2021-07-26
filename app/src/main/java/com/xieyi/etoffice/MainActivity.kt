@@ -28,29 +28,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         view = findViewById(android.R.id.content)
         supportActionBar?.hide()
-        //Jsonテスト   begin
 
+        //Jsonテスト   begin
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
 
                 //特別データ　テスト
-//                try {
-//                    val r = JC.pEtOfficeGetStuffList.post()
-//                    Log.e(TAG, "pEtOfficeGetStuffList.post():$r")
-//                } catch (e: Exception) {
-//
-//                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null)
-//                        .show()
-//                    Log.e(TAG, "TAG", e)
-//                }
+                try {
+                    var r:String ="-1"
+                    r= JC.pEtOfficeGetUserStatus.post()
+                    Log.e(TAG, "pEtOfficeGetUserStatus.post():$r")
+                } catch (e: Exception) {
+
+                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null)
+                        .show()
+                    Log.e(TAG, "TAG", e)
+                }
 
                 //全部データ　テスト
                 try {
-                    Log.e(TAG, "GlobalScope.launch try: ", )
                     //testJson()
                 } catch (e: Exception) {
-                    Log.e(TAG, "GlobalScope.launch catch:$e")
+                    Log.e(TAG, "testJson catch:$e")
                 }
 
             }
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun testJson() {
+        Log.e(TAG, "testJson() begin" )
 
             try {
                 var r: String = ""
@@ -215,6 +216,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
+        Log.e(TAG, "testJson() end" )
     }
 
     fun Any.toJson(): String = Gson().toJson(this)
