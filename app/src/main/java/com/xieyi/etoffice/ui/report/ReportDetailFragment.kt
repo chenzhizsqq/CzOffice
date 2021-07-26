@@ -88,7 +88,12 @@ class ReportDetailFragment() : Fragment() {
 
                 }
 
-                doOnUiCode()
+                try {
+                    doOnUiCode()
+                }catch (e:Exception){
+                    Log.e(TAG, "doOnUiCode :$e")
+
+                }
             }
         }
 
@@ -120,46 +125,50 @@ class ReportDetailFragment() : Fragment() {
 
 
             val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
+            Log.e(TAG, "doOnUiCode: size:$size" )
 
             //content：
             val content: LinearLayout = mainView.findViewById(R.id.content)
-            val quotient = size / 5 + 1
-            for (j in 0 until quotient) {
-
-                val getLinearLayoutContent = getLinearLayoutContent()
-
-                val remainder = size % 5
-                for (i in 0 until remainder) {
-                    val getLinearLayout_1 = getLinearLayout()
 
 
-                    val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
+            val sizeEachY=5
 
-                    val getTextView_time = getTextView(time)
-                    getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
-                    getLinearLayout_1.addView(getTextView_time)
+            val l_Y: Array<LinearLayout> = Array(size/sizeEachY+1){getLinearLayoutContent()}
+            var x=0
+            var y=0
+            for (i in 0 until size) {
+                x = i % sizeEachY
+                y = i / sizeEachY
+
+                val l_X = getLinearLayout()
+
+                val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
+
+                val getTextView_time = getTextView(time)
+                getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
+                l_X.addView(getTextView_time)
 
 
-                    val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
+                val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
 
-                    val getTextView_1 = getTextView(text)
-                    getTextView_1.setBackgroundColor(Color.YELLOW)
-                    getLinearLayout_1.addView(getTextView_1)
+                val getTextView_1 = getTextView(text)
+                getTextView_1.setBackgroundColor(Color.YELLOW)
+                l_X.addView(getTextView_1)
 
 
+                l_Y[y].addView(l_X)
 
-                    getLinearLayoutContent.addView(getLinearLayout_1)
-
+                if(x == sizeEachY-1){
+                    content.addView(l_Y[y])
                 }
-                content.addView(getLinearLayoutContent)
             }
+            content.addView(l_Y[y])
+
+
             val addView: TableLayout = mainView.findViewById(R.id.addView)
             addView.setOnClickListener {
 
                 val pReportAddDialog = ReportAddDialog()
-
-                //            pReportAddDialog.setTargetFragment(this, 1)
-                //            fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
 
                 val fragmentManager = this@ReportDetailFragment.parentFragmentManager
                 fragmentManager.let { it1 -> pReportAddDialog.show(it1, "pReportAddDialog") }
