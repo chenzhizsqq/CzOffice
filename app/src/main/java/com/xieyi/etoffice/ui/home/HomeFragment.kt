@@ -1,7 +1,9 @@
 package com.xieyi.etoffice.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +24,10 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     private val TAG = "Frag01SelectFragment"
+
+    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
+    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,11 +176,141 @@ class HomeFragment : Fragment() {
     }
 }
 
-    // GetStatus UI更新
+    // Message UI更新
     private suspend fun doOnUiCode_M() {
         withContext(Dispatchers.Main) {
 
 
+            /*
+            {
+      "status": 0,
+      "result": {
+        "recordlist": [
+          {
+            "statustime": "20210727102010",
+            "statusvalue": "3",
+            "statustext": "休憩中",
+            "memo": ""
+          },
+          {
+            "statustime": "20210727101943",
+            "statusvalue": "1",
+            "statustext": "勤務中",
+            "memo": ""
+          }
+        ],
+        "messagelist": [
+          {
+            "title": "勤務実績変更",
+            "content": "写易花子さんが202107の勤務実績「通常勤務」09:00-18:00を一括変更しました",
+            "updatetime": "20210720181659",
+            "subid": "1"
+          },
+          {
+            "title": "勤務実績登録",
+            "content": "写易花子さんが20210720の勤務実績「通常勤務」09:00-18:00を登録しました",
+            "updatetime": "20210720180628",
+            "subid": "1"
+          },
+
+          {
+            "title": "勤務実績変更",
+            "content": "写易花子さんが202106の勤務実績「通常勤務」09:00-18:00を一括変更しました",
+            "updatetime": "20210716081659",
+            "subid": "1"
+          }
+        ]
+      },
+      "message": ""
+    }
+             */
+
+            val size = JC.pEtOfficeGetMessage.infoJson().result.messagelist.size
+            Log.e(TAG, "messagelist.size: $size")
+            val messageLayout = mainView.findViewById<LinearLayout>(R.id.message_layout)
+
+
+            for (i in 0..size - 1) {
+
+
+                val title = JC.pEtOfficeGetMessage.infoJson().result.messagelist[i].title
+                val updatetime = JC.pEtOfficeGetMessage.infoJson().result.messagelist[i].updatetime
+                val content = JC.pEtOfficeGetMessage.infoJson().result.messagelist[i].content
+
+                val eachLine = eachLine(title,Tools.allDateTime(updatetime),content)
+
+                val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+
+                layoutParams.setMargins(10, 10, 10, 0)
+
+                messageLayout.addView(eachLine, layoutParams)
+            }
+
+
         }
+    }
+
+    private fun eachLine(s1:String,s2:String,s3:String): LinearLayout {
+        val eachLine = LinearLayout(activity)
+
+        eachLine.orientation = LinearLayout.VERTICAL
+
+        eachLine.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+
+        eachLine.setBackgroundResource(R.drawable.ic_round_edge_white)
+
+
+
+        val l1 = topLine(s1,s2)
+
+        eachLine.addView(l1)
+
+        l1.setPadding(20,0,20,0)
+
+        val t3 = TextView(activity)
+
+        t3.text = s3
+
+        t3.setPadding(20)
+
+        eachLine.addView(t3)
+
+
+        return eachLine
+    }
+
+    private fun topLine(s1:String,s2:String): LinearLayout {
+        val l1 = LinearLayout(activity)
+
+        l1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+        val t1 = TextView(activity)
+
+        t1.text = s1
+
+        t1.textSize = 20.0F
+
+        t1.setTextColor(Color.BLACK)
+
+        l1.addView(t1)
+
+
+        val t2 = TextView(activity)
+
+        t2.text = s2
+
+        t2.textSize = 16.0F
+
+        t2.setTextColor(Color.BLACK)
+
+        t2.gravity = Gravity.RIGHT
+
+        t2.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+        l1.addView(t2)
+
+        return l1
     }
 }

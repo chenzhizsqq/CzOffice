@@ -86,26 +86,46 @@ class EtOfficeGetMessage {
 
         /*
         {
-          "status": 0,
-          "result": {
-            "recordlist": [
-              {
-                "statustime": "20210712181908",
-                "statusvalue": "",
-                "statustext": "",
-                "memo": ""
-              },
-              {
-                "statustime": "20210712181104",
-                "statusvalue": "",
-                "statustext": "",
-                "memo": ""
-              }
-            ],
-            "messagelist": []
-          },
-          "message": ""
-        }
+  "status": 0,
+  "result": {
+    "recordlist": [
+      {
+        "statustime": "20210727102010",
+        "statusvalue": "3",
+        "statustext": "休憩中",
+        "memo": ""
+      },
+      {
+        "statustime": "20210727101943",
+        "statusvalue": "1",
+        "statustext": "勤務中",
+        "memo": ""
+      }
+    ],
+    "messagelist": [
+      {
+        "title": "勤務実績変更",
+        "content": "写易花子さんが202107の勤務実績「通常勤務」09:00-18:00を一括変更しました",
+        "updatetime": "20210720181659",
+        "subid": "1"
+      },
+      {
+        "title": "勤務実績登録",
+        "content": "写易花子さんが20210720の勤務実績「通常勤務」09:00-18:00を登録しました",
+        "updatetime": "20210720180628",
+        "subid": "1"
+      },
+
+      {
+        "title": "勤務実績変更",
+        "content": "写易花子さんが202106の勤務実績「通常勤務」09:00-18:00を一括変更しました",
+        "updatetime": "20210716081659",
+        "subid": "1"
+      }
+    ]
+  },
+  "message": ""
+}
          */
 
 
