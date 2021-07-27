@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
                 //特別データ　テスト
                 try {
                     var r:String ="-1"
-                    r= JC.pEtOfficeGetUserStatus.post()
-                    Log.e(TAG, "pEtOfficeGetUserStatus.post():$r")
+                    r= JC.pEtOfficeGetProject.post()
+                    Log.e(TAG, "pEtOfficeGetProject.post():$r")
                 } catch (e: Exception) {
 
                     Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
