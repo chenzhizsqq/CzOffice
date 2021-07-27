@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#E8E8E8"
     tools:context=".ui.home.HomeFragment">
 
@@ -27,6 +26,7 @@
             android:text="株式会社写易"
             android:textColor="@color/black"
             android:textSize="14sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -49,6 +50,7 @@
                     android:text="2021.06.28"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content" />
+
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -60,12 +62,14 @@
                     android:layout_width="wrap_content" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|center"
 
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
@@ -88,7 +92,7 @@
             android:textAlignment="textStart"
             android:layout_margin="5dp"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
 
         <LinearLayout
@@ -111,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/btn_star_big_on" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -133,6 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/btn_star_big_on" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,6 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/btn_star_big_on" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,6 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/btn_star_big_on" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -202,6 +210,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@android:drawable/btn_star_big_on" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,7 +219,6 @@
                     android:text="会議中"
                     android:textColor="#000000" />
             </LinearLayout>
-
 
 
         </LinearLayout>
@@ -225,39 +233,30 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:id="@+id/record_table"
-            android:background="@drawable/ic_round_edge_white"
-            >
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="#FFFFFF"
-                    android:gravity="left"
-                    android:text="2021.06.28 勤務中" />
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="#FFFFFF"
-                    android:gravity="left"
-                    android:text="2021.06.28 勤務中"/>
-            </TableRow>
-        </TableLayout>
+        <LinearLayout
+            android:id="@+id/record_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_round_edge_white"
+            android:layout_margin="4dp"
+            android:padding="5dp"
+            android:orientation="vertical">
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="left"-->
+            <!--                    android:layout_margin="5dp"-->
+            <!--                    android:text="2021.06.28 勤務中" />-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="5dp"-->
+            <!--                    android:gravity="left"-->
+            <!--                    android:text="2021.06.28 勤務中"/>-->
+        </LinearLayout>
+
         <TextView
             android:id="@+id/text_title4"
             android:layout_width="wrap_content"
@@ -268,27 +267,103 @@
             android:textColor="@color/black"
             android:textSize="14sp" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:textAlignment="textStart"
-            >
 
-            <TableRow
+<!--        message_layout begin-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/message_layout">
+            <!--        1 line-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:layout_margin="4dp"
+                android:padding="5dp"
+                android:textAlignment="textStart"
+                android:orientation="vertical"
+                android:background="@drawable/ic_round_edge_white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:gravity="left"
+                        android:text="Message record"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:gravity="right"
+                        android:text="Message record"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:background="#FFFFFF"
                     android:gravity="left"
-                    android:text="Message record"
-                    android:textColor="#000000" />
-            </TableRow>
-        </TableLayout>
+                    android:padding="5dp"
+                    android:text="Message recordMessage recordMessage recordMessage recordMessage recordMessage record" />
+            </LinearLayout>
+
+
+            <!--        2 line-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:padding="5dp"
+                android:textAlignment="textStart"
+                android:orientation="vertical"
+                android:background="@drawable/ic_round_edge_white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:gravity="left"
+                        android:text="Message record"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:gravity="right"
+                        android:text="Message record"
+                        android:textColor="#000000" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:gravity="left"
+                    android:padding="5dp"
+                    android:text="Message recordMessage recordMessage recordMessage recordMessage recordMessage record" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--        message_layout end-->
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

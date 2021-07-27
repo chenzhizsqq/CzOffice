@@ -74,12 +74,6 @@ class EtOfficeGetStatusList {
          */
 
 
-    data class JsonClass(
-        val message: String,
-        val result: Result,
-        val status: Int
-    )
-
     fun infoJson(): JsonClass {
         val gson = Gson()
         val mJson: JsonClass =
@@ -87,24 +81,21 @@ class EtOfficeGetStatusList {
         return mJson
     }
 
+    data class JsonClass(
+        val message: String,
+        val result: Result,
+        val status: Int
+    )
+
+    data class Recordlist(
+        val memo: String,
+        val statustext: String,
+        val statustime: String,
+        val statusvalue: String
+    )
+
     data class Result(
-        val sectionlist: List<SectionList>
-    )
-
-    data class SectionList(
-        val sectioncd: String,
-        val sectionname: String,
-        var stufflist:List<StuffList>
-    )
-
-    data class StuffList(
-        val tenant: String,
-        val hpid: String,
-        val userid: String,
-        val username: String,
-        val userkana: String,
-        val phone: String,
-        val mail: String,
+        val recordlist: List<Recordlist>
     )
 
 }

@@ -34,17 +34,17 @@ class MainActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
 
                 //特別データ　テスト
-                try {
-                    var r:String ="-1"
-                    r= JC.pEtOfficeGetProject.post()
-                    Log.e(TAG, "pEtOfficeGetProject.post():$r")
-                } catch (e: Exception) {
-
-                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .show()
-                    Log.e(TAG, "TAG", e)
-                }
+//                try {
+//                    var r:String ="-1"
+//                    r= JC.pEtOfficeGetProject.post()
+//                    Log.e(TAG, "pEtOfficeGetProject.post():$r")
+//                } catch (e: Exception) {
+//
+//                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null)
+//                        .show()
+//                    Log.e(TAG, "TAG", e)
+//                }
 
                 //全部データ　テスト
                 try {
