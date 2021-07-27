@@ -3,6 +3,7 @@ package com.xieyi.etoffice.jsonData
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.Tools
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -58,6 +59,7 @@ class EtOfficeGetMessage {
                         lastJson = json
                         val mJsonResult = JSONObject(json)
                         Log.e(TAG, "mJsonResult:$mJsonResult" )
+                        Tools.logE(TAG,"mJsonResult:$mJsonResult")
 
                         status = mJsonResult.getString("status")
 
@@ -108,21 +110,6 @@ class EtOfficeGetMessage {
 
 
 
-    data class Recordlist(
-        val memo: String,
-        val statustext: String,
-        val statustime: String,
-        val statusvalue: String
-    )
-    data class Result(
-        val messagelist: List<Any>,
-        val recordlist: List<Recordlist>
-    )
-    data class JsonClass(
-        val message: String,
-        val result: Result,
-        val status: Int
-    )
 
 
     fun infoJson(): JsonClass {
@@ -131,5 +118,30 @@ class EtOfficeGetMessage {
             gson.fromJson(lastJson, JsonClass::class.java)
         return mJson
     }
+
+    data class Messagelist(
+        val content: String,
+        val subid: String,
+        val title: String,
+        val updatetime: String
+    )
+
+    data class Recordlist(
+        val memo: String,
+        val statustext: String,
+        val statustime: String,
+        val statusvalue: String
+    )
+
+    data class Result(
+        val messagelist: List<Messagelist>,
+        val recordlist: List<Recordlist>
+    )
+
+    data class JsonClass(
+        val message: String,
+        val result: Result,
+        val status: Int
+    )
 }
 

@@ -1,5 +1,7 @@
 package com.xieyi.etoffice
 
+import android.util.Log
+
 object Tools {
     private const val TAG = "Tools"
 
@@ -85,4 +87,18 @@ object Tools {
         r1+="],"
         return r1
     }
+
+
+
+        fun  logE(tag:String, msg:String) {
+            var logMessage = msg
+            var max_str_length = 2001 - tag.length;
+            //大于4000时
+            while (logMessage.length > max_str_length) {
+                Log.e(tag, logMessage.substring(0, max_str_length))
+                logMessage = logMessage.substring(max_str_length)
+            }
+            //剩余部分
+            Log.e(tag, logMessage);
+        }
 }
