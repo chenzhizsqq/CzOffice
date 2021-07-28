@@ -72,6 +72,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/state"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:textSize="40sp"
@@ -104,6 +105,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/in_work"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -127,6 +129,7 @@
 
 
             <LinearLayout
+                android:id="@+id/out_work"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -151,6 +154,7 @@
 
 
             <LinearLayout
+                android:id="@+id/sleep"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -175,6 +179,7 @@
 
 
             <LinearLayout
+                android:id="@+id/moving"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -199,6 +204,7 @@
 
 
             <LinearLayout
+                android:id="@+id/meeting"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

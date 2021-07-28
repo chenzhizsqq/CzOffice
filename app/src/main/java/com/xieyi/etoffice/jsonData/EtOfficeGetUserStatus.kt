@@ -68,32 +68,18 @@ class EtOfficeGetUserStatus {
             return status
         }
 
-        //userstatuslist    一覧
-        fun infoUserStatusList(index: Int): Userstatuslist? {
-            try {
-                val gson = Gson()
-                val mGetUserStatusJson: JsonClass =
-                    gson.fromJson(lastJson, JsonClass::class.java)
-                return mGetUserStatusJson.result.userstatuslist[index]
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
-        }
-
         fun infoUserStatusList(): List<Userstatuslist> {
             val gson = Gson()
             val mGetUserStatusJson : JsonClass = gson.fromJson(lastJson, JsonClass::class.java)
             return mGetUserStatusJson.result.userstatuslist
         }
 
-        //userstatuslist    一覧
-        fun infoUserStatusListCount(): Int {
-            val gson = Gson()
-            val mGetUserStatusJson : JsonClass = gson.fromJson(lastJson, JsonClass::class.java)
-            return mGetUserStatusJson.result.userstatuslist.count()
-        }
-
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
+    }
 
     data class JsonClass(
         val message: String,

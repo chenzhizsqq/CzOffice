@@ -46,26 +46,50 @@ class HomeFragment : Fragment() {
 
         mainView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val textTitle1: TextView = mainView.findViewById(R.id.text_company_title)
-        homeViewModel.title1.observe(viewLifecycleOwner, Observer {
-            textTitle1.text = it
-        })
-
-
-        val textTitle2: TextView = mainView.findViewById(R.id.text_title2)
-        homeViewModel.title2.observe(viewLifecycleOwner, Observer {
-            textTitle2.text = it
-        })
-
-        val textTitle3: TextView = mainView.findViewById(R.id.text_title3)
-        homeViewModel.title3.observe(viewLifecycleOwner, Observer {
-            textTitle3.text = it
+        val textCompanyTitle: TextView = mainView.findViewById(R.id.text_company_title)
+        homeViewModel.companyTitle.observe(viewLifecycleOwner, Observer {
+            textCompanyTitle.text = it
         })
 
         val textDate: TextView = mainView.findViewById(R.id.text_time)
         homeViewModel.date.observe(viewLifecycleOwner, Observer {
             textDate.text = it
         })
+
+        //勤務状態を設定します
+        val tv_state: TextView = mainView.findViewById(R.id.state)
+
+        val ll_inWork: LinearLayout = mainView.findViewById(R.id.in_work)
+        ll_inWork.setOnClickListener {
+            Tools.testMsg(mainView,"勤務中")
+            tv_state.text = "勤務中"
+        }
+
+        val ll_outWork: LinearLayout = mainView.findViewById(R.id.out_work)
+        ll_outWork.setOnClickListener {
+            Tools.testMsg(mainView,"勤務外")
+            tv_state.text = "勤務外"
+        }
+
+        val ll_sleep: LinearLayout = mainView.findViewById(R.id.sleep)
+        ll_sleep.setOnClickListener {
+            Tools.testMsg(mainView,"休憩中")
+            tv_state.text = "休憩中"
+        }
+
+        val ll_moving: LinearLayout = mainView.findViewById(R.id.moving)
+        ll_moving.setOnClickListener {
+            Tools.testMsg(mainView,"移動中")
+            tv_state.text = "移動中"
+        }
+
+        val ll_meeting: LinearLayout = mainView.findViewById(R.id.meeting)
+        ll_meeting.setOnClickListener {
+            Tools.testMsg(mainView,"会議中")
+            tv_state.text = "会議中"
+        }
+
+
 
         //出勤記録を表示します
         val recordTableTableLayout: LinearLayout =
@@ -95,7 +119,7 @@ class HomeFragment : Fragment() {
 
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
-                //データ更新
+                //出勤記録 データ更新
                 try {
                     val r: String = JC.pEtOfficeGetStatusList.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
@@ -105,11 +129,10 @@ class HomeFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
 
                 }
-
                 doOnUiCode_GetStatus()
 
 
-                //データ更新
+                //Message データ更新
                 try {
                     val r: String = JC.pEtOfficeGetMessage.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetMessage.post() :$r")
@@ -151,7 +174,7 @@ class HomeFragment : Fragment() {
 //            },
 //                "message": ""
 //            }
-    // GetStatus UI更新
+    // 出勤記録 GetStatus UI更新
     private suspend fun doOnUiCode_GetStatus() {
     withContext(Dispatchers.Main) {
 

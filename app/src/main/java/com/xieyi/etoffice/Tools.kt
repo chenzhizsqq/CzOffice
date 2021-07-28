@@ -1,6 +1,8 @@
 package com.xieyi.etoffice
 
 import android.util.Log
+import android.view.View
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -131,5 +133,11 @@ object Tools {
                     tms.get(Calendar.DAY_OF_MONTH).toString()
         }
 
+    }
+
+    fun testMsg(view: View,msg:String){
+        Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+            .setAction("Action", null)
+            .show()
     }
 }

@@ -7,20 +7,11 @@ import com.xieyi.etoffice.Tools
 
 class HomeViewModel : ViewModel() {
 
-    private val _title1 = MutableLiveData<String>().apply {
+    private val _companyTitle = MutableLiveData<String>().apply {
         value = "株式会社写易"
     }
-    val title1: LiveData<String> = _title1
+    val companyTitle: LiveData<String> = _companyTitle
 
-    private val _title2 = MutableLiveData<String>().apply {
-        value = "共通機能"
-    }
-    val title2: LiveData<String> = _title2
-
-    private val _title3 = MutableLiveData<String>().apply {
-        value = "出勤記録"
-    }
-    val title3: LiveData<String> = _title3
 
     private val _date = MutableLiveData<String>().apply {
 

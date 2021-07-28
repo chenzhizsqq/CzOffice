@@ -83,56 +83,53 @@ class MainActivity : AppCompatActivity() {
                 var r: String = ""
 
                 r = JC.pEtOfficeUserInfo.post()
-//                Log.e(TAG, "onCreate: r==$r")
-//                Log.e("infoUserStatusList 0",
-//                    EtOfficeUserInfo.infoUserStatusList().toString()
-//                )
+                Log.e(TAG, "onCreate: r==$r")
+                Log.e(TAG,"pEtOfficeUserInfo --- "+
+                    JC.pEtOfficeUserInfo.infoJson().toString()
+                )
 
                 //  3	出勤記録    HomeReportDialogで、完成しました
                 r = JC.pEtOfficeGetUserStatus.post()
-//                Log.e(TAG, "infoUserStatusList: r==$r")
-//                Log.e("infoUserStatusList 0",
-//                    EtOfficeGetUserStatus.infoUserStatusList(0).toString()
-//                )
+                Log.e(TAG, "pEtOfficeGetUserStatus: r==$r")
+                Log.e(TAG, "pEtOfficeGetUserStatus --- "+
+                    JC.pEtOfficeGetUserStatus.infoJson().toString()
+                )
 
-                //r = JC.pEtOfficeSetUserStatus.post()
-//                Log.e(TAG, "onCreate: r==$r")
-//                Log.e("infoUserStatusList 0",
-//                    EtOfficeSetUserStatus.infoUserStatusList(0).toString()
-//                )
+                r = JC.pEtOfficeSetUserStatus.post()
+                Log.e(TAG, "onCreate: r==$r")
+                Log.e(TAG, "pEtOfficeSetUserStatus --- "+
+                    JC.pEtOfficeSetUserStatus.infoJson().toString()
+                )
 
                 r = JC.pEtOfficeGetUserLocation.post()
-//                Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
-//                Log.e("infoUserstatuslist 0",
-//                    EtOfficeGetUserLocation.infoUserstatuslist(0).toString()
-//                )
+                Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
+                Log.e(TAG, "pEtOfficeGetUserLocation --- "+
+                    JC.pEtOfficeGetUserLocation.infoJson().toString()
+                )
 
-                //r = JC.pEtOfficeSetUserLocation.post()
-//                Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
-//                Log.e("infoLocationList 0",
-//                    EtOfficeSetUserLocation.infoLocationList(0).toString()
-//                )
+                r = JC.pEtOfficeSetUserLocation.post()
+                Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
+                Log.e(TAG,"pEtOfficeSetUserLocation --- "+
+                        JC.pEtOfficeSetUserLocation.infoJson().toString()
+                )
 
                 r = JC.pEtOfficeGetTenant.post()
-//                Log.e(TAG, "EtOfficeGetTenant.post(): r==$r")
-//                Log.e("infoTenantList 0",
-//                    EtOfficeGetTenant.infoTenantList(0).toString()
-//                )
+                Log.e(TAG, "pEtOfficeGetTenant.post(): r==$r")
+                Log.e("pEtOfficeGetTenant --- ",
+                    JC.pEtOfficeGetTenant.infoJson().toString()
+                )
 
-                //r = JC.pEtOfficeSetTenant.post()
-//                Log.e(TAG, "EtOfficeSetTenant.post(): r==$r")
-//                Log.e("infoTenantList 0",
-//                    EtOfficeSetTenant.infoTenantList(0).toString()
+//                r = JC.pEtOfficeSetTenant.post()
+//                Log.e(TAG, "pEtOfficeSetTenant.post(): r==$r")
+//                Log.e("pEtOfficeSetTenant --- ",
+//                    JC.pEtOfficeSetTenant.infoJson().toString()
 //                )
 
                 r = JC.pEtOfficeGetMessage.post()
-//                Log.e(TAG, "EtOfficeGetMessage.post(): r==$r")
-//                Log.e(TAG,"infoRecordlist 0"+
-//                        EtOfficeGetMessage.infoRecordlist(0).toString()
-//                )
-//                Log.e(TAG,"getResult():"+
-//                        EtOfficeGetMessage.getResult()
-//                )
+                Log.e(TAG, "pEtOfficeGetMessage.post(): r==$r")
+                Log.e(TAG,"pEtOfficeGetMessage --- "+
+                        JC.pEtOfficeGetMessage.infoJson().toString()
+                )
 
                 r = JC.pEtOfficeGetStuffList.post()
 //                Log.e(TAG, "EtOfficeGetStuffList post(): r==$r")
