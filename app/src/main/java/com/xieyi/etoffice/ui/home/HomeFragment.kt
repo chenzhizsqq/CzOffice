@@ -61,31 +61,31 @@ class HomeFragment : Fragment() {
 
         val ll_inWork: LinearLayout = mainView.findViewById(R.id.in_work)
         ll_inWork.setOnClickListener {
-            Tools.testMsg(mainView,"勤務中")
+            Tools.showMsg(mainView,"勤務中")
             tv_state.text = "勤務中"
         }
 
         val ll_outWork: LinearLayout = mainView.findViewById(R.id.out_work)
         ll_outWork.setOnClickListener {
-            Tools.testMsg(mainView,"勤務外")
+            Tools.showMsg(mainView,"勤務外")
             tv_state.text = "勤務外"
         }
 
         val ll_sleep: LinearLayout = mainView.findViewById(R.id.sleep)
         ll_sleep.setOnClickListener {
-            Tools.testMsg(mainView,"休憩中")
+            Tools.showMsg(mainView,"休憩中")
             tv_state.text = "休憩中"
         }
 
         val ll_moving: LinearLayout = mainView.findViewById(R.id.moving)
         ll_moving.setOnClickListener {
-            Tools.testMsg(mainView,"移動中")
+            Tools.showMsg(mainView,"移動中")
             tv_state.text = "移動中"
         }
 
         val ll_meeting: LinearLayout = mainView.findViewById(R.id.meeting)
         ll_meeting.setOnClickListener {
-            Tools.testMsg(mainView,"会議中")
+            Tools.showMsg(mainView,"会議中")
             tv_state.text = "会議中"
         }
 

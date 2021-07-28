@@ -31,8 +31,8 @@ class LoginActivity : AppCompatActivity() {
 
     //EtCampLogin、json登録
     private fun postRequest(view: View) {
-        var mEditTextTextEmailAddress: String = editTextTextPersonNameLogin?.text.toString()
-        var mEditTextTextPassword: String = editTextTextPasswordLogin?.text.toString()
+        val mEditTextTextEmailAddress: String = editTextTextPersonNameLogin?.text.toString()
+        val mEditTextTextPassword: String = editTextTextPasswordLogin?.text.toString()
         Thread {
 
             try {

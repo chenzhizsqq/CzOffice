@@ -135,7 +135,7 @@ object Tools {
 
     }
 
-    fun testMsg(view: View,msg:String){
+    fun showMsg(view: View, msg:String){
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
             .setAction("Action", null)
             .show()
