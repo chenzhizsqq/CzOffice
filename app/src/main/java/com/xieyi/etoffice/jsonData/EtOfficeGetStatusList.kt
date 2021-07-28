@@ -49,10 +49,10 @@ class EtOfficeGetStatusList {
                 if (response != null) {
                     if (response.isSuccessful) {
 
-                        var json: String = response.body!!.string()
+                        val json: String = response.body!!.string()
                         lastJson = json
-                        var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                        val mJsonResult = JSONObject(json)
+                        //Log.e(TAG, "mJsonResult:$mJsonResult" )
 
                         status = mJsonResult.getString("status")
 

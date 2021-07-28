@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
         mainView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val textTitle1: TextView = mainView.findViewById(R.id.text_title1)
+        val textTitle1: TextView = mainView.findViewById(R.id.text_company_title)
         homeViewModel.title1.observe(viewLifecycleOwner, Observer {
             textTitle1.text = it
         })
@@ -62,9 +62,9 @@ class HomeFragment : Fragment() {
             textTitle3.text = it
         })
 
-        val textTitle4: TextView = mainView.findViewById(R.id.text_title4)
-        homeViewModel.title4.observe(viewLifecycleOwner, Observer {
-            textTitle4.text = it
+        val textDate: TextView = mainView.findViewById(R.id.text_time)
+        homeViewModel.date.observe(viewLifecycleOwner, Observer {
+            textDate.text = it
         })
 
         //出勤記録を表示します
@@ -119,7 +119,7 @@ class HomeFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetMessage.post() :$e")
 
                 }
-                doOnUiCode_M()
+                doOnUiCode_Message()
             }
         }
 
@@ -177,7 +177,7 @@ class HomeFragment : Fragment() {
 }
 
     // Message UI更新
-    private suspend fun doOnUiCode_M() {
+    private suspend fun doOnUiCode_Message() {
         withContext(Dispatchers.Main) {
 
 

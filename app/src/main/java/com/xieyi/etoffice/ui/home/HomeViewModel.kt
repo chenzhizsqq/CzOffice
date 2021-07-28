@@ -3,12 +3,12 @@ package com.xieyi.etoffice.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.Tools
 
 class HomeViewModel : ViewModel() {
 
     private val _title1 = MutableLiveData<String>().apply {
-        value = "株式会社"
+        value = "株式会社写易"
     }
     val title1: LiveData<String> = _title1
 
@@ -22,15 +22,17 @@ class HomeViewModel : ViewModel() {
     }
     val title3: LiveData<String> = _title3
 
-    private val _title4 = MutableLiveData<String>().apply {
+    private val _date = MutableLiveData<String>().apply {
 
 
-        value = "Message"
-        Thread {
-            if (JC.pEtOfficeUserInfo.post() == "0") {
-                postValue(JC.pEtOfficeUserInfo.infoUserStatusList()?.mail)
-            }
-        }.start()
+        value = Tools.getDate()
+
+
+//        Thread {
+//            if (JC.pEtOfficeUserInfo.post() == "0") {
+//                postValue(JC.pEtOfficeUserInfo.infoUserStatusList()?.mail)
+//            }
+//        }.start()
     }
-    val title4: LiveData<String> = _title4
+    val date: LiveData<String> = _date
 }

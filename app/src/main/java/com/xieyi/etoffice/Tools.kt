@@ -1,6 +1,8 @@
 package com.xieyi.etoffice
 
 import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Tools {
     private const val TAG = "Tools"
@@ -90,15 +92,44 @@ object Tools {
 
 
 
-        fun  logE(tag:String, msg:String) {
-            var logMessage = msg
-            var max_str_length = 2001 - tag.length;
-            //大于4000时
-            while (logMessage.length > max_str_length) {
-                Log.e(tag, logMessage.substring(0, max_str_length))
-                logMessage = logMessage.substring(max_str_length)
-            }
-            //剩余部分
-            Log.e(tag, logMessage);
+    //long long log
+    fun  logE(tag:String, msg:String) {
+        var logMessage = msg
+        var max_str_length = 2001 - tag.length;
+        //大于4000时
+        while (logMessage.length > max_str_length) {
+            Log.e(tag, logMessage.substring(0, max_str_length))
+            logMessage = logMessage.substring(max_str_length)
         }
+        //剩余部分
+        Log.e(tag, logMessage);
+    }
+
+    fun getNow(): String {
+        if (android.os.Build.VERSION.SDK_INT >= 24){
+            return SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS").format(Date())
+        }else{
+            val tms = Calendar.getInstance()
+            return tms.get(Calendar.YEAR).toString() + "-" +
+                    tms.get(Calendar.MONTH).toString() + "-" +
+                    tms.get(Calendar.DAY_OF_MONTH).toString() + " " +
+                    tms.get(Calendar.HOUR_OF_DAY).toString() + ":" +
+                    tms.get(Calendar.MINUTE).toString() +":" +
+                    tms.get(Calendar.SECOND).toString() +"." +
+                    tms.get(Calendar.MILLISECOND).toString()
+        }
+
+    }
+
+    fun getDate(): String {
+        if (android.os.Build.VERSION.SDK_INT >= 24){
+            return SimpleDateFormat("yyyy.MM.dd").format(Date())
+        }else{
+            val tms = Calendar.getInstance()
+            return tms.get(Calendar.YEAR).toString() + "-" +
+                    tms.get(Calendar.MONTH).toString() + "-" +
+                    tms.get(Calendar.DAY_OF_MONTH).toString()
+        }
+
+    }
 }
