@@ -41,6 +41,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/user_status"
             android:layout_width="150dp"
             android:layout_height="44dp"
             android:hint="備考"
@@ -51,6 +52,7 @@
             android:gravity="center|left"
             />
         <TextView
+            android:id="@+id/set_user_status"
             android:layout_width="80dp"
             android:layout_height="44dp"
             android:text="更新"
@@ -113,6 +115,7 @@
             android:gravity="center|left"
             />
         <TextView
+            android:id="@+id/set_user_location"
             android:layout_width="80dp"
             android:layout_height="44dp"
             android:text="地名登録"

@@ -95,11 +95,11 @@ class MainActivity : AppCompatActivity() {
                     JC.pEtOfficeGetUserStatus.infoJson().toString()
                 )
 
-                r = JC.pEtOfficeSetUserStatus.post()
-                Log.e(TAG, "onCreate: r==$r")
-                Log.e(TAG, "pEtOfficeSetUserStatus --- "+
-                    JC.pEtOfficeSetUserStatus.infoJson().toString()
-                )
+                r = JC.pEtOfficeSetUserStatus.post("test")
+//                Log.e(TAG, "onCreate: r==$r")
+//                Log.e(TAG, "pEtOfficeSetUserStatus --- "+
+//                    JC.pEtOfficeSetUserStatus.infoJson().toString()
+//                )
 
                 r = JC.pEtOfficeGetUserLocation.post()
                 Log.e(TAG, "EtOfficeGetUserLocation.post(): r==$r")
