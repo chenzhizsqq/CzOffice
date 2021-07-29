@@ -63,30 +63,40 @@ class HomeFragment : Fragment() {
         ll_inWork.setOnClickListener {
             Tools.showMsg(mainView,"勤務中")
             tv_state.text = "勤務中"
+
+            showStatusDialog("勤務中")
         }
 
         val ll_outWork: LinearLayout = mainView.findViewById(R.id.out_work)
         ll_outWork.setOnClickListener {
             Tools.showMsg(mainView,"勤務外")
             tv_state.text = "勤務外"
+
+            showStatusDialog("勤務外")
         }
 
         val ll_sleep: LinearLayout = mainView.findViewById(R.id.sleep)
         ll_sleep.setOnClickListener {
             Tools.showMsg(mainView,"休憩中")
             tv_state.text = "休憩中"
+
+            showStatusDialog("休憩中")
         }
 
         val ll_moving: LinearLayout = mainView.findViewById(R.id.moving)
         ll_moving.setOnClickListener {
             Tools.showMsg(mainView,"移動中")
             tv_state.text = "移動中"
+
+            showStatusDialog("移動中")
         }
 
         val ll_meeting: LinearLayout = mainView.findViewById(R.id.meeting)
         ll_meeting.setOnClickListener {
             Tools.showMsg(mainView,"会議中")
             tv_state.text = "会議中"
+
+            showStatusDialog("会議中")
         }
 
 
@@ -110,7 +120,7 @@ class HomeFragment : Fragment() {
             mainView.findViewById(R.id.status_linearLayout) as LinearLayout
         mStatusLinearLayout.setOnClickListener {
 
-            val mHomeStatusDialog = HomeStatusDialog()
+            val mHomeStatusDialog = HomeStatusDialog("1")
 
             val fragmentManager = this@HomeFragment.parentFragmentManager
             fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog")  }
@@ -147,6 +157,13 @@ class HomeFragment : Fragment() {
         }
 
         return mainView
+    }
+
+    private fun showStatusDialog(state:String) {
+        val mHomeStatusDialog = HomeStatusDialog(state)
+
+        val fragmentManager = this@HomeFragment.parentFragmentManager
+        fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->

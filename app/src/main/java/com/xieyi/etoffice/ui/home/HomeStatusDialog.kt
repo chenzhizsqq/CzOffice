@@ -1,8 +1,5 @@
 package com.xieyi.etoffice.ui.home
 
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -10,9 +7,9 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.R
-import java.util.*
 
-class HomeStatusDialog : DialogFragment() {
+class HomeStatusDialog(state: String) : DialogFragment() {
+    val _state = state
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
             @Nullable container: ViewGroup?,
@@ -34,6 +31,10 @@ class HomeStatusDialog : DialogFragment() {
         btnSaveAndClose.setOnClickListener {
             dialog!!.dismiss()
         }
+
+        //状態表示
+        val tvState:TextView= view.findViewById<TextView>(R.id.tvState)
+        tvState.text = _state
 
         return view
     }
