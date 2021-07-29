@@ -1,5 +1,7 @@
 package com.xieyi.etoffice.ui.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -7,7 +9,10 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
@@ -20,12 +25,18 @@ class HomeStatusDialog(state: String) : DialogFragment() {
 
     private lateinit var mainView: View
 
+
+    private lateinit var gpsTracker: GpsTracker
+
+
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
             @Nullable container: ViewGroup?,
             @Nullable savedInstanceState: Bundle?
     ): View {
         mainView = inflater.inflate(R.layout.dialog_home_status, container)
+
+
 
         //フルスクリーン　Full screen
         val window = dialog!!.window
@@ -60,7 +71,24 @@ class HomeStatusDialog(state: String) : DialogFragment() {
             }
         }
 
+        gpsCheck()
+
+
         return mainView
+    }
+
+    private fun gpsCheck() {
+        val tvLatitude = mainView.findViewById<TextView>(R.id.tvLatitude)
+        val tvLongitude = mainView.findViewById<TextView>(R.id.tvLongitude)
+        gpsTracker = GpsTracker(activity)
+        if (gpsTracker.canGetLocation()) {
+            val latitude: Double = gpsTracker.getLatitude()
+            val longitude: Double = gpsTracker.getLongitude()
+            tvLatitude.setText(latitude.toString())
+            tvLongitude.setText(longitude.toString())
+        } else {
+            gpsTracker.showSettingsAlert()
+        }
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
