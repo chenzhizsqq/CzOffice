@@ -27,7 +27,7 @@ class ReportFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin")
+        //Log.e(TAG, "onCreate: begin")
 
     }
     private lateinit var mainView: View

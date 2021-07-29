@@ -43,10 +43,10 @@ class EtOfficeGetTenant {
                 if (response != null) {
                     if(response.isSuccessful){
 
-                        var json:String = response.body!!.string()
+                        val json:String = response.body!!.string()
                         lastJson = json
-                        var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                        val mJsonResult = JSONObject(json)
+                        //Log.e(TAG, "mJsonResult:$mJsonResult" )
 
                         status = mJsonResult.getString("status")
 
@@ -99,33 +99,6 @@ class EtOfficeGetTenant {
             val mJson: JsonClass =
                 gson.fromJson(lastJson, JsonClass::class.java)
             return mJson
-    }
-
-    fun infoResult(): Result {
-            val gson = Gson()
-            val mJson: JsonClass =
-                gson.fromJson(lastJson, JsonClass::class.java)
-            return mJson.result
-    }
-
-
-    fun infoTenantList(): List<Tenantlist> {
-        val gson = Gson()
-        val mJson: JsonClass =
-            gson.fromJson(lastJson, JsonClass::class.java)
-        return mJson.result.tenantlist
-    }
-
-    fun infoTenantList(index: Int): Tenantlist? {
-        try {
-            val gson = Gson()
-            val mJson: JsonClass =
-                gson.fromJson(lastJson, JsonClass::class.java)
-            return mJson.result.tenantlist[index]
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return null
     }
 
 

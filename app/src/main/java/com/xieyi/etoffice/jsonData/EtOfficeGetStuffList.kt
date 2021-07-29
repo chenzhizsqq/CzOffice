@@ -39,7 +39,7 @@ class EtOfficeGetStuffList {
                 jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
                 jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("device", "android")
-                Log.e(TAG, "!!!! jsonObject:$jsonObject" )
+                //Log.e(TAG, "jsonObject:$jsonObject" )
                 val body = jsonObject.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

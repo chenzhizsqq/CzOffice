@@ -60,7 +60,7 @@ class ReportDetailFragment() : Fragment() {
  */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin")
+        //Log.e(TAG, "onCreate: begin")
 
         val bundle = arguments
         date = bundle!!.getString("date").toString()

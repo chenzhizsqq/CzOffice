@@ -42,7 +42,7 @@ class MemberFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin")
+        //Log.e(TAG, "onCreate: begin")
 
 
     }
@@ -86,7 +86,7 @@ class MemberFragment : Fragment() {
 
             recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
 
-            Log.e(TAG, "JC.pEtOfficeGetStuffList:"+JC.pEtOfficeGetStuffList.lastJson )
+            //Log.e(TAG, "JC.pEtOfficeGetStuffList:"+JC.pEtOfficeGetStuffList.lastJson )
 
             val sectionlistSize = JC.pEtOfficeGetStuffList.infoJson().result.sectionlist.size
             for (j in 0 until sectionlistSize){
