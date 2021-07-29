@@ -30,7 +30,7 @@ class EtOfficeSetUserLocation {
               "location": "船橋事務所"
             }
          */
-        fun post(): String {
+        fun post(location:String): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl
@@ -44,7 +44,8 @@ class EtOfficeSetUserLocation {
                 jsonObject.put("device", "android")
                 jsonObject.put("longitude", "140.00468200000000")
                 jsonObject.put("latitude", "35.70148346348169")
-                jsonObject.put("location", "船橋事務所")
+                //jsonObject.put("location", "船橋事務所")
+                jsonObject.put("location", location)
                 val body = jsonObject.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
