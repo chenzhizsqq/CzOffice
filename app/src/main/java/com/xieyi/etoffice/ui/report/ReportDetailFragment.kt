@@ -120,6 +120,9 @@ class ReportDetailFragment() : Fragment() {
             //planworklist
             planworklistFun()
 
+            //reportlist
+            reportlistFun()
+
 
             //実績：
             val worktime: TextView = mainView.findViewById(R.id.worktime)
@@ -135,6 +138,7 @@ class ReportDetailFragment() : Fragment() {
             //reportlist
 
 
+            //ReportDetailFragment open
             val addView: ImageView = mainView.findViewById(R.id.addView)
             addView.setOnClickListener {
 
@@ -234,6 +238,63 @@ class ReportDetailFragment() : Fragment() {
             ll.addView(t3)
 
             planworklist.addView(ll)
+        }
+
+
+    }
+
+    private fun reportlistFun() {
+        val reportlist: LinearLayout = mainView.findViewById(R.id.reportlist)
+
+
+
+//        "reportlist": [
+//        {
+//            "project": "2021XY07",
+//            "wbs": "W01",
+//            "time": "8.00",
+//            "memo": "Test"
+//        },
+//        {
+//            "project": "2021XY07",
+//            "wbs": "W01",
+//            "time": "",
+//            "memo": ""
+//        }
+//        ],
+
+        val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.reportlist.size
+
+        for (i in 0 until listSize) {
+            val ll=ll_planworklist()
+
+            val t1 =getTextView2("プロジェクト："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].project)
+            t1.setTextColor(Color.parseColor("#000000"))
+            t1.textSize = 20F
+
+            val t2 =getTextView2("作業コード："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].wbs)
+
+            val t3 =getTextView2("工数："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].time)
+
+            val t4 =getTextView2("報告："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].memo)
+
+
+            ll.addView(t1)
+            ll.addView(t2)
+            ll.addView(t3)
+            ll.addView(t4)
+
+            ll.setPadding(10)
+
+            ll.setBackgroundResource(R.drawable.ic_round_edge_grey)
+
+            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            layoutParams.setMargins(10, 5, 10, 5)
+
+            reportlist.addView(ll,layoutParams)
         }
 
 

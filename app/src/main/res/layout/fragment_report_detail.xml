@@ -135,16 +135,22 @@
             </LinearLayout>
 
 
-    <!--      !!!  content !!!-->
+    <!--        content -->
             <LinearLayout
                 android:id="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:orientation="vertical">
             </LinearLayout>
-    <!--    !!!    content !!! -->
+
+            <!--            reportlist-->
+            <LinearLayout
+                android:id="@+id/reportlist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
 
     <!--線-->
 
