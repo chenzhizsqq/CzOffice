@@ -61,40 +61,40 @@ class HomeFragment : Fragment() {
 
         val ll_inWork: LinearLayout = mainView.findViewById(R.id.in_work)
         ll_inWork.setOnClickListener {
-            Tools.showMsg(mainView,"勤務中")
-            tv_state.text = "勤務中"
+//            Tools.showMsg(mainView,"勤務中")
+//            tv_state.text = "勤務中"
 
             showStatusDialog("1","勤務中")
         }
 
         val ll_outWork: LinearLayout = mainView.findViewById(R.id.out_work)
         ll_outWork.setOnClickListener {
-            Tools.showMsg(mainView,"勤務外")
-            tv_state.text = "勤務外"
+//            Tools.showMsg(mainView,"勤務外")
+//            tv_state.text = "勤務外"
 
             showStatusDialog("2","勤務外")
         }
 
         val ll_sleep: LinearLayout = mainView.findViewById(R.id.sleep)
         ll_sleep.setOnClickListener {
-            Tools.showMsg(mainView,"休憩中")
-            tv_state.text = "休憩中"
+//            Tools.showMsg(mainView,"休憩中")
+//            tv_state.text = "休憩中"
 
             showStatusDialog("3","休憩中")
         }
 
         val ll_moving: LinearLayout = mainView.findViewById(R.id.moving)
         ll_moving.setOnClickListener {
-            Tools.showMsg(mainView,"移動中")
-            tv_state.text = "移動中"
+//            Tools.showMsg(mainView,"移動中")
+//            tv_state.text = "移動中"
 
             showStatusDialog("4","移動中")
         }
 
         val ll_meeting: LinearLayout = mainView.findViewById(R.id.meeting)
         ll_meeting.setOnClickListener {
-            Tools.showMsg(mainView,"会議中")
-            tv_state.text = "会議中"
+//            Tools.showMsg(mainView,"会議中")
+//            tv_state.text = "会議中"
 
             showStatusDialog("5","会議中")
         }
@@ -116,27 +116,27 @@ class HomeFragment : Fragment() {
         }
 
         //出勤ステータスを表示します
-        val mStatusLinearLayout: LinearLayout =
-            mainView.findViewById(R.id.status_linearLayout) as LinearLayout
-        mStatusLinearLayout.setOnClickListener {
-
-            val mHomeStatusDialog = HomeStatusDialog("1","勤務中")
-
-            val fragmentManager = this@HomeFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog")  }
-
-        }
+//        val mStatusLinearLayout: LinearLayout =
+//            mainView.findViewById(R.id.status_linearLayout) as LinearLayout
+//        mStatusLinearLayout.setOnClickListener {
+//
+//            val mHomeStatusDialog = HomeStatusDialog("1","勤務中")
+//
+//            val fragmentManager = this@HomeFragment.parentFragmentManager
+//            fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog")  }
+//
+//        }
 
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //出勤記録 データ更新
                 try {
-                    val r: String = JC.pEtOfficeGetStatusList.post()                   //Json 送信
-                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
+                    val r: String = JC.pEtOfficeGetUserStatus.post()                   //Json 送信
+                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
 
                 }catch (e:Exception){
-                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$e")
 
                 }
                 doOnUiCode_GetStatus()
@@ -195,15 +195,15 @@ class HomeFragment : Fragment() {
     private suspend fun doOnUiCode_GetStatus() {
     withContext(Dispatchers.Main) {
 
-        val size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
+        val size = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size
         Log.e(TAG, "recordlist.size: $size")
 
 
         val recordLayout = mainView.findViewById<LinearLayout>(R.id.record_layout)
         for (i in 0..size - 1) {
 
-            val time = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime
-            val statustext = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
+            val time = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[i].statustime
+            val statustext = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[i].statustext
 
             val textView = TextView(activity)
             textView.text = "・" + Tools.allDateTime(time) + " " +statustext
