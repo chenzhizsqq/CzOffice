@@ -1,7 +1,5 @@
 package com.xieyi.etoffice.ui.home
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -9,8 +7,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
@@ -18,12 +14,19 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
 
-class HomeStatusDialog(state: String) : DialogFragment() {
+class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment() {
 
     private val TAG = javaClass.simpleName
-    val _state = state
+
+    val _statusvalue = statusvalue  //1
+
+    val _statustext = statustext    //"勤務中"
 
     private lateinit var mainView: View
+
+    private var longitude = 0.0
+
+    private var latitude = 0.0
 
 
     private lateinit var gpsTracker: GpsTracker
@@ -55,7 +58,7 @@ class HomeStatusDialog(state: String) : DialogFragment() {
 
         //状態表示
         val tvState:TextView= mainView.findViewById<TextView>(R.id.tvState)
-        tvState.text = _state
+        tvState.text = _statustext
 
         //set_user_Status
         GlobalScope.launch(errorHandler) {
@@ -82,8 +85,8 @@ class HomeStatusDialog(state: String) : DialogFragment() {
         val tvLongitude = mainView.findViewById<TextView>(R.id.tvLongitude)
         gpsTracker = GpsTracker(activity)
         if (gpsTracker.canGetLocation()) {
-            val latitude: Double = gpsTracker.getLatitude()
-            val longitude: Double = gpsTracker.getLongitude()
+            latitude= gpsTracker.getLatitude()
+            longitude = gpsTracker.getLongitude()
             tvLatitude.setText(latitude.toString())
             tvLongitude.setText(longitude.toString())
         } else {
@@ -97,15 +100,15 @@ class HomeStatusDialog(state: String) : DialogFragment() {
 
     private suspend fun setUserStatus() {
         withContext(Dispatchers.Main) {
-            val userStatus: EditText = mainView.findViewById<EditText>(R.id.user_status)
+            val etMemo: EditText = mainView.findViewById<EditText>(R.id.user_status_memo)
             val setUserStatus: TextView = mainView.findViewById<TextView>(R.id.set_user_status)
             setUserStatus.setOnClickListener {
                 Log.e(TAG, "setUserStatus.setOnClickListener: begin")
-                val s:String = userStatus.text.toString()
-                Log.e(TAG, "userStatus.text: $s" )
+                val memo:String = etMemo.text.toString()
+                Log.e(TAG, "userStatus.text: $memo" )
                 try {
                     val r: String =
-                        JC.pEtOfficeSetUserStatus.post(s)                   //Json 送信
+                        JC.pEtOfficeSetUserStatus.post(longitude,latitude,"船橋事務所",_statusvalue,_statustext,memo)                   //Json 送信
                     Log.e(TAG, "pEtOfficeSetUserStatus.post() :$r")
 
                     if(r != "-1"){
@@ -131,7 +134,7 @@ class HomeStatusDialog(state: String) : DialogFragment() {
                 Log.e(TAG, "userLocation.text: $s" )
                 try {
                     val r: String =
-                        JC.pEtOfficeSetUserLocation.post(s)                   //Json 送信
+                        JC.pEtOfficeSetUserLocation.post(longitude,latitude,s)                   //Json 送信
                     Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
 
                     if(r != "-1"){

@@ -30,7 +30,7 @@ class EtOfficeSetUserLocation {
               "location": "船橋事務所"
             }
          */
-        fun post(location:String): String {
+        fun post(longitude: Double, latitude:Double, location:String): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl
@@ -42,10 +42,13 @@ class EtOfficeSetUserLocation {
                 jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
                 jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("device", "android")
-                jsonObject.put("longitude", "140.00468200000000")
-                jsonObject.put("latitude", "35.70148346348169")
+//                jsonObject.put("longitude", "140.00468200000000")
+//                jsonObject.put("latitude", "35.70148346348169")
                 //jsonObject.put("location", "船橋事務所")
+                jsonObject.put("longitude", longitude)
+                jsonObject.put("latitude", latitude)
                 jsonObject.put("location", location)
+                Log.e(TAG, "post: jsonObject:$jsonObject")
                 val body = jsonObject.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

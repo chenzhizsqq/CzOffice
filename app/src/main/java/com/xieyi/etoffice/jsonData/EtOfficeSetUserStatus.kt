@@ -19,7 +19,9 @@ class EtOfficeSetUserStatus {
     val app: String = "EtOfficeSetUserStatus"
 
 
-        fun post(location:String): String {
+        fun post(longitude:Double,latitude:Double,location:String,
+                 statusvalue:String,statustext:String
+                 ,memo:String): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl
@@ -36,10 +38,18 @@ class EtOfficeSetUserStatus {
                 jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
                 jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
                 jsonObject.put("device", "android")
-                jsonObject.put("longitude", "140.00468200000000")
-                jsonObject.put("latitude", "35.70148346348169")
+//                jsonObject.put("statustext", "勤務中")
+//                jsonObject.put("longitude", "140.00468200000000")
+//                jsonObject.put("latitude", "35.70148346348169")
                 //jsonObject.put("location", "船橋事務所")
+                jsonObject.put("statusvalue", statusvalue)
+                jsonObject.put("statustext", statustext)
                 jsonObject.put("location", location)
+                jsonObject.put("longitude", longitude.toString())
+                jsonObject.put("latitude", latitude.toString())
+                jsonObject.put("memo", memo)
+                Log.e(TAG, "post: jsonObject:$jsonObject")
+
                 val body = jsonObject.toString()
                     .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 

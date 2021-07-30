@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
             Tools.showMsg(mainView,"勤務中")
             tv_state.text = "勤務中"
 
-            showStatusDialog("勤務中")
+            showStatusDialog("1","勤務中")
         }
 
         val ll_outWork: LinearLayout = mainView.findViewById(R.id.out_work)
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
             Tools.showMsg(mainView,"勤務外")
             tv_state.text = "勤務外"
 
-            showStatusDialog("勤務外")
+            showStatusDialog("2","勤務外")
         }
 
         val ll_sleep: LinearLayout = mainView.findViewById(R.id.sleep)
@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
             Tools.showMsg(mainView,"休憩中")
             tv_state.text = "休憩中"
 
-            showStatusDialog("休憩中")
+            showStatusDialog("3","休憩中")
         }
 
         val ll_moving: LinearLayout = mainView.findViewById(R.id.moving)
@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
             Tools.showMsg(mainView,"移動中")
             tv_state.text = "移動中"
 
-            showStatusDialog("移動中")
+            showStatusDialog("4","移動中")
         }
 
         val ll_meeting: LinearLayout = mainView.findViewById(R.id.meeting)
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
             Tools.showMsg(mainView,"会議中")
             tv_state.text = "会議中"
 
-            showStatusDialog("会議中")
+            showStatusDialog("5","会議中")
         }
 
 
@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
             mainView.findViewById(R.id.status_linearLayout) as LinearLayout
         mStatusLinearLayout.setOnClickListener {
 
-            val mHomeStatusDialog = HomeStatusDialog("1")
+            val mHomeStatusDialog = HomeStatusDialog("1","勤務中")
 
             val fragmentManager = this@HomeFragment.parentFragmentManager
             fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog")  }
@@ -159,8 +159,8 @@ class HomeFragment : Fragment() {
         return mainView
     }
 
-    private fun showStatusDialog(state:String) {
-        val mHomeStatusDialog = HomeStatusDialog(state)
+    private fun showStatusDialog(statusvalue:String,statustext:String) {
+        val mHomeStatusDialog = HomeStatusDialog(statusvalue,statustext)
 
         val fragmentManager = this@HomeFragment.parentFragmentManager
         fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }

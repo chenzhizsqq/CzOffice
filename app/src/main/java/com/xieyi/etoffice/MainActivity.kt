@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,21 +34,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         //gps検査する
-        try {
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    101
-                )
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        gpsCheck()
 
         //Jsonテスト   begin
         GlobalScope.launch(errorHandler) {
@@ -98,6 +83,25 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //gps検査する
+    private fun gpsCheck() {
+        try {
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    101
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
     fun testJson() {
         Log.e(TAG, "testJson() begin" )
 
@@ -117,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                     JC.pEtOfficeGetUserStatus.infoJson().toString()
                 )
 
-                r = JC.pEtOfficeSetUserStatus.post("test")
+                r = JC.pEtOfficeSetUserStatus.post(0.0,0.0,"test","test","test","memo")
 //                Log.e(TAG, "onCreate: r==$r")
 //                Log.e(TAG, "pEtOfficeSetUserStatus --- "+
 //                    JC.pEtOfficeSetUserStatus.infoJson().toString()
@@ -129,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                     JC.pEtOfficeGetUserLocation.infoJson().toString()
                 )
 
-                r = JC.pEtOfficeSetUserLocation.post("test")
+                r = JC.pEtOfficeSetUserLocation.post(0.0,0.0,"船橋事務所")
                 Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
                 Log.e(TAG,"pEtOfficeSetUserLocation --- "+
                         JC.pEtOfficeSetUserLocation.infoJson().toString()
