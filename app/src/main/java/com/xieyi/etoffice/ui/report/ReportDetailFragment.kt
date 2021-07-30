@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TableLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -118,6 +117,9 @@ class ReportDetailFragment() : Fragment() {
             val appointment: TextView = mainView.findViewById(R.id.appointment)
             appointment.text = JC.pEtOfficeGetReportInfo.infoJson().result.planworktime
 
+            //planworklist
+            planworklist()
+
 
             //実績：
             val worktime: TextView = mainView.findViewById(R.id.worktime)
@@ -204,6 +206,40 @@ class ReportDetailFragment() : Fragment() {
         }
     }
 
+    private fun planworklist() {
+        val planworklist: LinearLayout = mainView.findViewById(R.id.planworklist)
+
+//        {
+//            "project": "[2021XY07]EtOfficeAPP開発#1",
+//            "wbs": "[W01]工程A(進捗:%)",
+//            "date": "2021/07/01-2021/07/31",
+//            "time": "(計画：160h)"
+//        }
+        val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.planworklist.size
+
+        for (i in 0 until listSize) {
+            val ll=ll_planworklist()
+
+            val t1 =getTextView2(JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].project)
+            t1.setTextColor(Color.parseColor("#000000"))
+            t1.textSize = 20F
+
+            val t2 =getTextView2(JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].wbs)
+
+            val v3=JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].date+" "+
+                    JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].time
+            val t3 =getTextView2(v3)
+
+            ll.addView(t1)
+            ll.addView(t2)
+            ll.addView(t3)
+
+            planworklist.addView(ll)
+        }
+
+
+    }
+
     private fun funContent(sizeEachY: Int, content: LinearLayout) {
         val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
         Log.e(TAG, "doOnUiCode: size:$size")
@@ -253,6 +289,18 @@ class ReportDetailFragment() : Fragment() {
         return r
     }
 
+    //planworklist
+    private fun ll_planworklist(): LinearLayout {
+        val r=LinearLayout(activity)
+
+        val ll = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+        r.layoutParams = ll
+
+        r.orientation = LinearLayout.VERTICAL
+
+        return r
+    }
+
 
     private fun getLinearLayout(): LinearLayout {
         val r=LinearLayout(activity)
@@ -284,6 +332,22 @@ class ReportDetailFragment() : Fragment() {
         r.width = 200
 
         r.height = 100
+
+        r.setTextColor(Color.BLACK)
+
+        return r
+    }
+
+    private fun getTextView2(text:String): TextView {
+        val r=TextView(activity)
+
+        val ll = LinearLayout.LayoutParams( WRAP_CONTENT,WRAP_CONTENT)
+        r.layoutParams = ll
+
+        r.gravity = Gravity.CENTER
+
+        r.text=text
+
 
         r.setTextColor(Color.BLACK)
 
