@@ -47,39 +47,37 @@ class EtOfficeLogin {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute()
-            if (response != null) {
-                if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute()
+            if (response.isSuccessful) {
 
-                    val json: String = response.body!!.string()
-                    lastJson = json
-                    /*{
-                          "status": 0,
-                          "result": {
-                            "token": "202107121212507840000000090010001502491490940935",
-                            "tenantid": "3",
-                            "hpid": "6",
-                            "userid": "9001",
-                            "usercode": "demo1",
-                            "username": "ユーザー１",
-                            "userkana": "カタカナ１",
-                            "mail": "demo1@xieyi.co.jp",
-                            "phone": "07473626478"
-                          },
-                          "message": ""
-                        }
-                     */
+                val json: String = response.body!!.string()
+                lastJson = json
+                /*{
+                      "status": 0,
+                      "result": {
+                        "token": "202107121212507840000000090010001502491490940935",
+                        "tenantid": "3",
+                        "hpid": "6",
+                        "userid": "9001",
+                        "usercode": "demo1",
+                        "username": "ユーザー１",
+                        "userkana": "カタカナ１",
+                        "mail": "demo1@xieyi.co.jp",
+                        "phone": "07473626478"
+                      },
+                      "message": ""
+                    }
+                 */
 
-                    val mJsonResult = JSONObject(json)
-                    Log.e(TAG, "mJsonResult:$mJsonResult")
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult:$mJsonResult")
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                } else {
-                    Log.e(TAG, "postRequest: false")
-                }
+                return status
+            } else {
+                Log.e(TAG, "postRequest: false")
             }
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
@@ -97,15 +95,14 @@ class EtOfficeLogin {
 //
 //        tenant":"1","hpid":"8"
 
-        if(Config.isTest) {
-                mJsonClass.result.tenantid = "3"
-                mJsonClass.result.hpid = "6"
-            }
+//        if(Config.isTest) {
+//                mJsonClass.result.tenantid = "3"
+//                mJsonClass.result.hpid = "6"
+//            }
         return mJsonClass.result
     }
 
-    fun infoJson(): JsonClass? {
-        try {
+    fun infoJson(): JsonClass {
             val gson = Gson()
             val mJsonClass: JsonClass =
                 gson.fromJson(lastJson, JsonClass::class.java)
@@ -114,15 +111,11 @@ class EtOfficeLogin {
 //        tenant":"3","hpid":"6"
 //
 //        tenant":"1","hpid":"8"
-            if(Config.isTest) {
-                mJsonClass.result.tenantid = "3"
-                mJsonClass.result.hpid = "6"
-            }
+//            if(Config.isTest) {
+//                mJsonClass.result.tenantid = "3"
+//                mJsonClass.result.hpid = "6"
+//            }
             return mJsonClass
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return null
     }
 
     data class LoginResult(

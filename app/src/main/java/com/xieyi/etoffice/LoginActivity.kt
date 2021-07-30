@@ -1,6 +1,7 @@
 package com.xieyi.etoffice
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,8 +13,8 @@ import okhttp3.*
 
 class LoginActivity : AppCompatActivity() {
     val TAG: String = "LoginActivity"
-    private var editTextTextPersonNameLogin: EditText? = null
-    private var editTextTextPasswordLogin: EditText? = null
+    private lateinit var editTextTextPersonNameLogin: EditText
+    private lateinit var editTextTextPasswordLogin: EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -24,15 +25,17 @@ class LoginActivity : AppCompatActivity() {
         editTextTextPasswordLogin = findViewById<View>(R.id.editTextTextPasswordLogin) as EditText
 
         if(Config.isCode) {
-            editTextTextPersonNameLogin!!.setText("demo1@xieyi.co.jp")
-            editTextTextPasswordLogin!!.setText("pass")
+            editTextTextPersonNameLogin.setText("demo1@xieyi.co.jp")
+            editTextTextPasswordLogin.setText("pass")
         }
+
+        userInfo()
     }
 
     //EtCampLogin、json登録
     private fun postRequest(view: View) {
-        val mEditTextTextEmailAddress: String = editTextTextPersonNameLogin?.text.toString()
-        val mEditTextTextPassword: String = editTextTextPasswordLogin?.text.toString()
+        val mEditTextTextEmailAddress: String = editTextTextPersonNameLogin.text.toString()
+        val mEditTextTextPassword: String = editTextTextPasswordLogin.text.toString()
         Thread {
 
             try {
@@ -43,7 +46,10 @@ class LoginActivity : AppCompatActivity() {
 
 
                 if (r == "0") {
-                    val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    saveUserInfo(JC.pEtOfficeLogin.infoLoginResult().tenantid ,
+                        JC.pEtOfficeLogin.infoLoginResult().hpid)
+
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else if (r == "6") {
@@ -72,6 +78,37 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }.start()
+    }
+
+
+    /**
+     * 存储用户信息
+     */
+    private fun saveUserInfo(tenantid:String,hpid:String) {
+        val userInfo = getSharedPreferences(Config.appName, MODE_PRIVATE)
+        val changeListener =
+            SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
+            }
+        userInfo.registerOnSharedPreferenceChangeListener(changeListener)
+
+        val editor = userInfo.edit()
+        editor.putString("tenantid", tenantid)
+        editor.putString("hpid", hpid)
+        editor.commit()
+    }
+
+    /**
+     * 读取用户信息
+     */
+    private fun userInfo(){
+        val userInfo = getSharedPreferences(Config.appName, MODE_PRIVATE)
+        val tenantid = userInfo.getString("tenantid", Config.tenantid)
+        val hpid = userInfo.getString("hpid", Config.hpid)
+        Log.e(TAG, "读取用户信息")
+        Log.e(
+            TAG,
+            "tenantid:$tenantid， hpid:$hpid"
+        )
     }
 
 

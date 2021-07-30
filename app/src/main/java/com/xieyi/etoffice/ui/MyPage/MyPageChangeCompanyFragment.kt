@@ -1,5 +1,7 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +12,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.LoginActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
@@ -68,7 +73,7 @@ class MyPageChangeCompanyFragment : Fragment() {
             val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
 
 
-            //Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
+            Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
 
             val size = JC.pEtOfficeGetTenant.infoJson().result.tenantlist.size
 
@@ -105,9 +110,12 @@ class MyPageChangeCompanyFragment : Fragment() {
                 mLinearLayout.setPadding(30)
 
                 //check tenantid
-                if (JC.pEtOfficeGetTenant.infoJson().result.tenantlist[0].tenantid == JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid) {
+                if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].startflg=="1"){
                     mLinearLayout.setBackgroundColor(Color.GREEN)
                 }
+//                if (JC.pEtOfficeGetTenant.infoJson().result.tenantlist[0].tenantid == JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid) {
+//                    mLinearLayout.setBackgroundColor(Color.GREEN)
+//                }
 
 
                 //データ　発信
@@ -129,7 +137,28 @@ class MyPageChangeCompanyFragment : Fragment() {
 
                                 //check tenantid
                                 if (r == "0") {
-                                    mLinearLayout.setBackgroundColor(Color.GREEN)
+                                    for (k in  0 .. JC.pEtOfficeGetTenant.infoJson().result.tenantlist.size -1 ){
+
+                                        if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].startflg=="1"){
+
+                                            JC.pEtOfficeLogin.infoJson().result.tenantid =
+                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].tenantid
+                                            JC.pEtOfficeLogin.infoJson().result.hpid =
+                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].hpid
+
+                                            saveUserInfo(
+                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].tenantid ,
+                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].hpid)
+                                            mLinearLayout.setBackgroundColor(Color.GREEN)
+
+
+                                            val intent = Intent(activity, LoginActivity::class.java)
+                                            startActivity(intent)
+                                            activity?.finish()
+                                        }
+
+                                    }
+                                    //mLinearLayout.setBackgroundColor(Color.GREEN)
                                 }
 
                             } catch (e: Exception) {
@@ -164,5 +193,36 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             }
         }
+    }
+
+
+    /**
+     * 存储用户信息
+     */
+    private fun saveUserInfo(tenantid:String,hpid:String) {
+        val userInfo = activity?.getSharedPreferences(Config.appName, AppCompatActivity.MODE_PRIVATE)
+        val changeListener =
+            SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
+            }
+        userInfo?.registerOnSharedPreferenceChangeListener(changeListener)
+
+        val editor = userInfo?.edit()
+        editor?.putString("tenantid", tenantid)
+        editor?.putString("hpid", hpid)
+        editor?.commit()
+    }
+
+    /**
+     * 读取用户信息
+     */
+    private fun userInfo(){
+        val userInfo = activity?.getSharedPreferences(Config.appName, AppCompatActivity.MODE_PRIVATE)
+        val tenantid = userInfo?.getString("tenantid", Config.tenantid)
+        val hpid = userInfo?.getString("hpid", Config.hpid)
+        Log.e(TAG, "读取用户信息")
+        Log.e(
+            TAG,
+            "tenantid:$tenantid， hpid:$hpid"
+        )
     }
 }
