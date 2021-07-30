@@ -121,9 +121,15 @@ class ReportFragment : Fragment() {
                     val TV_up = makeTextView("$y_m_d  ")
                     m1.addView(TV_up)
 
-                    val TV_2 = makeButton("未承認")
+                    //承認状況
+                    val approval =
+                        JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].approval
+                    if(approval.isEmpty()){
+                        val TV_2 = makeButton("未承認")
+                        m1.addView(TV_2)
+                    }
 
-                    m1.addView(TV_2)
+
 
 
                     mLinearLayout.addView(m1)
@@ -133,6 +139,11 @@ class ReportFragment : Fragment() {
                     val TV_down =
                         makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].title)
                     mLinearLayout.addView(TV_down)
+
+                    //content
+                    val content =
+                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].content)
+                    mLinearLayout.addView(content)
 
 
                     //setting
