@@ -118,7 +118,7 @@ class ReportDetailFragment() : Fragment() {
             appointment.text = JC.pEtOfficeGetReportInfo.infoJson().result.planworktime
 
             //planworklist
-            planworklist()
+            planworklistFun()
 
 
             //実績：
@@ -127,13 +127,12 @@ class ReportDetailFragment() : Fragment() {
 
 
 
-            //content：
+            //workstatuslist：
             val content: LinearLayout = mainView.findViewById(R.id.content)
-
-
             val sizeEachY=5
-
             funContent(sizeEachY, content)
+
+            //reportlist
 
 
             val addView: ImageView = mainView.findViewById(R.id.addView)
@@ -206,7 +205,7 @@ class ReportDetailFragment() : Fragment() {
         }
     }
 
-    private fun planworklist() {
+    private fun planworklistFun() {
         val planworklist: LinearLayout = mainView.findViewById(R.id.planworklist)
 
 //        {
@@ -289,7 +288,7 @@ class ReportDetailFragment() : Fragment() {
         return r
     }
 
-    //planworklist
+    //planworklist LinearLayout
     private fun ll_planworklist(): LinearLayout {
         val r=LinearLayout(activity)
 
