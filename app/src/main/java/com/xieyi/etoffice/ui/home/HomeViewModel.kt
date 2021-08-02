@@ -16,7 +16,7 @@ class HomeViewModel : ViewModel() {
     private val _date = MutableLiveData<String>().apply {
 
 
-        value = Tools.getDate()
+        value = Tools.getDate("-")
 
 
 //        Thread {

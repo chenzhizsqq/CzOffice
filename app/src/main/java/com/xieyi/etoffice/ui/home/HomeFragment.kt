@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
 
         //出勤記録を表示します
         val recordTableTableLayout: LinearLayout =
-            mainView.findViewById(R.id.record_layout) as LinearLayout
+            mainView.findViewById(R.id.state_layout) as LinearLayout
         recordTableTableLayout.setOnClickListener {
 
 
@@ -115,17 +115,6 @@ class HomeFragment : Fragment() {
 
         }
 
-        //出勤ステータスを表示します
-//        val mStatusLinearLayout: LinearLayout =
-//            mainView.findViewById(R.id.status_linearLayout) as LinearLayout
-//        mStatusLinearLayout.setOnClickListener {
-//
-//            val mHomeStatusDialog = HomeStatusDialog("1","勤務中")
-//
-//            val fragmentManager = this@HomeFragment.parentFragmentManager
-//            fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog")  }
-//
-//        }
 
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
@@ -141,11 +130,22 @@ class HomeFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetUserStatus.post() :$e")
 
                 }
-                doOnUiCode_GetStatus()
 
 
                 //今状態 データ更新
                 doOnUiCode_NowStatus()
+
+
+
+                //GetStatusList
+                try {
+                    val r: String = JC.pEtOfficeGetStatusList.post()                   //Json 送信
+                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
+                }catch (e:Exception){
+                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
+                }
+                doOnUiCode_GetStatusList()
+
 
 
                 //Message データ更新
@@ -177,53 +177,35 @@ class HomeFragment : Fragment() {
     }
 
 
-    /*
-            {
-                "status": 0,
-                "result": {
-                "recordlist": [
-                {
-                    "statustime": "20210727102010",
-                    "statusvalue": "3",
-                    "statustext": "休憩中",
-                    "memo": ""
-                },
-                {
-                    "statustime": "20210727101943",
-                    "statusvalue": "1",
-                    "statustext": "勤務中",
-                    "memo": ""
-                }
-                ]
-            },
-                "message": ""
+
+    // GetStatusList UI更新
+    private suspend fun doOnUiCode_GetStatusList() {
+        withContext(Dispatchers.Main) {
+
+            var size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
+            if(size>2)size =2
+            Log.e(TAG, "recordlist.size: $size")
+
+
+            val state_layout = mainView.findViewById<LinearLayout>(R.id.state_layout)
+
+            for (i in 0..size - 1) {
+                val time = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime
+                val timeSrc = Tools.allDateTime(time)
+                val status = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
+                val memo = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo
+
+                Log.e(TAG, "doOnUiCode_0802: time:$time status:$status" )
+
+                val textView = TextView(activity)
+                textView.text = "・$timeSrc $status $memo"
+                textView.setPadding(5)
+
+
+                state_layout.addView(textView)
             }
-
-     */
-    // 出勤記録 GetStatus UI更新
-    private suspend fun doOnUiCode_GetStatus() {
-    withContext(Dispatchers.Main) {
-
-        val size = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size
-        Log.e(TAG, "recordlist.size: $size")
-
-
-        val recordLayout = mainView.findViewById<LinearLayout>(R.id.record_layout)
-        for (i in 0..size - 1) {
-
-            val time = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[i].statustime
-            val statustext = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[i].statustext
-
-            val textView = TextView(activity)
-            textView.text = "・" + Tools.allDateTime(time) + " " +statustext
-
-            textView.setPadding(5)
-
-            recordLayout.addView(textView)
-
         }
     }
-}
 
 
     // 今状態 state 更新

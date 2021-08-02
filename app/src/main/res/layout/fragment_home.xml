@@ -240,8 +240,30 @@
             android:textSize="14sp" />
 
 
+<!--        <LinearLayout-->
+<!--            android:id="@+id/record_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/ic_round_edge_white"-->
+<!--            android:layout_margin="4dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:orientation="vertical">-->
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:gravity="left"-->
+            <!--                    android:layout_margin="5dp"-->
+            <!--                    android:text="2021.06.28 勤務中" />-->
+
+            <!--                <TextView-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_margin="5dp"-->
+            <!--                    android:gravity="left"-->
+            <!--                    android:text="2021.06.28 勤務中"/>-->
+<!--        </LinearLayout>-->
         <LinearLayout
-            android:id="@+id/record_layout"
+            android:id="@+id/state_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ic_round_edge_white"

@@ -123,13 +123,26 @@ object Tools {
 
     }
 
-    fun getDate(): String {
+    fun getDate(s:String): String {
         if (android.os.Build.VERSION.SDK_INT >= 24){
-            return SimpleDateFormat("yyyy.MM.dd").format(Date())
+            val pattern:String ="yyyy"+s+"MM"+s+"dd"
+            return SimpleDateFormat(pattern).format(Date())
         }else{
             val tms = Calendar.getInstance()
             return tms.get(Calendar.YEAR).toString() + "-" +
                     tms.get(Calendar.MONTH).toString() + "-" +
+                    tms.get(Calendar.DAY_OF_MONTH).toString()
+        }
+
+    }
+
+    fun getDate(): String {
+        if (android.os.Build.VERSION.SDK_INT >= 24){
+            return SimpleDateFormat("yyyyMMdd").format(Date())
+        }else{
+            val tms = Calendar.getInstance()
+            return tms.get(Calendar.YEAR).toString() +
+                    tms.get(Calendar.MONTH).toString() +
                     tms.get(Calendar.DAY_OF_MONTH).toString()
         }
 
