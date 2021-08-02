@@ -41,10 +41,10 @@ class HomeReportDialog : DialogFragment() {
             withContext(Dispatchers.IO) {
                 //データ更新
                 try {
-                    val r = JC.pEtOfficeGetUserStatus.post()
-                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
+                    val r = JC.pEtOfficeGetStatusList.post()
+                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
                 }
 
                 doOnUiCode()
@@ -80,7 +80,7 @@ class HomeReportDialog : DialogFragment() {
             recordLinearLayout.setPadding(10)
 
 
-            val size = JC.pEtOfficeGetUserStatus.infoUserStatusList().size
+            val size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
 
             for (i in 0..size - 1) {
 
@@ -94,27 +94,26 @@ class HomeReportDialog : DialogFragment() {
 
                 //left
                 val textView = TextView(activity)
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F);
                 textView.setTextColor(Color.parseColor("#000000"))
                 textView.text =
-                    Tools.allDateTime(JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].statustime)
+                    Tools.allDateTime(JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime)
+
                 mLinearLayout.addView(textView)
 
 
                 //right
                 val textViewRight = TextView(activity)
-                textViewRight.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+                textViewRight.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F);
                 textViewRight.layoutParams = FrameLayout.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT
                 )
-                if (JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].location.isEmpty()) {
+                val rightText = (
+                        JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
+                        + " " + JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo )
+                textViewRight.text = rightText
 
-                    textViewRight.text = "..."
-                } else {
-                    textViewRight.text = JC.pEtOfficeGetUserStatus.infoUserStatusList()[i].location
-
-                }
                 textViewRight.gravity = Gravity.RIGHT;
                 mLinearLayout.addView(textViewRight)
 

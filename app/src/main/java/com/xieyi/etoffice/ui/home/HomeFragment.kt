@@ -56,9 +56,6 @@ class HomeFragment : Fragment() {
             textDate.text = it
         })
 
-        //勤務状態を設定します
-        val tv_state: TextView = mainView.findViewById(R.id.state)
-
         val ll_inWork: LinearLayout = mainView.findViewById(R.id.in_work)
         ll_inWork.setOnClickListener {
 //            Tools.showMsg(mainView,"勤務中")
