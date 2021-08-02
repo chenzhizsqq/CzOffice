@@ -36,8 +36,6 @@ class EtOfficeGetUserStatus {
                 jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
                 jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
                 jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
-//                jsonObject.put("tenant", "3")
-//                jsonObject.put("hpid", "6")
                 jsonObject.put("device", "android")
                 //Log.e(TAG, "jsonObject:$jsonObject")
                 val body = jsonObject.toString()
@@ -45,22 +43,20 @@ class EtOfficeGetUserStatus {
 
                 val request = Request.Builder().url(url).post(body).build()
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if (response.isSuccessful) {
+                val response: Response = client.newCall(request).execute();
+                if (response.isSuccessful) {
 
-                        val json:String = response.body!!.string()
-                        lastJson = json
-                        val mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                    val json:String = response.body!!.string()
+                    lastJson = json
+                    val mJsonResult = JSONObject(json)
+                    Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                        status = mJsonResult.getString("status")
+                    status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
+                    return status
+                }else{
+                    Log.e(TAG, "postRequest: false" )
                 }
             }catch (e: Exception){
                 Log.e(TAG, e.toString())
@@ -76,9 +72,7 @@ class EtOfficeGetUserStatus {
 
     fun infoJson(): JsonClass {
         val gson = Gson()
-        val mJson: JsonClass =
-            gson.fromJson(lastJson, JsonClass::class.java)
-        return mJson
+        return gson.fromJson(lastJson, JsonClass::class.java)
     }
 
     data class JsonClass(
