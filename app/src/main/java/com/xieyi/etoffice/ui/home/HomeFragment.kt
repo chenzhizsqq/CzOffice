@@ -129,6 +129,8 @@ class HomeFragment : Fragment() {
 
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
+
+
                 //出勤記録 データ更新
                 try {
                     val r: String = JC.pEtOfficeGetUserStatus.post()                   //Json 送信
@@ -140,6 +142,10 @@ class HomeFragment : Fragment() {
 
                 }
                 doOnUiCode_GetStatus()
+
+
+                //今状態 データ更新
+                doOnUiCode_NowStatus()
 
 
                 //Message データ更新
@@ -171,26 +177,29 @@ class HomeFragment : Fragment() {
     }
 
 
-//            {
-//                "status": 0,
-//                "result": {
-//                "recordlist": [
-//                {
-//                    "statustime": "20210727102010",
-//                    "statusvalue": "3",
-//                    "statustext": "休憩中",
-//                    "memo": ""
-//                },
-//                {
-//                    "statustime": "20210727101943",
-//                    "statusvalue": "1",
-//                    "statustext": "勤務中",
-//                    "memo": ""
-//                }
-//                ]
-//            },
-//                "message": ""
-//            }
+    /*
+            {
+                "status": 0,
+                "result": {
+                "recordlist": [
+                {
+                    "statustime": "20210727102010",
+                    "statusvalue": "3",
+                    "statustext": "休憩中",
+                    "memo": ""
+                },
+                {
+                    "statustime": "20210727101943",
+                    "statusvalue": "1",
+                    "statustext": "勤務中",
+                    "memo": ""
+                }
+                ]
+            },
+                "message": ""
+            }
+
+     */
     // 出勤記録 GetStatus UI更新
     private suspend fun doOnUiCode_GetStatus() {
     withContext(Dispatchers.Main) {
@@ -215,6 +224,23 @@ class HomeFragment : Fragment() {
         }
     }
 }
+
+
+    // 今状態 state 更新
+    private suspend fun doOnUiCode_NowStatus() {
+        withContext(Dispatchers.Main) {
+
+            if(JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size>0)
+            {
+
+                val tvState = mainView.findViewById<TextView>(R.id.state)
+                val statustext = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[0].statustext
+
+                tvState.text = statustext
+            }
+
+        }
+    }
 
     // Message UI更新
     private suspend fun doOnUiCode_Message() {
