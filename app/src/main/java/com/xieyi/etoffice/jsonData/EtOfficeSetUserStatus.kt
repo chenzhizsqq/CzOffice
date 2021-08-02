@@ -18,65 +18,55 @@ class EtOfficeSetUserStatus {
         var lastJson: String = ""
     val app: String = "EtOfficeSetUserStatus"
 
+    fun post(longitude:Double,latitude:Double,location:String,
+             statusvalue:String,statustext:String
+             ,memo:String): String {
+        var status:String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url:String = Config.LoginUrl
 
-        fun post(longitude:Double,latitude:Double,location:String,
-                 statusvalue:String,statustext:String
-                 ,memo:String): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("app", app)
+            jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
+            jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
+            jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
+            jsonObject.put("device", "android")
+            jsonObject.put("statusvalue", statusvalue)
+            jsonObject.put("statustext", statustext)
+            jsonObject.put("location", location)
+            jsonObject.put("longitude", longitude.toString())
+            jsonObject.put("latitude", latitude.toString())
+            jsonObject.put("memo", memo)
+            Log.e(TAG, "post: jsonObject:$jsonObject")
 
-            try {
-                /*
-                    {
-                      "app": "EtOfficeSetUserStatus",
-                    }
-                 */
-                val jsonObject = JSONObject()
-                jsonObject.put("app", app)
-                jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
-                jsonObject.put("device", "android")
-//                jsonObject.put("statustext", "勤務中")
-//                jsonObject.put("longitude", "140.00468200000000")
-//                jsonObject.put("latitude", "35.70148346348169")
-                //jsonObject.put("location", "船橋事務所")
-                jsonObject.put("statusvalue", statusvalue)
-                jsonObject.put("statustext", statustext)
-                jsonObject.put("location", location)
-                jsonObject.put("longitude", longitude.toString())
-                jsonObject.put("latitude", latitude.toString())
-                jsonObject.put("memo", memo)
-                Log.e(TAG, "post: jsonObject:$jsonObject")
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
-                val body = jsonObject.toString()
-                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            val request = Request.Builder().url(url).post(body).build()
 
-                val request = Request.Builder().url(url).post(body).build()
+            val response: Response? = client.newCall(request).execute();
+            if (response != null) {
+                if(response.isSuccessful){
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
+                    val json:String = response.body!!.string()
+                    lastJson = json
+                    val mJsonResult = JSONObject(json)
+                    Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                        val json:String = response.body!!.string()
-                        lastJson = json
-                        val mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
-
-                        status = mJsonResult.getString("status")
+                    status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
+                    return status
+                }else{
+                    Log.e(TAG, "postRequest: false" )
                 }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
             }
-            return status
+        }catch (e: Exception){
+            Log.e(TAG, e.toString())
         }
+        return status
+    }
 
         //userstatuslist    一覧
         fun infoUserStatusList(index: Int): Userstatuslist? {

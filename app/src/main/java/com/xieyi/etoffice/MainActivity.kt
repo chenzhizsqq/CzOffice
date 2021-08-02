@@ -43,8 +43,12 @@ class MainActivity : AppCompatActivity() {
                 //特別データ　テスト
 //                try {
 //                    var r:String ="-1"
-//                    r= JC.pEtOfficeGetProject.post()
-//                    Log.e(TAG, "pEtOfficeGetProject.post():$r")
+//                    r = JC.pEtOfficeSetUserStatus.post(
+//                        139.81296166666667
+//                        ,35.640229999999995
+//                        ,"test"
+//                        ,"2","勤務外","memo")
+//                    Log.e(TAG, "pEtOfficeSetUserStatus.post():$r")
 //                } catch (e: Exception) {
 //
 //                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)

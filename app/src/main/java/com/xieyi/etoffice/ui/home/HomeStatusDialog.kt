@@ -104,23 +104,38 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
             val setUserStatus: TextView = mainView.findViewById<TextView>(R.id.set_user_status)
             setUserStatus.setOnClickListener {
                 Log.e(TAG, "setUserStatus.setOnClickListener: begin")
-                val memo:String = etMemo.text.toString()
-                Log.e(TAG, "userStatus.text: $memo" )
-                try {
-                    val r: String =
-                        JC.pEtOfficeSetUserStatus.post(longitude,latitude,"船橋事務所",_statusvalue,_statustext,memo)                   //Json 送信
-                    Log.e(TAG, "pEtOfficeSetUserStatus.post() :$r")
-
-                    if(r != "-1"){
-                        Tools.showMsg(mainView, JC.pEtOfficeSetUserStatus.infoJson().message)
-                    }else{
-                        Tools.showMsg(mainView, "pEtOfficeSetUserStatus.post() :$r")
+                GlobalScope.launch(errorHandler) {
+                    withContext(Dispatchers.IO) {
+                        SetUserStatusPost(etMemo)
                     }
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeSetUserStatus.post() :$e")
-
                 }
             }
+        }
+    }
+
+    private fun SetUserStatusPost(etMemo: EditText) {
+        val memo: String = etMemo.text.toString()
+        Log.e(TAG, "userStatus.text: $memo")
+        try {
+            val r: String =
+                JC.pEtOfficeSetUserStatus.post(
+                    longitude,
+                    latitude,
+                    "船橋事務所",
+                    _statusvalue,
+                    _statustext,
+                    memo
+                )                   //Json 送信
+            Log.e(TAG, "pEtOfficeSetUserStatus.post() :$r")
+
+            if (r == "0") {
+                Tools.showMsg(mainView, "登録します")
+            } else {
+                Tools.showMsg(mainView, "pEtOfficeSetUserStatus.post() :$r")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "pEtOfficeSetUserStatus.post() :$e")
+
         }
     }
 
@@ -130,23 +145,33 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
             val setUserLocation: TextView = mainView.findViewById<TextView>(R.id.set_user_location)
             setUserLocation.setOnClickListener {
                 Log.e(TAG, "setUserLocation.setOnClickListener: begin")
-                val s:String = userLocation.text.toString()
-                Log.e(TAG, "userLocation.text: $s" )
-                try {
-                    val r: String =
-                        JC.pEtOfficeSetUserLocation.post(longitude,latitude,s)                   //Json 送信
-                    Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
 
-                    if(r != "-1"){
-                        Tools.showMsg(mainView, JC.pEtOfficeSetUserLocation.infoJson().message)
-                    }else{
-                        Tools.showMsg(mainView, "pEtOfficeSetUserLocation.post() :$r")
+                GlobalScope.launch(errorHandler) {
+                    withContext(Dispatchers.IO) {
+                        setUserLocationPost(userLocation)
                     }
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeSetUserLocation.post() :$e")
-
                 }
+
             }
+        }
+    }
+
+    private fun setUserLocationPost(userLocation: EditText) {
+        val s: String = userLocation.text.toString()
+        Log.e(TAG, "userLocation.text: $s")
+        try {
+            val r: String =
+                JC.pEtOfficeSetUserLocation.post(longitude, latitude, s)                   //Json 送信
+            Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
+
+            if (r == "0") {
+                Tools.showMsg(mainView, "登録します")
+            } else {
+                Tools.showMsg(mainView, "pEtOfficeSetUserLocation.post() :$r")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "pEtOfficeSetUserLocation.post() :$e")
+
         }
     }
 }
