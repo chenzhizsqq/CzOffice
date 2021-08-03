@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.ArrayDeque
 import java.util.ArrayList
@@ -48,7 +49,14 @@ class EtOfficeSetApprovalJsk {
             jsonObject.put("device", "android")
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
 //            jsonObject.put("updateymd", "[\"20210301\",\"20210302\"]")
-            jsonObject.put("updateymd", ymd)
+//            jsonObject.put("updateymd", ymd)
+            val jsonYmdJSONArray = JSONArray()
+            for ( ymd in ymdArray){
+
+                jsonYmdJSONArray.put(ymd)
+            }
+            jsonObject.putOpt("updateymd",jsonYmdJSONArray)
+
             Log.e(TAG, "jsonObject:"+jsonObject.toString(), )
 
             val body = jsonObject.toString()

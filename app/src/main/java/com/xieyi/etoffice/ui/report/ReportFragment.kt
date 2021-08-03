@@ -167,6 +167,7 @@ class ReportFragment : Fragment() {
                         withContext(Dispatchers.IO) {
 
                             val ymdArray=ArrayList<String>()
+                            ymdArray.add("20210802")
                             ymdArray.add("20210727")
 
 
