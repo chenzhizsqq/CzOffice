@@ -8,9 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -25,6 +23,7 @@ class ReportFragment : Fragment() {
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,6 +129,7 @@ class ReportFragment : Fragment() {
 
             for (j in 0..groupSum - 1) {
 
+
                 val yyyy = Tools.dateGetYear(JC.pEtOfficeGetReportList.infoJson().result.group[j].month)
                 val mm = Tools.dateGetMonth(JC.pEtOfficeGetReportList.infoJson().result.group[j].month)
 
@@ -151,6 +151,8 @@ class ReportFragment : Fragment() {
 
                     mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
+                    val checkBox = makeCheckBox(j, i)
+                    mLinearLayout.addView(checkBox)
 
                     //up
 
@@ -169,7 +171,7 @@ class ReportFragment : Fragment() {
                     //承認状況
                     val approval =
                         JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
-                    if(approval.isEmpty()){
+                    if (approval.isEmpty()) {
                         val TV_2 = makeButton("未承認")
                         m1.addView(TV_2)
                     }
@@ -227,6 +229,17 @@ class ReportFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun makeCheckBox(j: Int, i: Int): CheckBox {
+        val checkBox = CheckBox(activity)
+        val mCheckBoxTag = checkBoxTag(j, i)
+        checkBox.tag = mCheckBoxTag
+        return checkBox
+    }
+
+    private fun checkBoxTag(j: Int,i: Int): String {
+        return "radioButton_id_j_" + j + "_i_" + i
     }
 
     private fun linearLayout_line(): LinearLayout {
