@@ -33,12 +33,14 @@ class ReportFragment : Fragment() {
     }
     private lateinit var mainView: View
 
-    private var bTouch: Boolean = false
+    private var bVISIBLE: Boolean = false
+
+    private var bAllCheck: Boolean = false
 
     private lateinit var recordLinearLayout: LinearLayout
 
 
-    private val arrayListKey = ArrayList<String>()
+    private val arrayListTag = ArrayList<String>()
 
 
 
@@ -86,6 +88,8 @@ class ReportFragment : Fragment() {
         val tv_allSelect: TextView = mainView.findViewById(R.id.all_select)
         tv_allSelect.visibility = View.INVISIBLE
 
+
+
         val tv_commit: TextView = mainView.findViewById(R.id.commit)
         tv_commit.visibility = View.INVISIBLE
 
@@ -95,23 +99,23 @@ class ReportFragment : Fragment() {
 
         val tv_edit: TextView = mainView.findViewById(R.id.edit)
         tv_edit.setOnClickListener(View.OnClickListener {
-
             try {
 
 
-                bTouch = !bTouch
-                if(bTouch){
+                bVISIBLE = !bVISIBLE
+                if(bVISIBLE){
 
                     tv_allSelect.visibility = View.VISIBLE
                     tv_commit.visibility = View.VISIBLE
                     iv_people.visibility = View.VISIBLE
 
-                    for (i in arrayListKey) {
+                    for (i in arrayListTag) {
 
                         val checkBox: CheckBox = mainView.findViewWithTag(i) as CheckBox
                         checkBox.visibility = View.VISIBLE
 
                     }
+
 
 
                 }else{
@@ -120,7 +124,7 @@ class ReportFragment : Fragment() {
                     tv_commit.visibility = View.INVISIBLE
                     iv_people.visibility = View.INVISIBLE
 
-                    for (i in arrayListKey) {
+                    for (i in arrayListTag) {
 
                         val checkBox: CheckBox = mainView.findViewWithTag(i) as CheckBox
                         checkBox.visibility = View.GONE
@@ -134,6 +138,42 @@ class ReportFragment : Fragment() {
 
             }
         })
+
+
+        //allSelect click
+        tv_allSelect.setOnClickListener {
+            if(bVISIBLE){
+                try {
+
+                    bAllCheck=!bAllCheck
+                    for (tag in arrayListTag) {
+
+                        val checkBox: CheckBox = mainView.findViewWithTag(tag) as CheckBox
+                        checkBox.isChecked = bAllCheck
+
+                    }
+                }catch (e: Exception) {
+                    Log.e(TAG, "tv_allSelect.setOnClickListener",e)
+                }
+            }
+        }
+        
+        //commit click
+        tv_commit.setOnClickListener {
+            if(bVISIBLE) {
+                try {
+                    for (tag in arrayListTag) {
+                        val checkBox: CheckBox = mainView.findViewWithTag(tag) as CheckBox
+                        if(checkBox.isChecked ){
+                            Log.e(TAG, "topMenu: checkBox.isChecked tag:$tag", )
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "tv_commit.setOnClickListener", e)
+                }
+            }
+            
+        }
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -178,7 +218,7 @@ class ReportFragment : Fragment() {
                     val checkBoxTag = checkBoxTag(j, i)
                     val checkBox = makeCheckBox(checkBoxTag)
                     checkBox.visibility = View.GONE
-                    arrayListKey.add(checkBoxTag)
+                    arrayListTag.add(checkBoxTag)
                     ll_eachLine.addView(checkBox)
 
 
