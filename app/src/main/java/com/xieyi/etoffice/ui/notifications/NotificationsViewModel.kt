@@ -10,4 +10,10 @@ class NotificationsViewModel : ViewModel() {
         value = "メッセージ"
     }
     val text: LiveData<String> = _text
+    var messageList = ArrayList<Message>()
+    var lasttime = ""
+    var lastsubid = ""
+    fun appendMessage(messageListNew: ArrayList<Message>){
+        messageList.addAll(messageListNew)
+    }
 }

@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.notifications.NotificationsFragment">
+    tools:context=".ui.notifications.NotificationsFragment"
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#F5F5F5"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/text_notifications"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:textColor="@color/purple_500"
+            android:textAlignment="textEnd"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EFEFF4"
         android:gravity="center|top"
         android:orientation="vertical"
         android:selectAllOnFocus="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="#F5F5F5"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-            <TextView
-                android:id="@+id/text_notifications"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Edit"
-                android:textColor="@color/purple_500"
-                android:textAlignment="textEnd"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#CDCDCD"/>
-
-        <LinearLayout
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoadLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#EFEFF4"
-            android:gravity="center|top"
-            android:orientation="vertical"
-            android:selectAllOnFocus="true">
-
-        </LinearLayout>
-
+            app:swipe_style="classic">
+            <include
+                android:id="@id/swipe_refresh_header"
+                layout="@layout/swipe_refresh_header" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:gravity="center|top"
+                android:id="@+id/swipe_target"/>
+            <include
+                android:id="@id/swipe_load_more_footer"
+                layout="@layout/swipe_classic_footer" />
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
     </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

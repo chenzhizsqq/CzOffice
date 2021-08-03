@@ -11,6 +11,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -283,7 +284,13 @@ class HttpUtil {
             clientBuilder.readTimeout(API_READ_TIMEOUT, TimeUnit.SECONDS)
             clientBuilder.writeTimeout(API_WRITE_TIMEOUT, TimeUnit.SECONDS)
 
-            return clientBuilder.build()
+            val spec = ConnectionSpec.Builder(ConnectionSpec.COMPATIBLE_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2, TlsVersion.TLS_1_1, TlsVersion.TLS_1_0)
+                .allEnabledCipherSuites()
+                .build()
+            val spec1 = ConnectionSpec.Builder(ConnectionSpec.CLEARTEXT).build()
+            return clientBuilder.connectionSpecs(listOf(spec, spec1)).build()
+           // return clientBuilder.build()
         }
 
         /**
@@ -366,6 +373,8 @@ class HttpUtil {
                         }
                         requestBody = bodyBuilder.build()
                     }
+                } else if (parameter is JSONObject) {
+                    requestBody = parameter.toString().toRequestBody(JSON_TYPE)
                 }
             }
 
