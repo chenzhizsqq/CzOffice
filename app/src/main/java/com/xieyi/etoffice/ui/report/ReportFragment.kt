@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
@@ -32,6 +33,8 @@ class ReportFragment : Fragment() {
     }
     private lateinit var mainView: View
 
+    private var bTouch: Boolean = false
+
     private lateinit var recordLinearLayout: LinearLayout
 
     override fun onCreateView(
@@ -40,6 +43,8 @@ class ReportFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         mainView = inflater.inflate(R.layout.fragment_scrolling_report, container, false)
+
+        topMenu()
 
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
@@ -70,13 +75,53 @@ class ReportFragment : Fragment() {
 
         return mainView
     }
+
+
+    private fun topMenu() {
+        val tv_allSelect: TextView = mainView.findViewById(R.id.all_select)
+        tv_allSelect.visibility = View.INVISIBLE
+
+        val tv_commit: TextView = mainView.findViewById(R.id.commit)
+        tv_commit.visibility = View.INVISIBLE
+
+        val iv_people: ImageView = mainView.findViewById(R.id.people)
+        iv_people.visibility = View.INVISIBLE
+
+
+        val tv_edit: TextView = mainView.findViewById(R.id.edit)
+        tv_edit.setOnClickListener(View.OnClickListener {
+
+            try {
+
+                bTouch = !bTouch
+                if(bTouch){
+
+                    tv_allSelect.visibility = View.VISIBLE
+                    tv_commit.visibility = View.VISIBLE
+                    iv_people.visibility = View.VISIBLE
+
+                }else{
+
+                    tv_allSelect.visibility = View.INVISIBLE
+                    tv_commit.visibility = View.INVISIBLE
+                    iv_people.visibility = View.INVISIBLE
+
+                }
+
+            } catch (e: Exception) {
+                Log.e(TAG, "tv_edit.setOnClickListener",e)
+
+            }
+        })
+    }
+
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         // 发生异常时的捕获
     }
 
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
+            recordLinearLayout = mainView.findViewById(R.id.record_linearLayout)
 
 
             //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
@@ -102,7 +147,7 @@ class ReportFragment : Fragment() {
 
                     val mLinearLayout = LinearLayout(activity)
 
-                    mLinearLayout.setOrientation(LinearLayout.VERTICAL)
+                    mLinearLayout.orientation = LinearLayout.VERTICAL
 
                     mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
@@ -110,7 +155,7 @@ class ReportFragment : Fragment() {
                     //up
 
                     val m1 = LinearLayout(activity)
-                    m1.setOrientation(LinearLayout.HORIZONTAL)
+                    m1.orientation = LinearLayout.HORIZONTAL
                     m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
                     val yyyymmdd =

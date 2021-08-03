@@ -47,15 +47,15 @@
                 android:gravity="center"
                 android:text="日報"
                 android:textColor="#000000" />
-            <TextView
+
+            <ImageView
                 android:id="@+id/people"
                 android:layout_width="1dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:gravity="center"
-                android:text="人像"
-                android:textColor="#3F51B5" />
+                android:src="@android:drawable/btn_star_big_on" />
             <TextView
                 android:id="@+id/edit"
                 android:layout_width="1dp"
