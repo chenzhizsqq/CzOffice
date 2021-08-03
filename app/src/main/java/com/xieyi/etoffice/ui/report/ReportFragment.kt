@@ -166,82 +166,28 @@ class ReportFragment : Fragment() {
                 val size = JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist.size
 
                 for (i in 0..size - 1) {
+                    //each Line
+                    val ll_eachLine = LinearLayout(activity)
+                    ll_eachLine.orientation = LinearLayout.HORIZONTAL
+                    ll_eachLine.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                    ll_eachLine.setBackgroundColor(Color.WHITE)
+                    ll_eachLine.gravity = Gravity.CENTER
 
-                    val mLinearLayout = LinearLayout(activity)
 
-                    mLinearLayout.orientation = LinearLayout.VERTICAL
-
-                    mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-
-                    val checkBoxTag =checkBoxTag(j, i)
+                    //checkBox
+                    val checkBoxTag = checkBoxTag(j, i)
                     val checkBox = makeCheckBox(checkBoxTag)
                     arrayListKey.add(checkBoxTag)
-                    mLinearLayout.addView(checkBox)
+                    ll_eachLine.addView(checkBox)
 
-                    //up
 
-                    val m1 = LinearLayout(activity)
-                    m1.orientation = LinearLayout.HORIZONTAL
-                    m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-
-                    val yyyymmdd =
-                        JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].yyyymmdd
-                    //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
-                    val y_m_d = Tools.allDate(yyyymmdd)
-
-                    val TV_up = makeTextView("$y_m_d  ")
-                    m1.addView(TV_up)
-
-                    //承認状況
-                    val approval =
-                        JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
-                    if (approval.isEmpty()) {
-                        val TV_2 = makeButton("未承認")
-                        m1.addView(TV_2)
-                    }
+                    //message
+                    val m_ll_Message = ll_Message(j, i)
+                    ll_eachLine.addView(m_ll_Message)
 
 
 
-
-                    mLinearLayout.addView(m1)
-
-
-                    //down
-                    val TV_down =
-                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].title)
-                    mLinearLayout.addView(TV_down)
-
-                    //content
-                    val content =
-                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].content)
-                    mLinearLayout.addView(content)
-
-
-                    //setting
-                    mLinearLayout.setBackgroundColor(Color.WHITE)
-                    mLinearLayout.setPadding(30)
-
-
-                    //setOnClickListener
-                    mLinearLayout.setOnClickListener(View.OnClickListener {
-
-                        try {
-
-                            val bundle = Bundle()
-                            bundle.putString("date", yyyymmdd)
-
-                            Navigation.findNavController(mainView)
-                                .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
-
-                        } catch (e: Exception) {
-                            Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
-
-                        }
-                    })
-
-
-                    //recordLinearLayout end
-                    recordLinearLayout.addView(mLinearLayout)
+                    recordLinearLayout.addView(ll_eachLine)
 
                     //線
 
@@ -253,6 +199,76 @@ class ReportFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun ll_Message(j: Int, i: Int): LinearLayout {
+        val mLinearLayout = LinearLayout(activity)
+
+        mLinearLayout.orientation = LinearLayout.VERTICAL
+
+        mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+
+        //up
+
+        val m1 = LinearLayout(activity)
+        m1.orientation = LinearLayout.HORIZONTAL
+        m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+
+        val yyyymmdd =
+            JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].yyyymmdd
+        //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
+        val y_m_d = Tools.allDate(yyyymmdd)
+
+        val TV_up = makeTextView("$y_m_d  ")
+        m1.addView(TV_up)
+
+        //承認状況
+        val approval =
+            JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
+        if (approval.isEmpty()) {
+            val TV_2 = makeButton("未承認")
+            m1.addView(TV_2)
+        }
+
+
+
+
+        mLinearLayout.addView(m1)
+
+
+        //down
+        val TV_down =
+            makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].title)
+        mLinearLayout.addView(TV_down)
+
+        //content
+        val content =
+            makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].content)
+        mLinearLayout.addView(content)
+
+
+        //setting
+        mLinearLayout.setPadding(30)
+
+
+        //setOnClickListener
+        mLinearLayout.setOnClickListener(View.OnClickListener {
+
+            try {
+
+                val bundle = Bundle()
+                bundle.putString("date", yyyymmdd)
+
+                Navigation.findNavController(mainView)
+                    .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
+
+            } catch (e: Exception) {
+                Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
+
+            }
+        })
+        return mLinearLayout
     }
 
     private fun makeCheckBox(tag:String): CheckBox {
