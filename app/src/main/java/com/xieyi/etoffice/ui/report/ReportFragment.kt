@@ -177,6 +177,7 @@ class ReportFragment : Fragment() {
                     //checkBox
                     val checkBoxTag = checkBoxTag(j, i)
                     val checkBox = makeCheckBox(checkBoxTag)
+                    checkBox.visibility = View.GONE
                     arrayListKey.add(checkBoxTag)
                     ll_eachLine.addView(checkBox)
 
