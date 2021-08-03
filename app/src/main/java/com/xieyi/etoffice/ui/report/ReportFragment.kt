@@ -16,6 +16,7 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
+import java.util.ArrayList
 
 class ReportFragment : Fragment() {
 
@@ -35,6 +36,11 @@ class ReportFragment : Fragment() {
     private var bTouch: Boolean = false
 
     private lateinit var recordLinearLayout: LinearLayout
+
+
+    private val arrayListKey = ArrayList<String>()
+
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -92,6 +98,7 @@ class ReportFragment : Fragment() {
 
             try {
 
+
                 bTouch = !bTouch
                 if(bTouch){
 
@@ -99,11 +106,26 @@ class ReportFragment : Fragment() {
                     tv_commit.visibility = View.VISIBLE
                     iv_people.visibility = View.VISIBLE
 
+                    for (i in arrayListKey) {
+
+                        val checkBox: CheckBox = mainView.findViewWithTag(i) as CheckBox
+                        checkBox.visibility = View.VISIBLE
+
+                    }
+
+
                 }else{
 
                     tv_allSelect.visibility = View.INVISIBLE
                     tv_commit.visibility = View.INVISIBLE
                     iv_people.visibility = View.INVISIBLE
+
+                    for (i in arrayListKey) {
+
+                        val checkBox: CheckBox = mainView.findViewWithTag(i) as CheckBox
+                        checkBox.visibility = View.GONE
+
+                    }
 
                 }
 
@@ -151,7 +173,9 @@ class ReportFragment : Fragment() {
 
                     mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
-                    val checkBox = makeCheckBox(j, i)
+                    val checkBoxTag =checkBoxTag(j, i)
+                    val checkBox = makeCheckBox(checkBoxTag)
+                    arrayListKey.add(checkBoxTag)
                     mLinearLayout.addView(checkBox)
 
                     //up
@@ -231,10 +255,9 @@ class ReportFragment : Fragment() {
         }
     }
 
-    private fun makeCheckBox(j: Int, i: Int): CheckBox {
+    private fun makeCheckBox(tag:String): CheckBox {
         val checkBox = CheckBox(activity)
-        val mCheckBoxTag = checkBoxTag(j, i)
-        checkBox.tag = mCheckBoxTag
+        checkBox.tag = tag
         return checkBox
     }
 
