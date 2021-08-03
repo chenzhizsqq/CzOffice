@@ -43,11 +43,10 @@ class MainActivity : AppCompatActivity() {
                 //特別データ　テスト
 //                try {
 //                    var r:String ="-1"
-//                    r = JC.pEtOfficeSetUserStatus.post(
-//                        139.81296166666667
-//                        ,35.640229999999995
-//                        ,"test"
-//                        ,"2","勤務外","memo")
+//                    val ymdArray= ArrayList<String>()
+//                    ymdArray.add("20210305")
+//                    ymdArray.add("20210405")
+//                    r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
 //                    Log.e(TAG, "pEtOfficeSetUserStatus.post():$r")
 //                } catch (e: Exception) {
 //
@@ -205,7 +204,10 @@ class MainActivity : AppCompatActivity() {
                 r = JC.pEtOfficeGetReportList.post()
 
                 //EtOfficeSetApprovalJsk test
-                r = JC.pEtOfficeSetApprovalJsk.post()
+                val ymdArray= ArrayList<String>()
+                ymdArray.add("20210305")
+                ymdArray.add("20210405")
+                r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
 
                 //EtOfficeGetReportInfo test
                 r = JC.pEtOfficeGetReportInfo.post("20210305")

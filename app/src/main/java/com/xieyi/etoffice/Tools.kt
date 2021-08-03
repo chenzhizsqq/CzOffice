@@ -153,4 +153,18 @@ object Tools {
             .setAction("Action", null)
             .show()
     }
+
+    fun changeList(arrayList:ArrayList<String>):String{
+        if(arrayList.size==0)return "[]"
+
+        var r = "["
+        for (a in arrayList){
+            r +="\"$a\","
+        }
+        r = r.substring(0,r.length-1)
+        r +="]"
+        return r
+    }
+
+
 }

@@ -162,10 +162,27 @@ class ReportFragment : Fragment() {
         tv_commit.setOnClickListener {
             if(bVISIBLE) {
                 try {
+
+                    GlobalScope.launch(errorHandler) {
+                        withContext(Dispatchers.IO) {
+
+                            val ymdArray=ArrayList<String>()
+                            ymdArray.add("20210727")
+
+
+                            var r:String ="-1"
+                            r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
+                            Log.e(TAG, "topMenu: r:$r" )
+                        }
+                    }
+
                     for (tag in arrayListTag) {
                         val checkBox: CheckBox = mainView.findViewWithTag(tag) as CheckBox
                         if(checkBox.isChecked ){
                             Log.e(TAG, "topMenu: checkBox.isChecked tag:$tag", )
+
+
+
                         }
                     }
                 } catch (e: Exception) {
@@ -175,6 +192,7 @@ class ReportFragment : Fragment() {
             
         }
     }
+
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         // 发生异常时的捕获
@@ -267,6 +285,7 @@ class ReportFragment : Fragment() {
         //承認状況
         val approval =
             JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
+        Log.e(TAG, "ll_Message: approval:$approval" )
         if (approval.isEmpty()) {
             val TV_2 = makeButton("未承認")
             m1.addView(TV_2)
