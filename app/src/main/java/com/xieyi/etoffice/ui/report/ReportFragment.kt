@@ -96,7 +96,7 @@ class ReportFragment : Fragment() {
 
                 recordLinearLayout.addView(yyyymmTextView)
 
-                val size = JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist.size
+                val size = JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist.size
 
                 for (i in 0..size - 1) {
 
@@ -114,7 +114,7 @@ class ReportFragment : Fragment() {
                     m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
                     val yyyymmdd =
-                        JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].yyyymmdd
+                        JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].yyyymmdd
                     //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
                     val y_m_d = Tools.allDate(yyyymmdd)
 
@@ -123,7 +123,7 @@ class ReportFragment : Fragment() {
 
                     //承認状況
                     val approval =
-                        JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].approval
+                        JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
                     if(approval.isEmpty()){
                         val TV_2 = makeButton("未承認")
                         m1.addView(TV_2)
@@ -137,12 +137,12 @@ class ReportFragment : Fragment() {
 
                     //down
                     val TV_down =
-                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].title)
+                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].title)
                     mLinearLayout.addView(TV_down)
 
                     //content
                     val content =
-                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[0].reportlist[i].content)
+                        makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].content)
                     mLinearLayout.addView(content)
 
 
