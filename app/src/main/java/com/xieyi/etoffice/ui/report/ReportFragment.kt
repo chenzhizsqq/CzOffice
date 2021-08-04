@@ -132,7 +132,7 @@ class ReportFragment : Fragment() {
 
                     for (tagYmd in arrayListTagYmd) {
 
-                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd) as CheckBox
+                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
                         checkBox.visibility = View.GONE
 
                     }
