@@ -40,6 +40,13 @@ class ReportFragment : Fragment() {
     private lateinit var recordLinearLayout: LinearLayout
 
 
+    inner class checkTagYmd{
+        var tag:String = ""
+        var ymd:String = ""
+
+    }
+    private val arrayListTagYmd = ArrayList<checkTagYmd>()
+
     private val arrayListTag = ArrayList<String>()
 
 
@@ -162,15 +169,18 @@ class ReportFragment : Fragment() {
         tv_commit.setOnClickListener {
             if(bVISIBLE) {
                 try {
-
                     GlobalScope.launch(errorHandler) {
                         withContext(Dispatchers.IO) {
-
+                            //指定された　発信
                             val ymdArray=ArrayList<String>()
-                            ymdArray.add("20210802")
-                            ymdArray.add("20210727")
+                            for (tagYmd in arrayListTagYmd){
+                                val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                                if(checkBox.isChecked ){
+                                    Log.e(TAG, "tagYmd.ymd:"+tagYmd.ymd )
 
-
+                                    ymdArray.add(tagYmd.ymd)
+                                }
+                            }
                             var r:String ="-1"
                             r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
                             Log.e(TAG, "topMenu: r:$r" )
@@ -190,17 +200,9 @@ class ReportFragment : Fragment() {
 
                             }
                         }
+
                     }
 
-                    for (tag in arrayListTag) {
-                        val checkBox: CheckBox = mainView.findViewWithTag(tag) as CheckBox
-                        if(checkBox.isChecked ){
-                            Log.e(TAG, "topMenu: checkBox.isChecked tag:$tag", )
-
-
-
-                        }
-                    }
                 } catch (e: Exception) {
                     Log.e(TAG, "tv_commit.setOnClickListener", e)
                 }
@@ -308,8 +310,6 @@ class ReportFragment : Fragment() {
         }
 
 
-
-
         mLinearLayout.addView(m1)
 
 
@@ -326,6 +326,12 @@ class ReportFragment : Fragment() {
 
         //setting
         mLinearLayout.setPadding(30)
+
+        //TagYmd list
+        val tagYmd = checkTagYmd()
+        tagYmd.tag=checkBoxTag(j, i)
+        tagYmd.ymd=yyyymmdd
+        arrayListTagYmd.add(tagYmd)
 
 
         //setOnClickListener
