@@ -67,7 +67,7 @@
             android:textColor="#3F51B5" />
     </LinearLayout>
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"

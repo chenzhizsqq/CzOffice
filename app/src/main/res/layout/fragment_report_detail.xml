@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.report.ReportDetailFragment"
-
-    android:background="#D1D1D1">
+    android:background="#E8E8E8">
 
     <LinearLayout
         android:id="@+id/title"
@@ -52,7 +51,7 @@
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
