@@ -1,7 +1,8 @@
 package com.xieyi.etoffice.jsonData
 
 import android.util.Log
-import com.google.gson.Gson
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.Tools
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -11,9 +12,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.ArrayDeque
 import java.util.ArrayList
-import javax.security.auth.login.LoginException
 
 
 //EtOfficeSetApprovalJsk 勤務実績承認
@@ -39,7 +38,6 @@ class EtOfficeSetApprovalJsk {
           "updateymd": ["20210301","20210302"]
         }
          */
-        val ymd = Tools.changeList(ymdArray)
         try {
             val jsonObject = JSONObject()
             jsonObject.put("app", app)
@@ -50,12 +48,11 @@ class EtOfficeSetApprovalJsk {
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
 //            jsonObject.put("updateymd", "[\"20210301\",\"20210302\"]")
 //            jsonObject.put("updateymd", ymd)
-            val jsonYmdJSONArray = JSONArray()
+            val ymdJsonArray = JSONArray()
             for ( ymd in ymdArray){
-
-                jsonYmdJSONArray.put(ymd)
+                ymdJsonArray.put(ymd)
             }
-            jsonObject.putOpt("updateymd",jsonYmdJSONArray)
+            jsonObject.putOpt("updateymd",ymdJsonArray)
 
             Log.e(TAG, "jsonObject:"+jsonObject.toString(), )
 
