@@ -62,13 +62,13 @@ class ReportFragment : Fragment() {
                     val r = JC.pEtOfficeGetReportList.post()
                     Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
 
+                    doOnUiCode()
 
                 }catch (e:Exception){
                     Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
 
                 }
 
-                doOnUiCode()
             }
         }
 
@@ -174,6 +174,21 @@ class ReportFragment : Fragment() {
                             var r:String ="-1"
                             r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
                             Log.e(TAG, "topMenu: r:$r" )
+
+
+                            //データ更新
+                            try {
+
+                                //日報一覧取得
+                                val r = JC.pEtOfficeGetReportList.post()
+                                Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
+
+
+                                doOnUiCode()
+                            }catch (e:Exception){
+                                Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
+
+                            }
                         }
                     }
 
@@ -202,7 +217,7 @@ class ReportFragment : Fragment() {
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
             recordLinearLayout = mainView.findViewById(R.id.record_linearLayout)
-
+            recordLinearLayout.removeAllViews()
 
             //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
 
