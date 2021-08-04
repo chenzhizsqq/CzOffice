@@ -47,7 +47,6 @@ class ReportFragment : Fragment() {
     }
     private val arrayListTagYmd = ArrayList<checkTagYmd>()
 
-    private val arrayListTag = ArrayList<String>()
 
 
 
@@ -116,9 +115,9 @@ class ReportFragment : Fragment() {
                     tv_commit.visibility = View.VISIBLE
                     iv_people.visibility = View.VISIBLE
 
-                    for (i in arrayListTag) {
+                    for (tagYmd in arrayListTagYmd) {
 
-                        val checkBox: CheckBox = mainView.findViewWithTag(i) as CheckBox
+                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
                         checkBox.visibility = View.VISIBLE
 
                     }
@@ -131,9 +130,9 @@ class ReportFragment : Fragment() {
                     tv_commit.visibility = View.INVISIBLE
                     iv_people.visibility = View.INVISIBLE
 
-                    for (i in arrayListTag) {
+                    for (tagYmd in arrayListTagYmd) {
 
-                        val checkBox: CheckBox = mainView.findViewWithTag(i) as CheckBox
+                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd) as CheckBox
                         checkBox.visibility = View.GONE
 
                     }
@@ -153,9 +152,9 @@ class ReportFragment : Fragment() {
                 try {
 
                     bAllCheck=!bAllCheck
-                    for (tag in arrayListTag) {
+                    for (tagYmd in arrayListTagYmd) {
 
-                        val checkBox: CheckBox = mainView.findViewWithTag(tag) as CheckBox
+                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
                         checkBox.isChecked = bAllCheck
 
                     }
@@ -254,7 +253,7 @@ class ReportFragment : Fragment() {
                     val checkBoxTag = checkBoxTag(j, i)
                     val checkBox = makeCheckBox(checkBoxTag)
                     checkBox.visibility = View.GONE
-                    arrayListTag.add(checkBoxTag)
+                    //arrayListTag.add(checkBoxTag)
                     ll_eachLine.addView(checkBox)
 
 
