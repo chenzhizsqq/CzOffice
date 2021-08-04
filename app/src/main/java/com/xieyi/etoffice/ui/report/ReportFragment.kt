@@ -59,6 +59,20 @@ class ReportFragment : Fragment() {
 
         topMenu()
 
+        ContentUpdate()
+
+
+        //demo
+//        val pTableRowInfoTitle: TableRow = view.findViewById(R.id.report_info_title_1) as TableRow
+//        pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
+//
+//            Navigation.findNavController(view).navigate(R.id.ReportDetail);        //就是用这句去转了
+//        })
+
+        return mainView
+    }
+
+    private fun ContentUpdate() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
@@ -70,23 +84,13 @@ class ReportFragment : Fragment() {
 
                     doOnUiCode()
 
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
 
                 }
 
             }
         }
-
-
-        //demo
-//        val pTableRowInfoTitle: TableRow = view.findViewById(R.id.report_info_title_1) as TableRow
-//        pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
-//
-//            Navigation.findNavController(view).navigate(R.id.ReportDetail);        //就是用这句去转了
-//        })
-
-        return mainView
     }
 
 
@@ -105,44 +109,7 @@ class ReportFragment : Fragment() {
 
         val tv_edit: TextView = mainView.findViewById(R.id.edit)
         tv_edit.setOnClickListener(View.OnClickListener {
-            try {
-
-
-                bVISIBLE = !bVISIBLE
-                if(bVISIBLE){
-
-                    tv_allSelect.visibility = View.VISIBLE
-                    tv_commit.visibility = View.VISIBLE
-                    iv_people.visibility = View.VISIBLE
-
-                    for (tagYmd in arrayListTagYmd) {
-
-                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
-                        checkBox.visibility = View.VISIBLE
-
-                    }
-
-
-
-                }else{
-
-                    tv_allSelect.visibility = View.INVISIBLE
-                    tv_commit.visibility = View.INVISIBLE
-                    iv_people.visibility = View.INVISIBLE
-
-                    for (tagYmd in arrayListTagYmd) {
-
-                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
-                        checkBox.visibility = View.GONE
-
-                    }
-
-                }
-
-            } catch (e: Exception) {
-                Log.e(TAG, "tv_edit.setOnClickListener",e)
-
-            }
+            tvEditSrcChange(tv_allSelect, tv_commit, iv_people)
         })
 
 
@@ -175,7 +142,6 @@ class ReportFragment : Fragment() {
                             for (tagYmd in arrayListTagYmd){
                                 val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
                                 if(checkBox.isChecked ){
-                                    Log.e(TAG, "tagYmd.ymd:"+tagYmd.ymd )
 
                                     ymdArray.add(tagYmd.ymd)
                                 }
@@ -198,6 +164,7 @@ class ReportFragment : Fragment() {
                                 Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
 
                             }
+                            tvEditSrcChange(tv_allSelect, tv_commit, iv_people)
                         }
 
                     }
@@ -207,6 +174,51 @@ class ReportFragment : Fragment() {
                 }
             }
             
+        }
+    }
+
+    //tv_Edit 表示　変更
+    private fun tvEditSrcChange(
+        tv_allSelect: TextView,
+        tv_commit: TextView,
+        iv_people: ImageView
+    ) {
+        try {
+
+
+            bVISIBLE = !bVISIBLE
+            if (bVISIBLE) {
+
+                tv_allSelect.visibility = View.VISIBLE
+                tv_commit.visibility = View.VISIBLE
+                iv_people.visibility = View.VISIBLE
+
+                for (tagYmd in arrayListTagYmd) {
+
+                    val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                    checkBox.visibility = View.VISIBLE
+
+                }
+
+
+            } else {
+
+                tv_allSelect.visibility = View.INVISIBLE
+                tv_commit.visibility = View.INVISIBLE
+                iv_people.visibility = View.INVISIBLE
+
+                for (tagYmd in arrayListTagYmd) {
+
+                    val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                    checkBox.visibility = View.GONE
+
+                }
+
+            }
+
+        } catch (e: Exception) {
+            Log.e(TAG, "tv_edit.setOnClickListener", e)
+
         }
     }
 
