@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.report
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -60,14 +61,6 @@ class ReportFragment : Fragment() {
         topMenu()
 
         ContentUpdate()
-
-
-        //demo
-//        val pTableRowInfoTitle: TableRow = view.findViewById(R.id.report_info_title_1) as TableRow
-//        pTableRowInfoTitle.setOnClickListener(View.OnClickListener {
-//
-//            Navigation.findNavController(view).navigate(R.id.ReportDetail);        //就是用这句去转了
-//        })
 
         return mainView
     }
@@ -133,47 +126,57 @@ class ReportFragment : Fragment() {
         
         //commit click
         tv_commit.setOnClickListener {
-            if(bVISIBLE) {
-                try {
-                    GlobalScope.launch(errorHandler) {
-                        withContext(Dispatchers.IO) {
-                            //指定された　発信
-                            val ymdArray=ArrayList<String>()
-                            for (tagYmd in arrayListTagYmd){
-                                val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
-                                if(checkBox.isChecked ){
+            commitAlertDialog(tv_allSelect, tv_commit, iv_people)
+            //commitClick(tv_allSelect, tv_commit, iv_people)
 
-                                    ymdArray.add(tagYmd.ymd)
-                                }
+        }
+    }
+
+    private fun commitClick(
+        tv_allSelect: TextView,
+        tv_commit: TextView,
+        iv_people: ImageView
+    ) {
+        if (bVISIBLE) {
+            try {
+                GlobalScope.launch(errorHandler) {
+                    withContext(Dispatchers.IO) {
+                        //指定された　発信
+                        val ymdArray = ArrayList<String>()
+                        for (tagYmd in arrayListTagYmd) {
+                            val checkBox: CheckBox =
+                                mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                            if (checkBox.isChecked) {
+
+                                ymdArray.add(tagYmd.ymd)
                             }
-                            var r:String ="-1"
-                            r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
-                            Log.e(TAG, "topMenu: r:$r" )
-
-
-                            //データ更新
-                            try {
-
-                                //日報一覧取得
-                                val r = JC.pEtOfficeGetReportList.post()
-                                Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
-
-
-                                doOnUiCode()
-                            }catch (e:Exception){
-                                Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
-
-                            }
-                            tvEditSrcChange(tv_allSelect, tv_commit, iv_people)
                         }
+                        var r: String = "-1"
+                        r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
+                        Log.e(TAG, "topMenu: r:$r")
 
+
+                        //データ更新
+                        try {
+
+                            //日報一覧取得
+                            val r = JC.pEtOfficeGetReportList.post()
+                            Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
+
+
+                            doOnUiCode()
+                        } catch (e: Exception) {
+                            Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
+
+                        }
+                        tvEditSrcChange(tv_allSelect, tv_commit, iv_people)
                     }
 
-                } catch (e: Exception) {
-                    Log.e(TAG, "tv_commit.setOnClickListener", e)
                 }
+
+            } catch (e: Exception) {
+                Log.e(TAG, "tv_commit.setOnClickListener", e)
             }
-            
         }
     }
 
@@ -390,7 +393,7 @@ class ReportFragment : Fragment() {
         return tv
     }
 
-    private fun makeButton(ym: String): TextView {
+    private fun makeButton(s: String): TextView {
         val tv = TextView(activity)
         tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
         tv.setTextColor(Color.parseColor("#FFFFFF"))
@@ -400,10 +403,26 @@ class ReportFragment : Fragment() {
         tv.layoutParams = lp
 
         tv.setBackgroundResource(R.drawable.ic_round_edge_red)
-        tv.text = ym
+        tv.text = s
 
         tv.gravity = Gravity.CENTER
         return tv
+    }
+
+    private fun commitAlertDialog(
+        tv_allSelect: TextView,
+        tv_commit: TextView,
+        iv_people: ImageView){
+
+        AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
+            .setTitle("消息")
+            .setMessage("現在選択されている情報を承認しますか？")
+            .setPositiveButton("确定") { _, which ->
+                commitClick(tv_allSelect, tv_commit, iv_people)
+            }
+            .setNegativeButton("取消") { _, which ->
+            }
+            .show()
     }
 
     companion object {
