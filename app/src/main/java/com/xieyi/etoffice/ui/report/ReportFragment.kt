@@ -234,6 +234,8 @@ class ReportFragment : Fragment() {
         withContext(Dispatchers.Main) {
             recordLinearLayout = mainView.findViewById(R.id.record_linearLayout)
             recordLinearLayout.removeAllViews()
+            arrayListTagYmd.clear()
+            bAllCheck = false
 
             //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
 
