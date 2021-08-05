@@ -5,11 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver.OnScrollChangedListener
+import android.view.*
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -57,7 +53,7 @@ class ReportFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mainView = inflater.inflate(R.layout.fragment_scrolling_report, container, false)
 
         topMenu()
