@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -17,7 +18,8 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
-import java.util.ArrayList
+import java.util.*
+
 
 class ReportFragment : Fragment() {
 

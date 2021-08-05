@@ -5,10 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.view.setPadding
@@ -73,7 +70,30 @@ class ReportDetailFragment() : Fragment() {
     ): View {
         mainView = inflater.inflate(R.layout.fragment_report_detail, container, false)
 
+        DataUpdate()
 
+        //after scroll data update
+        val scrollView: ScrollView = mainView.findViewById(R.id.scrollViewContent)
+        scrollView.viewTreeObserver.addOnScrollChangedListener(ViewTreeObserver.OnScrollChangedListener {
+            if (scrollView.scrollY == 0) {
+                Toast.makeText(context, "top", Toast.LENGTH_SHORT).show()
+                DataUpdate()
+            }
+
+            if (scrollView.getChildAt(0).bottom
+                <= scrollView.height + scrollView.scrollY
+            ) {
+                Toast.makeText(context, "bottom", Toast.LENGTH_SHORT).show()
+                DataUpdate()
+            }
+
+        })
+
+
+        return mainView
+    }
+
+    private fun DataUpdate() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
@@ -82,14 +102,12 @@ class ReportDetailFragment() : Fragment() {
                     val r = JC.pEtOfficeGetReportInfo.post(date)
                     doOnUiCode()
 
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
 
                 }
             }
         }
-
-        return mainView
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -348,6 +366,7 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun funContent(sizeEachY: Int, content: LinearLayout) {
+        content.removeAllViews()
         val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
         Log.e(TAG, "doOnUiCode: size:$size")
         val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
