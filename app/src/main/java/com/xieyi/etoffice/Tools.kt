@@ -1,7 +1,11 @@
 package com.xieyi.etoffice
 
+import android.app.AlertDialog
+import android.content.Context
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
@@ -167,4 +171,17 @@ object Tools {
     }
 
 
+    private fun msgAlertDialog(
+        context:Context
+        ,title:String
+        ,message:String
+        ,buttonMsg:String  ){
+
+        AlertDialog.Builder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(buttonMsg) { _, which ->
+            }
+            .show()
+    }
 }

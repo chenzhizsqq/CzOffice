@@ -323,6 +323,13 @@ class ReportFragment : Fragment() {
         if (approval.isEmpty()) {
             val TV_2 = makeButton("未承認")
             m1.addView(TV_2)
+        }else{
+            val TV_2 = makeButtonBlue("承認済み")
+            m1.addView(TV_2)
+
+            val tvApproval = makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval)
+            tvApproval.setPadding(10)
+            m1.addView(tvApproval)
         }
 
 
@@ -405,6 +412,22 @@ class ReportFragment : Fragment() {
         tv.layoutParams = lp
 
         tv.setBackgroundResource(R.drawable.ic_round_edge_red)
+        tv.text = s
+
+        tv.gravity = Gravity.CENTER
+        return tv
+    }
+
+    private fun makeButtonBlue(s: String): TextView {
+        val tv = TextView(activity)
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+        tv.setTextColor(Color.parseColor("#FFFFFF"))
+
+        val lp= LinearLayout.LayoutParams(200,70)
+        lp.setMargins(1, 1, 1, 1)
+        tv.layoutParams = lp
+
+        tv.setBackgroundResource(R.drawable.ic_round_edge_blue)
         tv.text = s
 
         tv.gravity = Gravity.CENTER
