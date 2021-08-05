@@ -315,7 +315,10 @@ class ReportDetailFragment() : Fragment() {
             t1.setTextColor(Color.parseColor("#000000"))
             t1.textSize = 20F
 
-            val t2_text=JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username+" "+JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
+            val username = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username
+            val time = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
+
+            val t2_text= username +" "+Tools.allDateTime(time)
 
             val t2 =getTextView2(t2_text)
 
