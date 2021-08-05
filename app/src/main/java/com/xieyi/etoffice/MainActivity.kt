@@ -230,7 +230,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 //EtOfficeSetComment    コメント登録
-                r = JC.pEtOfficeSetComment.post()
+                r = JC.pEtOfficeSetComment.post("20210805","ok")
                 Log.e(TAG,"EtOfficeSetComment infoJson:"
                         + JC.pEtOfficeSetComment.infoJson()?.result.toString()
                 )

@@ -19,7 +19,7 @@ class EtOfficeSetComment {
     private var lastJson: String = ""
     val app: String = "EtOfficeSetComment"
 
-    fun post(): String {
+    fun post(ymd:String,comment:String): String {
         var status:String = "-1"
         val client: OkHttpClient = OkHttpClient()
         val url:String = Config.LoginUrl
@@ -57,8 +57,10 @@ class EtOfficeSetComment {
             jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
             jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
-            jsonObject.put("ymd", "20210305")
-            jsonObject.put("comment", "comment  fdsafdsa")
+//            jsonObject.put("ymd", "20210305")
+//            jsonObject.put("comment", "comment  fdsafdsa")
+            jsonObject.put("ymd", ymd)
+            jsonObject.put("comment", comment)
             Log.e(TAG, jsonObject.toString(), )
 
             val body = jsonObject.toString()

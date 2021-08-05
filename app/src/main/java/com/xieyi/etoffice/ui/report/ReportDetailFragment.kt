@@ -8,9 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -159,53 +157,38 @@ class ReportDetailFragment() : Fragment() {
             }
 
 
-            //设计的代码
-            //        buttonImageButton1 = view.findViewById(R.id.imageButton1)
-            //        buttonImageButton1.setOnClickListener {
-            //
-            //            val pReportAddDialog = ReportAddDialog()
-            //            pReportAddDialog.setTargetFragment(this, 1)
-            //            fragmentManager?.let { it1 -> pReportAddDialog.show(it1, "ReportAddDialog") }
-            //        }
 
-            //report_id
-            //        mLinearLayout = view.findViewById(R.id.report_id)
-            //        val textWidth: Int = 120
-            //
-            //        try {
-            //            Log.e(TAG, "count:" + JC.pEtOfficeGetUserStatus.infoUserStatusListCount())
-            //
-            //
-            //            for (i in JC.pEtOfficeGetUserStatus.infoUserStatusList()) {
-            //                Log.e(TAG, "index:$i")
-            //
-            //                val tLinearLayout = LinearLayout(activity)
-            //                tLinearLayout.orientation = LinearLayout.VERTICAL
-            //                tLinearLayout.gravity = Gravity.CENTER
-            //                tLinearLayout.setPadding(10)
-            //
-            //
-            //                val _text = TextView(activity)
-            //                _text.setBackgroundColor(Color.parseColor("#FFBCBCBC") )
-            //                _text.width = textWidth
-            //                _text.height = 100
-            //                _text.text = Tools.srcContent(i.statustime,8)
-            //                tLinearLayout.addView(_text)
-            //
-            //                val _text2 = TextView(activity)
-            //                _text2.setBackgroundColor(Color.YELLOW)
-            //                _text2.width = textWidth
-            //                _text.height = 100
-            //                _text2.text = "勤務中"
-            //                tLinearLayout.addView(_text2)
-            //
-            //
-            //                mLinearLayout.addView(tLinearLayout)
-            //            }
-            //        } catch (e: Exception) {
-            //            Log.e(TAG, e.toString())
-            //        }
-            //design code
+            sendMessage()
+        }
+    }
+
+    private fun sendMessage() {
+        val message_send = mainView.findViewById<Button>(R.id.message_send)
+        val message_edit = mainView.findViewById<EditText>(R.id.message_edit)
+        message_send.setOnClickListener {
+            val message_edit_text:String = message_edit.text.toString()
+            Log.e(TAG, "sendMessage: message_edit_text:$message_edit_text", )
+
+            GlobalScope.launch(errorHandler) {
+                withContext(Dispatchers.IO) {
+                    //EtOfficeSetComment
+                    //データ更新
+                    try {
+
+                        val r = JC.pEtOfficeSetComment.post(Tools.getDate(),message_edit_text)
+
+                    }catch (e:Exception){
+                        Log.e(TAG, "pEtOfficeSetComment.post() :$e")
+
+                    }
+
+                    try {
+                    }catch (e:Exception){
+                        Log.e(TAG, "message_send.setOnClickListener :$e")
+
+                    }
+                }
+            }
         }
     }
 
