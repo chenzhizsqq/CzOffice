@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
                 //特別データ　テスト
 //                try {
 //                    var r:String ="-1"
-//                    val ymdArray= ArrayList<String>()
-//                    ymdArray.add("20210305")
-//                    ymdArray.add("20210405")
-//                    r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
-//                    Log.e(TAG, "pEtOfficeSetUserStatus.post():$r")
+//                    r = JC.pEtOfficeSetComment.post("20210802","ok")
+//                    Log.e(TAG,"EtOfficeSetComment infoJson:"
+//                            + JC.pEtOfficeSetComment.infoJson().result.toString()
+//                    )
+//                    Log.e(TAG, "onCreate: pEtOfficeSetComment r:$r" )
 //                } catch (e: Exception) {
 //
 //                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)

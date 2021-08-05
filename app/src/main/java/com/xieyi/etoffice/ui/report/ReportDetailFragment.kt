@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -22,7 +24,6 @@ class ReportDetailFragment() : Fragment() {
 
     val TAG = "ReportDetailFragment"
     lateinit var buttonImageButton1: ImageView
-    lateinit var mLinearLayout: LinearLayout
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
@@ -69,7 +70,7 @@ class ReportDetailFragment() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mainView = inflater.inflate(R.layout.fragment_report_detail, container, false)
 
 
@@ -79,16 +80,10 @@ class ReportDetailFragment() : Fragment() {
                 try {
 
                     val r = JC.pEtOfficeGetReportInfo.post(date)
+                    doOnUiCode()
 
                 }catch (e:Exception){
                     Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
-
-                }
-
-                try {
-                    doOnUiCode()
-                }catch (e:Exception){
-                    Log.e(TAG, "doOnUiCode :$e")
 
                 }
             }
@@ -164,11 +159,12 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun sendMessage() {
-        val message_send = mainView.findViewById<Button>(R.id.message_send)
-        val message_edit = mainView.findViewById<EditText>(R.id.message_edit)
-        message_send.setOnClickListener {
-            val message_edit_text:String = message_edit.text.toString()
-            Log.e(TAG, "sendMessage: message_edit_text:$message_edit_text", )
+        val messageSend = mainView.findViewById<Button>(R.id.message_send)
+        val messageEdit = mainView.findViewById<EditText>(R.id.message_edit)
+        messageSend.setOnClickListener {
+
+            hideKeyboard(mainView)
+            val messageEditText:String = messageEdit.text.toString()
 
             GlobalScope.launch(errorHandler) {
                 withContext(Dispatchers.IO) {
@@ -176,16 +172,21 @@ class ReportDetailFragment() : Fragment() {
                     //データ更新
                     try {
 
-                        val r = JC.pEtOfficeSetComment.post(Tools.getDate(),message_edit_text)
+                        var r = "-1"
+                        r = JC.pEtOfficeSetComment.post(date,messageEditText)
+                        Log.e(TAG, "sendMessage: r:$r" )
+                        if(r=="0"){
+
+                            r = "-1"
+                            r = JC.pEtOfficeGetReportInfo.post(date)
+                            if(r=="0"){
+                                commentlistFun()
+                            }
+
+                        }
 
                     }catch (e:Exception){
                         Log.e(TAG, "pEtOfficeSetComment.post() :$e")
-
-                    }
-
-                    try {
-                    }catch (e:Exception){
-                        Log.e(TAG, "message_send.setOnClickListener :$e")
 
                     }
                 }
@@ -195,13 +196,15 @@ class ReportDetailFragment() : Fragment() {
 
     private fun planworklistFun() {
         val planworklist: LinearLayout = mainView.findViewById(R.id.planworklist)
-
-//        {
-//            "project": "[2021XY07]EtOfficeAPP開発#1",
-//            "wbs": "[W01]工程A(進捗:%)",
-//            "date": "2021/07/01-2021/07/31",
-//            "time": "(計画：160h)"
-//        }
+        planworklist.removeAllViews()
+/*
+        {
+            "project": "[2021XY07]EtOfficeAPP開発#1",
+            "wbs": "[W01]工程A(進捗:%)",
+            "date": "2021/07/01-2021/07/31",
+            "time": "(計画：160h)"
+        }
+ */
         val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.planworklist.size
 
         for (i in 0 until listSize) {
@@ -229,23 +232,25 @@ class ReportDetailFragment() : Fragment() {
 
     private fun reportlistFun() {
         val reportlist: LinearLayout = mainView.findViewById(R.id.reportlist)
+        reportlist.removeAllViews()
 
 
-
-//        "reportlist": [
-//        {
-//            "project": "2021XY07",
-//            "wbs": "W01",
-//            "time": "8.00",
-//            "memo": "Test"
-//        },
-//        {
-//            "project": "2021XY07",
-//            "wbs": "W01",
-//            "time": "",
-//            "memo": ""
-//        }
-//        ],
+/*
+        "reportlist": [
+        {
+            "project": "2021XY07",
+            "wbs": "W01",
+            "time": "8.00",
+            "memo": "Test"
+        },
+        {
+            "project": "2021XY07",
+            "wbs": "W01",
+            "time": "",
+            "memo": ""
+        }
+        ],
+ */
 
         val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.reportlist.size
 
@@ -284,9 +289,10 @@ class ReportDetailFragment() : Fragment() {
 
     }
 
-    private fun commentlistFun() {
-        val commentlist: LinearLayout = mainView.findViewById(R.id.commentlist)
-
+    private suspend fun commentlistFun() {
+        withContext(Dispatchers.Main) {
+            val commentlist: LinearLayout = mainView.findViewById(R.id.commentlist)
+            commentlist.removeAllViews()
 /*
         "commentlist": [
         {
@@ -306,35 +312,38 @@ class ReportDetailFragment() : Fragment() {
         }
  */
 
-        val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist.size
+            val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist.size
 
-        for (i in 0 until listSize) {
-            val ll=ll_planworklist()
+            for (i in 0 until listSize) {
+                val ll = ll_planworklist()
 
-            val t1 =getTextView2("username："+JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].comment)
-            t1.setTextColor(Color.parseColor("#000000"))
-            t1.textSize = 20F
+                val t1 =
+                    getTextView2("username：" + JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].comment)
+                t1.setTextColor(Color.parseColor("#000000"))
+                t1.textSize = 20F
 
-            val username = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username
-            val time = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
+                val username = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username
+                val time = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
 
-            val t2_text= username +" "+Tools.allDateTime(time)
+                val t2_text = username + " " + Tools.allDateTime(time)
 
-            val t2 =getTextView2(t2_text)
+                val t2 = getTextView2(t2_text)
 
 
 
-            ll.addView(t1)
-            ll.addView(t2)
-            ll.setPadding(10)
+                ll.addView(t1)
+                ll.addView(t2)
+                ll.setPadding(10)
 
-            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+                val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+                )
 
-            commentlist.addView(ll,layoutParams)
+                commentlist.addView(ll, layoutParams)
+
+                commentlist.addView(linearLayout_line())
+            }
         }
-
 
     }
 
@@ -450,6 +459,23 @@ class ReportDetailFragment() : Fragment() {
         r.setTextColor(Color.BLACK)
 
         return r
+    }
+
+
+    private fun linearLayout_line(): LinearLayout {
+        val mLinearLayout2 = LinearLayout(activity)
+        val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
+        mLinearLayout2.layoutParams = lp2
+        mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
+        return mLinearLayout2
+    }
+
+    private fun hideKeyboard(v: View) {
+        val imm: InputMethodManager =
+            v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isActive) {
+            imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0)
+        }
     }
 
 }

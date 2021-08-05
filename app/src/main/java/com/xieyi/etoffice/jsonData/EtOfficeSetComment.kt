@@ -68,22 +68,20 @@ class EtOfficeSetComment {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute();
-            if (response != null) {
-                if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                    var json: String = response.body!!.string()
-                    lastJson = json
-                    var mJsonResult = JSONObject(json)
-                    Log.e(TAG, "mJsonResult: :$mJsonResult" )
+                val json: String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult: :$mJsonResult" )
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                }else{
-                    Log.e(TAG, "postRequest: false" )
-                }
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
         }catch (e: Exception){
             Log.e(TAG, e.toString())
@@ -91,28 +89,11 @@ class EtOfficeSetComment {
         return status
     }
 
-    fun infoJson(): JsonClass? {
-        try {
-            val gson = Gson()
-            val mJson: JsonClass =
-                gson.fromJson(lastJson, JsonClass::class.java)
-            return mJson
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return null
-    }
-
-    fun infoResult(): Result? {
-        try {
-            val gson = Gson()
-            val mJson: JsonClass =
-                gson.fromJson(lastJson, JsonClass::class.java)
-            return mJson.result
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return null
+    fun infoJson(): JsonClass {
+        val gson = Gson()
+        val mJson: JsonClass =
+            gson.fromJson(lastJson, JsonClass::class.java)
+        return mJson
     }
 
     data class JsonClass(
