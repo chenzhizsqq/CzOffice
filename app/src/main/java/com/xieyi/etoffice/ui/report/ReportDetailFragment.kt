@@ -133,7 +133,8 @@ class ReportDetailFragment() : Fragment() {
             val sizeEachY=5
             funContent(sizeEachY, content)
 
-            //reportlist
+            //commentlist
+            commentlistFun()
 
 
             //ReportDetailFragment open
@@ -278,6 +279,57 @@ class ReportDetailFragment() : Fragment() {
             layoutParams.setMargins(10, 5, 10, 5)
 
             reportlist.addView(ll,layoutParams)
+        }
+
+
+    }
+
+    private fun commentlistFun() {
+        val commentlist: LinearLayout = mainView.findViewById(R.id.commentlist)
+
+/*
+        "commentlist": [
+        {
+            "username": "ユーザー１",
+            "comment": "321321",
+            "time": "20210805115112"
+        },
+        {
+            "username": "ユーザー１",
+            "comment": "this is a test 2",
+            "time": "20210803153923"
+        },
+        {
+            "username": "ユーザー１",
+            "comment": "this is a test",
+            "time": "20210803153901"
+        }
+ */
+
+        val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist.size
+
+        for (i in 0 until listSize) {
+            val ll=ll_planworklist()
+
+            val t1 =getTextView2("username："+JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].comment)
+            t1.setTextColor(Color.parseColor("#000000"))
+            t1.textSize = 20F
+
+            val t2_text=JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username+" "+JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
+
+            val t2 =getTextView2(t2_text)
+
+
+
+            ll.addView(t1)
+            ll.addView(t2)
+            ll.setPadding(10)
+
+            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            commentlist.addView(ll,layoutParams)
         }
 
 
