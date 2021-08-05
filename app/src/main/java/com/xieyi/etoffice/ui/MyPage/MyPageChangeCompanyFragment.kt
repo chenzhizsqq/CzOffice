@@ -72,6 +72,11 @@ class MyPageChangeCompanyFragment : Fragment() {
         withContext(Dispatchers.Main) {
             val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
 
+            //record_title
+            val recordTitle = mainView.findViewById<TextView>(R.id.record_title)
+            val tenantid = JC.pEtOfficeLogin.infoJson().result.tenantid
+            val hpid = JC.pEtOfficeLogin.infoJson().result.hpid
+            recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
             Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
 
