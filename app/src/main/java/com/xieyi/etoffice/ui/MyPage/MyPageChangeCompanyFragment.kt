@@ -87,8 +87,8 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             //record_title
             val recordTitle = mainView.findViewById<TextView>(R.id.record_title)
-            val tenantid = JC.pEtOfficeLogin.infoJson().result.tenantid
-            val hpid = JC.pEtOfficeLogin.infoJson().result.hpid
+            val tenantid = JC.tenantid
+            val hpid = JC.hpid
             recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
             Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
@@ -168,30 +168,27 @@ class MyPageChangeCompanyFragment : Fragment() {
 
                                 //check tenantid
                                 if (r == "0") {
-                                    for (k in  0 .. JC.pEtOfficeGetTenant.infoJson().result.tenantlist.size -1 ){
+                                    for (k in  0 .. JC.pEtOfficeSetTenant.infoJson().result.tenantlist.size -1 ){
 
-                                        if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].startflg=="1"){
-
-                                            JC.pEtOfficeLogin.infoJson().result.tenantid =
-                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].tenantid
-                                            JC.pEtOfficeLogin.infoJson().result.hpid =
-                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].hpid
-
-                                            saveUserInfo(
-                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].tenantid ,
-                                                JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].hpid)
+                                        if(JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].startflg=="1"){
                                             mLinearLayout.setBackgroundColor(Color.GREEN)
 
 
 
+                                            JC.tenantid =
+                                                JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].tenantid
+                                            JC.hpid =
+                                                JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].hpid
 
-                                            val intent = Intent(activity, LoginActivity::class.java)
-                                            startActivity(intent)
-                                            activity?.finish()
+                                            val r: String =
+                                                JC.pEtOfficeLogin.post(JC.uid,JC.password)
+                                            Log.e(TAG, "JC.pEtOfficeLogin.post r=" + r)
+
+
+                                            recordTitle.text = "TENANTID = "+JC.tenantid+" HPID = "+JC.hpid
                                         }
 
                                     }
-                                    //mLinearLayout.setBackgroundColor(Color.GREEN)
                                 }
 
                             } catch (e: Exception) {
@@ -285,33 +282,5 @@ class MyPageChangeCompanyFragment : Fragment() {
         return imageView
     }
 
-    /**
-     * 存储用户信息
-     */
-    private fun saveUserInfo(tenantid:String,hpid:String) {
-        val userInfo = activity?.getSharedPreferences(Config.appName, AppCompatActivity.MODE_PRIVATE)
-        val changeListener =
-            SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
-            }
-        userInfo?.registerOnSharedPreferenceChangeListener(changeListener)
 
-        val editor = userInfo?.edit()
-        editor?.putString("tenantid", tenantid)
-        editor?.putString("hpid", hpid)
-        editor?.commit()
-    }
-
-    /**
-     * 读取用户信息
-     */
-    private fun userInfo(){
-        val userInfo = activity?.getSharedPreferences(Config.appName, AppCompatActivity.MODE_PRIVATE)
-        val tenantid = userInfo?.getString("tenantid", Config.tenantid)
-        val hpid = userInfo?.getString("hpid", Config.hpid)
-        Log.e(TAG, "读取用户信息")
-        Log.e(
-            TAG,
-            "tenantid:$tenantid， hpid:$hpid"
-        )
-    }
 }

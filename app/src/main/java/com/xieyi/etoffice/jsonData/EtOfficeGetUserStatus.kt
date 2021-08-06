@@ -34,8 +34,8 @@ class EtOfficeGetUserStatus {
                 val jsonObject = JSONObject()
                 jsonObject.put("app", app)
                 jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
-                jsonObject.put("tenant", JC.pEtOfficeLogin.infoLoginResult().tenantid)
-                jsonObject.put("hpid", JC.pEtOfficeLogin.infoLoginResult().hpid)
+                jsonObject.put("tenant", JC.tenantid)
+                jsonObject.put("hpid", JC.hpid)
                 jsonObject.put("device", "android")
                 //Log.e(TAG, "jsonObject:$jsonObject")
                 val body = jsonObject.toString()
@@ -62,12 +62,6 @@ class EtOfficeGetUserStatus {
                 Log.e(TAG, e.toString())
             }
             return status
-        }
-
-        fun infoUserStatusList(): List<Userstatuslist> {
-            val gson = Gson()
-            val mGetUserStatusJson : JsonClass = gson.fromJson(lastJson, JsonClass::class.java)
-            return mGetUserStatusJson.result.userstatuslist
         }
 
     fun infoJson(): JsonClass {

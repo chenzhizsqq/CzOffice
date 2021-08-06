@@ -1,5 +1,11 @@
 package com.xieyi.etoffice.jsonData
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.xieyi.etoffice.Config
+
 /**
  * Json Center
  */
@@ -135,14 +141,10 @@ class JC {
 
 
 
-
-
-
-
-
-
-
-
+        var hpid = "6"
+        var tenantid = "3"
+        var uid = ""
+        var password = ""
 
 
     }

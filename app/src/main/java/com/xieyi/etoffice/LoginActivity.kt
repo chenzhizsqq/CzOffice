@@ -1,7 +1,6 @@
 package com.xieyi.etoffice
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -29,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
             editTextTextPasswordLogin.setText("pass")
         }
 
-        userInfo()
     }
 
     //EtCampLogin、json登録
@@ -46,8 +44,6 @@ class LoginActivity : AppCompatActivity() {
 
 
                 if (r == "0") {
-                    saveUserInfo(JC.pEtOfficeLogin.infoLoginResult().tenantid ,
-                        JC.pEtOfficeLogin.infoLoginResult().hpid)
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -81,35 +77,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    /**
-     * 存储用户信息
-     */
-    private fun saveUserInfo(tenantid:String,hpid:String) {
-        val userInfo = getSharedPreferences(Config.appName, MODE_PRIVATE)
-        val changeListener =
-            SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
-            }
-        userInfo.registerOnSharedPreferenceChangeListener(changeListener)
-
-        val editor = userInfo.edit()
-        editor.putString("tenantid", tenantid)
-        editor.putString("hpid", hpid)
-        editor.commit()
-    }
-
-    /**
-     * 读取用户信息
-     */
-    private fun userInfo(){
-        val userInfo = getSharedPreferences(Config.appName, MODE_PRIVATE)
-        val tenantid = userInfo.getString("tenantid", Config.tenantid)
-        val hpid = userInfo.getString("hpid", Config.hpid)
-        Log.e(TAG, "读取用户信息")
-        Log.e(
-            TAG,
-            "tenantid:$tenantid， hpid:$hpid"
-        )
-    }
 
 
     fun login(view: View) {

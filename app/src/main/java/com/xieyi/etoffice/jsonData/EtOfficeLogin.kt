@@ -72,8 +72,14 @@ class EtOfficeLogin {
                 val mJsonResult = JSONObject(json)
                 Log.e(TAG, "mJsonResult:$mJsonResult")
 
-                status = mJsonResult.getString("status")
 
+                //data save
+                JC.tenantid = mJsonResult.getJSONObject("result").getString("tenantid")
+                JC.hpid = mJsonResult.getJSONObject("result").getString("hpid")
+                JC.uid = uid
+                JC.password = password
+
+                status = mJsonResult.getString("status")
 
                 return status
             } else {
@@ -84,6 +90,7 @@ class EtOfficeLogin {
         }
         return status
     }
+
 
     //出力    result
     fun infoLoginResult(): LoginResult {
@@ -119,10 +126,10 @@ class EtOfficeLogin {
     }
 
     data class LoginResult(
-        var hpid: String,
+        val hpid: String,
         val mail: String,
         val phone: String,
-        var tenantid: String,
+        val tenantid: String,
         val token: String,
         val usercode: String,
         val userid: String,
