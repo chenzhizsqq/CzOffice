@@ -65,13 +65,6 @@ class ReportDetailFragment() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
-        Toast.makeText(context, "onDestroyView", Toast.LENGTH_SHORT).show()
-        Log.e(TAG, "onPause")
-        val scrollView: ScrollView = mainView.findViewById(R.id.scrollViewContent)
-        scrollView.viewTreeObserver.removeOnScrollChangedListener {
-
-            Toast.makeText(context, "removeOnScrollChangedListener", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private lateinit var mainView: View
@@ -83,36 +76,6 @@ class ReportDetailFragment() : Fragment() {
         mainView = inflater.inflate(R.layout.fragment_report_detail, container, false)
 
         DataUpdate()
-
-        //after scroll data update
-        val scrollView: ScrollView = mainView.findViewById(R.id.scrollViewContent)
-        scrollView.viewTreeObserver.addOnScrollChangedListener(ViewTreeObserver.OnScrollChangedListener {
-//            if (scrollView.scrollY == 0) {
-//                Toast.makeText(context, "top", Toast.LENGTH_SHORT).show()
-//                DataUpdate()
-//            }
-//
-//            if (scrollView.getChildAt(0).bottom
-//                <= scrollView.height + scrollView.scrollY
-//            ) {
-//                Toast.makeText(context, "bottom", Toast.LENGTH_SHORT).show()
-//                DataUpdate()
-//            }
-
-            if (!scrollView.canScrollVertically(1)) {
-                // bottom of scroll view
-                Toast.makeText(context, "bottom", Toast.LENGTH_SHORT).show()
-                DataUpdate()
-            }
-            if (!scrollView.canScrollVertically(-1)) {
-                // top of scroll view
-
-                Toast.makeText(context, "top", Toast.LENGTH_SHORT).show()
-                DataUpdate()
-
-            }
-        })
-
 
 
         return mainView
