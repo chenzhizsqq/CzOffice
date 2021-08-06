@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -42,26 +44,31 @@ class MyPageChangeCompanyFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mainView = inflater.inflate(R.layout.activity_my_page_change_company, container, false)
 
+        mainViewUpdate()
+
+
+        return mainView
+    }
+
+    private fun mainViewUpdate() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
                 try {
-                    val r = JC.pEtOfficeGetTenant.post()                                    //Json 送信
+                    val r =
+                        JC.pEtOfficeGetTenant.post()                                    //Json 送信
                     Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
 
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetTenant.post() :$e")
                 }
 
                 doOnUiCode()
             }
         }
-
-
-        return mainView
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -71,6 +78,7 @@ class MyPageChangeCompanyFragment : Fragment() {
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
             val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
+            recordLinearLayout.removeAllViews()
 
             //record_title
             val recordTitle = mainView.findViewById<TextView>(R.id.record_title)
@@ -95,20 +103,22 @@ class MyPageChangeCompanyFragment : Fragment() {
                 mLinearLayout.tag = tagName + "_" + i
 
 
-                //up
-                val textView = TextView(activity)
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
-                textView.setTextColor(Color.parseColor("#000000"))
-                textView.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantname
-                mLinearLayout.addView(textView)
+
+                val ll_mm = LinearLayout(activity)
+
+                ll_mm.setOrientation(LinearLayout.HORIZONTAL)
+
+                ll_mm.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+                ll_mm.gravity = (Gravity.LEFT or Gravity.CENTER)
+
+                val ll_left = leftLL(i)
 
 
-                //down
-                val textViewRight = TextView(activity)
-                textViewRight.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
-                textViewRight.setTextColor(Color.parseColor("#000000"))
-                textViewRight.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].posturl
-                mLinearLayout.addView(textViewRight)
+                ll_mm.addView(ll_left)
+
+
+
+                mLinearLayout.addView(ll_mm)
 
 
                 mLinearLayout.setBackgroundColor(Color.WHITE)
@@ -117,6 +127,9 @@ class MyPageChangeCompanyFragment : Fragment() {
                 //check tenantid
                 if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].startflg=="1"){
                     mLinearLayout.setBackgroundColor(Color.GREEN)
+
+                    val ll_right = rightLL()
+                    ll_mm.addView(ll_right)
                 }
 //                if (JC.pEtOfficeGetTenant.infoJson().result.tenantlist[0].tenantid == JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid) {
 //                    mLinearLayout.setBackgroundColor(Color.GREEN)
@@ -200,6 +213,59 @@ class MyPageChangeCompanyFragment : Fragment() {
         }
     }
 
+    private fun leftLL(i: Int): LinearLayout {
+        val ll_left = LinearLayout(activity)
+
+        ll_left.orientation = LinearLayout.VERTICAL
+        ll_left.layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+
+        //up
+        val textView = TextView(activity)
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+        textView.setTextColor(Color.parseColor("#000000"))
+        textView.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantname
+        ll_left.addView(textView)
+
+
+
+
+        //down
+        val textViewDown = TextView(activity)
+        textViewDown.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
+        textViewDown.setTextColor(Color.parseColor("#000000"))
+        textViewDown.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].posturl
+        ll_left.addView(textViewDown)
+
+        return ll_left
+    }
+
+    private fun rightLL(): LinearLayout {
+        val ll_right = LinearLayout(activity)
+
+        ll_right.orientation = LinearLayout.VERTICAL
+        ll_right.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        ll_right.gravity = (Gravity.CENTER or Gravity.RIGHT)
+
+        ll_right.addView(makeImage(100))
+        return ll_right
+    }
+
+
+    private fun makeImage(size:Int):ImageView {
+        val imageView = ImageView(activity)
+        val myDrawable = ResourcesCompat.getDrawable(
+            resources, R.drawable.ic_baseline_account_circle_24_blue, null
+        )
+
+        //image logo size
+        val layoutParams = LinearLayout.LayoutParams(size, size)
+        imageView.layoutParams = layoutParams
+
+        //image logo add
+        imageView.setImageDrawable(myDrawable)
+
+        return imageView
+    }
 
     /**
      * 存储用户信息
