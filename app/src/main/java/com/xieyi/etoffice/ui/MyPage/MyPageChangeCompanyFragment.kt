@@ -37,7 +37,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e(TAG, "onCreate: begin", )
+        //Log.e(TAG, "onCreate: begin", )
     }
 
     private lateinit var mainView: View
@@ -91,7 +91,7 @@ class MyPageChangeCompanyFragment : Fragment() {
             val hpid = JC.hpid
             recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
-            Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
+            //Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
 
             val size = JC.pEtOfficeGetTenant.infoJson().result.tenantlist.size
 

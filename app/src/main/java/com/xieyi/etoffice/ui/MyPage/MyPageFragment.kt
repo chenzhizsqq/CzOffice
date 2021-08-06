@@ -28,7 +28,7 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.e(TAG, "onCreateView: begin")
+        //Log.e(TAG, "onCreateView: begin")
 
         val view = inflater.inflate(R.layout.fragment_my_page, container, false)
         try {

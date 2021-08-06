@@ -57,7 +57,7 @@ class EtOfficeGetReportInfo {
                     val json: String = response.body!!.string()
                     lastJson = json
                     val mJsonResult = JSONObject(json)
-                    Log.e(TAG, "mJsonResult: :$mJsonResult" )
+                    //Log.e(TAG, "mJsonResult: :$mJsonResult" )
 
                     status = mJsonResult.getString("status")
 

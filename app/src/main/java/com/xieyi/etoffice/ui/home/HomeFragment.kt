@@ -192,7 +192,6 @@ class HomeFragment : Fragment() {
                 val status = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
                 val memo = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo
 
-                Log.e(TAG, "doOnUiCode_0802: time:$time status:$status" )
 
                 val textView = TextView(activity)
                 textView.text = "・$timeSrc $status $memo"

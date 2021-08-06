@@ -317,7 +317,7 @@ class ReportFragment : Fragment() {
         //承認状況
         val approval =
             JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
-        Log.e(TAG, "ll_Message: approval:$approval" )
+        //Log.e(TAG, "ll_Message: approval:$approval" )
         if (approval.isEmpty()) {
             val TV_2 = makeButton("未承認")
             m1.addView(TV_2)
