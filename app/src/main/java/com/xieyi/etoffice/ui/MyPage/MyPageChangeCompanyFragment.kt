@@ -3,6 +3,7 @@ package com.xieyi.etoffice.ui.MyPage
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -75,6 +76,10 @@ class MyPageChangeCompanyFragment : Fragment() {
         // 发生异常时的捕获
     }
 
+    private fun imageTag(i:Int):String{
+        return "imageTag_$i"
+    }
+
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
             val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
@@ -116,6 +121,10 @@ class MyPageChangeCompanyFragment : Fragment() {
 
                 ll_mm.addView(ll_left)
 
+                val ll_right = rightLL()
+                ll_right.visibility = View.GONE
+                ll_right.tag = logoTag(i)
+                ll_mm.addView(ll_right)
 
 
                 mLinearLayout.addView(ll_mm)
@@ -128,25 +137,29 @@ class MyPageChangeCompanyFragment : Fragment() {
                 if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].startflg=="1"){
                     mLinearLayout.setBackgroundColor(Color.GREEN)
 
-                    val ll_right = rightLL()
-                    ll_mm.addView(ll_right)
+                    ll_right.visibility = View.VISIBLE
                 }
-//                if (JC.pEtOfficeGetTenant.infoJson().result.tenantlist[0].tenantid == JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid) {
-//                    mLinearLayout.setBackgroundColor(Color.GREEN)
-//                }
 
 
                 //データ　発信
                 mLinearLayout.setOnClickListener {
+
+                    //
+                    for (j in 0..size - 1) {
+                        val ll =
+                            recordLinearLayout.findViewWithTag<LinearLayout>(tagName + "_" + j)
+                        ll.setBackgroundColor(Color.WHITE)
+
+                        val rightLL=
+                            recordLinearLayout.findViewWithTag<LinearLayout>(logoTag(j))
+                        rightLL.visibility = View.GONE
+                    }
+
+                    ll_right.visibility = View.VISIBLE
+
                     GlobalScope.launch(errorHandler) {
                         withContext(Dispatchers.IO) {
                             try {
-                                //
-                                for (j in 0..size - 1) {
-                                    val ll =
-                                        recordLinearLayout.findViewWithTag<LinearLayout>(tagName + "_" + j)
-                                    ll.setBackgroundColor(Color.WHITE)
-                                }
 
                                 val r: String =
                                     JC.pEtOfficeSetTenant.post(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid)
@@ -168,6 +181,8 @@ class MyPageChangeCompanyFragment : Fragment() {
                                                 JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].tenantid ,
                                                 JC.pEtOfficeGetTenant.infoJson().result.tenantlist[k].hpid)
                                             mLinearLayout.setBackgroundColor(Color.GREEN)
+
+
 
 
                                             val intent = Intent(activity, LoginActivity::class.java)
@@ -212,6 +227,8 @@ class MyPageChangeCompanyFragment : Fragment() {
             }
         }
     }
+
+    private fun logoTag(i: Int) = "logo$i"
 
     private fun leftLL(i: Int): LinearLayout {
         val ll_left = LinearLayout(activity)
@@ -263,6 +280,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
         //image logo add
         imageView.setImageDrawable(myDrawable)
+
 
         return imageView
     }
