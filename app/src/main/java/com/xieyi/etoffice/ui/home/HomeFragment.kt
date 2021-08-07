@@ -171,6 +171,21 @@ class HomeFragment : Fragment() {
         mHomeStatusDialog.setOnDialogListener(object : HomeStatusDialog.OnDialogListener{
             override fun onClick(userLocation: String, memo: String) {
                 Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo", )
+
+
+                GlobalScope.launch(errorHandler) {
+                    withContext(Dispatchers.IO) {
+                        //GetStatusList
+                        try {
+                            val r: String =
+                                JC.pEtOfficeGetStatusList.post()                   //Json 送信
+                            Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
+                        } catch (e: Exception) {
+                            Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
+                        }
+                        doOnUiCode_GetStatusList()
+                    }
+                }
             }
         })
     }
@@ -184,15 +199,22 @@ class HomeFragment : Fragment() {
     // GetStatusList UI更新
     private suspend fun doOnUiCode_GetStatusList() {
         withContext(Dispatchers.Main) {
+            val state_layout = mainView.findViewById<LinearLayout>(R.id.state_layout)
+            state_layout.removeAllViews()
 
-            var size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
-            if(size>2)size =2
+            //表示量
+            val srcSize = 2
+
+            //今表示量
+            var srcNum = 0
+
+            val size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
+
             Log.e(TAG, "recordlist.size: $size")
 
 
-            val state_layout = mainView.findViewById<LinearLayout>(R.id.state_layout)
 
-            for (i in 0..size - 1) {
+            for (i in 0 until size) {
                 val time = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime
                 val timeSrc = Tools.allDateTime(time)
                 val status = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
@@ -205,6 +227,10 @@ class HomeFragment : Fragment() {
 
 
                 state_layout.addView(textView)
+
+                if(++srcNum >= srcSize){
+                    break
+                }
             }
         }
     }
