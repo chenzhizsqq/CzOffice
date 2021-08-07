@@ -32,6 +32,17 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
     private lateinit var gpsTracker: GpsTracker
 
 
+    var listener: OnDialogListener? = null
+
+    interface OnDialogListener  {
+        fun onClick(userLocation:String, memo:String)
+    }
+
+    fun setOnDialogListener(dialogListener: OnDialogListener) {
+        this.listener = dialogListener
+    }
+
+
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
             @Nullable container: ViewGroup?,
@@ -53,6 +64,14 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         //ボタン　保存後に閉じる
         val btnSaveAndClose = mainView.findViewById<TextView>(R.id.btn_cancel_and_close)
         btnSaveAndClose.setOnClickListener {
+
+            val etUserLocation: EditText = mainView.findViewById(R.id.user_location)
+            val userLocation: String = etUserLocation.text.toString()
+
+            val etMemo: EditText = mainView.findViewById(R.id.user_status_memo)
+            val memo: String = etMemo.text.toString()
+
+            listener?.onClick(userLocation, memo)
             dialog!!.dismiss()
         }
 
@@ -100,8 +119,8 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     private suspend fun setUserStatus() {
         withContext(Dispatchers.Main) {
-            val etMemo: EditText = mainView.findViewById<EditText>(R.id.user_status_memo)
-            val setUserStatus: TextView = mainView.findViewById<TextView>(R.id.set_user_status)
+            val etMemo: EditText = mainView.findViewById(R.id.user_status_memo)
+            val setUserStatus: TextView = mainView.findViewById(R.id.set_user_status)
             setUserStatus.setOnClickListener {
                 Log.e(TAG, "setUserStatus.setOnClickListener: begin")
                 GlobalScope.launch(errorHandler) {
@@ -141,7 +160,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     private suspend fun setUserLocation() {
         withContext(Dispatchers.Main) {
-            val userLocation: EditText = mainView.findViewById<EditText>(R.id.user_location)
+            val userLocation: EditText = mainView.findViewById(R.id.user_location)
             val setUserLocation: TextView = mainView.findViewById<TextView>(R.id.set_user_location)
             setUserLocation.setOnClickListener {
                 Log.e(TAG, "setUserLocation.setOnClickListener: begin")

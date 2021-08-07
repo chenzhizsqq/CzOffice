@@ -167,6 +167,12 @@ class HomeFragment : Fragment() {
 
         val fragmentManager = this@HomeFragment.parentFragmentManager
         fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
+
+        mHomeStatusDialog.setOnDialogListener(object : HomeStatusDialog.OnDialogListener{
+            override fun onClick(userLocation: String, memo: String) {
+                Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo", )
+            }
+        })
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
