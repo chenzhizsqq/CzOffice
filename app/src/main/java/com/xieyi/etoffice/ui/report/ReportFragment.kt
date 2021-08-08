@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -96,6 +97,13 @@ class ReportFragment : Fragment() {
 
         val iv_people: ImageView = mainView.findViewById(R.id.people)
         iv_people.visibility = View.INVISIBLE
+        //出勤記録を表示します
+        iv_people.setOnClickListener {
+            val mHomeReportDialog = HomeReportDialog()
+
+            val fragmentManager = this@ReportFragment.parentFragmentManager
+            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog")  }
+        }
 
 
         val tv_edit: TextView = mainView.findViewById(R.id.edit)
