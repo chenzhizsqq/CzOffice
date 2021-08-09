@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
 
@@ -80,11 +79,24 @@ class MainActivity : AppCompatActivity() {
             R.id.MyPageFragment
         )
         )
+
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
 
+        //初回登録Frag
+        val index = 2
+        selectFrag(index)
     }
+
+    //选择frag登录
+    private fun selectFrag(index: Int) {
+        val mNavigationView: BottomNavigationView = findViewById(R.id.nav_view)
+        mNavigationView.menu.getItem(index).isChecked = true;
+        mNavigationView.menu.performIdentifierAction(R.id.member_fragment, index)
+    }
+
 
     //gps検査する
     private fun gpsCheck() {
@@ -247,8 +259,6 @@ class MainActivity : AppCompatActivity() {
 
         Log.e(TAG, "testJson() end" )
     }
-
-    fun Any.toJson(): String = Gson().toJson(this)
 
 
 }
