@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
@@ -164,6 +167,31 @@ class MyPagePlaceSettingFragment : Fragment() {
                     .navigate(R.id.MyPageFragment);
 
             }
+
+            //locationAlertDialog
+            val locationAlertDialog = mainView.findViewById<ImageView>(R.id.locationAlertDialog)
+            locationAlertDialog.setOnClickListener {
+                activity?.let { it1 ->
+
+                    val textInputLayout = TextInputLayout(it1)
+                    val input = EditText(context)
+                    textInputLayout.addView(input)
+
+                    AlertDialog.Builder(context)
+                        .setTitle("Message")
+                        .setMessage("Please enter an alias for the current location.")
+                        .setView(textInputLayout)
+                        .setPositiveButton("确定") { _, which ->
+                            Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
+                        }
+                        .setNegativeButton("取消") { _, which ->
+                        }
+                        .show()
+
+                }
+
+            }
+
         }
     }
 }

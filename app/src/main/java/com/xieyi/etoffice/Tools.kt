@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.content.Context
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -171,7 +173,7 @@ object Tools {
     }
 
 
-    private fun msgAlertDialog(
+    fun msgAlertDialog(
         context:Context
         ,title:String
         ,message:String
@@ -180,6 +182,26 @@ object Tools {
         AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
+            .setPositiveButton(buttonMsg) { _, which ->
+            }
+            .show()
+    }
+
+    fun msgAlertDialog2(
+        context:Context
+        ,title:String
+        ,message:String
+        ,buttonMsg:String  ){
+
+        val textInputLayout = TextInputLayout(context)
+        val input = EditText(context)
+        textInputLayout.hint = "Email"
+        textInputLayout.addView(input)
+
+        AlertDialog.Builder(context)
+            .setTitle(title)
+            .setMessage(message)
+            .setView(textInputLayout)
             .setPositiveButton(buttonMsg) { _, which ->
             }
             .show()
