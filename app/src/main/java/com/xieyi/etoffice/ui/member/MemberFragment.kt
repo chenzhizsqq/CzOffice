@@ -64,7 +64,7 @@ class MemberFragment : Fragment() {
                     val r = JC.pEtOfficeGetStuffList.post()
                     Log.e(TAG, "pEtOfficeGetStuffList.post() :$r")
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetStuffList.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetStuffList.post()",e)
                 }
 
                 doOnUiCode()

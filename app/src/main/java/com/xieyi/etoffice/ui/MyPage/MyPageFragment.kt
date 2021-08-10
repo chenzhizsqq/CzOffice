@@ -50,7 +50,7 @@ class MyPageFragment : Fragment() {
 
 
         } catch (e: Exception) {
-            Log.e(TAG, "TAG", e)
+            Log.e(TAG, "onCreateView", e)
         }
 
         //Place　Setting

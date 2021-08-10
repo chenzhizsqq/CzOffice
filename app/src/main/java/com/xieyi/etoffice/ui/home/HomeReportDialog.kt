@@ -44,7 +44,7 @@ class HomeReportDialog : DialogFragment() {
                     val r = JC.pEtOfficeGetStatusList.post()
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetStatusList.post()",e)
                 }
 
                 doOnUiCode()

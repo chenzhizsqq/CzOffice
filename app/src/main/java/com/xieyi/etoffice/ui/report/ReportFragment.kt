@@ -77,7 +77,7 @@ class ReportFragment : Fragment() {
                     doOnUiCode()
 
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetReportList.post()",e)
 
                 }
 
@@ -172,7 +172,7 @@ class ReportFragment : Fragment() {
 
                             doOnUiCode()
                         } catch (e: Exception) {
-                            Log.e(TAG, "pEtOfficeGetReportList.post() :$e")
+                            Log.e(TAG, "pEtOfficeGetReportList.post()",e)
 
                         }
                         tvEditSrcChange(tv_allSelect, tv_commit, iv_people)
@@ -375,7 +375,7 @@ class ReportFragment : Fragment() {
                     .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
 
             } catch (e: Exception) {
-                Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
+                Log.e(TAG, "pEtOfficeGetReportInfo.post()",e)
 
             }
         })

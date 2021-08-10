@@ -92,7 +92,7 @@ class ReportDetailFragment() : Fragment() {
                     doOnUiCode()
 
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetReportInfo.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetReportInfo.post()",e)
 
                 }
             }

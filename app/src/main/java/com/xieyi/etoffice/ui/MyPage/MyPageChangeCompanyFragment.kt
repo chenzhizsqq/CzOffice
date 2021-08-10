@@ -64,7 +64,7 @@ class MyPageChangeCompanyFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
 
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetTenant.post() :$e")
+                    Log.e(TAG, "pEtOfficeGetTenant.post()",e)
                 }
 
                 doOnUiCode()

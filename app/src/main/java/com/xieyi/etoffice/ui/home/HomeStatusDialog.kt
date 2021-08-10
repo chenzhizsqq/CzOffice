@@ -153,7 +153,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 Tools.showMsg(mainView, "pEtOfficeSetUserStatus.post() :$r")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "pEtOfficeSetUserStatus.post() :$e")
+            Log.e(TAG, "pEtOfficeSetUserStatus.post()",e)
 
         }
     }
@@ -189,7 +189,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 Tools.showMsg(mainView, "pEtOfficeSetUserLocation.post() :$r")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "pEtOfficeSetUserLocation.post() :$e")
+            Log.e(TAG, "pEtOfficeSetUserLocation.post()",e)
 
         }
     }
