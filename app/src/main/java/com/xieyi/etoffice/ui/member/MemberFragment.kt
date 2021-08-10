@@ -1,11 +1,13 @@
 package com.xieyi.etoffice.ui.member
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
@@ -137,7 +140,7 @@ class MemberFragment : Fragment() {
                     recordLinearLayout.setPadding(10)
 
                     //telephone
-                    recordLinearLayout.setOnClickListener(View.OnClickListener {
+                    ll.setOnClickListener(View.OnClickListener {
                         if (ContextCompat.checkSelfPermission(
                                 requireActivity(),
                                 Manifest.permission.CALL_PHONE
@@ -151,9 +154,21 @@ class MemberFragment : Fragment() {
                             )
                         } else {
                             //CALL_PHONE 権利　ある
-                            val uri: Uri = Uri.parse("tel:"+JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
-                            val intent = Intent(Intent.ACTION_CALL, uri)
-                            startActivity(intent)
+
+
+                            AlertDialog.Builder(context)
+                                .setTitle("電話番号")
+                                .setMessage(JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
+                                .setPositiveButton("call") { _, _ ->
+
+                                    val uri: Uri = Uri.parse("tel:"+JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
+                                    val intent = Intent(Intent.ACTION_CALL, uri)
+                                    startActivity(intent)
+
+                                }
+                                .setNegativeButton("Cancel") { _, which ->
+                                }
+                                .show()
                         }
                     })
 
