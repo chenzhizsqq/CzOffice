@@ -121,18 +121,20 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         withContext(Dispatchers.Main) {
             val etMemo: EditText = mainView.findViewById(R.id.user_status_memo)
             val setUserStatus: TextView = mainView.findViewById(R.id.set_user_status)
+            val userLocation: EditText = mainView.findViewById(R.id.user_location)
+
             setUserStatus.setOnClickListener {
                 Log.e(TAG, "setUserStatus.setOnClickListener: begin")
                 GlobalScope.launch(errorHandler) {
                     withContext(Dispatchers.IO) {
-                        SetUserStatusPost(etMemo)
+                        SetUserStatusPost(etMemo,userLocation.toString())
                     }
                 }
             }
         }
     }
 
-    private fun SetUserStatusPost(etMemo: EditText) {
+    private fun SetUserStatusPost(etMemo: EditText,userLocation:String) {
         val memo: String = etMemo.text.toString()
         Log.e(TAG, "userStatus.text: $memo")
         try {
@@ -140,7 +142,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 JC.pEtOfficeSetUserStatus.post(
                     longitude,
                     latitude,
-                    "船橋事務所",
+                    userLocation,
                     _statusvalue,
                     _statustext,
                     memo
@@ -180,7 +182,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         Log.e(TAG, "userLocation.text: $s")
         try {
             val r: String =
-                JC.pEtOfficeSetUserLocation.post(longitude, latitude, s)                   //Json 送信
+                JC.pEtOfficeSetUserLocation.post(longitude.toString(), latitude.toString(), s)                   //Json 送信
             Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
 
             if (r == "0") {

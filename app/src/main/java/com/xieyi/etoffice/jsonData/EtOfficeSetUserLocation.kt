@@ -30,7 +30,7 @@ class EtOfficeSetUserLocation {
               "location": "船橋事務所"
             }
          */
-        fun post(longitude: Double, latitude:Double, location:String): String {
+        fun post(longitude: String, latitude:String, location:String): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl

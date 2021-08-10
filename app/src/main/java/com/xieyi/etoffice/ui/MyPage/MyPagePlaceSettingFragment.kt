@@ -34,6 +34,21 @@ class MyPagePlaceSettingFragment : Fragment() {
 
     private val tagName: String = "PlaceSetting"
 
+    private lateinit var gpsTracker: GpsTracker
+    private var longitude = 0.0
+    private var latitude = 0.0
+
+    private fun gpsCheck() {
+
+        gpsTracker = GpsTracker(activity)
+        if (gpsTracker.canGetLocation()) {
+            latitude= gpsTracker.getLatitude()
+            longitude = gpsTracker.getLongitude()
+        } else {
+            gpsTracker.showSettingsAlert()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Log.e(TAG, "onCreate: begin")
@@ -48,6 +63,8 @@ class MyPagePlaceSettingFragment : Fragment() {
 
 
         refreshPage()
+
+        gpsCheck()
 
         return mainView
     }
@@ -118,11 +135,16 @@ class MyPagePlaceSettingFragment : Fragment() {
                 imageView.setImageDrawable(myDrawable)
                 mLinearLayout.addView(imageView)
 
+
+
+                val latitude = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].latitude
+                val longitude = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].longitude
+
                 val textView = TextView(activity)
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
                 textView.setTextColor(Color.parseColor("#000000"))
                 textView.text =
-                    JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location
+                    JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location + "|latitude:"+latitude + "|longitude:"+longitude
                 mLinearLayout.addView(textView)
 
                 //design
@@ -212,15 +234,12 @@ class MyPagePlaceSettingFragment : Fragment() {
     private fun postLocation(location: String) {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
-                val gpsTracker = GpsTracker(activity)
                 if (gpsTracker.canGetLocation()) {
-                    val latitude = gpsTracker.getLatitude()
-                    val longitude = gpsTracker.getLongitude()
                     try {
                         val r: String =
                             JC.pEtOfficeSetUserLocation.post(
-                                longitude,
-                                latitude,
+                                longitude.toString(),
+                                latitude.toString(),
                                 location
                             )                   //Json 送信
                         Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")

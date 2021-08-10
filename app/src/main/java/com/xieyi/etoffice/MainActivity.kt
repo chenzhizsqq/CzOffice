@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                     JC.pEtOfficeGetUserLocation.infoJson().toString()
                 )
 
-                r = JC.pEtOfficeSetUserLocation.post(0.0,0.0,"船橋事務所")
+                r = JC.pEtOfficeSetUserLocation.post("11","22","船橋事務所")
                 Log.e(TAG, "EtOfficeSetUserLocation.post(): r==$r")
                 Log.e(TAG,"pEtOfficeSetUserLocation --- "+
                         JC.pEtOfficeSetUserLocation.infoJson().toString()
