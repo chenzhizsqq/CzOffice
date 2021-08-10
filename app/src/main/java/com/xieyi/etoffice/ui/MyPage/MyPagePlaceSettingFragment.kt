@@ -18,7 +18,9 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputLayout
+import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
 
@@ -40,10 +42,16 @@ class MyPagePlaceSettingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mainView = inflater.inflate(R.layout.activity_my_page_place_setting, container, false)
 
 
+        refreshPage()
+
+        return mainView
+    }
+
+    private fun refreshPage() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
@@ -52,7 +60,7 @@ class MyPagePlaceSettingFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
 
 
-                }catch (e:Exception){
+                } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetUserLocation.post() :$e")
 
                 }
@@ -60,8 +68,6 @@ class MyPagePlaceSettingFragment : Fragment() {
                 doOnUiCode()
             }
         }
-
-        return mainView
     }
 
 
@@ -74,11 +80,12 @@ class MyPagePlaceSettingFragment : Fragment() {
     // UI更新
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
+            val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
+            recordLinearLayout.removeAllViews()
+
             val size = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist.size
 
-            //info
 
-            val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
 
             Log.e(TAG, "locationlist.size: $size")
 
@@ -183,6 +190,10 @@ class MyPagePlaceSettingFragment : Fragment() {
                         .setView(textInputLayout)
                         .setPositiveButton("确定") { _, which ->
                             Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
+
+                            val location = input.text.toString()
+                            postLocation(location)
+
                         }
                         .setNegativeButton("取消") { _, which ->
                         }
@@ -192,6 +203,43 @@ class MyPagePlaceSettingFragment : Fragment() {
 
             }
 
+        }
+    }
+
+    private fun postLocation(location: String) {
+        GlobalScope.launch(errorHandler) {
+            withContext(Dispatchers.IO) {
+                val gpsTracker = GpsTracker(activity)
+                if (gpsTracker.canGetLocation()) {
+                    val latitude = gpsTracker.getLatitude()
+                    val longitude = gpsTracker.getLongitude()
+                    try {
+                        val r: String =
+                            JC.pEtOfficeSetUserLocation.post(
+                                longitude,
+                                latitude,
+                                location
+                            )                   //Json 送信
+                        Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
+
+                        if (r == "0") {
+                            Tools.showMsg(mainView, "登録します")
+                        } else {
+                            Tools.showMsg(
+                                mainView,
+                                JC.pEtOfficeSetUserLocation.infoJson().message
+                            )
+                        }
+                    } catch (e: Exception) {
+                        Log.e(TAG, "pEtOfficeSetUserLocation.post()", e)
+
+                    }
+
+                    refreshPage()
+                } else {
+                    gpsTracker.showSettingsAlert()
+                }
+            }
         }
     }
 }
