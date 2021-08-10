@@ -3,6 +3,7 @@ package com.xieyi.etoffice.ui.MyPage
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
@@ -182,20 +183,22 @@ class MyPagePlaceSettingFragment : Fragment() {
 
                     val textInputLayout = TextInputLayout(it1)
                     val input = EditText(context)
+                    input.maxLines = 1
+                    input.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
                     textInputLayout.addView(input)
 
                     AlertDialog.Builder(context)
                         .setTitle("Message")
                         .setMessage("Please enter an alias for the current location.")
                         .setView(textInputLayout)
-                        .setPositiveButton("确定") { _, which ->
+                        .setPositiveButton("OK") { _, which ->
                             Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
 
                             val location = input.text.toString()
                             postLocation(location)
 
                         }
-                        .setNegativeButton("取消") { _, which ->
+                        .setNegativeButton("Cancel") { _, which ->
                         }
                         .show()
 

@@ -448,10 +448,10 @@ class ReportFragment : Fragment() {
         AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
             .setTitle("消息")
             .setMessage("現在選択されている情報を承認しますか？")
-            .setPositiveButton("确定") { _, which ->
+            .setPositiveButton("OK") { _, which ->
                 commitClick(tv_allSelect, tv_commit, iv_people)
             }
-            .setNegativeButton("取消") { _, which ->
+            .setNegativeButton("Cancel") { _, which ->
             }
             .show()
     }
