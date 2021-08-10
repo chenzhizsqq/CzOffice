@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //初回登録Frag
-        val index = 2
+        val index = 0
         selectFrag(index)
     }
 

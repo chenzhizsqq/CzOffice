@@ -113,6 +113,14 @@ class HomeFragment : Fragment() {
         }
 
 
+        //ページを更新
+        refreshPage()
+
+        return mainView
+    }
+
+    //ページを更新
+    private fun refreshPage() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
 
@@ -123,8 +131,8 @@ class HomeFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
 
-                }catch (e:Exception){
-                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$e")
+                } catch (e: Exception) {
+                    Log.e(TAG, "pEtOfficeGetUserStatus", e)
 
                 }
 
@@ -133,16 +141,14 @@ class HomeFragment : Fragment() {
                 doOnUiCode_NowStatus()
 
 
-
                 //GetStatusList
                 try {
                     val r: String = JC.pEtOfficeGetStatusList.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
-                }catch (e:Exception){
-                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
+                } catch (e: Exception) {
+                    Log.e(TAG, "pEtOfficeGetStatusList.post()", e)
                 }
                 doOnUiCode_GetStatusList()
-
 
 
                 //Message データ更新
@@ -151,15 +157,13 @@ class HomeFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetMessage.post() :$r")
 
 
-                }catch (e:Exception){
-                    Log.e(TAG, "pEtOfficeGetMessage.post() :$e")
+                } catch (e: Exception) {
+                    Log.e(TAG, "pEtOfficeGetMessage.post()", e)
 
                 }
                 doOnUiCode_Message()
             }
         }
-
-        return mainView
     }
 
     private fun showStatusDialog(statusvalue:String,statustext:String) {
@@ -172,20 +176,7 @@ class HomeFragment : Fragment() {
             override fun onClick(userLocation: String, memo: String) {
                 Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo", )
 
-
-                GlobalScope.launch(errorHandler) {
-                    withContext(Dispatchers.IO) {
-                        //GetStatusList
-                        try {
-                            val r: String =
-                                JC.pEtOfficeGetStatusList.post()                   //Json 送信
-                            Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
-                        } catch (e: Exception) {
-                            Log.e(TAG, "pEtOfficeGetStatusList.post() :$e")
-                        }
-                        doOnUiCode_GetStatusList()
-                    }
-                }
+                refreshPage()
             }
         })
     }
@@ -242,10 +233,12 @@ class HomeFragment : Fragment() {
 
             if(JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size>0)
             {
+                Log.e(TAG, "doOnUiCode_NowStatus: size>0", )
 
                 val tvState = mainView.findViewById<TextView>(R.id.state)
                 val statustext = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[0].statustext
 
+                Log.e(TAG, "doOnUiCode_NowStatus: statustext:$statustext", )
                 tvState.text = statustext
             }
 
@@ -304,6 +297,7 @@ class HomeFragment : Fragment() {
             val size = JC.pEtOfficeGetMessage.infoJson().result.messagelist.size
             Log.e(TAG, "messagelist.size: $size")
             val messageLayout = mainView.findViewById<LinearLayout>(R.id.message_layout)
+            messageLayout.removeAllViews()
 
 
             for (i in 0..size - 1) {
