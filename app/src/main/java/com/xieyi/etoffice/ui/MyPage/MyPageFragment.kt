@@ -34,19 +34,19 @@ class MyPageFragment : Fragment() {
         try {
 
             val mUserName: TextView = view.findViewById(R.id.user_name)
-            mUserName.text = JC.pEtOfficeLogin.infoLoginResult().username
+            mUserName.text = JC.pEtOfficeLogin.infoJson().result.username
 
             val mUserMail: TextView = view.findViewById(R.id.user_mail)
-            mUserMail.text = JC.pEtOfficeLogin.infoLoginResult().mail
+            mUserMail.text = JC.pEtOfficeLogin.infoJson().result.mail
 
             val mNameValue: TextView = view.findViewById(R.id.name_value)
-            mNameValue.text = JC.pEtOfficeLogin.infoLoginResult().username
+            mNameValue.text = JC.pEtOfficeLogin.infoJson().result.username
 
             val mMobileValue: TextView = view.findViewById(R.id.mobile_value)
-            mMobileValue.text = JC.pEtOfficeLogin.infoLoginResult().phone
+            mMobileValue.text = JC.pEtOfficeLogin.infoJson().result.phone
 
             val mMailValue: TextView = view.findViewById(R.id.mail_value)
-            mMailValue.text = JC.pEtOfficeLogin.infoLoginResult().mail
+            mMailValue.text = JC.pEtOfficeLogin.infoJson().result.mail
 
 
         } catch (e: Exception) {

@@ -15,8 +15,8 @@ import org.json.JSONObject
 //EtOfficeSetTenant   起動会社設定登録
 class EtOfficeSetTenant {
 
-        val TAG = "EtOfficeSetTenant"
-        var lastJson: String = ""
+    val TAG = "EtOfficeSetTenant"
+    var lastJson: String = ""
     val app: String = "EtOfficeSetTenant"
 
         /*
@@ -27,44 +27,42 @@ class EtOfficeSetTenant {
               "tenant": "1"
             }
          */
-        fun post(tenantid:String): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
+    fun post(tenantid:String): String {
+        var status:String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url:String = Config.LoginUrl
 
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeApp.Token)
-                jsonObject.put("device", "android")
-                jsonObject.put("tenantid",tenantid)
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-                Log.e(TAG, "post: $jsonObject", )
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("app", app)
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("device", "android")
+            jsonObject.put("tenantid",tenantid)
+            val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            Log.e(TAG, "post: $jsonObject", )
 
-                val request = Request.Builder().url(url).post(body).build()
+            val request = Request.Builder().url(url).post(body).build()
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
+            val response: Response = client.newCall(request).execute();
+            if(response.isSuccessful){
 
-                        var json:String = response.body!!.string()
-                        lastJson = json
-                        var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                val json:String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                        status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
-            return status
+        }catch (e: Exception){
+            Log.e(TAG, e.toString())
         }
+        return status
+    }
 
 
 

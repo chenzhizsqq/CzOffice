@@ -47,22 +47,20 @@ class EtOfficeGetReportList {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute();
-            if (response != null) {
-                if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                    val json: String = response.body!!.string()
-                    lastJson = json
-                    val mJsonResult = JSONObject(json)
-                    //Log.e(TAG, "mJsonResult:$mJsonResult")
+                val json: String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                //Log.e(TAG, "mJsonResult:$mJsonResult")
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                } else {
-                    Log.e(TAG, "postRequest: false")
-                }
+                return status
+            } else {
+                Log.e(TAG, "postRequest: false")
             }
         } catch (e: Exception) {
             Log.e(TAG, e.toString())
@@ -88,25 +86,6 @@ class EtOfficeGetReportList {
         val status: Int
     )
 
-//    data class Result(
-//        val sectionlist: List<SectionList>
-//    )
-//
-//    data class SectionList(
-//        val sectioncd: String,
-//        val sectionname: String,
-//        var stufflist: List<StuffList>
-//    )
-//
-//    data class StuffList(
-//        val tenant: String,
-//        val hpid: String,
-//        val userid: String,
-//        val username: String,
-//        val userkana: String,
-//        val phone: String,
-//        val mail: String,
-//    )
 
     data class Group(
     val month: String,

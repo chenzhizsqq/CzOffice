@@ -15,8 +15,8 @@ import org.json.JSONObject
 //EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
 class EtOfficeGetUserStatus {
 
-        val TAG = "EtOfficeGetUserStatus"
-        var lastJson: String = ""
+    val TAG = "EtOfficeGetUserStatus"
+    var lastJson: String = ""
     val app: String = "EtOfficeGetUserStatus"
 
         /*
@@ -26,7 +26,7 @@ class EtOfficeGetUserStatus {
         , "hpid":"6"
         , "device":"android"}
          */
-        fun post(): String {
+    fun post(): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl

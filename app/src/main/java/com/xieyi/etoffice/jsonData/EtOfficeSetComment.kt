@@ -57,7 +57,7 @@ class EtOfficeSetComment {
             jsonObject.put("device", "android")
             jsonObject.put("tenant", EtOfficeApp.TenantId)
             jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
+            jsonObject.put("userid", JC.pEtOfficeLogin.infoJson().result.userid)
 //            jsonObject.put("ymd", "20210305")
 //            jsonObject.put("comment", "comment  fdsafdsa")
             jsonObject.put("ymd", ymd)

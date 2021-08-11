@@ -41,7 +41,7 @@ class EtOfficeGetReportInfo {
             jsonObject.put("device", "android")
             jsonObject.put("tenant", EtOfficeApp.TenantId)
             jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
+            jsonObject.put("userid", JC.pEtOfficeLogin.infoJson().result.userid)
             //jsonObject.put("ymd", "20210305")
             jsonObject.put("ymd", ymd)
             Log.e(TAG, jsonObject.toString(), )
@@ -51,22 +51,20 @@ class EtOfficeGetReportInfo {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute();
-            if (response != null) {
-                if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                    val json: String = response.body!!.string()
-                    lastJson = json
-                    val mJsonResult = JSONObject(json)
-                    //Log.e(TAG, "mJsonResult: :$mJsonResult" )
+                val json: String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                //Log.e(TAG, "mJsonResult: :$mJsonResult" )
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                }else{
-                    Log.e(TAG, "postRequest: false" )
-                }
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
         }catch (e: Exception){
             Log.e(TAG, e.toString())
@@ -74,17 +72,6 @@ class EtOfficeGetReportInfo {
         return status
     }
 
-    fun infoResult(): Result? {
-        try {
-            val gson = Gson()
-            val mJson: JsonClass =
-                gson.fromJson(lastJson, JsonClass::class.java)
-            return mJson.result
-        } catch (e: Exception) {
-            Log.e(TAG, e.toString())
-        }
-        return null
-    }
     fun infoJson(): JsonClass {
         val gson = Gson()
         val mJson: JsonClass =

@@ -15,8 +15,8 @@ import org.json.JSONObject
 //EtOfficeGetTenant   所属会社一覧
 class EtOfficeGetTenant {
 
-        val TAG = "EtOfficeGetTenant"
-        var lastJson: String = ""
+    val TAG = "EtOfficeGetTenant"
+    var lastJson: String = ""
     val app: String = "EtOfficeGetTenant"
 
         /*
@@ -26,73 +26,41 @@ class EtOfficeGetTenant {
               "device": "ios"
             }
          */
-        fun post(): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
+    fun post(): String {
+        var status:String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url:String = Config.LoginUrl
 
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeApp.Token)
-                jsonObject.put("device", "android")
-                val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("app", app)
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("device", "android")
+            val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
-                val request = Request.Builder().url(url).post(body).build()
+            val request = Request.Builder().url(url).post(body).build()
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
+            val response: Response = client.newCall(request).execute();
+            if(response.isSuccessful){
 
-                        val json:String = response.body!!.string()
-                        lastJson = json
-                        val mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                val json:String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                        status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
-            return status
+        }catch (e: Exception){
+            Log.e(TAG, e.toString())
         }
+        return status
+    }
 
-
-        /*
-        {
-          "status": 0,
-          "result": {
-            "tenantlist": [
-              {
-                "tenantid": "3",
-                "startflg": "1",
-                "tenantname": "株式会社テスト3",
-                "hpid": "6",
-                "posturl": "https:\/\/ssl.ethp.net\/EthpPost.aspx"
-              },
-              {
-                "tenantid": "1",
-                "startflg": "",
-                "tenantname": "株式会社写易",
-                "hpid": "8",
-                "posturl": "https:\/\/ssl.ethp.net\/EthpPost.aspx"
-              }
-            ]
-          },
-          "message": ""
-        }
-         */
-//        fun infoUserstatuslist(index:Int): Locationlist {
-//            val gson = Gson()
-//            val mJson : EtOfficeGetUserLocationJson = gson.fromJson(lastJson, EtOfficeGetUserLocationJson::class.java)
-//            return mJson.result.locationlist[index]
-//        }
 
 
     fun infoJson(): JsonClass {

@@ -15,8 +15,8 @@ import org.json.JSONObject
 //EtOfficeGetStatusList   出勤状態一覧取得
 class EtOfficeGetStatusList {
 
-        val TAG = "EtOfficeGetStatusList"
-        var lastJson: String = ""
+    val TAG = "EtOfficeGetStatusList"
+    var lastJson: String = ""
     val app: String = "EtOfficeGetStatusList"
 
         /*
@@ -29,50 +29,47 @@ class EtOfficeGetStatusList {
             }
 
          */
-        fun post(): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
+    fun post(): String {
+        var status:String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url:String = Config.LoginUrl
 
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeApp.Token)
-                jsonObject.put("tenant", EtOfficeApp.TenantId)
-                jsonObject.put("hpid", EtOfficeApp.HpId)
-                jsonObject.put("device", "android")
-                val body = jsonObject.toString()
-                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("app", app)
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("device", "android")
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
-                val request = Request.Builder().url(url).post(body).build()
+            val request = Request.Builder().url(url).post(body).build()
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                        val json: String = response.body!!.string()
-                        lastJson = json
-                        val mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                val json: String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                        status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
-            return status
+        }catch (e: Exception){
+            Log.e(TAG, e.toString())
         }
+        return status
+    }
 
-
-        /*
-        {"status":0,"result":{"sectionlist":[]},"message":""}
-         */
+    /*
+    {"status":0,"result":{"sectionlist":[]},"message":""}
+     */
 
 
     fun infoJson(): JsonClass {

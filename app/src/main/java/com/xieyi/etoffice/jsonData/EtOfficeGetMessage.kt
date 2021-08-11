@@ -16,8 +16,8 @@ import org.json.JSONObject
 //EtOfficeGetMessage   最新メッセージ一覧取得
 class EtOfficeGetMessage {
 
-        val TAG = "EtOfficeGetMessage"
-        var lastJson: String = ""
+    val TAG = "EtOfficeGetMessage"
+    var lastJson: String = ""
     val app: String = "EtOfficeGetMessage"
 
         /*
@@ -32,106 +32,47 @@ class EtOfficeGetMessage {
               "lastsubid": ""
             }
          */
-        fun post(): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
+    fun post(): String {
+        var status:String = "-1"
+        val client: OkHttpClient = OkHttpClient()
+        val url:String = Config.LoginUrl
 
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeApp.Token)
-                jsonObject.put("device", "android")
-                jsonObject.put("tenant", EtOfficeApp.TenantId)
-                jsonObject.put("hpid", EtOfficeApp.HpId)
-                jsonObject.put("count", "50")
-                jsonObject.put("lasttime", "")
-                jsonObject.put("lastsubid", "")
-                val body = jsonObject.toString()
-                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        try {
+            val jsonObject = JSONObject()
+            jsonObject.put("app", app)
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("device", "android")
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("count", "50")
+            jsonObject.put("lasttime", "")
+            jsonObject.put("lastsubid", "")
+            val body = jsonObject.toString()
+                .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
-                val request = Request.Builder().url(url).post(body).build()
+            val request = Request.Builder().url(url).post(body).build()
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                        val json:String = response.body!!.string()
-                        lastJson = json
-                        val mJsonResult = JSONObject(json)
-                        //Log.e(TAG, "mJsonResult:$mJsonResult" )
-                        //Tools.logE(TAG,"mJsonResult:$mJsonResult")
+                val json:String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                //Log.e(TAG, "mJsonResult:$mJsonResult" )
+                //Tools.logE(TAG,"mJsonResult:$mJsonResult")
 
-                        status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
-            return status
+        }catch (e: Exception){
+            Log.e(TAG, e.toString())
         }
-
-
-
-//        fun infoTenantList(index:Int): Tenantlist {
-//            val gson = Gson()
-//            val mJson : EtOfficeGetTenantJson = gson.fromJson(lastJson, EtOfficeGetTenantJson::class.java)
-//            return mJson.result.tenantlist[index]
-//        }
-
-
-        /*
-        {
-  "status": 0,
-  "result": {
-    "recordlist": [
-      {
-        "statustime": "20210727102010",
-        "statusvalue": "3",
-        "statustext": "休憩中",
-        "memo": ""
-      },
-      {
-        "statustime": "20210727101943",
-        "statusvalue": "1",
-        "statustext": "勤務中",
-        "memo": ""
-      }
-    ],
-    "messagelist": [
-      {
-        "title": "勤務実績変更",
-        "content": "写易花子さんが202107の勤務実績「通常勤務」09:00-18:00を一括変更しました",
-        "updatetime": "20210720181659",
-        "subid": "1"
-      },
-      {
-        "title": "勤務実績登録",
-        "content": "写易花子さんが20210720の勤務実績「通常勤務」09:00-18:00を登録しました",
-        "updatetime": "20210720180628",
-        "subid": "1"
-      },
-
-      {
-        "title": "勤務実績変更",
-        "content": "写易花子さんが202106の勤務実績「通常勤務」09:00-18:00を一括変更しました",
-        "updatetime": "20210716081659",
-        "subid": "1"
-      }
-    ]
-  },
-  "message": ""
-}
-         */
-
-
-
-
+        return status
+    }
 
     fun infoJson(): JsonClass {
         val gson = Gson()

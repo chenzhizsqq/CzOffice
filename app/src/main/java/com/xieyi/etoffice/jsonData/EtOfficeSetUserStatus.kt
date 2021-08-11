@@ -15,8 +15,8 @@ import org.json.JSONObject
 //EtOfficeSetUserStatus ユーザー勤務状態の設定
 class EtOfficeSetUserStatus {
 
-        val TAG = "EtOfficeSetUserStatus"
-        var lastJson: String = ""
+    val TAG = "EtOfficeSetUserStatus"
+    var lastJson: String = ""
     val app: String = "EtOfficeSetUserStatus"
 
     fun post(longitude:Double,latitude:Double,location:String,
@@ -46,42 +46,26 @@ class EtOfficeSetUserStatus {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute();
-            if (response != null) {
-                if(response.isSuccessful){
+            val response: Response = client.newCall(request).execute();
+            if(response.isSuccessful){
 
-                    val json:String = response.body!!.string()
-                    lastJson = json
-                    val mJsonResult = JSONObject(json)
-                    Log.e(TAG, "mJsonResult:$mJsonResult" )
+                val json:String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                }else{
-                    Log.e(TAG, "postRequest: false" )
-                }
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
         }catch (e: Exception){
             Log.e(TAG, e.toString())
         }
         return status
     }
-
-        //userstatuslist    一覧
-        fun infoUserStatusList(index: Int): Userstatuslist? {
-            try {
-
-                val gson = Gson()
-                val mEtOfficeGetUserStatusJson: JsonClass =
-                    gson.fromJson(lastJson, JsonClass::class.java)
-                return mEtOfficeGetUserStatusJson.result.userstatuslist[index]
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
-        }
 
     fun infoJson(): JsonClass {
         val gson = Gson()

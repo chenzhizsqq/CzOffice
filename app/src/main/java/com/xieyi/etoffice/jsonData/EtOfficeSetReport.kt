@@ -43,7 +43,7 @@ class EtOfficeSetReport {
             jsonObject.put("device", "android")
             jsonObject.put("tenant", EtOfficeApp.TenantId)
             jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
+            jsonObject.put("userid", JC.pEtOfficeLogin.infoJson().result.userid)
             jsonObject.put("ymd", "20210305")
             jsonObject.put("projectcd", "ETHP")
             jsonObject.put("wbscd", "E202103")
@@ -55,22 +55,20 @@ class EtOfficeSetReport {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute();
-            if (response != null) {
-                if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                    var json: String = response.body!!.string()
-                    lastJson = json
-                    var mJsonResult = JSONObject(json)
-                    Log.e(TAG, "mJsonResult: :$mJsonResult" )
+                val json: String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult: :$mJsonResult" )
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                }else{
-                    Log.e(TAG, "postRequest: false" )
-                }
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
         }catch (e: Exception){
             Log.e(TAG, e.toString())

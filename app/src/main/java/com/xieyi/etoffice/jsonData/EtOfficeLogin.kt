@@ -92,37 +92,11 @@ class EtOfficeLogin {
         return status
     }
 
-
-    //出力    result
-    fun infoLoginResult(): LoginResult {
-        val gson = Gson()
-        val mJsonClass: JsonClass = gson.fromJson(lastJson, JsonClass::class.java)
-
-        //测试时，需要的特定转换
-//        tenant":"3","hpid":"6"
-//
-//        tenant":"1","hpid":"8"
-
-//        if(Config.isTest) {
-//                mJsonClass.result.tenantid = "3"
-//                mJsonClass.result.hpid = "6"
-//            }
-        return mJsonClass.result
-    }
-
     fun infoJson(): JsonClass {
             val gson = Gson()
             val mJsonClass: JsonClass =
                 gson.fromJson(lastJson, JsonClass::class.java)
 
-            //测试时，需要的特定转换
-//        tenant":"3","hpid":"6"
-//
-//        tenant":"1","hpid":"8"
-//            if(Config.isTest) {
-//                mJsonClass.result.tenantid = "3"
-//                mJsonClass.result.hpid = "6"
-//            }
             return mJsonClass
     }
 

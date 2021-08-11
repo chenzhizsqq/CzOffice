@@ -16,8 +16,8 @@ import org.json.JSONObject
 //EtOfficeSetMessage   最新メッセージ一覧set
 class EtOfficeSetMessage {
 
-        val TAG = "EtOfficeSetMessage"
-        var lastJson: String = ""
+    val TAG = "EtOfficeSetMessage"
+    var lastJson: String = ""
     val app: String = "EtOfficeSetMessage"
 
         /*
@@ -36,12 +36,12 @@ class EtOfficeSetMessage {
               "readflg": "1"
             }
          */
-        fun post(arrayString: Array<String>): String {
+    fun post(arrayString: Array<String>): String {
             var status:String = "-1"
             val client: OkHttpClient = OkHttpClient()
             val url:String = Config.LoginUrl
 
-            var updateid:String = Tools.jsonArray2String(arrayString)
+            val updateid:String = Tools.jsonArray2String(arrayString)
 
             try {
                 val jsonObject = JSONObject()
@@ -59,22 +59,20 @@ class EtOfficeSetMessage {
 
                 val request = Request.Builder().url(url).post(body).build()
 
-                val response: Response? = client.newCall(request).execute();
-                if (response != null) {
-                    if(response.isSuccessful){
+                val response: Response = client.newCall(request).execute();
+                if(response.isSuccessful){
 
-                        var json:String = response.body!!.string()
-                        lastJson = json
-                        var mJsonResult = JSONObject(json)
-                        Log.e(TAG, "mJsonResult:$mJsonResult" )
+                    val json:String = response.body!!.string()
+                    lastJson = json
+                    val mJsonResult = JSONObject(json)
+                    Log.e(TAG, "mJsonResult:$mJsonResult" )
 
-                        status = mJsonResult.getString("status")
+                    status = mJsonResult.getString("status")
 
 
-                        return status
-                    }else{
-                        Log.e(TAG, "postRequest: false" )
-                    }
+                    return status
+                }else{
+                    Log.e(TAG, "postRequest: false" )
                 }
             }catch (e: Exception){
                 Log.e(TAG, e.toString())
@@ -83,41 +81,6 @@ class EtOfficeSetMessage {
         }
 
 
-        /*
-        {
-          "status": 0,
-          "result": {
-            "recordlist": [
-              {
-                "statustime": "20210712181908",
-                "statusvalue": "",
-                "statustext": "",
-                "memo": ""
-              },
-              {
-                "statustime": "20210712181104",
-                "statusvalue": "",
-                "statustext": "",
-                "memo": ""
-              }
-            ],
-            "messagelist": []
-          },
-          "message": ""
-        }
-         */
-
-        fun getResult(): String? {
-            try {
-                val gson = Gson()
-                val mJson: JsonClass =
-                    gson.fromJson(lastJson, JsonClass::class.java)
-                return mJson.result
-            } catch (e: Exception) {
-                Log.e(TAG, e.toString())
-            }
-            return null
-        }
     fun infoJson(): JsonClass {
         val gson = Gson()
         val mJson: JsonClass =

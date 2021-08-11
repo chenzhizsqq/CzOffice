@@ -223,16 +223,10 @@ class MainActivity : AppCompatActivity() {
 
                 //EtOfficeGetReportInfo test
                 r = JC.pEtOfficeGetReportInfo.post("20210305")
-                Log.e(TAG,"pEtOfficeGetReportInfo infoResult:"
-                        +JC.pEtOfficeGetReportInfo.infoResult().toString()
-                )
-
 
                 //pEtOfficeGetProject プロジェクト一覧
                 r = JC.pEtOfficeGetProject.post()
-                Log.e(TAG,"pEtOfficeGetProject infoResult:"
-                        +JC.pEtOfficeGetProject.infoResult().toString()
-                )
+
 
                 //EtOfficeSetReport     日報登録
                 r = JC.pEtOfficeSetReport.post()

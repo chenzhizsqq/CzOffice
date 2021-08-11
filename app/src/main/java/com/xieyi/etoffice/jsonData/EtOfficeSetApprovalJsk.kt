@@ -46,7 +46,7 @@ class EtOfficeSetApprovalJsk {
             jsonObject.put("tenant", EtOfficeApp.TenantId)
             jsonObject.put("hpid", EtOfficeApp.HpId)
             jsonObject.put("device", "android")
-            jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
+            jsonObject.put("userid", JC.pEtOfficeLogin.infoJson().result.userid)
 //            jsonObject.put("updateymd", "[\"20210301\",\"20210302\"]")
 //            jsonObject.put("updateymd", ymd)
             val ymdJsonArray = JSONArray()
@@ -62,22 +62,20 @@ class EtOfficeSetApprovalJsk {
 
             val request = Request.Builder().url(url).post(body).build()
 
-            val response: Response? = client.newCall(request).execute();
-            if (response != null) {
-                if (response.isSuccessful) {
+            val response: Response = client.newCall(request).execute();
+            if (response.isSuccessful) {
 
-                    val json: String = response.body!!.string()
-                    lastJson = json
-                    val mJsonResult = JSONObject(json)
-                    Log.e(TAG, "mJsonResult: :$mJsonResult" )
+                val json: String = response.body!!.string()
+                lastJson = json
+                val mJsonResult = JSONObject(json)
+                Log.e(TAG, "mJsonResult: :$mJsonResult" )
 
-                    status = mJsonResult.getString("status")
+                status = mJsonResult.getString("status")
 
 
-                    return status
-                }else{
-                    Log.e(TAG, "postRequest: false" )
-                }
+                return status
+            }else{
+                Log.e(TAG, "postRequest: false" )
             }
         }catch (e: Exception){
             Log.e(TAG, e.toString())
