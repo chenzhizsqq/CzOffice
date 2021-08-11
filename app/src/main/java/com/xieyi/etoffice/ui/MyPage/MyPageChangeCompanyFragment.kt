@@ -1,9 +1,6 @@
 package com.xieyi.etoffice.ui.MyPage
 
-import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -14,13 +11,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import com.xieyi.etoffice.Config
-import com.xieyi.etoffice.LoginActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*

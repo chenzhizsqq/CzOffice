@@ -16,4 +16,6 @@ class NotificationsViewModel : ViewModel() {
     fun appendMessage(messageListNew: ArrayList<Message>){
         messageList.addAll(messageListNew)
     }
+    var selectFlag:Boolean = false
+    var checkedPosition:Int = -1
 }

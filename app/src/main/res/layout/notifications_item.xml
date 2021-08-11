@@ -5,39 +5,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin">
-        <TextView
-            android:id="@+id/msgTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf ="parent"
-            android:textColor="?android:attr/textColorPrimary"
-            android:text="勤務実績変更"
-            android:textSize="20sp"/>
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+        <com.xieyi.etoffice.widget.CustomCheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="left|center"
+            app:hcb_is_check="false"
+            app:hcb_style="hollow_out"
+            app:hcb_line_width="1dp"
+            app:hcb_check_circle_color="@color/md_blue_500"
+            app:hcb_uncheck_circle_color="#818181"
+            android:layout_marginRight="10dp"/>
 
-        <TextView
-            android:id="@+id/msgUpdateTime"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"
-            android:text="2021.07.15 12:02:08"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/msgContent"
-        android:textColor="?android:attr/textColorSecondary"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="16dp"
-        android:text="中村悠一さんが20120715の勤務実績「通常勤務」09:00-17:30を変更しました。"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/msgTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="勤務実績変更"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/msgUpdateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="20sp"
+                android:text="2021.07.15 12:02:08"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/msgContent"
+                android:textColor="?android:attr/textColorSecondary"
+                android:layout_marginBottom="8dp"
+                android:layout_below="@+id/msgTitle"
+                android:text="中村悠一さんが20120715の勤務実績「通常勤務」09:00-17:30を変更しました。"/>
+        </RelativeLayout>
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

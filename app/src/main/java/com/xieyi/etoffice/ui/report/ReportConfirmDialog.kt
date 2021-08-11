@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import com.xieyi.etoffice.LoginActivity
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 

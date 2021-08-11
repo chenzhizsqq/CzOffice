@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">EtOffice</string>
     <string name="title_activity_main">EtOffice</string>
+    <string name="login">ログイン</string>
+    <string name="username">ユーザー名</string>
+    <string name="password">パスワード</string>
     <string name="title_home">ホーム</string>
     <string name="title_dashboard">メッセージ</string>
     <string name="title_notifications">メッセージ</string>
@@ -14,5 +17,25 @@
     <string name="project_require">プロジェクト名を選択する</string>
     <string name="wbs_require">作業コードを選択してください</string>
     <string name="workTime_require">工数を入力してください</string>
+    <string name="title_report_add">日報追加</string>
+    <string name="project">プロジェクト名</string>
+    <string name="selected">選択する</string>
+    <string name="wbs_code">作業コード</string>
+    <string name="work_time">工数</string>
+    <string name="work_place">作業場所</string>
+    <string name="submit">登録する</string>
+    <string name="report">作業報告</string>
+    <string name="time_region">時間帯</string>
+    <string name="remind_message">メッセージ</string>
+    <string name="remind_content">現在選択されている情報を削除しますか？</string>
+    <string name="update_success">更新処理が成功しました。</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
+    <string name="edit">編集</string>
+    <string name="delete_message_require">削除するメッセージが選択されていません。</string>
+    <string name="username_require">ユーザー名を入力してください</string>
+    <string name="password_require">パスワードを入力してください</string>
+    <string name="login_failed_msg1">「アカウント」や「パスウード」が間違います。</string>
+    <string name="login_failed_msg2">ログイン失敗しました。</string>
 
 </resources>

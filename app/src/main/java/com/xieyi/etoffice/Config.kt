@@ -3,9 +3,9 @@ package com.xieyi.etoffice
 class Config {
     companion object {
         const val appName = "EtOffice"
-
+        const val EtOfficeUser = "EtOfficeUser"
         const val LoginUrl = "https://ssl.ethp.net/EthpJson.aspx"
-
+        const val Device = "android"
         /**
          * 程序测试，强行添加的代码
          */
@@ -17,6 +17,7 @@ class Config {
         const val isCode = true
 
         const val tenantid="3"
+
         const val hpid="6"
     }
 

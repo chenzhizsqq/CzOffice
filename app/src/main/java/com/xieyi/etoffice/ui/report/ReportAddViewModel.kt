@@ -4,15 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ReportAddViewModel  : ViewModel() {
-//    private val searchLiveData = MutableLiveData<RequestBody>()
     val projectList = ArrayList<Project>()
-
-//    val projectLiveData = Transformations.switchMap(searchLiveData) { query ->
-//        Repository.searchProject(query)
-//    }
-//    fun searchProject(body: RequestBody) {
-//        searchLiveData.value = body
-//    }
+    var minuteList = ArrayList<String>()
+    var hourList= ArrayList<String>()
 
     val projectCd = MutableLiveData<String>()
     var wbsPickerData = ArrayList<OptionItem>()
@@ -39,4 +33,20 @@ class ReportAddViewModel  : ViewModel() {
         }
     }
 
+    fun initTime() {
+        for (i in 0..24) {
+            var hour = i.toString()
+            if (i < 10) {
+                hour = "0$i"
+            }
+            hourList.add(hour)
+        }
+        for (i in 0..11) {
+            var temp = (i * 5).toString()
+            if (i * 5 < 10){
+                temp = "0$temp"
+            }
+            minuteList.add(temp)
+        }
+    }
 }

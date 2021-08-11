@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import com.xieyi.etoffice.LoginActivity
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.ui.login.LoginActivity
 
 class MyPageLogoutDialog : DialogFragment() {
     override fun onCreateView(

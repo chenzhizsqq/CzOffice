@@ -22,12 +22,12 @@ import kotlin.concurrent.thread
 class OptionsPickerDialog:  DialogFragment() {
     private val TAG = "OptionsPickerDialog"
     private lateinit var optionsData: ArrayList<OptionItem>
-    private lateinit var adapter: OptionsPickerAdater
+    private lateinit var adapter: OptionsPickerAdapter
     private lateinit var flag:String
     private var _binding:DialogBottomPickerBinding? = null
     private val binding get() = _binding!!
 
-    var mlistener: OnDialogListener ? = null
+    private var mlistener: OnDialogListener ? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +39,7 @@ class OptionsPickerDialog:  DialogFragment() {
         flag = bundle?.getString("flag")?:"10"
         optionsData = bundle?.get("data") as ArrayList<OptionItem>
 
-        adapter = OptionsPickerAdater(this.requireContext(), R.layout.option_item, optionsData)
+        adapter = OptionsPickerAdapter(this.requireContext(), R.layout.option_item, optionsData)
         binding.optionList.adapter = adapter
         binding.optionList.setOnItemClickListener{parent,view,position,id->
             val itemName = optionsData[position].name
@@ -49,13 +49,11 @@ class OptionsPickerDialog:  DialogFragment() {
             dismiss()
         }
         if (flag == "10") {
-            binding.listTitle.text = "プロジェクト名を選択する"
+            binding.listTitle.text = getString(R.string.project_require)
         } else {
             binding.listTitle.text = "作業コードを選択する"
         }
-
-        binding.buttonCancle.setOnClickListener { dismiss() }
-       // getProjectList()
+        binding.buttonCancel.setOnClickListener { dismiss() }
         initWindow()
 
         return binding.root
@@ -77,7 +75,7 @@ class OptionsPickerDialog:  DialogFragment() {
         window.attributes = attributes
     }
 
-    // 回调接口，用于传递数据给Activity -------
+    // 回调接口，用于传递数据给Activity
     interface OnDialogListener  {
         fun onDialogClick(code:String, name:String)
     }

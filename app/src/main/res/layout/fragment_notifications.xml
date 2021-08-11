@@ -6,66 +6,88 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="#EFEFF4">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/md_blue_500"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectAll"
+                android:button="@null"
+                android:text="全て選択"
+                android:layout_gravity="left"
+                android:textSize="18sp"
+                android:visibility="gone"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="削除"
+                android:textColor="@color/white"
+                android:layout_gravity="left"
+                android:layout_marginRight="16dp"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+           <TextView
+               android:id="@+id/title_notifications"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:textAlignment="center"
+               android:textSize="20sp"
+               android:textColor="@color/white"/>
+            <TextView
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textColor="@color/white"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:textSize="18sp"
+                android:visibility="visible"/>
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+        android:id="@+id/swipeToLoadLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="#F5F5F5"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/text_notifications"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Edit"
-            android:textColor="@color/purple_500"
-            android:textAlignment="textEnd"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EFEFF4"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        android:selectAllOnFocus="true">
-        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-            android:id="@+id/swipeToLoadLayout"
+        android:layout_marginBottom="50dp"
+        app:swipe_style="classic">
+        <include
+            android:id="@id/swipe_refresh_header"
+            layout="@layout/swipe_refresh_header" />
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:swipe_style="classic">
-            <include
-                android:id="@id/swipe_refresh_header"
-                layout="@layout/swipe_refresh_header" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:gravity="center|top"
-                android:id="@+id/swipe_target"/>
-            <include
-                android:id="@id/swipe_load_more_footer"
-                layout="@layout/swipe_classic_footer" />
-        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
-    </LinearLayout>
+            android:background="#FFFFFF"
+            android:gravity="center|top"
+            android:id="@+id/swipe_target"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <include
+            android:id="@id/swipe_load_more_footer"
+            layout="@layout/swipe_classic_footer" />
+    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
 
 </LinearLayout>
