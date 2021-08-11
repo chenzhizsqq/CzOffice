@@ -103,11 +103,6 @@ class MyPagePlaceSettingFragment : Fragment() {
 
             val size = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist.size
 
-
-
-            Log.e(TAG, "locationlist.size: $size")
-
-
             for (i in 0..size - 1) {
                 //LinearLayout init
                 val mLinearLayout = LinearLayout(activity)
@@ -144,7 +139,7 @@ class MyPagePlaceSettingFragment : Fragment() {
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
                 textView.setTextColor(Color.parseColor("#000000"))
                 textView.text =
-                    JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location + "|latitude:"+latitude + "|longitude:"+longitude
+                    JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location + " | latitude:"+latitude + " | longitude:"+longitude
                 mLinearLayout.addView(textView)
 
                 //design
