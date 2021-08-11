@@ -26,6 +26,10 @@ class MainActivity : AppCompatActivity() {
         // 发生异常时的捕获
     }
 
+
+    //fragのリスト
+    private val listFrag = ArrayList<Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -77,13 +81,21 @@ class MainActivity : AppCompatActivity() {
             R.id.member_fragment,
             R.id.report_fragment,
             R.id.MyPageFragment
-        )
+            )
         )
 
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
+        //fragのリスト
+        listFrag.clear()
+        listFrag.add(R.id.navigation_home)
+        listFrag.add(R.id.navigation_notifications)
+        listFrag.add(R.id.member_fragment)
+        listFrag.add(R.id.report_fragment)
+        listFrag.add(R.id.MyPageFragment)
 
         //初回登録Frag
         val index = 0
@@ -94,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     private fun selectFrag(index: Int) {
         val mNavigationView: BottomNavigationView = findViewById(R.id.nav_view)
         mNavigationView.menu.getItem(index).isChecked = true;
-        mNavigationView.menu.performIdentifierAction(R.id.member_fragment, index)
+        mNavigationView.menu.performIdentifierAction(listFrag[index], index)
     }
 
 
