@@ -15,6 +15,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
@@ -81,8 +82,8 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             //record_title
             val recordTitle = mainView.findViewById<TextView>(R.id.record_title)
-            val tenantid = JC.tenantid
-            val hpid = JC.hpid
+            val tenantid = EtOfficeApp.TenantId
+            val hpid = EtOfficeApp.HpId
             recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
             //Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
@@ -169,9 +170,9 @@ class MyPageChangeCompanyFragment : Fragment() {
 
 
 
-                                            JC.tenantid =
+                                            EtOfficeApp.TenantId =
                                                 JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].tenantid
-                                            JC.hpid =
+                                            EtOfficeApp.HpId =
                                                 JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].hpid
 
                                             val r: String =
@@ -179,7 +180,7 @@ class MyPageChangeCompanyFragment : Fragment() {
                                             Log.e(TAG, "JC.pEtOfficeLogin.post r=" + r)
 
 
-                                            recordTitle.text = "TENANTID = "+JC.tenantid+" HPID = "+JC.hpid
+                                            recordTitle.text = "TENANTID = "+EtOfficeApp.TenantId+" HPID = "+EtOfficeApp.HpId
                                         }
 
                                     }
