@@ -3,6 +3,7 @@ package com.xieyi.etoffice.jsonData
 import android.util.Log
 import com.google.gson.Gson
 import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.EtOfficeApp
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -36,10 +37,10 @@ class EtOfficeGetProject {
         try {
             val jsonObject = JSONObject()
             jsonObject.put("app", app)
-            jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
+            jsonObject.put("token", EtOfficeApp.Token)
             jsonObject.put("device", "android")
-            jsonObject.put("tenant", JC.tenantid)
-            jsonObject.put("hpid", JC.hpid)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
             jsonObject.put("ymd", "20210305")
             Log.e(TAG, jsonObject.toString(), )

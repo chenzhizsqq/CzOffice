@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.Tools
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -41,9 +42,9 @@ class EtOfficeSetApprovalJsk {
         try {
             val jsonObject = JSONObject()
             jsonObject.put("app", app)
-            jsonObject.put("token", JC.pEtOfficeLogin.infoLoginResult().token)
-            jsonObject.put("tenant", JC.tenantid)
-            jsonObject.put("hpid", JC.hpid)
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
             jsonObject.put("device", "android")
             jsonObject.put("userid", JC.pEtOfficeLogin.infoLoginResult().userid)
 //            jsonObject.put("updateymd", "[\"20210301\",\"20210302\"]")
