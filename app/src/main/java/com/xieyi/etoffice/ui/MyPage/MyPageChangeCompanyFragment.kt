@@ -176,7 +176,7 @@ class MyPageChangeCompanyFragment : Fragment() {
                                                 JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].hpid
 
                                             val r: String =
-                                                JC.pEtOfficeLogin.post(JC.uid,JC.password)
+                                                JC.pEtOfficeLogin.post(EtOfficeApp.uid,EtOfficeApp.password)
                                             Log.e(TAG, "JC.pEtOfficeLogin.post r=" + r)
 
 

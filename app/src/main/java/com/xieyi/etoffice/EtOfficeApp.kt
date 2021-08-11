@@ -10,6 +10,10 @@ class EtOfficeApp : Application() {
         lateinit var TenantId :String // 用户tenantid
         lateinit var HpId :String     // 用户hpid
 
+
+        lateinit var uid :String            // 用户uid
+        lateinit var password :String       // 用户password
+
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
     }

@@ -77,8 +77,8 @@ class EtOfficeLogin {
                 //data save
                 EtOfficeApp.TenantId = mJsonResult.getJSONObject("result").getString("tenantid")
                 EtOfficeApp.HpId = mJsonResult.getJSONObject("result").getString("hpid")
-                JC.uid = uid
-                JC.password = password
+                EtOfficeApp.uid = uid
+                EtOfficeApp.password = password
 
                 status = mJsonResult.getString("status")
 
