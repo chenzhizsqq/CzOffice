@@ -141,11 +141,5 @@ class JC {
 
 
 
-        var hpid = "6"
-        var tenantid = "3"
-        var uid = ""
-        var password = ""
-
-
     }
 }

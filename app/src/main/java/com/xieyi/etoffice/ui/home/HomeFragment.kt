@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
 
     }
 
+
     private lateinit var mainView: View
 
     override fun onCreateView(

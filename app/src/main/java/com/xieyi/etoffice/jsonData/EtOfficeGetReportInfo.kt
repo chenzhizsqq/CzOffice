@@ -10,7 +10,6 @@ import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
-import javax.security.auth.login.LoginException
 
 
 //EtOfficeGetReportInfo 日報詳細取得

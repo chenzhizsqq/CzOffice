@@ -20,7 +20,7 @@ import kotlinx.coroutines.*
 
 
 class HomeReportDialog : DialogFragment() {
-    private val TAG: String? = "HomeReportDialog"
+    private val TAG: String = "HomeReportDialog"
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT

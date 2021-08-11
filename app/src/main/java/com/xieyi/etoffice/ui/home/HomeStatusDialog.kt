@@ -18,9 +18,9 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     private val TAG = javaClass.simpleName
 
-    val _statusvalue = statusvalue  //1
+    private val _statusvalue = statusvalue
 
-    val _statustext = statustext    //"勤務中"
+    private val _statustext = statustext
 
     private lateinit var mainView: View
 

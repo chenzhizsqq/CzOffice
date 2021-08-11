@@ -1,22 +1,10 @@
 package com.xieyi.etoffice.ui.report
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.xieyi.etoffice.*
-import com.xieyi.etoffice.common.HttpUtil
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.databinding.DialogBottomPickerBinding
-import com.xieyi.etoffice.databinding.DialogReportAddBinding
-import com.xieyi.etoffice.enum.RequestMethod
-import com.xieyi.etoffice.enum.ResultType
-import org.json.JSONObject
-import kotlin.concurrent.thread
 
 
 class OptionsPickerDialog:  DialogFragment() {
