@@ -15,7 +15,8 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeGetStatusList
+
 import kotlinx.coroutines.*
 
 
@@ -25,6 +26,7 @@ class HomeReportDialog : DialogFragment() {
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
+    private lateinit var pEtOfficeGetStatusList : EtOfficeGetStatusList
 
     private lateinit var mainView: View
     override fun onCreateView(
@@ -34,14 +36,14 @@ class HomeReportDialog : DialogFragment() {
     ): View {
         mainView = inflater.inflate(R.layout.dialog_home_report, container)
 
-
+        pEtOfficeGetStatusList = EtOfficeGetStatusList()
 
 
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
                 try {
-                    val r = JC.pEtOfficeGetStatusList.post()
+                    val r = pEtOfficeGetStatusList.post()
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetStatusList.post()",e)
@@ -80,7 +82,7 @@ class HomeReportDialog : DialogFragment() {
             recordLinearLayout.setPadding(10)
 
 
-            val size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
+            val size = pEtOfficeGetStatusList.infoJson().result.recordlist.size
 
             for (i in 0..size - 1) {
 
@@ -97,7 +99,7 @@ class HomeReportDialog : DialogFragment() {
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F);
                 textView.setTextColor(Color.parseColor("#000000"))
                 textView.text =
-                    Tools.allDateTime(JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime)
+                    Tools.allDateTime(pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime)
 
                 mLinearLayout.addView(textView)
 
@@ -110,8 +112,8 @@ class HomeReportDialog : DialogFragment() {
                     TableRow.LayoutParams.WRAP_CONTENT
                 )
                 val rightText = (
-                        JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
-                        + " " + JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo )
+                        pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
+                        + " " + pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo )
                 textViewRight.text = rightText
 
                 textViewRight.gravity = Gravity.RIGHT;

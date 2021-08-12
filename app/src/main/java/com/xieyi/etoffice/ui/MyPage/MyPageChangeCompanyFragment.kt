@@ -16,7 +16,10 @@ import androidx.core.view.setPadding
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeGetTenant
+import com.xieyi.etoffice.jsonData.EtOfficeLogin
+import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
+
 import kotlinx.coroutines.*
 
 
@@ -29,14 +32,20 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
 
     private val tagName: String = "ChangeCompany"
 
-    private lateinit var mainView: View
+
+    private lateinit var pEtOfficeGetTenant : EtOfficeGetTenant
+    private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
+    private lateinit var pEtOfficeLogin : EtOfficeLogin
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page_change_company)
         supportActionBar?.hide()
 
-        mainView = findViewById(R.id.record_linearLayout)
+        pEtOfficeGetTenant = EtOfficeGetTenant()
+        pEtOfficeSetTenant = EtOfficeSetTenant()
+        pEtOfficeLogin = EtOfficeLogin()
+
 
         mainViewUpdate()
     }
@@ -47,7 +56,7 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
                 //データ更新
                 try {
                     val r =
-                        JC.pEtOfficeGetTenant.post()                                    //Json 送信
+                        pEtOfficeGetTenant.post()                                    //Json 送信
                     Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
 
                 } catch (e: Exception) {
@@ -74,9 +83,9 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
             val hpid = EtOfficeApp.HpId
             recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
-            //Log.e(TAG, "JC.pEtOfficeGetTenant:"+JC.pEtOfficeGetTenant.lastJson )
+            //Log.e(TAG, "pEtOfficeGetTenant:"+pEtOfficeGetTenant.lastJson )
 
-            val size = JC.pEtOfficeGetTenant.infoJson().result.tenantlist.size
+            val size = pEtOfficeGetTenant.infoJson().result.tenantlist.size
 
             for (i in 0..size - 1) {
 
@@ -115,7 +124,7 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
                 mLinearLayout.setPadding(30)
 
                 //check tenantid
-                if(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].startflg=="1"){
+                if(pEtOfficeGetTenant.infoJson().result.tenantlist[i].startflg=="1"){
                     mLinearLayout.setBackgroundColor(Color.GREEN)
 
                     ll_right.visibility = View.VISIBLE
@@ -143,27 +152,27 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
                             try {
 
                                 val r: String =
-                                    JC.pEtOfficeSetTenant.post(JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid)
+                                    pEtOfficeSetTenant.post(pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantid)
                                 Log.e(TAG, "tenantid post r=" + r)
 
 
                                 //check tenantid
                                 if (r == "0") {
-                                    for (k in  0 .. JC.pEtOfficeSetTenant.infoJson().result.tenantlist.size -1 ){
+                                    for (k in  0 .. pEtOfficeSetTenant.infoJson().result.tenantlist.size -1 ){
 
-                                        if(JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].startflg=="1"){
+                                        if(pEtOfficeSetTenant.infoJson().result.tenantlist[k].startflg=="1"){
                                             mLinearLayout.setBackgroundColor(Color.GREEN)
 
 
 
                                             EtOfficeApp.TenantId =
-                                                JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].tenantid
+                                                pEtOfficeSetTenant.infoJson().result.tenantlist[k].tenantid
                                             EtOfficeApp.HpId =
-                                                JC.pEtOfficeSetTenant.infoJson().result.tenantlist[k].hpid
+                                                pEtOfficeSetTenant.infoJson().result.tenantlist[k].hpid
 
                                             val r: String =
-                                                JC.pEtOfficeLogin.post(EtOfficeApp.uid,EtOfficeApp.password)
-                                            Log.e(TAG, "JC.pEtOfficeLogin.post r=" + r)
+                                                pEtOfficeLogin.post(EtOfficeApp.uid,EtOfficeApp.password)
+                                            Log.e(TAG, "pEtOfficeLogin.post r=" + r)
 
 
                                             recordTitle.text = "TENANTID = "+EtOfficeApp.TenantId+" HPID = "+EtOfficeApp.HpId
@@ -219,7 +228,7 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
         val textView = TextView(applicationContext)
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
         textView.setTextColor(Color.parseColor("#000000"))
-        textView.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantname
+        textView.text = pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantname
         ll_left.addView(textView)
 
 
@@ -229,7 +238,7 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
         val textViewDown = TextView(applicationContext)
         textViewDown.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
         textViewDown.setTextColor(Color.parseColor("#000000"))
-        textViewDown.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].posturl
+        textViewDown.text = pEtOfficeGetTenant.infoJson().result.tenantlist[i].posturl
         ll_left.addView(textViewDown)
 
         return ll_left

@@ -11,7 +11,9 @@ import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
+import com.xieyi.etoffice.jsonData.EtOfficeSetUserStatus
+
 import kotlinx.coroutines.*
 
 class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment() {
@@ -28,6 +30,9 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     private var latitude = 0.0
 
+    private lateinit var pEtOfficeSetUserStatus : EtOfficeSetUserStatus
+    private lateinit var pEtOfficeSetUserLocation : EtOfficeSetUserLocation
+
 
     private lateinit var gpsTracker: GpsTracker
 
@@ -40,6 +45,12 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     fun setOnDialogListener(dialogListener: OnDialogListener) {
         this.listener = dialogListener
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        pEtOfficeSetUserStatus = EtOfficeSetUserStatus()
+        pEtOfficeSetUserLocation = EtOfficeSetUserLocation()
     }
 
 
@@ -139,7 +150,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         Log.e(TAG, "userStatus.text: $memo")
         try {
             val r: String =
-                JC.pEtOfficeSetUserStatus.post(
+                pEtOfficeSetUserStatus.post(
                     longitude,
                     latitude,
                     userLocation,
@@ -182,7 +193,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         Log.e(TAG, "userLocation.text: $s")
         try {
             val r: String =
-                JC.pEtOfficeSetUserLocation.post(longitude.toString(), latitude.toString(), s)                   //Json 送信
+                pEtOfficeSetUserLocation.post(longitude.toString(), latitude.toString(), s)                   //Json 送信
             Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
 
             if (r == "0") {

@@ -18,7 +18,8 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.HttpUtil
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
 import com.xieyi.etoffice.enum.ResultType
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeLogin
+
 import okhttp3.*
 import org.json.JSONObject
 import kotlin.concurrent.thread
@@ -47,13 +48,14 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
             Thread {
                 try {
                     if(Config.isCode) {
-                        JC.pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
+                        val pEtOfficeLogin = EtOfficeLogin()
+                        pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
                     }
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } catch (e: Exception) {
-                    Log.e(TAG, "JC.pEtOfficeLogin.post", e)
+                    Log.e(TAG, "pEtOfficeLogin.post", e)
                 }
             }.start()
         }
@@ -110,7 +112,8 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
             when(data.status){
                 "0"-> {
                     if(Config.isCode) {
-                        JC.pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
+                        val pEtOfficeLogin = EtOfficeLogin()
+                        pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
                     }
                     saveUserInfo(data.result)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)

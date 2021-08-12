@@ -15,7 +15,9 @@ import androidx.fragment.app.FragmentManager
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeGetReportInfo
+import com.xieyi.etoffice.jsonData.EtOfficeSetComment
+
 import kotlinx.coroutines.*
 
 
@@ -29,6 +31,10 @@ class ReportDetailFragment() : AppCompatActivity() {
 
     //検索の日付
     var date:String=""
+
+
+    private lateinit var pEtOfficeGetReportInfo : EtOfficeGetReportInfo
+    private lateinit var pEtOfficeSetComment : EtOfficeSetComment
 
 /*
     {
@@ -60,6 +66,9 @@ class ReportDetailFragment() : AppCompatActivity() {
         supportActionBar?.hide()
         setContentView(R.layout.fragment_report_detail)
 
+        pEtOfficeGetReportInfo = EtOfficeGetReportInfo()
+        pEtOfficeSetComment = EtOfficeSetComment()
+
 
         val intent = intent
         date = intent.getStringExtra("ReportFragmentMessage").toString()
@@ -75,7 +84,7 @@ class ReportDetailFragment() : AppCompatActivity() {
                 //データ更新
                 try {
 
-                    val r = JC.pEtOfficeGetReportInfo.post(date)
+                    val r = pEtOfficeGetReportInfo.post(date)
                     if(r=="0"){
                         doOnUiCode()
                     }
@@ -95,7 +104,7 @@ class ReportDetailFragment() : AppCompatActivity() {
 
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            Log.e(TAG, "JC.pEtOfficeGetReportInfo:" + JC.pEtOfficeGetReportInfo.lastJson)
+            Log.e(TAG, "pEtOfficeGetReportInfo:" + pEtOfficeGetReportInfo.lastJson)
 
 
             //検索の日付
@@ -104,7 +113,7 @@ class ReportDetailFragment() : AppCompatActivity() {
 
             //予定
             val appointment: TextView = findViewById(R.id.appointment)
-            appointment.text = JC.pEtOfficeGetReportInfo.infoJson().result.planworktime
+            appointment.text = pEtOfficeGetReportInfo.infoJson().result.planworktime
 
             //planworklist
             planworklistFun()
@@ -115,7 +124,7 @@ class ReportDetailFragment() : AppCompatActivity() {
 
             //実績：
             val worktime: TextView = findViewById(R.id.worktime)
-            worktime.text = JC.pEtOfficeGetReportInfo.infoJson().result.worktime
+            worktime.text = pEtOfficeGetReportInfo.infoJson().result.worktime
 
 
             //workstatuslist：
@@ -172,12 +181,12 @@ class ReportDetailFragment() : AppCompatActivity() {
                     //データ更新
                     try {
 
-                        var r = JC.pEtOfficeSetComment.post(date,messageEditText)
+                        var r = pEtOfficeSetComment.post(date,messageEditText)
                         Log.e(TAG, "sendMessage: r:$r" )
                         if(r=="0"){
 
                             r = "-1"
-                            r = JC.pEtOfficeGetReportInfo.post(date)
+                            r = pEtOfficeGetReportInfo.post(date)
                             if(r=="0"){
                                 commentlistFun()
                                 messageEdit.text.clear()
@@ -205,19 +214,19 @@ class ReportDetailFragment() : AppCompatActivity() {
             "time": "(計画：160h)"
         }
  */
-        val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.planworklist.size
+        val listSize = pEtOfficeGetReportInfo.infoJson().result.planworklist.size
 
         for (i in 0 until listSize) {
             val ll=ll_planworklist()
 
-            val t1 =getTextView2(JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].project)
+            val t1 =getTextView2(pEtOfficeGetReportInfo.infoJson().result.planworklist[i].project)
             t1.setTextColor(Color.parseColor("#000000"))
             t1.textSize = 20F
 
-            val t2 =getTextView2(JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].wbs)
+            val t2 =getTextView2(pEtOfficeGetReportInfo.infoJson().result.planworklist[i].wbs)
 
-            val v3=JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].date+" "+
-                    JC.pEtOfficeGetReportInfo.infoJson().result.planworklist[i].time
+            val v3=pEtOfficeGetReportInfo.infoJson().result.planworklist[i].date+" "+
+                    pEtOfficeGetReportInfo.infoJson().result.planworklist[i].time
             val t3 =getTextView2(v3)
 
             ll.addView(t1)
@@ -252,20 +261,20 @@ class ReportDetailFragment() : AppCompatActivity() {
         ],
  */
 
-        val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.reportlist.size
+        val listSize = pEtOfficeGetReportInfo.infoJson().result.reportlist.size
 
         for (i in 0 until listSize) {
             val ll=ll_planworklist()
 
-            val t1 =getTextView2("プロジェクト："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].project)
+            val t1 =getTextView2("プロジェクト："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].project)
             t1.setTextColor(Color.parseColor("#000000"))
             t1.textSize = 20F
 
-            val t2 =getTextView2("作業コード："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].wbs)
+            val t2 =getTextView2("作業コード："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].wbs)
 
-            val t3 =getTextView2("工数："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].time)
+            val t3 =getTextView2("工数："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].time)
 
-            val t4 =getTextView2("報告："+JC.pEtOfficeGetReportInfo.infoJson().result.reportlist[i].memo)
+            val t4 =getTextView2("報告："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].memo)
 
 
             ll.addView(t1)
@@ -312,18 +321,18 @@ class ReportDetailFragment() : AppCompatActivity() {
         }
  */
 
-            val listSize = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist.size
+            val listSize = pEtOfficeGetReportInfo.infoJson().result.commentlist.size
 
             for (i in 0 until listSize) {
                 val ll = ll_planworklist()
 
                 val t1 =
-                    getTextView2("username：" + JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].comment)
+                    getTextView2("username：" + pEtOfficeGetReportInfo.infoJson().result.commentlist[i].comment)
                 t1.setTextColor(Color.parseColor("#000000"))
                 t1.textSize = 20F
 
-                val username = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username
-                val time = JC.pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
+                val username = pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username
+                val time = pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
 
                 val t2_text = username + " " + Tools.allDateTime(time)
 
@@ -352,7 +361,7 @@ class ReportDetailFragment() : AppCompatActivity() {
         content.removeAllViews()
 
 
-        val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
+        val size = pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
         Log.e(TAG, "doOnUiCode: size:$size")
         val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
         var x = 0
@@ -363,14 +372,14 @@ class ReportDetailFragment() : AppCompatActivity() {
 
             val l_X = getLinearLayout()
 
-            val time = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
+            val time = pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
 
             val getTextView_time = getTextView(time)
             getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
             l_X.addView(getTextView_time)
 
 
-            val text = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
+            val text = pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
 
             val getTextView_1 = getTextView(text)
             getTextView_1.setBackgroundColor(Color.YELLOW)

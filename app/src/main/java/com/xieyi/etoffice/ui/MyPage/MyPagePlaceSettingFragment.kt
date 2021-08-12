@@ -21,7 +21,9 @@ import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
+import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
+
 import kotlinx.coroutines.*
 
 
@@ -36,6 +38,9 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
     private lateinit var gpsTracker: GpsTracker
     private var longitude = 0.0
     private var latitude = 0.0
+
+    private lateinit var pEtOfficeGetUserLocation : EtOfficeGetUserLocation
+    private lateinit var pEtOfficeSetUserLocation : EtOfficeSetUserLocation
 
     private fun gpsCheck() {
 
@@ -55,6 +60,8 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
         setContentView(R.layout.activity_my_page_place_setting)
         mainView = findViewById(R.id.record_linearLayout)
 
+        pEtOfficeGetUserLocation = EtOfficeGetUserLocation()
+        pEtOfficeSetUserLocation = EtOfficeSetUserLocation()
 
         refreshPage()
 
@@ -67,16 +74,16 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 //データ更新
                 try {
-                    val r: String = JC.pEtOfficeGetUserLocation.post()                   //Json 送信
+                    val r: String = pEtOfficeGetUserLocation.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
 
 
+                    doOnUiCode()
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetUserLocation.post() :$e")
 
                 }
 
-                doOnUiCode()
             }
         }
     }
@@ -94,7 +101,7 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
             val recordLinearLayout = findViewById<LinearLayout>(R.id.record_linearLayout)
             recordLinearLayout.removeAllViews()
 
-            val size = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist.size
+            val size = pEtOfficeGetUserLocation.infoJson().result.locationlist.size
 
             for (i in 0..size - 1) {
                 //LinearLayout init
@@ -125,14 +132,14 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
 
 
 
-                val latitude = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].latitude
-                val longitude = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].longitude
+                val latitude = pEtOfficeGetUserLocation.infoJson().result.locationlist[i].latitude
+                val longitude = pEtOfficeGetUserLocation.infoJson().result.locationlist[i].longitude
 
                 val textView = TextView(applicationContext)
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
                 textView.setTextColor(Color.parseColor("#000000"))
                 textView.text =
-                    JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location + " | latitude:"+latitude + " | longitude:"+longitude
+                    pEtOfficeGetUserLocation.infoJson().result.locationlist[i].location + " | latitude:"+latitude + " | longitude:"+longitude
                 mLinearLayout.addView(textView)
 
                 //design
@@ -224,7 +231,7 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
                 if (gpsTracker.canGetLocation()) {
                     try {
                         val r: String =
-                            JC.pEtOfficeSetUserLocation.post(
+                            pEtOfficeSetUserLocation.post(
                                 longitude.toString(),
                                 latitude.toString(),
                                 location
@@ -236,7 +243,7 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
                         } else {
                             Tools.showMsg(
                                 mainView,
-                                JC.pEtOfficeSetUserLocation.infoJson().message
+                                pEtOfficeSetUserLocation.infoJson().message
                             )
                         }
                     } catch (e: Exception) {

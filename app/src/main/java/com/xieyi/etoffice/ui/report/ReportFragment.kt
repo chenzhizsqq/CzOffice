@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
+import com.xieyi.etoffice.jsonData.EtOfficeSetApprovalJsk
+
 import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
 import java.util.*
@@ -25,11 +27,15 @@ class ReportFragment : Fragment() {
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
+    private lateinit var pEtOfficeGetReportList : EtOfficeGetReportList
+    private lateinit var pEtOfficeSetApprovalJsk : EtOfficeSetApprovalJsk
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Log.e(TAG, "onCreate: begin")
 
+        pEtOfficeGetReportList = EtOfficeGetReportList()
+        pEtOfficeSetApprovalJsk = EtOfficeSetApprovalJsk()
     }
     private lateinit var mainView: View
 
@@ -71,7 +77,7 @@ class ReportFragment : Fragment() {
                 try {
 
                     //日報一覧取得
-                    val r = JC.pEtOfficeGetReportList.post()
+                    val r = pEtOfficeGetReportList.post()
                     Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
 
                     doOnUiCode()
@@ -158,7 +164,7 @@ class ReportFragment : Fragment() {
                             }
                         }
                         var r: String = "-1"
-                        r = JC.pEtOfficeSetApprovalJsk.post(ymdArray)
+                        r = pEtOfficeSetApprovalJsk.post(ymdArray)
                         Log.e(TAG, "topMenu: r:$r")
 
 
@@ -166,7 +172,7 @@ class ReportFragment : Fragment() {
                         try {
 
                             //日報一覧取得
-                            val r = JC.pEtOfficeGetReportList.post()
+                            val r = pEtOfficeGetReportList.post()
                             Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
 
 
@@ -243,15 +249,15 @@ class ReportFragment : Fragment() {
             arrayListTagYmd.clear()
             bAllCheck = false
 
-            //Log.e(TAG, "JC.pEtOfficeGetReportList:"+JC.pEtOfficeGetReportList.lastJson )
+            //Log.e(TAG, "pEtOfficeGetReportList:"+pEtOfficeGetReportList.lastJson )
 
-            val groupSum = JC.pEtOfficeGetReportList.infoJson().result.group.size
+            val groupSum = pEtOfficeGetReportList.infoJson().result.group.size
 
             for (j in 0..groupSum - 1) {
 
 
-                val yyyy = Tools.dateGetYear(JC.pEtOfficeGetReportList.infoJson().result.group[j].month)
-                val mm = Tools.dateGetMonth(JC.pEtOfficeGetReportList.infoJson().result.group[j].month)
+                val yyyy = Tools.dateGetYear(pEtOfficeGetReportList.infoJson().result.group[j].month)
+                val mm = Tools.dateGetMonth(pEtOfficeGetReportList.infoJson().result.group[j].month)
 
                 val yyyymmTextView = makeTextView("$yyyy.$mm")
 
@@ -261,7 +267,7 @@ class ReportFragment : Fragment() {
 
                 recordLinearLayout.addView(yyyymmTextView)
 
-                val size = JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist.size
+                val size = pEtOfficeGetReportList.infoJson().result.group[j].reportlist.size
 
                 for (i in 0..size - 1) {
                     //each Line
@@ -315,8 +321,8 @@ class ReportFragment : Fragment() {
         m1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
 
         val yyyymmdd =
-            JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].yyyymmdd
-        //Log.e(TAG, "JC.pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
+            pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].yyyymmdd
+        //Log.e(TAG, "pEtOfficeGetReportList yyyymmdd:"+yyyymmdd )
         val y_m_d = Tools.allDate(yyyymmdd)
 
         val TV_up = makeTextView("$y_m_d  ")
@@ -324,7 +330,7 @@ class ReportFragment : Fragment() {
 
         //承認状況
         val approval =
-            JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
+            pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval
         //Log.e(TAG, "ll_Message: approval:$approval" )
         if (approval.isEmpty()) {
             val TV_2 = makeButton("未承認")
@@ -333,7 +339,7 @@ class ReportFragment : Fragment() {
             val TV_2 = makeButtonBlue("承認済み")
             m1.addView(TV_2)
 
-            val tvApproval = makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval)
+            val tvApproval = makeTextView(pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].approval)
             tvApproval.setPadding(10)
             m1.addView(tvApproval)
         }
@@ -344,12 +350,12 @@ class ReportFragment : Fragment() {
 
         //down
         val TV_down =
-            makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].title)
+            makeTextView(pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].title)
         mLinearLayout.addView(TV_down)
 
         //content
         val content =
-            makeTextView(JC.pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].content)
+            makeTextView(pEtOfficeGetReportList.infoJson().result.group[j].reportlist[i].content)
         mLinearLayout.addView(content)
 
 

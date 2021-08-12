@@ -13,17 +13,22 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
+
 import kotlinx.coroutines.*
 
 
 class MyPageFragment : Fragment() {
 
     private val TAG: String = "MyPageFragment"
+    private lateinit var pEtOfficeUserInfo : EtOfficeUserInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Log.e(TAG, "onCreate: begin")
+
+
+         pEtOfficeUserInfo = EtOfficeUserInfo()
 
     }
     private lateinit var mainView: View
@@ -39,7 +44,7 @@ class MyPageFragment : Fragment() {
                 //データ更新
                 try {
                     val r =
-                        JC.pEtOfficeUserInfo.post()                                    //Json 送信
+                        pEtOfficeUserInfo.post()                                    //Json 送信
                     Log.e(TAG, "pEtOfficeUserInfo.post() :$r")
 
                 } catch (e: Exception) {
@@ -68,19 +73,19 @@ class MyPageFragment : Fragment() {
             try {
 
                 val mUserName: TextView = mainView.findViewById(R.id.user_name)
-                mUserName.text = JC.pEtOfficeUserInfo.infoJson().result.username
+                mUserName.text = pEtOfficeUserInfo.infoJson().result.username
 
                 val mUserMail: TextView = mainView.findViewById(R.id.user_mail)
-                mUserMail.text = JC.pEtOfficeUserInfo.infoJson().result.mail
+                mUserMail.text = pEtOfficeUserInfo.infoJson().result.mail
 
                 val mNameValue: TextView = mainView.findViewById(R.id.name_value)
-                mNameValue.text = JC.pEtOfficeUserInfo.infoJson().result.username
+                mNameValue.text = pEtOfficeUserInfo.infoJson().result.username
 
                 val mMobileValue: TextView = mainView.findViewById(R.id.mobile_value)
-                mMobileValue.text = JC.pEtOfficeUserInfo.infoJson().result.phone
+                mMobileValue.text = pEtOfficeUserInfo.infoJson().result.phone
 
                 val mMailValue: TextView = mainView.findViewById(R.id.mail_value)
-                mMailValue.text = JC.pEtOfficeUserInfo.infoJson().result.mail
+                mMailValue.text = pEtOfficeUserInfo.infoJson().result.mail
 
             } catch (e: Exception) {
                 Log.e(TAG, "doOnUiCode", e)

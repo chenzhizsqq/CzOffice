@@ -28,10 +28,17 @@ class HomeFragment : Fragment() {
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
+    private lateinit var pEtOfficeGetUserStatus : EtOfficeGetUserStatus
+    private lateinit var pEtOfficeGetStatusList : EtOfficeGetStatusList
+    private lateinit var pEtOfficeGetMessage : EtOfficeGetMessage
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        pEtOfficeGetUserStatus = EtOfficeGetUserStatus()
+        pEtOfficeGetStatusList = EtOfficeGetStatusList()
+        pEtOfficeGetMessage = EtOfficeGetMessage()
     }
 
 
@@ -128,7 +135,7 @@ class HomeFragment : Fragment() {
 
                 //出勤記録 データ更新
                 try {
-                    val r: String = JC.pEtOfficeGetUserStatus.post()                   //Json 送信
+                    val r: String = pEtOfficeGetUserStatus.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
 
@@ -144,7 +151,7 @@ class HomeFragment : Fragment() {
 
                 //GetStatusList
                 try {
-                    val r: String = JC.pEtOfficeGetStatusList.post()                   //Json 送信
+                    val r: String = pEtOfficeGetStatusList.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetStatusList.post()", e)
@@ -154,7 +161,7 @@ class HomeFragment : Fragment() {
 
                 //Message データ更新
                 try {
-                    val r: String = JC.pEtOfficeGetMessage.post()                   //Json 送信
+                    val r: String = pEtOfficeGetMessage.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetMessage.post() :$r")
 
 
@@ -200,17 +207,17 @@ class HomeFragment : Fragment() {
             //今表示量
             var srcNum = 0
 
-            val size = JC.pEtOfficeGetStatusList.infoJson().result.recordlist.size
+            val size = pEtOfficeGetStatusList.infoJson().result.recordlist.size
 
             Log.e(TAG, "recordlist.size: $size")
 
 
 
             for (i in 0 until size) {
-                val time = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime
+                val time = pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime
                 val timeSrc = Tools.allDateTime(time)
-                val status = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
-                val memo = JC.pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo
+                val status = pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
+                val memo = pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo
 
 
                 val textView = TextView(activity)
@@ -232,12 +239,12 @@ class HomeFragment : Fragment() {
     private suspend fun doOnUiCode_NowStatus() {
         withContext(Dispatchers.Main) {
 
-            if(JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size>0)
+            if(pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size>0)
             {
                 Log.e(TAG, "doOnUiCode_NowStatus: size>0", )
 
                 val tvState = mainView.findViewById<TextView>(R.id.state)
-                val statustext = JC.pEtOfficeGetUserStatus.infoJson().result.userstatuslist[0].statustext
+                val statustext = pEtOfficeGetUserStatus.infoJson().result.userstatuslist[0].statustext
 
                 Log.e(TAG, "doOnUiCode_NowStatus: statustext:$statustext", )
                 tvState.text = statustext
@@ -251,7 +258,7 @@ class HomeFragment : Fragment() {
         withContext(Dispatchers.Main) {
 
 
-            val size = JC.pEtOfficeGetMessage.infoJson().result.messagelist.size
+            val size = pEtOfficeGetMessage.infoJson().result.messagelist.size
             Log.e(TAG, "messagelist.size: $size")
             val messageLayout = mainView.findViewById<LinearLayout>(R.id.message_layout)
             messageLayout.removeAllViews()
@@ -260,9 +267,9 @@ class HomeFragment : Fragment() {
             for (i in 0..size - 1) {
 
 
-                val title = JC.pEtOfficeGetMessage.infoJson().result.messagelist[i].title
-                val updatetime = JC.pEtOfficeGetMessage.infoJson().result.messagelist[i].updatetime
-                val content = JC.pEtOfficeGetMessage.infoJson().result.messagelist[i].content
+                val title = pEtOfficeGetMessage.infoJson().result.messagelist[i].title
+                val updatetime = pEtOfficeGetMessage.infoJson().result.messagelist[i].updatetime
+                val content = pEtOfficeGetMessage.infoJson().result.messagelist[i].content
 
                 val eachLine = eachLine(title,Tools.allDateTime(updatetime),content)
 

@@ -20,8 +20,8 @@ class HomeViewModel : ViewModel() {
 
 
 //        Thread {
-//            if (JC.pEtOfficeUserInfo.post() == "0") {
-//                postValue(JC.pEtOfficeUserInfo.infoUserStatusList()?.mail)
+//            if (pEtOfficeUserInfo.post() == "0") {
+//                postValue(pEtOfficeUserInfo.infoUserStatusList()?.mail)
 //            }
 //        }.start()
     }

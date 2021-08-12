@@ -21,7 +21,8 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.jsonData.JC
+import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
+
 import kotlinx.coroutines.*
 
 class MemberFragment : Fragment() {
@@ -41,11 +42,13 @@ class MemberFragment : Fragment() {
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
+    private lateinit var pEtOfficeGetStuffList : EtOfficeGetStuffList
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin")
+
+        pEtOfficeGetStuffList = EtOfficeGetStuffList()
 
 
     }
@@ -64,7 +67,7 @@ class MemberFragment : Fragment() {
             withContext(Dispatchers.IO) {
                 //データ更新
                 try {
-                    val r = JC.pEtOfficeGetStuffList.post()
+                    val r = pEtOfficeGetStuffList.post()
                     Log.e(TAG, "pEtOfficeGetStuffList.post() :$r")
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetStuffList.post()",e)
@@ -89,12 +92,12 @@ class MemberFragment : Fragment() {
 
             recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
 
-            //Log.e(TAG, "JC.pEtOfficeGetStuffList:"+JC.pEtOfficeGetStuffList.lastJson )
+            //Log.e(TAG, "pEtOfficeGetStuffList:"+pEtOfficeGetStuffList.lastJson )
 
-            val sectionlistSize = JC.pEtOfficeGetStuffList.infoJson().result.sectionlist.size
+            val sectionlistSize = pEtOfficeGetStuffList.infoJson().result.sectionlist.size
             for (j in 0 until sectionlistSize){
 
-                val size= JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist.size
+                val size= pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist.size
 
                 for (i in 0 until size){
 
@@ -119,18 +122,18 @@ class MemberFragment : Fragment() {
 
                     //info left
                     val tl_Left = funTableLayoutL(
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].userkana,
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].username,
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone,
+                        pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].userkana,
+                        pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].username,
+                        pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone,
                     )
                     tl_Left.minimumWidth = 500
                     ll.addView(tl_Left)
 
                     //info right
                     val tl_right = funTableLayoutR(
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].sectioncd,
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].sectionname,
-                        JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].mail,
+                        pEtOfficeGetStuffList.infoJson().result.sectionlist[j].sectioncd,
+                        pEtOfficeGetStuffList.infoJson().result.sectionlist[j].sectionname,
+                        pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].mail,
                     )
                     tl_right.layoutParams = TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.MATCH_PARENT)
                     ll.addView(tl_right)
@@ -158,10 +161,10 @@ class MemberFragment : Fragment() {
 
                             AlertDialog.Builder(context)
                                 .setTitle("電話番号")
-                                .setMessage(JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
+                                .setMessage(pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
                                 .setPositiveButton("call") { _, _ ->
 
-                                    val uri: Uri = Uri.parse("tel:"+JC.pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
+                                    val uri: Uri = Uri.parse("tel:"+pEtOfficeGetStuffList.infoJson().result.sectionlist[j].stufflist[i].phone)
                                     val intent = Intent(Intent.ACTION_CALL, uri)
                                     startActivity(intent)
 
