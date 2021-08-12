@@ -2,22 +2,24 @@ package com.xieyi.etoffice.ui.report
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.fragment.app.FragmentManager
+import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
 
 
-class ReportDetailFragment() : Fragment() {
+class ReportDetailFragment() : AppCompatActivity() {
 
     val TAG = "ReportDetailFragment"
     lateinit var buttonImageButton1: ImageView
@@ -51,34 +53,19 @@ class ReportDetailFragment() : Fragment() {
     },
         "message": ""
     }
-
  */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin")
+        supportActionBar?.hide()
+        setContentView(R.layout.fragment_report_detail)
 
-        val bundle = arguments
-        date = bundle!!.getString("date").toString()
 
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-    }
-
-    private lateinit var mainView: View
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        mainView = inflater.inflate(R.layout.fragment_report_detail, container, false)
+        val intent = intent
+        date = intent.getStringExtra("ReportFragmentMessage").toString()
 
         DataUpdate()
 
-
-        return mainView
     }
 
 
@@ -89,7 +76,9 @@ class ReportDetailFragment() : Fragment() {
                 try {
 
                     val r = JC.pEtOfficeGetReportInfo.post(date)
-                    doOnUiCode()
+                    if(r=="0"){
+                        doOnUiCode()
+                    }
 
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetReportInfo.post()",e)
@@ -110,11 +99,11 @@ class ReportDetailFragment() : Fragment() {
 
 
             //検索の日付
-            val record_date: TextView = mainView.findViewById(R.id.record_date)
+            val record_date: TextView = findViewById(R.id.record_date)
             record_date.text = Tools.allDate(date)
 
             //予定
-            val appointment: TextView = mainView.findViewById(R.id.appointment)
+            val appointment: TextView = findViewById(R.id.appointment)
             appointment.text = JC.pEtOfficeGetReportInfo.infoJson().result.planworktime
 
             //planworklist
@@ -125,37 +114,41 @@ class ReportDetailFragment() : Fragment() {
 
 
             //実績：
-            val worktime: TextView = mainView.findViewById(R.id.worktime)
+            val worktime: TextView = findViewById(R.id.worktime)
             worktime.text = JC.pEtOfficeGetReportInfo.infoJson().result.worktime
 
 
-
             //workstatuslist：
-            val content: LinearLayout = mainView.findViewById(R.id.content)
-            val sizeEachY=5
-            funContent(sizeEachY, content)
+            workstatuslistfun(5)
 
             //commentlist
             commentlistFun()
 
 
             //ReportDetailFragment open
-            val addView: ImageView = mainView.findViewById(R.id.addView)
+            val addView: ImageView = findViewById(R.id.addView)
             addView.setOnClickListener {
 
-                val pReportAddDialog = ReportAddDialog()
+//                val pReportAddDialog = ReportAddDialog()
+//                val fragmentManager = this@ReportDetailFragment.parentFragmentManager
+//                fragmentManager.let { it1 -> pReportAddDialog.show(it1, "pReportAddDialog") }
 
-                val fragmentManager = this@ReportDetailFragment.parentFragmentManager
-                fragmentManager.let { it1 -> pReportAddDialog.show(it1, "pReportAddDialog") }
+                val fm: FragmentManager = supportFragmentManager
+                val dialog: ReportAddDialog =
+                    ReportAddDialog.newInstance()
+                dialog.show(fm, "ReportAddDialog")
 
             }
 
 
             //returnpHome
-            val returnHome = mainView.findViewById<ImageView>(R.id.returnHome)
+            val returnHome = findViewById<ImageView>(R.id.returnHome)
             returnHome.setOnClickListener {
-                Navigation.findNavController(mainView)
-                    .navigate(R.id.report_fragment);
+//                Navigation.findNavController(mainView)
+//                    .navigate(R.id.report_fragment);
+                val intent: Intent = Intent(this@ReportDetailFragment, MainActivity::class.java)
+                startActivity(intent)
+                finish()
 
             }
 
@@ -166,11 +159,11 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun sendMessage() {
-        val messageSend = mainView.findViewById<Button>(R.id.message_send)
-        val messageEdit = mainView.findViewById<EditText>(R.id.message_edit)
+        val messageSend = findViewById<Button>(R.id.message_send)
+        val messageEdit = findViewById<EditText>(R.id.message_edit)
         messageSend.setOnClickListener {
 
-            hideKeyboard(mainView)
+            hideKeyboard(messageEdit)
             val messageEditText:String = messageEdit.text.toString()
 
             GlobalScope.launch(errorHandler) {
@@ -179,8 +172,7 @@ class ReportDetailFragment() : Fragment() {
                     //データ更新
                     try {
 
-                        var r = "-1"
-                        r = JC.pEtOfficeSetComment.post(date,messageEditText)
+                        var r = JC.pEtOfficeSetComment.post(date,messageEditText)
                         Log.e(TAG, "sendMessage: r:$r" )
                         if(r=="0"){
 
@@ -188,6 +180,7 @@ class ReportDetailFragment() : Fragment() {
                             r = JC.pEtOfficeGetReportInfo.post(date)
                             if(r=="0"){
                                 commentlistFun()
+                                messageEdit.text.clear()
                             }
 
                         }
@@ -202,7 +195,7 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun planworklistFun() {
-        val planworklist: LinearLayout = mainView.findViewById(R.id.planworklist)
+        val planworklist: LinearLayout = findViewById(R.id.planworklist)
         planworklist.removeAllViews()
 /*
         {
@@ -238,7 +231,7 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun reportlistFun() {
-        val reportlist: LinearLayout = mainView.findViewById(R.id.reportlist)
+        val reportlist: LinearLayout = findViewById(R.id.reportlist)
         reportlist.removeAllViews()
 
 
@@ -298,7 +291,7 @@ class ReportDetailFragment() : Fragment() {
 
     private suspend fun commentlistFun() {
         withContext(Dispatchers.Main) {
-            val commentlist: LinearLayout = mainView.findViewById(R.id.commentlist)
+            val commentlist: LinearLayout = findViewById(R.id.commentlist)
             commentlist.removeAllViews()
 /*
         "commentlist": [
@@ -354,8 +347,11 @@ class ReportDetailFragment() : Fragment() {
 
     }
 
-    private fun funContent(sizeEachY: Int, content: LinearLayout) {
+    private fun workstatuslistfun(sizeEachY:Int) {
+        val content: LinearLayout = findViewById(R.id.content)
         content.removeAllViews()
+
+
         val size = JC.pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
         Log.e(TAG, "doOnUiCode: size:$size")
         val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
@@ -387,12 +383,11 @@ class ReportDetailFragment() : Fragment() {
                 content.addView(l_Y[y])
             }
         }
-        content.addView(l_Y[y])
     }
 
 
     private fun getLinearLayoutContent(): LinearLayout {
-        val r=LinearLayout(activity)
+        val r=LinearLayout(applicationContext)
 
         val ll = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         r.layoutParams = ll
@@ -406,7 +401,7 @@ class ReportDetailFragment() : Fragment() {
 
     //planworklist LinearLayout
     private fun ll_planworklist(): LinearLayout {
-        val r=LinearLayout(activity)
+        val r=LinearLayout(applicationContext)
 
         val ll = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
         r.layoutParams = ll
@@ -418,7 +413,7 @@ class ReportDetailFragment() : Fragment() {
 
 
     private fun getLinearLayout(): LinearLayout {
-        val r=LinearLayout(activity)
+        val r=LinearLayout(applicationContext)
 
         val ll = LinearLayout.LayoutParams(0, MATCH_PARENT,1.0F)
         r.layoutParams = ll
@@ -435,7 +430,7 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun getTextView(text:String): TextView {
-        val r=TextView(activity)
+        val r=TextView(applicationContext)
 
         val ll = LinearLayout.LayoutParams( WRAP_CONTENT,WRAP_CONTENT)
         r.layoutParams = ll
@@ -454,7 +449,7 @@ class ReportDetailFragment() : Fragment() {
     }
 
     private fun getTextView2(text:String): TextView {
-        val r=TextView(activity)
+        val r=TextView(applicationContext)
 
         val ll = LinearLayout.LayoutParams( WRAP_CONTENT,WRAP_CONTENT)
         r.layoutParams = ll
@@ -471,7 +466,7 @@ class ReportDetailFragment() : Fragment() {
 
 
     private fun linearLayout_line(): LinearLayout {
-        val mLinearLayout2 = LinearLayout(activity)
+        val mLinearLayout2 = LinearLayout(applicationContext)
         val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
         mLinearLayout2.layoutParams = lp2
         mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))

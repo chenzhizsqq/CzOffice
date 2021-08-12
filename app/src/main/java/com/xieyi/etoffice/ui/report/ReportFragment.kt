@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,7 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
@@ -19,7 +20,6 @@ import java.util.*
 
 
 class ReportFragment : Fragment() {
-
     private val TAG = javaClass.simpleName
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -371,8 +371,15 @@ class ReportFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString("date", yyyymmdd)
 
-                Navigation.findNavController(mainView)
-                    .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
+                val message = "Hello this is an intent"
+//                Navigation.findNavController(mainView)
+//                    .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
+
+                EtOfficeApp.selectUi = 3
+                val intent = Intent(activity, ReportDetailFragment::class.java)
+                intent.putExtra("ReportFragmentMessage", yyyymmdd)
+                startActivity(intent)
+                activity?.finish()
 
             } catch (e: Exception) {
                 Log.e(TAG, "pEtOfficeGetReportInfo.post()",e)

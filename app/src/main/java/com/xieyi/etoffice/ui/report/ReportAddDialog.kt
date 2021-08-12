@@ -16,7 +16,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.bigkoo.pickerview.OptionsPickerView
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.*
+import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.EtOfficeApp
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.HttpUtil
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
 import com.xieyi.etoffice.enum.ResultType
@@ -31,6 +33,12 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
     private lateinit var prefs:SharedPreferences
     private lateinit var viewModel: ReportAddViewModel
     private lateinit var pvOptions:OptionsPickerView<Any>
+
+    companion object {
+        fun newInstance(): ReportAddDialog {
+            return ReportAddDialog()
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return object : Dialog(requireActivity(), theme) {
