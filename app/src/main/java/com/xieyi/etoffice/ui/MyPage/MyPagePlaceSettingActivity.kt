@@ -27,7 +27,7 @@ import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
 import kotlinx.coroutines.*
 
 
-class MyPagePlaceSettingFragment : AppCompatActivity() {
+class MyPagePlaceSettingActivity : AppCompatActivity() {
     private val TAG = "MyPagePlaceSettingFragment"
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -188,7 +188,7 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
             //returnpHome
             val returnHome = findViewById<ImageView>(R.id.returnHome)
             returnHome.setOnClickListener {
-                val intent: Intent = Intent(this@MyPagePlaceSettingFragment, MainActivity::class.java)
+                val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
 
@@ -198,13 +198,13 @@ class MyPagePlaceSettingFragment : AppCompatActivity() {
             val locationAlertDialog = findViewById<ImageView>(R.id.locationAlertDialog)
             locationAlertDialog.setOnClickListener {
 
-                val textInputLayout = TextInputLayout(this@MyPagePlaceSettingFragment)
-                val input = EditText(this@MyPagePlaceSettingFragment)
+                val textInputLayout = TextInputLayout(this@MyPagePlaceSettingActivity)
+                val input = EditText(this@MyPagePlaceSettingActivity)
                 input.maxLines = 1
                 input.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
                 textInputLayout.addView(input)
 
-                AlertDialog.Builder(this@MyPagePlaceSettingFragment)
+                AlertDialog.Builder(this@MyPagePlaceSettingActivity)
                     .setTitle("Message")
                     .setMessage("Please enter an alias for the current location.")
                     .setView(textInputLayout)

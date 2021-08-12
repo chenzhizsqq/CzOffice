@@ -45,15 +45,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MyPage.MyPageChangeCompanyFragment"
+            android:name=".ui.MyPage.MyPageChangeCompanyActivity"
             android:label="@string/title_my_page_change_company"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MyPage.MyPagePlaceSettingFragment"
+            android:name=".ui.MyPage.MyPagePlaceSettingActivity"
             android:label="@string/title_my_page_place_setting"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.report.ReportDetailFragment"
+            android:name=".ui.report.ReportDetailActivity"
             android:label="@string/title_report"
             android:screenOrientation="portrait" />
 

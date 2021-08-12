@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
@@ -99,7 +98,7 @@ class MyPageFragment : Fragment() {
 //                    .navigate(R.id.MyPagePlaceSettingFragment)
 
                 EtOfficeApp.selectUi = 4
-                val intent = Intent(activity, MyPagePlaceSettingFragment::class.java)
+                val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
 
@@ -112,7 +111,7 @@ class MyPageFragment : Fragment() {
 //                    .navigate(R.id.MyPageChangeCompanyFragment)
 
                 EtOfficeApp.selectUi = 4
-                val intent = Intent(activity, MyPageChangeCompanyFragment::class.java)
+                val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
                 startActivity(intent)
                 activity?.finish()
             })

@@ -382,7 +382,7 @@ class ReportFragment : Fragment() {
 //                    .navigate(R.id.ReportDetailFragment, bundle);        //ReportDetail
 
                 EtOfficeApp.selectUi = 3
-                val intent = Intent(activity, ReportDetailFragment::class.java)
+                val intent = Intent(activity, ReportDetailActivity::class.java)
                 intent.putExtra("ReportFragmentMessage", yyyymmdd)
                 startActivity(intent)
                 activity?.finish()

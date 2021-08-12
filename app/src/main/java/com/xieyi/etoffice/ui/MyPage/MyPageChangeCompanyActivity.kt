@@ -23,7 +23,7 @@ import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
 import kotlinx.coroutines.*
 
 
-class MyPageChangeCompanyFragment : AppCompatActivity() {
+class MyPageChangeCompanyActivity : AppCompatActivity() {
 
     private val TAG = "MyPageChangeCompanyFragment"
 
@@ -208,7 +208,7 @@ class MyPageChangeCompanyFragment : AppCompatActivity() {
             val returnHome = findViewById<ImageView>(R.id.returnHome)
             returnHome.setOnClickListener {
 
-                val intent: Intent = Intent(this@MyPageChangeCompanyFragment, MainActivity::class.java)
+                val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
 

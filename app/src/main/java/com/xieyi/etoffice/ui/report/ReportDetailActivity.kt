@@ -21,7 +21,7 @@ import com.xieyi.etoffice.jsonData.EtOfficeSetComment
 import kotlinx.coroutines.*
 
 
-class ReportDetailFragment() : AppCompatActivity() {
+class ReportDetailActivity() : AppCompatActivity() {
 
     val TAG = "ReportDetailFragment"
     lateinit var buttonImageButton1: ImageView
@@ -64,7 +64,7 @@ class ReportDetailFragment() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.fragment_report_detail)
+        setContentView(R.layout.activity_report_detail)
 
         pEtOfficeGetReportInfo = EtOfficeGetReportInfo()
         pEtOfficeSetComment = EtOfficeSetComment()
@@ -155,7 +155,7 @@ class ReportDetailFragment() : AppCompatActivity() {
             returnHome.setOnClickListener {
 //                Navigation.findNavController(mainView)
 //                    .navigate(R.id.report_fragment);
-                val intent: Intent = Intent(this@ReportDetailFragment, MainActivity::class.java)
+                val intent: Intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
 
