@@ -90,8 +90,13 @@ class MyPageFragment : Fragment() {
             val pTableRowPlaceManagement: LinearLayout =
                 mainView.findViewById(R.id.place_management) as LinearLayout
             pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
-                Navigation.findNavController(mainView)
-                    .navigate(R.id.MyPagePlaceSettingFragment)
+//                Navigation.findNavController(mainView)
+//                    .navigate(R.id.MyPagePlaceSettingFragment)
+
+                EtOfficeApp.selectUi = 4
+                val intent = Intent(activity, MyPagePlaceSettingFragment::class.java)
+                startActivity(intent)
+                activity?.finish()
 
             })
 

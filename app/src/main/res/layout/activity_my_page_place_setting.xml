@@ -21,7 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="horizontal">
         <LinearLayout
-            android:id="@+id/activity_my_page_place_setting_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

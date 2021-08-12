@@ -1,32 +1,31 @@
 package com.xieyi.etoffice.ui.MyPage
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.GpsTracker
+import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
 
 
-class MyPagePlaceSettingFragment : Fragment() {
+class MyPagePlaceSettingFragment : AppCompatActivity() {
     private val TAG = "MyPagePlaceSettingFragment"
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -40,7 +39,7 @@ class MyPagePlaceSettingFragment : Fragment() {
 
     private fun gpsCheck() {
 
-        gpsTracker = GpsTracker(activity)
+        gpsTracker = GpsTracker(applicationContext)
         if (gpsTracker.canGetLocation()) {
             latitude= gpsTracker.getLatitude()
             longitude = gpsTracker.getLongitude()
@@ -49,24 +48,18 @@ class MyPagePlaceSettingFragment : Fragment() {
         }
     }
 
+    private lateinit var mainView: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin")
-    }
-    private lateinit var mainView: View
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        mainView = inflater.inflate(R.layout.activity_my_page_place_setting, container, false)
+        supportActionBar?.hide()
+        setContentView(R.layout.activity_my_page_place_setting)
+        mainView = findViewById(R.id.record_linearLayout)
 
 
         refreshPage()
 
         gpsCheck()
 
-        return mainView
     }
 
     private fun refreshPage() {
@@ -98,14 +91,14 @@ class MyPagePlaceSettingFragment : Fragment() {
     // UI更新
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
+            val recordLinearLayout = findViewById<LinearLayout>(R.id.record_linearLayout)
             recordLinearLayout.removeAllViews()
 
             val size = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist.size
 
             for (i in 0..size - 1) {
                 //LinearLayout init
-                val mLinearLayout = LinearLayout(activity)
+                val mLinearLayout = LinearLayout(applicationContext)
                 mLinearLayout.setOrientation(LinearLayout.HORIZONTAL)
                 mLinearLayout.gravity = (Gravity.CENTER or Gravity.LEFT)
                 mLinearLayout.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -117,7 +110,7 @@ class MyPagePlaceSettingFragment : Fragment() {
 
 
                 //image logo
-                val imageView = ImageView(activity)
+                val imageView = ImageView(applicationContext)
                 val myDrawable = ResourcesCompat.getDrawable(
                     resources, R.drawable.ic_baseline_adjust_24, null
                 )
@@ -135,7 +128,7 @@ class MyPagePlaceSettingFragment : Fragment() {
                 val latitude = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].latitude
                 val longitude = JC.pEtOfficeGetUserLocation.infoJson().result.locationlist[i].longitude
 
-                val textView = TextView(activity)
+                val textView = TextView(applicationContext)
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
                 textView.setTextColor(Color.parseColor("#000000"))
                 textView.text =
@@ -177,7 +170,7 @@ class MyPagePlaceSettingFragment : Fragment() {
 
 
                 //線
-                val mLinearLayout2 = LinearLayout(activity)
+                val mLinearLayout2 = LinearLayout(applicationContext)
                 val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
                 mLinearLayout2.layoutParams = lp2
                 mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
@@ -186,40 +179,39 @@ class MyPagePlaceSettingFragment : Fragment() {
 
 
             //returnpHome
-            val returnHome = mainView.findViewById<ImageView>(R.id.returnHome)
+            val returnHome = findViewById<ImageView>(R.id.returnHome)
             returnHome.setOnClickListener {
-                Navigation.findNavController(mainView)
-                    .navigate(R.id.MyPageFragment);
+                val intent: Intent = Intent(this@MyPagePlaceSettingFragment, MainActivity::class.java)
+                startActivity(intent)
+                finish()
 
             }
 
             //locationAlertDialog
-            val locationAlertDialog = mainView.findViewById<ImageView>(R.id.locationAlertDialog)
+            val locationAlertDialog = findViewById<ImageView>(R.id.locationAlertDialog)
             locationAlertDialog.setOnClickListener {
-                activity?.let { it1 ->
 
-                    val textInputLayout = TextInputLayout(it1)
-                    val input = EditText(context)
-                    input.maxLines = 1
-                    input.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
-                    textInputLayout.addView(input)
+                val textInputLayout = TextInputLayout(this@MyPagePlaceSettingFragment)
+                val input = EditText(this@MyPagePlaceSettingFragment)
+                input.maxLines = 1
+                input.setInputType(InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT)
+                textInputLayout.addView(input)
 
-                    AlertDialog.Builder(context)
-                        .setTitle("Message")
-                        .setMessage("Please enter an alias for the current location.")
-                        .setView(textInputLayout)
-                        .setPositiveButton("OK") { _, which ->
-                            Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
+                AlertDialog.Builder(this@MyPagePlaceSettingFragment)
+                    .setTitle("Message")
+                    .setMessage("Please enter an alias for the current location.")
+                    .setView(textInputLayout)
+                    .setPositiveButton("OK") { _, which ->
+                        //Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
 
-                            val location = input.text.toString()
-                            postLocation(location)
+                        val location = input.text.toString()
+                        postLocation(location)
 
-                        }
-                        .setNegativeButton("Cancel") { _, which ->
-                        }
-                        .show()
+                    }
+                    .setNegativeButton("Cancel") { _, which ->
+                    }
+                    .show()
 
-                }
 
             }
 
