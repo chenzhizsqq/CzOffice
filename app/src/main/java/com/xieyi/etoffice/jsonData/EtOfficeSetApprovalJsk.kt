@@ -46,7 +46,7 @@ class EtOfficeSetApprovalJsk {
             jsonObject.put("tenant", EtOfficeApp.TenantId)
             jsonObject.put("hpid", EtOfficeApp.HpId)
             jsonObject.put("device", "android")
-            jsonObject.put("userid", JC.pEtOfficeLogin.infoJson().result.userid)
+            jsonObject.put("userid", EtOfficeApp.userid)
 //            jsonObject.put("updateymd", "[\"20210301\",\"20210302\"]")
 //            jsonObject.put("updateymd", ymd)
             val ymdJsonArray = JSONArray()
