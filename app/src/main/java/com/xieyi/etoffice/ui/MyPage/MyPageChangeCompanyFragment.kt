@@ -1,27 +1,26 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.xieyi.etoffice.EtOfficeApp
+import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
 
 
-class MyPageChangeCompanyFragment : Fragment() {
+class MyPageChangeCompanyFragment : AppCompatActivity() {
 
     private val TAG = "MyPageChangeCompanyFragment"
 
@@ -30,23 +29,16 @@ class MyPageChangeCompanyFragment : Fragment() {
 
     private val tagName: String = "ChangeCompany"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin", )
-    }
-
     private lateinit var mainView: View
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        mainView = inflater.inflate(R.layout.activity_my_page_change_company, container, false)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_my_page_change_company)
+        supportActionBar?.hide()
+
+        mainView = findViewById(R.id.record_linearLayout)
 
         mainViewUpdate()
-
-
-        return mainView
     }
 
     private fun mainViewUpdate() {
@@ -71,17 +63,13 @@ class MyPageChangeCompanyFragment : Fragment() {
         // 发生异常时的捕获
     }
 
-    private fun imageTag(i:Int):String{
-        return "imageTag_$i"
-    }
-
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
+            val recordLinearLayout = findViewById<LinearLayout>(R.id.record_linearLayout)
             recordLinearLayout.removeAllViews()
 
             //record_title
-            val recordTitle = mainView.findViewById<TextView>(R.id.record_title)
+            val recordTitle = findViewById<TextView>(R.id.record_title)
             val tenantid = EtOfficeApp.TenantId
             val hpid = EtOfficeApp.HpId
             recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
@@ -92,7 +80,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
             for (i in 0..size - 1) {
 
-                val mLinearLayout = LinearLayout(activity)
+                val mLinearLayout = LinearLayout(applicationContext)
 
                 mLinearLayout.setOrientation(LinearLayout.VERTICAL)
 
@@ -102,9 +90,7 @@ class MyPageChangeCompanyFragment : Fragment() {
                 //mLinearLayout tag
                 mLinearLayout.tag = tagName + "_" + i
 
-
-
-                val ll_mm = LinearLayout(activity)
+                val ll_mm = LinearLayout(applicationContext)
 
                 ll_mm.setOrientation(LinearLayout.HORIZONTAL)
 
@@ -200,7 +186,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
                 //線
 
-                val mLinearLayout2 = LinearLayout(activity)
+                val mLinearLayout2 = LinearLayout(applicationContext)
                 val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
                 mLinearLayout2.layoutParams = lp2
                 mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
@@ -210,11 +196,12 @@ class MyPageChangeCompanyFragment : Fragment() {
 
 
             //returnHome
-            val returnHome = mainView.findViewById<ImageView>(R.id.returnHome)
+            val returnHome = findViewById<ImageView>(R.id.returnHome)
             returnHome.setOnClickListener {
 
-                Navigation.findNavController(mainView)
-                    .navigate(R.id.MyPageFragment);
+                val intent: Intent = Intent(this@MyPageChangeCompanyFragment, MainActivity::class.java)
+                startActivity(intent)
+                finish()
 
             }
         }
@@ -223,13 +210,13 @@ class MyPageChangeCompanyFragment : Fragment() {
     private fun logoTag(i: Int) = "logo$i"
 
     private fun leftLL(i: Int): LinearLayout {
-        val ll_left = LinearLayout(activity)
+        val ll_left = LinearLayout(applicationContext)
 
         ll_left.orientation = LinearLayout.VERTICAL
         ll_left.layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
 
         //up
-        val textView = TextView(activity)
+        val textView = TextView(applicationContext)
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
         textView.setTextColor(Color.parseColor("#000000"))
         textView.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].tenantname
@@ -239,7 +226,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
 
         //down
-        val textViewDown = TextView(activity)
+        val textViewDown = TextView(applicationContext)
         textViewDown.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14F);
         textViewDown.setTextColor(Color.parseColor("#000000"))
         textViewDown.text = JC.pEtOfficeGetTenant.infoJson().result.tenantlist[i].posturl
@@ -249,7 +236,7 @@ class MyPageChangeCompanyFragment : Fragment() {
     }
 
     private fun rightLL(): LinearLayout {
-        val ll_right = LinearLayout(activity)
+        val ll_right = LinearLayout(applicationContext)
 
         ll_right.orientation = LinearLayout.VERTICAL
         ll_right.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -261,7 +248,7 @@ class MyPageChangeCompanyFragment : Fragment() {
 
 
     private fun makeImage(size:Int):ImageView {
-        val imageView = ImageView(activity)
+        val imageView = ImageView(applicationContext)
         val myDrawable = ResourcesCompat.getDrawable(
             resources, R.drawable.ic_baseline_account_circle_24_blue, null
         )

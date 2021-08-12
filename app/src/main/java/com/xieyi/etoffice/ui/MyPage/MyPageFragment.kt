@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.JC
 import kotlinx.coroutines.*
@@ -97,8 +98,13 @@ class MyPageFragment : Fragment() {
             //change　company
             val pTableRow: LinearLayout = mainView.findViewById(R.id.change_company) as LinearLayout
             pTableRow.setOnClickListener(View.OnClickListener {
-                Navigation.findNavController(mainView)
-                    .navigate(R.id.MyPageChangeCompanyFragment)
+//                Navigation.findNavController(mainView)
+//                    .navigate(R.id.MyPageChangeCompanyFragment)
+
+                EtOfficeApp.selectUi = 4
+                val intent = Intent(activity, MyPageChangeCompanyFragment::class.java)
+                startActivity(intent)
+                activity?.finish()
             })
 
 

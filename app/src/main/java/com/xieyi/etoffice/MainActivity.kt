@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         listFrag.add(R.id.MyPageFragment)
 
         //初回登録Frag
-        val index = 0
+        val index = EtOfficeApp.selectUi
         selectFrag(index)
     }
 
