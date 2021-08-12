@@ -102,24 +102,23 @@
 
                 android:textSize="12dp"/>
 
-            <TableLayout
+            <LinearLayout
                 android:id="@+id/PERSONAL_INFO"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_round_edge_white"
-                >
-                <TableRow
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_margin="10dp"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="Name"
                         android:textColor="@color/black"
                         android:gravity="left"
@@ -129,17 +128,16 @@
                         android:id="@+id/name_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="right"
                         android:text="text"
                         android:singleLine="true"/>
 
-                </TableRow>
-                <TableRow
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E8E8E8"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -147,19 +145,18 @@
                         android:gravity="left"
                         android:singleLine="true"/>
 
-                </TableRow>
-                <TableRow
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_margin="10dp"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="Mobile"
                         android:gravity="left"
@@ -169,18 +166,17 @@
                         android:id="@+id/mobile_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="right"
                         android:text="text"
                         android:singleLine="true"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E8E8E8"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -188,20 +184,19 @@
                         android:gravity="left"
                         android:singleLine="true"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_margin="10dp"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="Mail"
                         android:gravity="left"
@@ -211,18 +206,17 @@
                         android:id="@+id/mail_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="right"
                         android:text="text"
                         android:singleLine="true"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E8E8E8"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -230,21 +224,20 @@
                         android:gravity="left"
                         android:singleLine="true"/>
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:id="@+id/place_management"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="left"
                         android:singleLine="true"
                         android:text="Place Management"
@@ -254,18 +247,17 @@
                         android:id="@+id/PlaceSettingEnter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="right"
                         android:singleLine="true"
                         android:text=" > " />
 
-                </TableRow>
+                </LinearLayout>
 
-                <TableRow
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E8E8E8"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -273,20 +265,19 @@
                         android:gravity="left"
                         android:singleLine="true"/>
 
-                </TableRow>
-                <TableRow
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_margin="10dp"
                     android:id="@+id/change_company"
                     android:weightSum="2">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="Change Company"
                         android:textColor="@color/black"
                         android:gravity="left"
@@ -295,14 +286,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="right"
                         android:text=" > "
                         android:singleLine="true"/>
 
-                </TableRow>
+                </LinearLayout>
 
-            </TableLayout>
+            </LinearLayout>
 
             <!--    SYSTEM_title-->
             <TextView
