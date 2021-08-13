@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -19,9 +18,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
-import com.google.android.material.textfield.TextInputLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
+import com.xieyi.etoffice.swipetoloadlayout.view.head.SwipeRefreshHeaderView
 
 import kotlinx.coroutines.*
 
@@ -87,7 +87,7 @@ class MemberFragment : Fragment() {
 
 
     // UI更新
-    private suspend fun doOnUiCode() {
+    private suspend fun doOnUiCodeOld() {
         withContext(Dispatchers.Main) {
 
             recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
@@ -200,6 +200,13 @@ class MemberFragment : Fragment() {
 //                val intent = Intent(Intent.ACTION_CALL, uri)
 //                startActivity(intent)
 //            })
+        }
+    }
+    private suspend fun doOnUiCode() {
+        withContext(Dispatchers.Main) {
+
+            val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
+            recyclerView.adapter = FlowerAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
         }
     }
 
