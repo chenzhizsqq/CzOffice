@@ -72,7 +72,7 @@ class MemberFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetStuffList.post()",e)
                 }
 
-                doOnUiCodeAll()
+                doOnUiCode()
             }
         }
 
@@ -205,17 +205,9 @@ class MemberFragment : Fragment() {
         withContext(Dispatchers.Main) {
 
             val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
-            recyclerView.adapter = FlowerAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
-        }
-    }
-    private suspend fun doOnUiCodeAll() {
-        withContext(Dispatchers.Main) {
-
-            val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
             recyclerView.adapter = FirstAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
         }
     }
-
     private fun makeImage(size:Int):ImageView {
         val imageView = ImageView(activity)
         val myDrawable = ResourcesCompat.getDrawable(

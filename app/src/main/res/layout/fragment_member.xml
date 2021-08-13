@@ -11,10 +11,6 @@
 
 
 
-    <com.xieyi.etoffice.swipetoloadlayout.view.head.SwipeRefreshHeaderView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/swipe_refresh_data">
 
         <FrameLayout
             android:id="@+id/record_linearLayout"
@@ -27,16 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="LinearLayoutManager" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_all"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="LinearLayoutManager" />
-
-
         </FrameLayout>
-    </com.xieyi.etoffice.swipetoloadlayout.view.head.SwipeRefreshHeaderView>
 
 
 
