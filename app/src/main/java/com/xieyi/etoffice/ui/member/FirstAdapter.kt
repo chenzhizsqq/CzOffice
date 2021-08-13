@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.member
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 
 class FirstAdapter(val sectionList: List<EtOfficeGetStuffList.SectionList>) :
     RecyclerView.Adapter<FirstAdapter.sectionListViewHolder>() {
+    val TAG:String = "FirstAdapter"
 
     // Describes an item view and its place within the RecyclerView
     class sectionListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

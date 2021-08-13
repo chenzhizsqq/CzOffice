@@ -19,12 +19,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
-
 import kotlinx.coroutines.*
 
-class MemberFragment : Fragment() {
+
+class MemberFragment : Fragment(),
+    SwipeRefreshLayout.OnRefreshListener {
 
     private val TAG = javaClass.simpleName
 
@@ -43,6 +45,8 @@ class MemberFragment : Fragment() {
 
     private lateinit var pEtOfficeGetStuffList : EtOfficeGetStuffList
 
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +57,6 @@ class MemberFragment : Fragment() {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,6 +65,35 @@ class MemberFragment : Fragment() {
 
         mainView = inflater.inflate(R.layout.fragment_member, container, false)
 
+        screenRefresh()
+
+        mSwipeRefreshLayout= mainView.findViewById(R.id.swipeRefreshLayout)
+
+        // 色設定
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.design_default_color_background,
+            R.color.design_default_color_primary, R.color.design_default_color_secondary_variant,
+            R.color.design_default_color_secondary);
+        // Listenerをセット
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mRecyclerView = mainView.findViewById(R.id.recycler_view)
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    if(!recyclerView.canScrollVertically(1)){
+                        Log.e(TAG, "onScrollStateChanged: 加载", )
+                    }
+                }
+
+            }
+        })
+
+        return mainView
+
+    }
+
+    private fun screenRefresh() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
@@ -69,15 +101,12 @@ class MemberFragment : Fragment() {
                     val r = pEtOfficeGetStuffList.post()
                     Log.e(TAG, "pEtOfficeGetStuffList.post() :$r")
                 } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetStuffList.post()",e)
+                    Log.e(TAG, "pEtOfficeGetStuffList.post()", e)
                 }
 
                 doOnUiCode()
             }
         }
-
-        return mainView
-
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -203,6 +232,7 @@ class MemberFragment : Fragment() {
     }
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
+            Log.e(TAG, "doOnUiCode: 更新", )
 
             val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
             recyclerView.adapter = FirstAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
@@ -299,5 +329,11 @@ class MemberFragment : Fragment() {
         val t = TextView(activity)
         t.text = s
         return t
+    }
+
+    override fun onRefresh() {
+        mSwipeRefreshLayout.isRefreshing = false;
+
+        screenRefresh()
     }
 }
