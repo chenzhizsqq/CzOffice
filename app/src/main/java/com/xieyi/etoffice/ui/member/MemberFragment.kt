@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
-import com.xieyi.etoffice.swipetoloadlayout.view.head.SwipeRefreshHeaderView
 
 import kotlinx.coroutines.*
 
@@ -73,7 +72,7 @@ class MemberFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetStuffList.post()",e)
                 }
 
-                doOnUiCode()
+                doOnUiCodeAll()
             }
         }
 
@@ -207,6 +206,13 @@ class MemberFragment : Fragment() {
 
             val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
             recyclerView.adapter = FlowerAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
+        }
+    }
+    private suspend fun doOnUiCodeAll() {
+        withContext(Dispatchers.Main) {
+
+            val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
+            recyclerView.adapter = FirstAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
         }
     }
 
