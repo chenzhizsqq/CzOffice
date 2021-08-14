@@ -76,7 +76,7 @@ class MemberFragment : Fragment(),
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mRecyclerView = mainView.findViewById(R.id.recycler_view)
+        mRecyclerView = mainView.findViewById(R.id.recycler_view_first)
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -234,8 +234,8 @@ class MemberFragment : Fragment(),
         withContext(Dispatchers.Main) {
             Log.e(TAG, "doOnUiCode: 更新", )
 
-            val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view)
-            recyclerView.adapter = FirstAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
+            val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view_first)
+            recyclerView.adapter = GetStuffSectionListAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
         }
     }
     private fun makeImage(size:Int):ImageView {

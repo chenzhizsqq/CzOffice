@@ -9,8 +9,8 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 
 
-class SecondAdapter(val getStuffList: List<EtOfficeGetStuffList.StuffList>,val sectioncd:String,val sectionname:String) :
-    RecyclerView.Adapter<SecondAdapter.sectionListViewHolder>() {
+class GetStuffStuffListAdapter(val getStuffList: List<EtOfficeGetStuffList.StuffList>, val sectioncd:String, val sectionname:String) :
+    RecyclerView.Adapter<GetStuffStuffListAdapter.sectionListViewHolder>() {
 
     // Describes an item view and its place within the RecyclerView
     class sectionListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -34,7 +34,7 @@ class SecondAdapter(val getStuffList: List<EtOfficeGetStuffList.StuffList>,val s
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.get_stuff_list_second, parent, false)
+            .inflate(R.layout.get_stuff_stuff_list, parent, false)
 
         return sectionListViewHolder(view)
     }
