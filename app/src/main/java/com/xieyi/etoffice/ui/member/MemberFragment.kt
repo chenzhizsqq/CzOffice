@@ -232,10 +232,9 @@ class MemberFragment : Fragment(),
     }
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            Log.e(TAG, "doOnUiCode: 更新", )
 
             val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view_first)
-            recyclerView.adapter = GetStuffSectionListAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist)
+            recyclerView.adapter = GetStuffSectionListAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist,requireActivity())
         }
     }
     private fun makeImage(size:Int):ImageView {
