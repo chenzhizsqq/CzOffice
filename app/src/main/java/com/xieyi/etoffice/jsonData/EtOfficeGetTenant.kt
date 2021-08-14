@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeGetTenant   所属会社一覧
 class EtOfficeGetTenant {
 
-    val TAG = "EtOfficeGetTenant"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeGetTenant"
 

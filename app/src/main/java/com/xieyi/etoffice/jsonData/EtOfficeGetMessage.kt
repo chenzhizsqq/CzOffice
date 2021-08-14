@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeGetMessage   最新メッセージ一覧取得
 class EtOfficeGetMessage {
 
-    val TAG = "EtOfficeGetMessage"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeGetMessage"
 

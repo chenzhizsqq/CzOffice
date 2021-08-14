@@ -28,7 +28,7 @@ import kotlinx.coroutines.*
 
 
 class MyPagePlaceSettingActivity : AppCompatActivity() {
-    private val TAG = "MyPagePlaceSettingFragment"
+    private val TAG = javaClass.simpleName
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT

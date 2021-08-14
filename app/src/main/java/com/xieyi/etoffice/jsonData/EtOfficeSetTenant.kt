@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeSetTenant   起動会社設定登録
 class EtOfficeSetTenant {
 
-    val TAG = "EtOfficeSetTenant"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeSetTenant"
 

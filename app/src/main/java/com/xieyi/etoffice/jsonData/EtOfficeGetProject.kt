@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeGetProject プロジェクト一覧
 class EtOfficeGetProject {
 
-    private val TAG = "EtOfficeGetProject"
+    private val TAG = javaClass.simpleName
     private var lastJson: String = ""
     val app: String = "EtOfficeGetProject"
 

@@ -23,7 +23,7 @@ import kotlinx.coroutines.*
 
 class ReportDetailActivity() : AppCompatActivity() {
 
-    val TAG = "ReportDetailFragment"
+    val TAG = javaClass.simpleName
     lateinit var buttonImageButton1: ImageView
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT

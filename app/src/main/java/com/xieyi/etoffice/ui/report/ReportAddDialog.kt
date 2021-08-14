@@ -27,7 +27,7 @@ import kotlin.concurrent.thread
 
 
 class ReportAddDialog : DialogFragment(),View.OnClickListener{
-    private val TAG = "ReportAddDialog"
+    private val TAG = javaClass.simpleName
     private var _binding: DialogReportAddBinding? = null
     private val binding get() = _binding!!
     private lateinit var prefs:SharedPreferences

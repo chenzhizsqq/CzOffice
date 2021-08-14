@@ -16,7 +16,7 @@ import javax.security.auth.login.LoginException
 //EtOfficeSetComment    コメント登録
 class EtOfficeSetComment {
 
-    private val TAG = "EtOfficeSetComment"
+    private val TAG = javaClass.simpleName
     private var lastJson: String = ""
     val app: String = "EtOfficeSetComment"
 

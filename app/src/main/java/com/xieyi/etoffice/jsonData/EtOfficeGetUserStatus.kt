@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
 class EtOfficeGetUserStatus {
 
-    val TAG = "EtOfficeGetUserStatus"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeGetUserStatus"
 

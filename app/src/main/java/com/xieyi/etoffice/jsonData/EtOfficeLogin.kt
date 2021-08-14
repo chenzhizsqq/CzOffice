@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeLogin ログイン処理、ユーザー情報取得
 class EtOfficeLogin {
 
-    val TAG = "EtOfficeLogin"
+    val TAG = javaClass.simpleName
 
     //入力後、取得した結果
     var lastJson: String = ""

@@ -19,7 +19,7 @@ import java.util.ArrayList
 //EtOfficeSetApprovalJsk 勤務実績承認
 class EtOfficeSetApprovalJsk {
 
-    private val TAG = "EtOfficeSetApprovalJsk"
+    private val TAG = javaClass.simpleName
     private var lastJson: String = ""
     val app: String = "EtOfficeSetApprovalJsk"
 

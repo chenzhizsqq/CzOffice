@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeGetStatusList   出勤状態一覧取得
 class EtOfficeGetStatusList {
 
-    val TAG = "EtOfficeGetStatusList"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeGetStatusList"
 

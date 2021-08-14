@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeUserInfo ユーザー情報取得
 class EtOfficeUserInfo {
 
-    private val TAG = "EtOfficeUserInfo"
+    private val TAG = javaClass.simpleName
     private var lastJson: String = ""
     val app: String = "EtOfficeUserInfo"
 

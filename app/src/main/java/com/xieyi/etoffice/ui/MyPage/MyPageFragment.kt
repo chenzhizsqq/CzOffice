@@ -19,7 +19,7 @@ import kotlinx.coroutines.*
 
 class MyPageFragment : Fragment() {
 
-    private val TAG: String = "MyPageFragment"
+    private val TAG: String = javaClass.simpleName
     private lateinit var pEtOfficeUserInfo : EtOfficeUserInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {

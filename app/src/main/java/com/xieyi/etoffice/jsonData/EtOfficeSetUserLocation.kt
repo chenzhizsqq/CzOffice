@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeSetUserLocation   ユーザー勤務場所設定
 class EtOfficeSetUserLocation {
 
-    val TAG = "EtOfficeSetUserLocation"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeSetUserLocation"
 

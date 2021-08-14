@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeSetUserStatus ユーザー勤務状態の設定
 class EtOfficeSetUserStatus {
 
-    val TAG = "EtOfficeSetUserStatus"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeSetUserStatus"
 

@@ -25,7 +25,7 @@ import kotlinx.coroutines.*
 
 class MyPageChangeCompanyActivity : AppCompatActivity() {
 
-    private val TAG = "MyPageChangeCompanyFragment"
+    private val TAG = javaClass.simpleName
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
     private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT

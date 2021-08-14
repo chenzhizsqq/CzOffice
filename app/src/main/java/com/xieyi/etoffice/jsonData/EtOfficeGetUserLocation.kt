@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeGetUserLocation   ユーザー勤務場所一覧取得
 class EtOfficeGetUserLocation {
 
-    val TAG = "EtOfficeGetUserLocation"
+    val TAG = javaClass.simpleName
     var lastJson: String = ""
     val app: String = "EtOfficeGetUserLocation"
 

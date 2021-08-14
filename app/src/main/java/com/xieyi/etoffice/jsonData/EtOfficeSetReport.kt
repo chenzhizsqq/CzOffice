@@ -15,7 +15,7 @@ import org.json.JSONObject
 //EtOfficeSetReport 日報登録
 class EtOfficeSetReport {
 
-    private val TAG = "EtOfficeSetReport"
+    private val TAG = javaClass.simpleName
     private var lastJson: String = ""
     val app: String = "EtOfficeSetReport"
 

@@ -19,7 +19,7 @@ import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
-    val TAG: String = "MainActivity"
+    val TAG: String = javaClass.simpleName
     lateinit var view: View
 
 
