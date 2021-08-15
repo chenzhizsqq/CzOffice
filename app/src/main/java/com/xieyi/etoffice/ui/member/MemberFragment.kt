@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -26,9 +25,15 @@ class MemberFragment : Fragment(),
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
+    private lateinit var mGetStuffSectionListAdapter:GetStuffSectionListAdapter
+
+    private var listInt = 0
+    private var eachListAdd = 2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pEtOfficeGetStuffList = EtOfficeGetStuffList()
+
     }
 
 
@@ -52,6 +57,16 @@ class MemberFragment : Fragment(),
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
                     if(!recyclerView.canScrollVertically(1)){
                         Log.e(TAG, "onScrollStateChanged: more date", )
+
+                        //sectionlistThis=pEtOfficeGetStuffList.infoJson().result.sectionlist
+
+
+                        for (i in 2..3) {
+                            mGetStuffSectionListAdapter.notifyDataAdd(
+                                pEtOfficeGetStuffList.infoJson().result.sectionlist[i]
+                            )
+                        }
+                        mSwipeRefreshLayout.isRefreshing = false;
                     }
                 }
 
@@ -68,7 +83,7 @@ class MemberFragment : Fragment(),
                     val r = pEtOfficeGetStuffList.post()
                     Log.e(TAG, "pEtOfficeGetStuffList.post() :$r")
 
-                    doOnUiCode()
+                    doOnUiRefresh()
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetStuffList.post()", e)
                 }
@@ -81,10 +96,25 @@ class MemberFragment : Fragment(),
     }
 
     // UI更新
-    private suspend fun doOnUiCode() {
+    private suspend fun doOnUiRefresh() {
         withContext(Dispatchers.Main) {
+            Log.e(TAG, "doOnUiRefresh: begin", )
             val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view_stuff_list)
-            recyclerView.adapter = GetStuffSectionListAdapter(pEtOfficeGetStuffList.infoJson().result.sectionlist,requireActivity())
+
+            listInt = 0
+
+            val sectionlistFirst = ArrayList<EtOfficeGetStuffList.SectionList>()
+
+            mGetStuffSectionListAdapter=GetStuffSectionListAdapter(sectionlistFirst,requireActivity())
+
+            for (i in 0..1) {
+                mGetStuffSectionListAdapter.notifyDataAdd(
+                    pEtOfficeGetStuffList.infoJson().result.sectionlist[i])
+            }
+
+            recyclerView.adapter = mGetStuffSectionListAdapter
+
+
         }
     }
 

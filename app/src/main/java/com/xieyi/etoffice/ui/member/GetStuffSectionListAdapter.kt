@@ -1,15 +1,17 @@
 package com.xieyi.etoffice.ui.member
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
+import com.xieyi.etoffice.ui.notifications.Message
 
 
-class GetStuffSectionListAdapter(val sectionList: List<EtOfficeGetStuffList.SectionList>,val context: Context) :
+class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList.SectionList>, val context: Context) :
     RecyclerView.Adapter<GetStuffSectionListAdapter.sectionListViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -44,5 +46,11 @@ class GetStuffSectionListAdapter(val sectionList: List<EtOfficeGetStuffList.Sect
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
         holder.bind(sectionList[position])
+    }
+
+    fun notifyDataAdd(sectionList: EtOfficeGetStuffList.SectionList) {
+        //Log.e(TAG, "notifyDataAdd: sectionList:$sectionList", )
+        this.sectionList.add(sectionList)
+        notifyDataSetChanged()
     }
 }

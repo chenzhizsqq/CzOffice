@@ -52,7 +52,7 @@ class EtOfficeGetStuffList {
                 val json: String = response.body!!.string()
                 lastJson = json
                 val mJsonResult = JSONObject(json)
-                Log.e(TAG, "mJsonResult:$mJsonResult" )
+                //Log.e(TAG, "mJsonResult:$mJsonResult" )
 
                 status = mJsonResult.getString("status")
 
@@ -81,7 +81,7 @@ class EtOfficeGetStuffList {
     )
 
     data class Result(
-        val sectionlist: List<SectionList>
+        val sectionlist: ArrayList<SectionList>
     )
 
     data class SectionList(
