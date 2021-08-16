@@ -1,8 +1,8 @@
 package com.xieyi.etoffice.ui.MyPage
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +14,6 @@ import kotlinx.coroutines.*
 
 class GetTenantAdapter(
     val getGetTenant: List<EtOfficeGetTenant.Tenantlist>,
-    val context: Context,
 ) : RecyclerView.Adapter<GetTenantAdapter.sectionListViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -31,21 +30,21 @@ class GetTenantAdapter(
     }
 
     class sectionListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tv_userkana: TextView = itemView.findViewById(R.id.userkana)
-        private val tv_username: TextView = itemView.findViewById(R.id.username)
-        private val tv_phone: TextView = itemView.findViewById(R.id.phone)
-        private val tv_mail: TextView = itemView.findViewById(R.id.mail)
-
+        private val tv_posturl: TextView = itemView.findViewById(R.id.posturl)
+        private val tv_tenantname: TextView = itemView.findViewById(R.id.tenantname)
+        private val iv_clicked: ImageView = itemView.findViewById(R.id.clicked)
 
         val ll: LinearLayout = itemView.findViewById(R.id.ll)
 
-
         //telephone
-        fun bind(stufflist: EtOfficeGetTenant.Tenantlist,context: Context,listener:OnAdapterListener) {
-            tv_userkana.text = stufflist.hpid
-            tv_username.text = stufflist.posturl
-            tv_phone.text = stufflist.startflg
-            tv_mail.text = stufflist.tenantname
+        fun bind(stufflist: EtOfficeGetTenant.Tenantlist,listener:OnAdapterListener) {
+            tv_posturl.text = stufflist.posturl
+            tv_tenantname.text = stufflist.tenantname
+            if (stufflist.startflg == "1"){
+                iv_clicked.visibility = View.VISIBLE
+            }else{
+                iv_clicked.visibility = View.GONE
+            }
 
             ll.setOnClickListener(View.OnClickListener {
                 listener.onClick(stufflist.tenantid)
@@ -73,6 +72,6 @@ class GetTenantAdapter(
     }
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
-        holder.bind(getGetTenant[position],context,listener)
+        holder.bind(getGetTenant[position],listener)
     }
 }

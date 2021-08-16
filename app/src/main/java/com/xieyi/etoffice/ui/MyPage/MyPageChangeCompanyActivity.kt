@@ -29,12 +29,6 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
 
     private val TAG = javaClass.simpleName
 
-    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
-    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
-
-    private val tagName: String = "ChangeCompany"
-
-
     private lateinit var pEtOfficeGetTenant : EtOfficeGetTenant
     private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
     private lateinit var pEtOfficeLogin : EtOfficeLogin
@@ -129,12 +123,11 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
                 , { it.hpid }
                 , { it.posturl }
             ))
-            mAdapter=GetTenantAdapter(sortedList,this@MyPageChangeCompanyActivity)
+            mAdapter=GetTenantAdapter(sortedList)
 
 
             mAdapter.setOnAdapterListener(object : GetTenantAdapter.OnAdapterListener{
                 override fun onClick(tenantid: String) {
-
                     GlobalScope.launch(errorHandler) {
                         withContext(Dispatchers.IO) {
                             //データ更新 SetTenant
@@ -160,7 +153,6 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
     }
 
     override fun onRefresh() {
-
         mSwipeRefreshLayout.isRefreshing = false;
         refreshPage()
     }
