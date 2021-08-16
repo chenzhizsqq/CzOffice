@@ -6,15 +6,14 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.GetTenantListBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetTenant
 import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
-import kotlinx.coroutines.*
 
 
 class GetTenantAdapter(
     val getGetTenant: List<EtOfficeGetTenant.Tenantlist>,
-) : RecyclerView.Adapter<GetTenantAdapter.sectionListViewHolder>() {
+) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
     private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
@@ -29,14 +28,15 @@ class GetTenantAdapter(
         this.listener = adapterListener
     }
 
-    class sectionListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tv_posturl: TextView = itemView.findViewById(R.id.posturl)
-        private val tv_tenantname: TextView = itemView.findViewById(R.id.tenantname)
-        private val iv_clicked: ImageView = itemView.findViewById(R.id.clicked)
+    class ViewHolder(binding: GetTenantListBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val tv_posturl: TextView = binding.posturl
+        private val tv_tenantname: TextView = binding.tenantname
+        private val iv_clicked: ImageView = binding.clicked
 
-        val ll: LinearLayout = itemView.findViewById(R.id.ll)
 
-        //telephone
+        val ll: LinearLayout = binding.ll
+
+        //bind
         fun bind(stufflist: EtOfficeGetTenant.Tenantlist,listener:OnAdapterListener) {
             tv_posturl.text = stufflist.posturl
             tv_tenantname.text = stufflist.tenantname
@@ -53,25 +53,19 @@ class GetTenantAdapter(
         }
     }
 
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.get_tenant_list, parent, false)
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = GetTenantListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val viewHolder = ViewHolder(binding)
 
         pEtOfficeSetTenant = EtOfficeSetTenant()
-        
-        return sectionListViewHolder(view)
+        return viewHolder
     }
 
     override fun getItemCount(): Int {
         return getGetTenant.size
     }
 
-    override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getGetTenant[position],listener)
     }
 }
