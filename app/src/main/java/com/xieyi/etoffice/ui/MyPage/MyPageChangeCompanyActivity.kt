@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetTenant
 import com.xieyi.etoffice.jsonData.EtOfficeLogin
 import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
@@ -27,14 +28,17 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
     private lateinit var pEtOfficeLogin : EtOfficeLogin
 
 
-    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var mRecyclerView: RecyclerView
+    //private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    //private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter:GetTenantAdapter
 
+    private lateinit var binding: ActivityMyPageChangeCompanyBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_page_change_company)
         supportActionBar?.hide()
+
+        binding = ActivityMyPageChangeCompanyBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         pEtOfficeGetTenant = EtOfficeGetTenant()
         pEtOfficeSetTenant = EtOfficeSetTenant()
@@ -42,16 +46,13 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
 
         refreshPage()
 
-        mSwipeRefreshLayout= findViewById(R.id.swipeRefreshLayout)
-
-        mRecyclerView = findViewById(R.id.recycler_view_get_tenant)
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.recyclerViewGetTenant.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
                     if(!recyclerView.canScrollVertically(1)){
                         //Log.e(TAG, "onScrollStateChanged: more date")
-                        mSwipeRefreshLayout.isRefreshing = false
+                        binding.swipeRefreshLayout.isRefreshing = false
                         refreshPage()
 
                     }
@@ -61,7 +62,7 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
         })
 
         // Listenerをセット
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private fun refreshPage() {
@@ -146,7 +147,7 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
     }
 
     override fun onRefresh() {
-        mSwipeRefreshLayout.isRefreshing = false;
+        binding.swipeRefreshLayout.isRefreshing = false;
         refreshPage()
     }
 
