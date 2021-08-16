@@ -53,4 +53,9 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList
         this.sectionList.add(sectionList)
         notifyDataSetChanged()
     }
+
+    fun notifyDataAddList(sectionList: ArrayList<EtOfficeGetStuffList.SectionList>) {
+        this.sectionList.addAll(sectionList)
+        notifyDataSetChanged()
+    }
 }

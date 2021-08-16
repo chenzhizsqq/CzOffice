@@ -25,10 +25,11 @@ class MemberFragment : Fragment(),
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
-    private lateinit var mGetStuffSectionListAdapter:GetStuffSectionListAdapter
+    private lateinit var mAdapter:GetStuffSectionListAdapter
 
+    //暂时看到的资料数量
     private var listInt = 0
-    private var eachListAdd = 2
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,16 +58,9 @@ class MemberFragment : Fragment(),
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
                     if(!recyclerView.canScrollVertically(1)){
                         Log.e(TAG, "onScrollStateChanged: more date", )
+                        mSwipeRefreshLayout.isRefreshing = false
 
-                        //sectionlistThis=pEtOfficeGetStuffList.infoJson().result.sectionlist
-
-
-                        for (i in 2..3) {
-                            mGetStuffSectionListAdapter.notifyDataAdd(
-                                pEtOfficeGetStuffList.infoJson().result.sectionlist[i]
-                            )
-                        }
-                        mSwipeRefreshLayout.isRefreshing = false;
+                        moreData(10)
                     }
                 }
 
@@ -101,20 +95,26 @@ class MemberFragment : Fragment(),
             Log.e(TAG, "doOnUiRefresh: begin", )
             val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view_stuff_list)
 
+            val sectionlistEmpty = ArrayList<EtOfficeGetStuffList.SectionList>()
+            mAdapter=GetStuffSectionListAdapter(sectionlistEmpty,requireActivity())
+            recyclerView.adapter = mAdapter
+
             listInt = 0
+            moreData(10)
 
-            val sectionlistFirst = ArrayList<EtOfficeGetStuffList.SectionList>()
 
-            mGetStuffSectionListAdapter=GetStuffSectionListAdapter(sectionlistFirst,requireActivity())
 
-            for (i in 0..1) {
-                mGetStuffSectionListAdapter.notifyDataAdd(
-                    pEtOfficeGetStuffList.infoJson().result.sectionlist[i])
+        }
+    }
+
+    //获取更多数据 add是数量
+    private fun moreData(add:Int) {
+        val maxInt = pEtOfficeGetStuffList.infoJson().result.sectionlist.size
+        for (i in 0..add - 1) {
+            if (listInt < maxInt) {
+                mAdapter.notifyDataAdd(pEtOfficeGetStuffList.infoJson().result.sectionlist[listInt])
+                listInt++
             }
-
-            recyclerView.adapter = mGetStuffSectionListAdapter
-
-
         }
     }
 
