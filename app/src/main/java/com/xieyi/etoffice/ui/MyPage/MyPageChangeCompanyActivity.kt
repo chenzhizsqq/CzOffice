@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.setPadding
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
@@ -23,7 +25,8 @@ import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
 import kotlinx.coroutines.*
 
 
-class MyPageChangeCompanyActivity : AppCompatActivity() {
+class MyPageChangeCompanyActivity : AppCompatActivity(),
+    SwipeRefreshLayout.OnRefreshListener  {
 
     private val TAG = javaClass.simpleName
 
@@ -37,6 +40,11 @@ class MyPageChangeCompanyActivity : AppCompatActivity() {
     private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
     private lateinit var pEtOfficeLogin : EtOfficeLogin
 
+
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mAdapter: GetTenantAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_page_change_company)
@@ -46,24 +54,43 @@ class MyPageChangeCompanyActivity : AppCompatActivity() {
         pEtOfficeSetTenant = EtOfficeSetTenant()
         pEtOfficeLogin = EtOfficeLogin()
 
+        mSwipeRefreshLayout= findViewById(R.id.swipeRefreshLayout)
 
-        mainViewUpdate()
+        // Listenerをセット
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mRecyclerView = findViewById(R.id.recycler_view_get_tenant)
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    if(!recyclerView.canScrollVertically(1)){
+                        Log.e(TAG, "onScrollStateChanged: more date", )
+                        mSwipeRefreshLayout.isRefreshing = false
+
+                    }
+                }
+
+            }
+        })
+
+        refreshPage()
     }
 
-    private fun mainViewUpdate() {
+    private fun refreshPage() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
                 try {
-                    val r =
-                        pEtOfficeGetTenant.post()                                    //Json 送信
+                    val r = pEtOfficeGetTenant.post()                                    //Json 送信
                     Log.e(TAG, "pEtOfficeGetTenant.post() :$r")
+
+                    doOnUiRefresh()
 
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetTenant.post()",e)
                 }
 
-                doOnUiCode()
             }
         }
     }
@@ -72,7 +99,35 @@ class MyPageChangeCompanyActivity : AppCompatActivity() {
         // 发生异常时的捕获
     }
 
-    private suspend fun doOnUiCode() {
+    // UI更新
+    private suspend fun doOnUiRefresh() {
+        withContext(Dispatchers.Main) {
+            Log.e(TAG, "doOnUiRefresh: begin", )
+
+            //record_title
+            val recordTitle = findViewById<TextView>(R.id.record_title)
+            val tenantid = EtOfficeApp.TenantId
+            val hpid = EtOfficeApp.HpId
+            recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
+
+            //returnHome
+            val returnHome = findViewById<ImageView>(R.id.returnHome)
+            returnHome.setOnClickListener {
+
+                val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+
+
+            val recyclerView: RecyclerView = findViewById(R.id.recycler_view_get_tenant)
+            recyclerView.adapter = GetTenantAdapter(pEtOfficeGetTenant.infoJson().result.tenantlist,this@MyPageChangeCompanyActivity)
+
+        }
+    }
+
+    private suspend fun doOnUiCodeOld() {
         withContext(Dispatchers.Main) {
             val recordLinearLayout = findViewById<LinearLayout>(R.id.record_linearLayout)
             recordLinearLayout.removeAllViews()
@@ -271,6 +326,9 @@ class MyPageChangeCompanyActivity : AppCompatActivity() {
 
 
         return imageView
+    }
+
+    override fun onRefresh() {
     }
 
 

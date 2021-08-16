@@ -77,7 +77,7 @@ class EtOfficeGetTenant {
         val status: Int
     )
     data class Result(
-        val tenantlist: List<Tenantlist>
+        val tenantlist: ArrayList<Tenantlist>
     )
     data class Tenantlist(
         val hpid: String,
