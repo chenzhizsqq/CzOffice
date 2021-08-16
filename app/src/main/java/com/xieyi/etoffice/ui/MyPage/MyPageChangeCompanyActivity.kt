@@ -1,18 +1,11 @@
 package com.xieyi.etoffice.ui.MyPage
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
-import android.view.Gravity
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
