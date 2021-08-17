@@ -10,9 +10,12 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.databinding.FragmentScrollingReportBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 import com.xieyi.etoffice.jsonData.EtOfficeSetApprovalJsk
 
@@ -21,7 +24,8 @@ import kotlinx.coroutines.*
 import java.util.*
 
 
-class ReportFragment : Fragment() {
+class ReportFragment : Fragment(),
+    SwipeRefreshLayout.OnRefreshListener {
     private val TAG = javaClass.simpleName
 
     private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
@@ -30,20 +34,19 @@ class ReportFragment : Fragment() {
     private lateinit var pEtOfficeGetReportList : EtOfficeGetReportList
     private lateinit var pEtOfficeSetApprovalJsk : EtOfficeSetApprovalJsk
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin")
 
-        pEtOfficeGetReportList = EtOfficeGetReportList()
-        pEtOfficeSetApprovalJsk = EtOfficeSetApprovalJsk()
-    }
-    private lateinit var mainView: View
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mRecyclerView: RecyclerView
 
+    private lateinit var mAdapter: GetReportListGroupAdapter
+
+
+    private lateinit var binding: FragmentScrollingReportBinding
+
+    private var listInt = 0
     private var bVISIBLE: Boolean = false
 
     private var bAllCheck: Boolean = false
-
-    private lateinit var recordLinearLayout: LinearLayout
 
 
     inner class checkTagYmd{
@@ -55,22 +58,53 @@ class ReportFragment : Fragment() {
 
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //Log.e(TAG, "onCreate: begin")
+
+        pEtOfficeGetReportList = EtOfficeGetReportList()
+        pEtOfficeSetApprovalJsk = EtOfficeSetApprovalJsk()
+    }
+
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        mainView = inflater.inflate(R.layout.fragment_scrolling_report, container, false)
+        binding = FragmentScrollingReportBinding.inflate(inflater, container, false)
+
+        refreshPage()
+
+        mSwipeRefreshLayout= binding.swipeRefreshLayout
+
+        // Listenerをセット
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+
+        mRecyclerView = binding.recyclerViewGetReport
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if(newState == RecyclerView.SCROLL_STATE_IDLE){
+                    if(!recyclerView.canScrollVertically(1)){
+                        Log.e(TAG, "onScrollStateChanged: more date", )
+                        mSwipeRefreshLayout.isRefreshing = false
+                        moreData(1)
+
+                    }
+                }
+
+            }
+        })
 
         topMenu()
 
-        ContentUpdate()
-
-        return mainView
+        return binding.root
     }
 
-    private fun ContentUpdate() {
+    private fun refreshPage() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
                 //データ更新
@@ -93,15 +127,15 @@ class ReportFragment : Fragment() {
 
 
     private fun topMenu() {
-        val tv_allSelect: TextView = mainView.findViewById(R.id.all_select)
+        val tv_allSelect: TextView = binding.allSelect
         tv_allSelect.visibility = View.INVISIBLE
 
 
 
-        val tv_commit: TextView = mainView.findViewById(R.id.commit)
+        val tv_commit: TextView = binding.commit
         tv_commit.visibility = View.INVISIBLE
 
-        val iv_people: ImageView = mainView.findViewById(R.id.people)
+        val iv_people: ImageView = binding.people
         iv_people.visibility = View.INVISIBLE
         //出勤記録を表示します
         iv_people.setOnClickListener {
@@ -112,7 +146,7 @@ class ReportFragment : Fragment() {
         }
 
 
-        val tv_edit: TextView = mainView.findViewById(R.id.edit)
+        val tv_edit: TextView = binding.edit
         tv_edit.setOnClickListener(View.OnClickListener {
             tvEditSrcChange(tv_allSelect, tv_commit, iv_people)
         })
@@ -126,7 +160,7 @@ class ReportFragment : Fragment() {
                     bAllCheck=!bAllCheck
                     for (tagYmd in arrayListTagYmd) {
 
-                        val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                        val checkBox: CheckBox = binding.root.findViewWithTag(tagYmd.tag) as CheckBox
                         checkBox.isChecked = bAllCheck
 
                     }
@@ -157,7 +191,7 @@ class ReportFragment : Fragment() {
                         val ymdArray = ArrayList<String>()
                         for (tagYmd in arrayListTagYmd) {
                             val checkBox: CheckBox =
-                                mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                                binding.root.findViewWithTag(tagYmd.tag) as CheckBox
                             if (checkBox.isChecked) {
 
                                 ymdArray.add(tagYmd.ymd)
@@ -210,7 +244,7 @@ class ReportFragment : Fragment() {
 
                 for (tagYmd in arrayListTagYmd) {
 
-                    val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                    val checkBox: CheckBox = binding.root.findViewWithTag(tagYmd.tag) as CheckBox
                     checkBox.visibility = View.VISIBLE
 
                 }
@@ -224,7 +258,7 @@ class ReportFragment : Fragment() {
 
                 for (tagYmd in arrayListTagYmd) {
 
-                    val checkBox: CheckBox = mainView.findViewWithTag(tagYmd.tag) as CheckBox
+                    val checkBox: CheckBox = binding.root.findViewWithTag(tagYmd.tag) as CheckBox
                     checkBox.visibility = View.GONE
 
                 }
@@ -244,67 +278,105 @@ class ReportFragment : Fragment() {
 
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            recordLinearLayout = mainView.findViewById(R.id.record_linearLayout)
-            recordLinearLayout.removeAllViews()
             arrayListTagYmd.clear()
             bAllCheck = false
 
-            //Log.e(TAG, "pEtOfficeGetReportList:"+pEtOfficeGetReportList.lastJson )
 
-            val groupSum = pEtOfficeGetReportList.infoJson().result.group.size
+            val groupEmpty = ArrayList<EtOfficeGetReportList.Group>()
+            mAdapter= GetReportListGroupAdapter(groupEmpty)
+            mRecyclerView.adapter = mAdapter
 
-            for (j in 0..groupSum - 1) {
-
-
-                val yyyy = Tools.dateGetYear(pEtOfficeGetReportList.infoJson().result.group[j].month)
-                val mm = Tools.dateGetMonth(pEtOfficeGetReportList.infoJson().result.group[j].month)
-
-                val yyyymmTextView = makeTextView("$yyyy.$mm")
-
-                yyyymmTextView.setPadding(20)
-                yyyymmTextView.height = 100
-                yyyymmTextView.gravity = (Gravity.CENTER or Gravity.LEFT)
-
-                recordLinearLayout.addView(yyyymmTextView)
-
-                val size = pEtOfficeGetReportList.infoJson().result.group[j].reportlist.size
-
-                for (i in 0..size - 1) {
-                    //each Line
-                    val ll_eachLine = LinearLayout(activity)
-                    ll_eachLine.orientation = LinearLayout.HORIZONTAL
-                    ll_eachLine.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-                    ll_eachLine.setBackgroundColor(Color.WHITE)
-                    ll_eachLine.gravity = Gravity.CENTER
+            listInt = 0
+            moreData(1)
 
 
-                    //checkBox
-                    val checkBoxTag = checkBoxTag(j, i)
-                    val checkBox = makeCheckBox(checkBoxTag)
-                    checkBox.visibility = View.GONE
-                    //arrayListTag.add(checkBoxTag)
-                    ll_eachLine.addView(checkBox)
+            mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener{
+                override fun onClick(tenantid: String) {
+                    GlobalScope.launch(errorHandler) {
+                        withContext(Dispatchers.IO) {
 
-
-                    //message
-                    val m_ll_Message = ll_Message(j, i)
-                    ll_eachLine.addView(m_ll_Message)
-
-
-
-                    recordLinearLayout.addView(ll_eachLine)
-
-                    //線
-
-                    val mLinearLayout2 = linearLayout_line()
-                    recordLinearLayout.addView(mLinearLayout2)
-
+                        }
+                    }
 
                 }
+            })
+        }
+    }
 
+    //获取更多数据 add是数量
+    private fun moreData(add:Int) {
+        val maxInt = pEtOfficeGetReportList.infoJson().result.group.size
+        for (i in 0..add - 1) {
+            if (listInt < maxInt) {
+                mAdapter.notifyDataAdd(pEtOfficeGetReportList.infoJson().result.group[listInt])
+                listInt++
             }
         }
     }
+
+//    private suspend fun doOnUiCodeOld() {
+//        withContext(Dispatchers.Main) {
+//            recordLinearLayout = mainView.findViewById(R.id.record_linearLayout)
+//            recordLinearLayout.removeAllViews()
+//            arrayListTagYmd.clear()
+//            bAllCheck = false
+//
+//            //Log.e(TAG, "pEtOfficeGetReportList:"+pEtOfficeGetReportList.lastJson )
+//
+//            val groupSum = pEtOfficeGetReportList.infoJson().result.group.size
+//
+//            for (j in 0..groupSum - 1) {
+//
+//
+//                val yyyy = Tools.dateGetYear(pEtOfficeGetReportList.infoJson().result.group[j].month)
+//                val mm = Tools.dateGetMonth(pEtOfficeGetReportList.infoJson().result.group[j].month)
+//
+//                val yyyymmTextView = makeTextView("$yyyy.$mm")
+//
+//                yyyymmTextView.setPadding(20)
+//                yyyymmTextView.height = 100
+//                yyyymmTextView.gravity = (Gravity.CENTER or Gravity.LEFT)
+//
+//                recordLinearLayout.addView(yyyymmTextView)
+//
+//                val size = pEtOfficeGetReportList.infoJson().result.group[j].reportlist.size
+//
+//                for (i in 0..size - 1) {
+//                    //each Line
+//                    val ll_eachLine = LinearLayout(activity)
+//                    ll_eachLine.orientation = LinearLayout.HORIZONTAL
+//                    ll_eachLine.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+//                    ll_eachLine.setBackgroundColor(Color.WHITE)
+//                    ll_eachLine.gravity = Gravity.CENTER
+//
+//
+//                    //checkBox
+//                    val checkBoxTag = checkBoxTag(j, i)
+//                    val checkBox = makeCheckBox(checkBoxTag)
+//                    checkBox.visibility = View.GONE
+//                    //arrayListTag.add(checkBoxTag)
+//                    ll_eachLine.addView(checkBox)
+//
+//
+//                    //message
+//                    val m_ll_Message = ll_Message(j, i)
+//                    ll_eachLine.addView(m_ll_Message)
+//
+//
+//
+//                    recordLinearLayout.addView(ll_eachLine)
+//
+//                    //線
+//
+//                    val mLinearLayout2 = linearLayout_line()
+//                    recordLinearLayout.addView(mLinearLayout2)
+//
+//
+//                }
+//
+//            }
+//        }
+//    }
 
     private fun ll_Message(j: Int, i: Int): LinearLayout {
         val mLinearLayout = LinearLayout(activity)
@@ -473,5 +545,11 @@ class ReportFragment : Fragment() {
         fun newInstance(): ReportFragment {
             return ReportFragment()
         }
+    }
+
+    override fun onRefresh() {
+        Log.e(TAG, "onRefresh: begin", )
+        mSwipeRefreshLayout.isRefreshing = false;
+        refreshPage()
     }
 }

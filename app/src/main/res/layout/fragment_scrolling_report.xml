@@ -66,41 +66,56 @@
             android:text="Edit"
             android:textColor="#3F51B5" />
     </LinearLayout>
-    <ScrollView
-        android:id="@+id/scrollViewContent"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="60dp"
         >
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E8E8E8"
-        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_get_report"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+<!--    <ScrollView-->
+<!--        android:id="@+id/scrollViewContent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="60dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        >-->
+<!--        <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#E8E8E8"-->
+<!--        android:orientation="vertical">-->
 
 
-            <!--内容-->
-            <LinearLayout
-                android:id="@+id/record_linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-            </LinearLayout>
-            <!--内容-->
+<!--            &lt;!&ndash;内容&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/record_linearLayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical">-->
+<!--            </LinearLayout>-->
+<!--            &lt;!&ndash;内容&ndash;&gt;-->
 
-            <!--bottom-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="vertical">
-            </LinearLayout>
-            <!--bottom-->
+<!--            &lt;!&ndash;bottom&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="100dp"-->
+<!--                android:orientation="vertical">-->
+<!--            </LinearLayout>-->
+<!--            &lt;!&ndash;bottom&ndash;&gt;-->
 
-        </LinearLayout>
-    </ScrollView>
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
 
 

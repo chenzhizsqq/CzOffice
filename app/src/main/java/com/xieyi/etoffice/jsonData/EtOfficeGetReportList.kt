@@ -89,7 +89,7 @@ class EtOfficeGetReportList {
 
     data class Group(
     val month: String,
-    val reportlist: List<Reportlist>
+    val reportlist: ArrayList<Reportlist>
 )
 
     data class Reportlist(
@@ -103,7 +103,7 @@ class EtOfficeGetReportList {
 )
     data class Result(
     val authflag: String,
-    val group: List<Group>
+    val group: ArrayList<Group>
 )
 
 }
