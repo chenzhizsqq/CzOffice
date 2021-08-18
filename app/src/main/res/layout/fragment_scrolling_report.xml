@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.report.ReportFragment"
-    android:background="#E8E8E8">
+    android:background="@color/f0f0f0">
 
     <LinearLayout
         android:id="@+id/topLL"
@@ -72,7 +72,7 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="60dp"
         >
         <androidx.recyclerview.widget.RecyclerView

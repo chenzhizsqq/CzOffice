@@ -24,13 +24,13 @@ class GetReportListGroupAdapter(
     }
 
     class ViewHolder(binding: GetReportListGroupBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val tv_month: TextView = binding.month
+        private val month: TextView = binding.month
         private val recyclerView:RecyclerView = binding.recyclerViewGetReportReportlist
 
 
         //bind
         fun bind(group: EtOfficeGetReportList.Group,listener:OnAdapterListener) {
-            tv_month.text = group.month
+            this.month.text = group.month
             recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist)
 
         }

@@ -3,6 +3,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
@@ -17,8 +18,6 @@ class GetReportListGroupReportlistAdapter(
     class ViewHolder(binding: GetReportListGroupReportlistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val yyyymmdd: TextView = binding.yyyymmdd
-        private val itemid: TextView = binding.itemid
-        private val holiday: TextView = binding.holiday
         private val title: TextView = binding.title
         private val approval: TextView = binding.approval
         private val content: TextView = binding.content
@@ -27,13 +26,17 @@ class GetReportListGroupReportlistAdapter(
 
         //bind
         fun bind(reportlist: EtOfficeGetReportList.Reportlist) {
-            this.yyyymmdd.text = reportlist.yyyymmdd
-            this.itemid.text = reportlist.itemid
-            this.holiday.text = reportlist.holiday
-            this.title.text = reportlist.title
-            this.approval.text = reportlist.approval
-            this.content.text = reportlist.content
-            this.warning.text = reportlist.warning
+            this.yyyymmdd.text  = reportlist.yyyymmdd
+            this.approval.text  = reportlist.approval
+            if (this.approval.text.isEmpty()){
+                this.warning.text = "未承認"
+                this.warning.setBackgroundResource(R.drawable.ic_round_edge_red)
+            }else{
+                this.warning.text = "承認済み"
+                this.warning.setBackgroundResource(R.drawable.ic_round_edge_blue)
+            }
+            this.title.text     = reportlist.title
+            this.content.text   = reportlist.content
 
         }
     }

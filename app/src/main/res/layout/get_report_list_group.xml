@@ -28,23 +28,18 @@
         <TextView
             android:id="@+id/month"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="bottom"
             android:text="month"
             android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:background="@color/white"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:id="@+id/recycler_view_get_report_reportlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager" />
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@color/line_B8B8B8"
-        />
 </FrameLayout>
