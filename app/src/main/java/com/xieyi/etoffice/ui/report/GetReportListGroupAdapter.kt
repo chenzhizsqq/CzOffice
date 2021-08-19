@@ -3,6 +3,7 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.databinding.GetReportListGroupBinding
@@ -15,6 +16,8 @@ class GetReportListGroupAdapter(
     ,val bVISIBLE: Boolean
     ,val bAllCheck: Boolean
     ,val activity: Activity
+    ,val viewModel: ReportViewModel
+    ,val lifecycleOwner: LifecycleOwner
 
 ) : RecyclerView.Adapter<GetReportListGroupAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
@@ -39,9 +42,11 @@ class GetReportListGroupAdapter(
         fun bind(group: EtOfficeGetReportList.Group,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
                  ,bVISIBLE: Boolean
                  ,bAllCheck: Boolean
-                 ,activity: Activity) {
+                 ,activity: Activity
+                 , viewModel: ReportViewModel
+                 ,lifecycleOwner: LifecycleOwner) {
             this.month.text = Tools.dateGetYear(group.month)+"."+Tools.dateGetMonth(group.month)
-            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist,arrayListTagYmd,bVISIBLE,bAllCheck,activity)
+            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist,arrayListTagYmd,bVISIBLE,bAllCheck,activity,viewModel,lifecycleOwner)
 
         }
     }
@@ -57,6 +62,7 @@ class GetReportListGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getReportListGroup[position],arrayListTagYmd,bVISIBLE,bAllCheck,activity)
+        holder.bind(getReportListGroup[position],arrayListTagYmd,bVISIBLE,bAllCheck,activity,viewModel
+            ,lifecycleOwner)
     }
 }

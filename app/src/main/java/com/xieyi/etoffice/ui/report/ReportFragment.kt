@@ -10,6 +10,7 @@ import android.view.*
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
@@ -67,6 +68,7 @@ class ReportFragment : Fragment(),
 
 
 
+    private lateinit var viewModel: ReportViewModel
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -74,6 +76,8 @@ class ReportFragment : Fragment(),
     ): View {
         binding = FragmentScrollingReportBinding.inflate(inflater, container, false)
 
+        viewModel =
+            ViewModelProvider(this).get(ReportViewModel::class.java)
         refreshPage()
 
         mSwipeRefreshLayout= binding.swipeRefreshLayout
@@ -111,7 +115,7 @@ class ReportFragment : Fragment(),
     }
 
 
-    private fun topMenu() {
+    private fun topMenuOld() {
         val tv_allSelect: TextView = binding.allSelect
         tv_allSelect.visibility = View.INVISIBLE
 
@@ -154,10 +158,47 @@ class ReportFragment : Fragment(),
                 }
             }
         }
-        
+
         //commit click
         tv_commit.setOnClickListener {
             commitAlertDialog(tv_allSelect, tv_commit, iv_people)
+            //commitClick(tv_allSelect, tv_commit, iv_people)
+
+        }
+    }
+
+    private fun topMenu() {
+        binding.allSelect.visibility = View.INVISIBLE
+
+
+
+        val tv_commit: TextView = binding.commit
+        tv_commit.visibility = View.INVISIBLE
+
+        val iv_people: ImageView = binding.people
+        iv_people.visibility = View.INVISIBLE
+        //出勤記録を表示します
+        iv_people.setOnClickListener {
+            val mHomeReportDialog = HomeReportDialog()
+
+            val fragmentManager = this@ReportFragment.parentFragmentManager
+            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog")  }
+        }
+
+
+        binding.edit.setOnClickListener(View.OnClickListener {
+            tvEditSrcChange(binding.allSelect, tv_commit, iv_people)
+        })
+
+
+        //allSelect click
+        binding.allSelect.setOnClickListener {
+            viewModel.allSelectChange()
+        }
+
+        //commit click
+        tv_commit.setOnClickListener {
+            commitAlertDialog(binding.allSelect, tv_commit, iv_people)
             //commitClick(tv_allSelect, tv_commit, iv_people)
 
         }
@@ -269,7 +310,7 @@ class ReportFragment : Fragment(),
 
             mAdapter= activity?.let {
                 GetReportListGroupAdapter(pEtOfficeGetReportList.infoJson().result.group,arrayListTagYmd,bVISIBLE,bAllCheck,
-                    it
+                    it,viewModel,viewLifecycleOwner
                 )
             }!!
             mRecyclerView.adapter = mAdapter

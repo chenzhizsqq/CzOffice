@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
@@ -21,6 +22,8 @@ class GetReportListGroupReportlistAdapter(
     ,val bVISIBLE: Boolean
     ,val bAllCheck: Boolean
     ,val activity: Activity
+    ,val viewModel: ReportViewModel
+    ,val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
     val TAG: String = javaClass.simpleName
 
@@ -38,10 +41,14 @@ class GetReportListGroupReportlistAdapter(
 
 
         //bind
-        fun bind(reportlist: EtOfficeGetReportList.Reportlist,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
-                 , bVISIBLE: Boolean
-                 , bAllCheck: Boolean
-                ,activity: Activity
+        fun bind(
+            reportlist: EtOfficeGetReportList.Reportlist
+            ,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
+            , bVISIBLE: Boolean
+            , bAllCheck: Boolean
+            ,activity: Activity
+            , viewModel: ReportViewModel
+            ,lifecycleOwner: LifecycleOwner
         ) {
             this.yyyymmdd.text  = Tools.allDate(reportlist.yyyymmdd)
             this.approval.text  = reportlist.approval
@@ -78,6 +85,9 @@ class GetReportListGroupReportlistAdapter(
 
             })
 
+            viewModel.allSelect.observe(lifecycleOwner,{
+                this.checkbox.isChecked = it
+            })
         }
     }
 
@@ -96,9 +106,12 @@ class GetReportListGroupReportlistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getReportListReportlist[position],arrayListTagYmd
+        holder.bind(
+            getReportListReportlist[position],arrayListTagYmd
             , bVISIBLE
             , bAllCheck
-            , activity)
+            , activity
+            , viewModel
+        ,lifecycleOwner)
     }
 }
