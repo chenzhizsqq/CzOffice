@@ -8,7 +8,10 @@ import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
 //EtOfficeGetReportList.json result中的group
 class GetReportListGroupAdapter(
-    val getReportListGroup: ArrayList<EtOfficeGetReportList.Group>,
+    val getReportListGroup: ArrayList<EtOfficeGetReportList.Group>
+    ,var arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
+    ,val bVISIBLE: Boolean
+    ,val bAllCheck: Boolean
 ) : RecyclerView.Adapter<GetReportListGroupAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -29,9 +32,10 @@ class GetReportListGroupAdapter(
 
 
         //bind
-        fun bind(group: EtOfficeGetReportList.Group,listener:OnAdapterListener) {
+        fun bind(group: EtOfficeGetReportList.Group,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>,bVISIBLE: Boolean
+                 ,bAllCheck: Boolean) {
             this.month.text = group.month
-            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist)
+            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist,arrayListTagYmd,bVISIBLE,bAllCheck)
 
         }
     }
@@ -47,12 +51,6 @@ class GetReportListGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getReportListGroup[position],listener)
-    }
-
-    fun notifyDataAdd(group: EtOfficeGetReportList.Group) {
-        //Log.e(TAG, "notifyDataAdd: sectionList:$sectionList", )
-        this.getReportListGroup.add(group)
-        notifyDataSetChanged()
+        holder.bind(getReportListGroup[position],arrayListTagYmd,bVISIBLE,bAllCheck)
     }
 }

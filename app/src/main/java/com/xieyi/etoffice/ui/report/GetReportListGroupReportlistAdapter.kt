@@ -1,6 +1,8 @@
 package com.xieyi.etoffice.ui.report
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
@@ -9,7 +11,10 @@ import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
 //EtOfficeGetReportList.json result-group-reportlist
 class GetReportListGroupReportlistAdapter(
-    val getReportListReportlist: ArrayList<EtOfficeGetReportList.Reportlist>,
+    val getReportListReportlist: ArrayList<EtOfficeGetReportList.Reportlist>
+    ,var arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
+    ,val bVISIBLE: Boolean
+    ,val bAllCheck: Boolean
 ) : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
     val TAG: String = javaClass.simpleName
 
@@ -22,10 +27,13 @@ class GetReportListGroupReportlistAdapter(
         private val approval: TextView = binding.approval
         private val content: TextView = binding.content
         private val warning: TextView = binding.warning
+        private val checkbox: CheckBox = binding.checkbox
 
 
         //bind
-        fun bind(reportlist: EtOfficeGetReportList.Reportlist) {
+        fun bind(reportlist: EtOfficeGetReportList.Reportlist,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
+                 , bVISIBLE: Boolean
+                 , bAllCheck: Boolean) {
             this.yyyymmdd.text  = reportlist.yyyymmdd
             this.approval.text  = reportlist.approval
             if (this.approval.text.isEmpty()){
@@ -37,6 +45,22 @@ class GetReportListGroupReportlistAdapter(
             }
             this.title.text     = reportlist.title
             this.content.text   = reportlist.content
+
+            //checkbox
+            this.checkbox.tag = reportlist.yyyymmdd
+            if(!bVISIBLE){
+                this.checkbox.visibility = View.GONE
+            }
+            if(bAllCheck){
+                this.checkbox.isChecked = bAllCheck
+            }
+
+            val tagYmd = ReportFragment.checkTagYmd()
+            tagYmd.tag=this.checkbox.tag.toString()
+            tagYmd.ymd=reportlist.yyyymmdd
+            arrayListTagYmd.add(tagYmd)
+
+
 
         }
     }
@@ -56,6 +80,8 @@ class GetReportListGroupReportlistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getReportListReportlist[position])
+        holder.bind(getReportListReportlist[position],arrayListTagYmd
+            , bVISIBLE
+            , bAllCheck)
     }
 }

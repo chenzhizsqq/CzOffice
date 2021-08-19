@@ -43,13 +43,12 @@ class ReportFragment : Fragment(),
 
     private lateinit var binding: FragmentScrollingReportBinding
 
-    private var listInt = 0
     private var bVISIBLE: Boolean = false
 
     private var bAllCheck: Boolean = false
 
 
-    inner class checkTagYmd{
+    class checkTagYmd{
         var tag:String = ""
         var ymd:String = ""
 
@@ -84,20 +83,6 @@ class ReportFragment : Fragment(),
 
 
         mRecyclerView = binding.recyclerViewGetReport
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    if(!recyclerView.canScrollVertically(1)){
-                        Log.e(TAG, "onScrollStateChanged: more date", )
-                        mSwipeRefreshLayout.isRefreshing = false
-                        moreData(1)
-
-                    }
-                }
-
-            }
-        })
 
         topMenu()
 
@@ -282,12 +267,9 @@ class ReportFragment : Fragment(),
             bAllCheck = false
 
 
-            val groupEmpty = ArrayList<EtOfficeGetReportList.Group>()
-            mAdapter= GetReportListGroupAdapter(groupEmpty)
+            mAdapter= GetReportListGroupAdapter(pEtOfficeGetReportList.infoJson().result.group,arrayListTagYmd,bVISIBLE,bAllCheck)
             mRecyclerView.adapter = mAdapter
 
-            listInt = 0
-            moreData(1)
 
 
             mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener{
@@ -303,16 +285,6 @@ class ReportFragment : Fragment(),
         }
     }
 
-    //获取更多数据 add是数量
-    private fun moreData(add:Int) {
-        val maxInt = pEtOfficeGetReportList.infoJson().result.group.size
-        for (i in 0..add - 1) {
-            if (listInt < maxInt) {
-                mAdapter.notifyDataAdd(pEtOfficeGetReportList.infoJson().result.group[listInt])
-                listInt++
-            }
-        }
-    }
 
 //    private suspend fun doOnUiCodeOld() {
 //        withContext(Dispatchers.Main) {
@@ -473,7 +445,7 @@ class ReportFragment : Fragment(),
         return checkBox
     }
 
-    private fun checkBoxTag(j: Int,i: Int): String {
+    fun checkBoxTag(j: Int,i: Int): String {
         return "radioButton_id_j_" + j + "_i_" + i
     }
 
