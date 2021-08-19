@@ -1,11 +1,16 @@
 package com.xieyi.etoffice.ui.report
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
@@ -15,6 +20,7 @@ class GetReportListGroupReportlistAdapter(
     ,var arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
     ,val bVISIBLE: Boolean
     ,val bAllCheck: Boolean
+    ,val activity: Activity
 ) : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
     val TAG: String = javaClass.simpleName
 
@@ -28,13 +34,16 @@ class GetReportListGroupReportlistAdapter(
         private val content: TextView = binding.content
         private val warning: TextView = binding.warning
         private val checkbox: CheckBox = binding.checkbox
+        private val ll: LinearLayout = binding.ll
 
 
         //bind
         fun bind(reportlist: EtOfficeGetReportList.Reportlist,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
                  , bVISIBLE: Boolean
-                 , bAllCheck: Boolean) {
-            this.yyyymmdd.text  = reportlist.yyyymmdd
+                 , bAllCheck: Boolean
+                ,activity: Activity
+        ) {
+            this.yyyymmdd.text  = Tools.allDate(reportlist.yyyymmdd)
             this.approval.text  = reportlist.approval
             if (this.approval.text.isEmpty()){
                 this.warning.text = "未承認"
@@ -60,7 +69,14 @@ class GetReportListGroupReportlistAdapter(
             tagYmd.ymd=reportlist.yyyymmdd
             arrayListTagYmd.add(tagYmd)
 
+            ll.setOnClickListener(View.OnClickListener {
+                EtOfficeApp.selectUi = 3
+                val intent = Intent(activity, ReportDetailActivity::class.java)
+                intent.putExtra("ReportFragmentMessage", reportlist.yyyymmdd)
+                activity.startActivity(intent)
+                activity.finish()
 
+            })
 
         }
     }
@@ -82,6 +98,7 @@ class GetReportListGroupReportlistAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getReportListReportlist[position],arrayListTagYmd
             , bVISIBLE
-            , bAllCheck)
+            , bAllCheck
+            , activity)
     }
 }

@@ -267,7 +267,11 @@ class ReportFragment : Fragment(),
             bAllCheck = false
 
 
-            mAdapter= GetReportListGroupAdapter(pEtOfficeGetReportList.infoJson().result.group,arrayListTagYmd,bVISIBLE,bAllCheck)
+            mAdapter= activity?.let {
+                GetReportListGroupAdapter(pEtOfficeGetReportList.infoJson().result.group,arrayListTagYmd,bVISIBLE,bAllCheck,
+                    it
+                )
+            }!!
             mRecyclerView.adapter = mAdapter
 
 

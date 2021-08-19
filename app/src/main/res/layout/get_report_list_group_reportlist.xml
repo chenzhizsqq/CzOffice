@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
+        android:id="@+id/ll"
         >
         <LinearLayout
             android:layout_width="match_parent"
