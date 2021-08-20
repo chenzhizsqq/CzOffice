@@ -13,7 +13,6 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
@@ -132,6 +131,7 @@ class HomeFragment : Fragment() {
     private fun refreshPage() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
+                Log.e(TAG, "refreshPage: begin", )
 
 
                 //出勤記録 データ更新
