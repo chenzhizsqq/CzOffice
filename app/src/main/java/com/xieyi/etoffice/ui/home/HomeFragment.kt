@@ -13,6 +13,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
@@ -20,7 +21,8 @@ import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),
+    SwipeRefreshLayout.OnRefreshListener  {
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
     private lateinit var pEtOfficeGetMessage : EtOfficeGetMessage
     private lateinit var mAdapter: GetMessageAdapter
 
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,9 @@ class HomeFragment : Fragment() {
 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        mSwipeRefreshLayout= binding.swipeRefreshLayout
+        // Listenerをセット
+        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         val textCompanyTitle: TextView = binding.textCompanyTitle
         homeViewModel.companyTitle.observe(viewLifecycleOwner, Observer {
@@ -65,40 +71,35 @@ class HomeFragment : Fragment() {
             textDate.text = it
         })
 
-        val ll_inWork: LinearLayout = binding.inWork
-        ll_inWork.setOnClickListener {
+        binding.inWork.setOnClickListener {
 //            Tools.showMsg(mainView,"勤務中")
 //            tv_state.text = "勤務中"
 
             showStatusDialog("1","勤務中")
         }
 
-        val ll_outWork: LinearLayout = binding.outWork
-        ll_outWork.setOnClickListener {
+        binding.outWork.setOnClickListener {
 //            Tools.showMsg(mainView,"勤務外")
 //            tv_state.text = "勤務外"
 
             showStatusDialog("2","勤務外")
         }
 
-        val ll_sleep: LinearLayout = binding.sleep
-        ll_sleep.setOnClickListener {
+        binding.sleep.setOnClickListener {
 //            Tools.showMsg(mainView,"休憩中")
 //            tv_state.text = "休憩中"
 
             showStatusDialog("3","休憩中")
         }
 
-        val ll_moving: LinearLayout = binding.moving
-        ll_moving.setOnClickListener {
+        binding.moving.setOnClickListener {
 //            Tools.showMsg(mainView,"移動中")
 //            tv_state.text = "移動中"
 
             showStatusDialog("4","移動中")
         }
 
-        val ll_meeting: LinearLayout = binding.meeting
-        ll_meeting.setOnClickListener {
+        binding.meeting.setOnClickListener {
 //            Tools.showMsg(mainView,"会議中")
 //            tv_state.text = "会議中"
 
@@ -107,11 +108,7 @@ class HomeFragment : Fragment() {
 
 
         //出勤記録を表示します
-        val recordTableTableLayout: LinearLayout =
-            binding.stateLayout
-        recordTableTableLayout.setOnClickListener {
-
-
+        binding.stateLayout.setOnClickListener {
             val mHomeReportDialog = HomeReportDialog()
 
             val fragmentManager = this@HomeFragment.parentFragmentManager
@@ -331,5 +328,11 @@ class HomeFragment : Fragment() {
         l1.addView(t2)
 
         return l1
+    }
+
+    override fun onRefresh() {
+
+        mSwipeRefreshLayout.isRefreshing = false;
+        refreshPage()
     }
 }
