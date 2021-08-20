@@ -25,7 +25,7 @@
         android:id="@+id/report_fragment"
         android:name="com.xieyi.etoffice.ui.report.ReportFragment"
         android:label="@string/title_report"
-        tools:layout="@layout/fragment_scrolling_report" />
+        tools:layout="@layout/fragment_report" />
     <fragment
         android:id="@+id/MyPageFragment"
         android:name="com.xieyi.etoffice.ui.MyPage.MyPageFragment"

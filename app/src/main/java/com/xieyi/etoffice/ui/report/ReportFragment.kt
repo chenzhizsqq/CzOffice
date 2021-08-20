@@ -1,22 +1,15 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.AlertDialog
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.*
 import android.widget.*
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.xieyi.etoffice.EtOfficeApp
-import com.xieyi.etoffice.R
-import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.databinding.FragmentScrollingReportBinding
+import com.xieyi.etoffice.databinding.FragmentReportBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 import com.xieyi.etoffice.jsonData.EtOfficeSetApprovalJsk
 
@@ -40,7 +33,7 @@ class ReportFragment : Fragment(),
     private lateinit var mAdapter: GetReportListGroupAdapter
 
 
-    private lateinit var binding: FragmentScrollingReportBinding
+    private lateinit var binding: FragmentReportBinding
 
 
 
@@ -69,7 +62,7 @@ class ReportFragment : Fragment(),
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        binding = FragmentScrollingReportBinding.inflate(inflater, container, false)
+        binding = FragmentReportBinding.inflate(inflater, container, false)
 
         viewModel =
             ViewModelProvider(this).get(ReportViewModel::class.java)
