@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,10 @@ import androidx.lifecycle.ViewModel
 class ReportViewModel: ViewModel()  {
     private val TAG = javaClass.simpleName
     private val mAllSelect = MutableLiveData(false)
-    private val mIsHidden = MutableLiveData(false)
+    private val mVisibility = MutableLiveData(View.GONE)
 
     val allSelect: LiveData<Boolean> = mAllSelect
-    val isHidden: LiveData<Boolean> = mIsHidden
+    val visibility: LiveData<Int> = mVisibility
 
 
     fun allSelectChange() {
@@ -22,11 +23,12 @@ class ReportViewModel: ViewModel()  {
         }
     }
 
-    fun isHiddenChange() {
-        if (mIsHidden.value == true){
-            mIsHidden.value =false
-        }else if (mIsHidden.value == false){
-            mIsHidden.value =true
+    fun visibilityChange() {
+        Log.e(TAG, "visibilityChange: begin", )
+        if (mVisibility.value == View.VISIBLE){
+            mVisibility.value =View.GONE
+        }else if (mVisibility.value == View.GONE){
+            mVisibility.value =View.VISIBLE
         }
     }
 }

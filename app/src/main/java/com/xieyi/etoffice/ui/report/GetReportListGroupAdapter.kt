@@ -13,8 +13,6 @@ import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 class GetReportListGroupAdapter(
     val getReportListGroup: ArrayList<EtOfficeGetReportList.Group>
     ,var arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
-    ,val bVISIBLE: Boolean
-    ,val bAllCheck: Boolean
     ,val activity: Activity
     ,val viewModel: ReportViewModel
     ,val lifecycleOwner: LifecycleOwner
@@ -39,14 +37,15 @@ class GetReportListGroupAdapter(
 
 
         //bind
-        fun bind(group: EtOfficeGetReportList.Group,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
-                 ,bVISIBLE: Boolean
-                 ,bAllCheck: Boolean
-                 ,activity: Activity
-                 , viewModel: ReportViewModel
-                 ,lifecycleOwner: LifecycleOwner) {
+        fun bind(
+            group: EtOfficeGetReportList.Group
+            ,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
+            ,activity: Activity
+            , viewModel: ReportViewModel
+            ,lifecycleOwner: LifecycleOwner
+        ) {
             this.month.text = Tools.dateGetYear(group.month)+"."+Tools.dateGetMonth(group.month)
-            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist,arrayListTagYmd,bVISIBLE,bAllCheck,activity,viewModel,lifecycleOwner)
+            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist,arrayListTagYmd,activity,viewModel,lifecycleOwner)
 
         }
     }
@@ -62,7 +61,7 @@ class GetReportListGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getReportListGroup[position],arrayListTagYmd,bVISIBLE,bAllCheck,activity,viewModel
+        holder.bind(getReportListGroup[position],arrayListTagYmd,activity,viewModel
             ,lifecycleOwner)
     }
 }

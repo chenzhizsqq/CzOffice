@@ -19,8 +19,6 @@ import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 class GetReportListGroupReportlistAdapter(
     val getReportListReportlist: ArrayList<EtOfficeGetReportList.Reportlist>
     ,var arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
-    ,val bVISIBLE: Boolean
-    ,val bAllCheck: Boolean
     ,val activity: Activity
     ,val viewModel: ReportViewModel
     ,val lifecycleOwner: LifecycleOwner
@@ -44,8 +42,6 @@ class GetReportListGroupReportlistAdapter(
         fun bind(
             reportlist: EtOfficeGetReportList.Reportlist
             ,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
-            , bVISIBLE: Boolean
-            , bAllCheck: Boolean
             ,activity: Activity
             , viewModel: ReportViewModel
             ,lifecycleOwner: LifecycleOwner
@@ -64,12 +60,6 @@ class GetReportListGroupReportlistAdapter(
 
             //checkbox
             this.checkbox.tag = reportlist.yyyymmdd
-            if(!bVISIBLE){
-                this.checkbox.visibility = View.GONE
-            }
-            if(bAllCheck){
-                this.checkbox.isChecked = bAllCheck
-            }
 
             val tagYmd = ReportFragment.checkTagYmd()
             tagYmd.tag=this.checkbox.tag.toString()
@@ -77,16 +67,22 @@ class GetReportListGroupReportlistAdapter(
             arrayListTagYmd.add(tagYmd)
 
             ll.setOnClickListener(View.OnClickListener {
-                EtOfficeApp.selectUi = 3
-                val intent = Intent(activity, ReportDetailActivity::class.java)
-                intent.putExtra("ReportFragmentMessage", reportlist.yyyymmdd)
-                activity.startActivity(intent)
-                activity.finish()
+                if(viewModel.visibility.value == View.GONE) {
+                    EtOfficeApp.selectUi = 3
+                    val intent = Intent(activity, ReportDetailActivity::class.java)
+                    intent.putExtra("ReportFragmentMessage", reportlist.yyyymmdd)
+                    activity.startActivity(intent)
+                    activity.finish()
+                }
 
             })
 
             viewModel.allSelect.observe(lifecycleOwner,{
                 this.checkbox.isChecked = it
+            })
+
+            viewModel.visibility.observe(lifecycleOwner,{
+                this.checkbox.visibility = it
             })
         }
     }
@@ -107,9 +103,8 @@ class GetReportListGroupReportlistAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
-            getReportListReportlist[position],arrayListTagYmd
-            , bVISIBLE
-            , bAllCheck
+            getReportListReportlist[position]
+            ,arrayListTagYmd
             , activity
             , viewModel
         ,lifecycleOwner)
