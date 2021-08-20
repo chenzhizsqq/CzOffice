@@ -13,6 +13,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
@@ -32,6 +33,7 @@ class HomeFragment : Fragment() {
     private lateinit var pEtOfficeGetUserStatus : EtOfficeGetUserStatus
     private lateinit var pEtOfficeGetStatusList : EtOfficeGetStatusList
     private lateinit var pEtOfficeGetMessage : EtOfficeGetMessage
+    private lateinit var mAdapter: GetMessageAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,25 +139,28 @@ class HomeFragment : Fragment() {
                     val r: String = pEtOfficeGetUserStatus.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
 
-
+                    if (r=="0"){
+                        //今状態 データ更新
+                        doOnUiCode_NowStatus()
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetUserStatus", e)
 
                 }
 
 
-                //今状態 データ更新
-                doOnUiCode_NowStatus()
 
 
                 //GetStatusList
                 try {
                     val r: String = pEtOfficeGetStatusList.post()                   //Json 送信
                     Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
+                    if (r=="0"){
+                        doOnUiCode_GetStatusList()
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetStatusList.post()", e)
                 }
-                doOnUiCode_GetStatusList()
 
 
                 //Message データ更新
@@ -164,11 +169,13 @@ class HomeFragment : Fragment() {
                     Log.e(TAG, "pEtOfficeGetMessage.post() :$r")
 
 
+                    if(r=="0"){
+                        doOnUiCode_Message()
+                    }
                 } catch (e: Exception) {
                     Log.e(TAG, "pEtOfficeGetMessage.post()", e)
 
                 }
-                doOnUiCode_Message()
             }
         }
     }
@@ -255,35 +262,14 @@ class HomeFragment : Fragment() {
     // Message UI更新
     private suspend fun doOnUiCode_Message() {
         withContext(Dispatchers.Main) {
+            Log.e(TAG, "doOnUiCode_Message: begin", )
 
-
-            val size = pEtOfficeGetMessage.infoJson().result.messagelist.size
-            Log.e(TAG, "messagelist.size: $size")
-            val messageLayout = binding.messageLayout
-            messageLayout.removeAllViews()
-
-
-            for (i in 0..size - 1) {
-
-
-                val title = pEtOfficeGetMessage.infoJson().result.messagelist[i].title
-                val updatetime = pEtOfficeGetMessage.infoJson().result.messagelist[i].updatetime
-                val content = pEtOfficeGetMessage.infoJson().result.messagelist[i].content
-
-                val eachLine = eachLine(title,Tools.allDateTime(updatetime),content)
-
-                val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-
-                layoutParams.setMargins(10, 10, 10, 0)
-
-                messageLayout.addView(eachLine, layoutParams)
-            }
-
+            mAdapter=GetMessageAdapter(pEtOfficeGetMessage.infoJson().result.messagelist)
+            binding.recyclerMessage.adapter = mAdapter
 
         }
     }
+
 
     private fun eachLine(s1:String,s2:String,s3:String): LinearLayout {
         val eachLine = LinearLayout(activity)
