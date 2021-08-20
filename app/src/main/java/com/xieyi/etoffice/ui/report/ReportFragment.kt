@@ -88,7 +88,6 @@ class ReportFragment : Fragment(),
                 arrayListTagYmd.clear()
                 //データ更新
                 try {
-
                     //日報一覧取得
                     val r = pEtOfficeGetReportList.post()
                     Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
@@ -141,26 +140,16 @@ class ReportFragment : Fragment(),
         }
     }
 
-    private fun commitClick() {
+    private fun commitClick(ymdArray : ArrayList<String>) {
         if (viewModel.visibility.value == View.VISIBLE) {
             try {
                 GlobalScope.launch(errorHandler) {
                     withContext(Dispatchers.IO) {
                         //指定された　発信
-                        val ymdArray = ArrayList<String>()
-                        for (tagYmd in arrayListTagYmd) {
-                            val checkBox: CheckBox =
-                                binding.root.findViewWithTag(tagYmd.tag) as CheckBox
-                            if (checkBox.isChecked) {
-
-                                ymdArray.add(tagYmd.ymd)
-                            }
-                        }
                         if(ymdArray.size>0){
                             var r: String = "-1"
                             r = pEtOfficeSetApprovalJsk.post(ymdArray)
                             Log.e(TAG, "topMenu: r:$r")
-
 
                             if(r=="0"){
                                 //データ更新
@@ -232,7 +221,6 @@ class ReportFragment : Fragment(),
             val checkBox: CheckBox =
                 binding.root.findViewWithTag(tagYmd.tag) as CheckBox
             if (checkBox.isChecked) {
-
                 ymdArray.add(tagYmd.ymd)
             }
         }
@@ -241,7 +229,7 @@ class ReportFragment : Fragment(),
                 .setTitle("消息")
                 .setMessage("現在選択されている情報を承認しますか？")
                 .setPositiveButton("确定") { _, which ->
-                    commitClick()
+                    commitClick(ymdArray)
                 }
                 .setNegativeButton("取消") { _, which ->
                 }
