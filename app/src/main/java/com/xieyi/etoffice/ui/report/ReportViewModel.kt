@@ -23,6 +23,11 @@ class ReportViewModel: ViewModel()  {
         }
     }
 
+    fun allSelectChangeFalse() {
+            mAllSelect.value =false
+    }
+
+
     fun visibilityChange() {
         Log.e(TAG, "visibilityChange: begin", )
         if (mVisibility.value == View.VISIBLE){
