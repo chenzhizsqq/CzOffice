@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
 
@@ -41,9 +42,7 @@ class HomeFragment : Fragment() {
         pEtOfficeGetMessage = EtOfficeGetMessage()
     }
 
-
-    private lateinit var mainView: View
-
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,19 +51,20 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        mainView = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val textCompanyTitle: TextView = mainView.findViewById(R.id.text_company_title)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        val textCompanyTitle: TextView = binding.textCompanyTitle
         homeViewModel.companyTitle.observe(viewLifecycleOwner, Observer {
             textCompanyTitle.text = it
         })
 
-        val textDate: TextView = mainView.findViewById(R.id.text_time)
+        val textDate: TextView = binding.textTime
         homeViewModel.date.observe(viewLifecycleOwner, Observer {
             textDate.text = it
         })
 
-        val ll_inWork: LinearLayout = mainView.findViewById(R.id.in_work)
+        val ll_inWork: LinearLayout = binding.inWork
         ll_inWork.setOnClickListener {
 //            Tools.showMsg(mainView,"勤務中")
 //            tv_state.text = "勤務中"
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
             showStatusDialog("1","勤務中")
         }
 
-        val ll_outWork: LinearLayout = mainView.findViewById(R.id.out_work)
+        val ll_outWork: LinearLayout = binding.outWork
         ll_outWork.setOnClickListener {
 //            Tools.showMsg(mainView,"勤務外")
 //            tv_state.text = "勤務外"
@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
             showStatusDialog("2","勤務外")
         }
 
-        val ll_sleep: LinearLayout = mainView.findViewById(R.id.sleep)
+        val ll_sleep: LinearLayout = binding.sleep
         ll_sleep.setOnClickListener {
 //            Tools.showMsg(mainView,"休憩中")
 //            tv_state.text = "休憩中"
@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
             showStatusDialog("3","休憩中")
         }
 
-        val ll_moving: LinearLayout = mainView.findViewById(R.id.moving)
+        val ll_moving: LinearLayout = binding.moving
         ll_moving.setOnClickListener {
 //            Tools.showMsg(mainView,"移動中")
 //            tv_state.text = "移動中"
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
             showStatusDialog("4","移動中")
         }
 
-        val ll_meeting: LinearLayout = mainView.findViewById(R.id.meeting)
+        val ll_meeting: LinearLayout = binding.meeting
         ll_meeting.setOnClickListener {
 //            Tools.showMsg(mainView,"会議中")
 //            tv_state.text = "会議中"
@@ -105,10 +105,9 @@ class HomeFragment : Fragment() {
         }
 
 
-
         //出勤記録を表示します
         val recordTableTableLayout: LinearLayout =
-            mainView.findViewById(R.id.state_layout) as LinearLayout
+            binding.stateLayout
         recordTableTableLayout.setOnClickListener {
 
 
@@ -124,7 +123,7 @@ class HomeFragment : Fragment() {
         //ページを更新
         refreshPage()
 
-        return mainView
+        return binding.root
     }
 
     //ページを更新
@@ -198,7 +197,7 @@ class HomeFragment : Fragment() {
     // GetStatusList UI更新
     private suspend fun doOnUiCode_GetStatusList() {
         withContext(Dispatchers.Main) {
-            val state_layout = mainView.findViewById<LinearLayout>(R.id.state_layout)
+            val state_layout = binding.stateLayout
             state_layout.removeAllViews()
 
             //表示量
@@ -243,7 +242,7 @@ class HomeFragment : Fragment() {
             {
                 Log.e(TAG, "doOnUiCode_NowStatus: size>0", )
 
-                val tvState = mainView.findViewById<TextView>(R.id.state)
+                val tvState = binding.state
                 val statustext = pEtOfficeGetUserStatus.infoJson().result.userstatuslist[0].statustext
 
                 Log.e(TAG, "doOnUiCode_NowStatus: statustext:$statustext", )
@@ -260,7 +259,7 @@ class HomeFragment : Fragment() {
 
             val size = pEtOfficeGetMessage.infoJson().result.messagelist.size
             Log.e(TAG, "messagelist.size: $size")
-            val messageLayout = mainView.findViewById<LinearLayout>(R.id.message_layout)
+            val messageLayout = binding.messageLayout
             messageLayout.removeAllViews()
 
 
