@@ -28,9 +28,6 @@ class HomeFragment : Fragment(),
 
     private val TAG = javaClass.simpleName
 
-    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
-    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
-
     private lateinit var pEtOfficeGetUserStatus : EtOfficeGetUserStatus
     private lateinit var pEtOfficeGetStatusList : EtOfficeGetStatusList
     private lateinit var pEtOfficeGetMessage : EtOfficeGetMessage
@@ -57,6 +54,7 @@ class HomeFragment : Fragment(),
 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         mSwipeRefreshLayout= binding.swipeRefreshLayout
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this);
@@ -72,37 +70,22 @@ class HomeFragment : Fragment(),
         })
 
         binding.inWork.setOnClickListener {
-//            Tools.showMsg(mainView,"勤務中")
-//            tv_state.text = "勤務中"
-
             showStatusDialog("1","勤務中")
         }
 
         binding.outWork.setOnClickListener {
-//            Tools.showMsg(mainView,"勤務外")
-//            tv_state.text = "勤務外"
-
             showStatusDialog("2","勤務外")
         }
 
         binding.sleep.setOnClickListener {
-//            Tools.showMsg(mainView,"休憩中")
-//            tv_state.text = "休憩中"
-
             showStatusDialog("3","休憩中")
         }
 
         binding.moving.setOnClickListener {
-//            Tools.showMsg(mainView,"移動中")
-//            tv_state.text = "移動中"
-
             showStatusDialog("4","移動中")
         }
 
         binding.meeting.setOnClickListener {
-//            Tools.showMsg(mainView,"会議中")
-//            tv_state.text = "会議中"
-
             showStatusDialog("5","会議中")
         }
 
@@ -265,69 +248,6 @@ class HomeFragment : Fragment(),
             binding.recyclerMessage.adapter = mAdapter
 
         }
-    }
-
-
-    private fun eachLine(s1:String,s2:String,s3:String): LinearLayout {
-        val eachLine = LinearLayout(activity)
-
-        eachLine.orientation = LinearLayout.VERTICAL
-
-        eachLine.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
-
-        eachLine.setBackgroundResource(R.drawable.ic_round_edge_white)
-
-
-
-        val l1 = topLine(s1,s2)
-
-        eachLine.addView(l1)
-
-        l1.setPadding(20,0,20,0)
-
-        val t3 = TextView(activity)
-
-        t3.text = s3
-
-        t3.setPadding(20)
-
-        eachLine.addView(t3)
-
-
-        return eachLine
-    }
-
-    private fun topLine(s1:String,s2:String): LinearLayout {
-        val l1 = LinearLayout(activity)
-
-        l1.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-
-        val t1 = TextView(activity)
-
-        t1.text = s1
-
-        t1.textSize = 20.0F
-
-        t1.setTextColor(Color.BLACK)
-
-        l1.addView(t1)
-
-
-        val t2 = TextView(activity)
-
-        t2.text = s2
-
-        t2.textSize = 16.0F
-
-        t2.setTextColor(Color.BLACK)
-
-        t2.gravity = Gravity.RIGHT
-
-        t2.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-
-        l1.addView(t2)
-
-        return l1
     }
 
     override fun onRefresh() {
