@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
@@ -21,6 +22,8 @@ import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
+import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
 import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
 
@@ -42,6 +45,9 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
     private lateinit var pEtOfficeGetUserLocation : EtOfficeGetUserLocation
     private lateinit var pEtOfficeSetUserLocation : EtOfficeSetUserLocation
 
+
+    private lateinit var binding: ActivityMyPagePlaceSettingBinding
+
     private fun gpsCheck() {
 
         gpsTracker = GpsTracker(applicationContext)
@@ -53,12 +59,11 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var mainView: View
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_my_page_place_setting)
-        mainView = findViewById(R.id.record_linearLayout)
+        binding = ActivityMyPagePlaceSettingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         pEtOfficeGetUserLocation = EtOfficeGetUserLocation()
         pEtOfficeSetUserLocation = EtOfficeSetUserLocation()
@@ -98,7 +103,7 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
     // UI更新
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
-            val recordLinearLayout = findViewById<LinearLayout>(R.id.record_linearLayout)
+            val recordLinearLayout = binding.recordLinearLayout
             recordLinearLayout.removeAllViews()
 
             val size = pEtOfficeGetUserLocation.infoJson().result.locationlist.size
@@ -186,7 +191,7 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
 
 
             //returnpHome
-            val returnHome = findViewById<ImageView>(R.id.returnHome)
+            val returnHome = binding.returnHome
             returnHome.setOnClickListener {
                 val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
                 startActivity(intent)
@@ -195,7 +200,7 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
             }
 
             //locationAlertDialog
-            val locationAlertDialog = findViewById<ImageView>(R.id.locationAlertDialog)
+            val locationAlertDialog = binding.locationAlertDialog
             locationAlertDialog.setOnClickListener {
 
                 val textInputLayout = TextInputLayout(this@MyPagePlaceSettingActivity)
@@ -239,10 +244,10 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
                         Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
 
                         if (r == "0") {
-                            Tools.showMsg(mainView, "登録します")
+                            Tools.showMsg(binding.recordLinearLayout, "登録します")
                         } else {
                             Tools.showMsg(
-                                mainView,
+                                binding.recordLinearLayout,
                                 pEtOfficeSetUserLocation.infoJson().message
                             )
                         }
