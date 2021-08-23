@@ -25,11 +25,11 @@ object Tools {
         return rStr
     }
 
-    fun srcContent(src: String, maxLength: Int): String {
+    fun srcContent(src: String, maxLength: Int,lastStr:String): String {
         var rString = src
         if (rString.length > maxLength) {
             rString = src.substring(0, maxLength)
-            rString += "..."
+            rString += lastStr
         }
         return rString
     }

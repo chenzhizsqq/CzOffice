@@ -15,14 +15,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.setPadding
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
 import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
 import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
@@ -30,13 +28,9 @@ import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
 import kotlinx.coroutines.*
 
 
-class MyPagePlaceSettingActivity : AppCompatActivity() {
+class MyPagePlaceSettingActivity : AppCompatActivity(),
+    SwipeRefreshLayout.OnRefreshListener {
     private val TAG = javaClass.simpleName
-
-    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
-    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
-
-    private val tagName: String = "PlaceSetting"
 
     private lateinit var gpsTracker: GpsTracker
     private var longitude = 0.0
@@ -46,6 +40,7 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
     private lateinit var pEtOfficeSetUserLocation : EtOfficeSetUserLocation
 
 
+    private lateinit var mAdapter:GetUserLocationAdapter
     private lateinit var binding: ActivityMyPagePlaceSettingBinding
 
     private fun gpsCheck() {
@@ -69,6 +64,9 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
         pEtOfficeSetUserLocation = EtOfficeSetUserLocation()
 
         refreshPage()
+
+        // Listenerをセット
+        binding.swipeRefreshLayout.setOnRefreshListener(this);
 
         gpsCheck()
 
@@ -102,6 +100,54 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
 
     // UI更新
     private suspend fun doOnUiCode() {
+        withContext(Dispatchers.Main) {
+
+
+            mAdapter= GetUserLocationAdapter(pEtOfficeGetUserLocation.infoJson().result.locationlist)
+
+            binding.recyclerView.adapter = mAdapter
+
+            //returnpHome
+            binding.returnHome.setOnClickListener {
+                val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+
+            //locationAlertDialog
+            binding.locationAlertDialog.setOnClickListener {
+
+                val textInputLayout = TextInputLayout(this@MyPagePlaceSettingActivity)
+                val input = EditText(this@MyPagePlaceSettingActivity)
+                input.maxLines = 1
+                input.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
+                textInputLayout.addView(input)
+
+                AlertDialog.Builder(this@MyPagePlaceSettingActivity)
+                    .setTitle("Message")
+                    .setMessage("Please enter an alias for the current location.")
+                    .setView(textInputLayout)
+                    .setPositiveButton("OK") { _, which ->
+                        //Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
+
+                        val location = input.text.toString()
+                        postLocation(location)
+
+                    }
+                    .setNegativeButton("Cancel") { _, which ->
+                    }
+                    .show()
+
+
+            }
+
+        }
+    }
+
+    /*
+    // UI更新
+    private suspend fun doOnUiCodeOld() {
         withContext(Dispatchers.Main) {
             val recordLinearLayout = binding.recordLinearLayout
             recordLinearLayout.removeAllViews()
@@ -230,6 +276,8 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
         }
     }
 
+     */
+
     private fun postLocation(location: String) {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
@@ -244,10 +292,10 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
                         Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
 
                         if (r == "0") {
-                            Tools.showMsg(binding.recordLinearLayout, "登録します")
+                            Tools.showMsg(binding.root, "登録します")
                         } else {
                             Tools.showMsg(
-                                binding.recordLinearLayout,
+                                binding.root,
                                 pEtOfficeSetUserLocation.infoJson().message
                             )
                         }
@@ -262,5 +310,10 @@ class MyPagePlaceSettingActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onRefresh() {
+        binding.swipeRefreshLayout.isRefreshing = false;
+        refreshPage()
     }
 }
