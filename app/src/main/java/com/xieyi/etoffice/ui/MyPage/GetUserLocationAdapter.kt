@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.databinding.GetUserLocationBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
-import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
 
 
 class GetUserLocationAdapter(
