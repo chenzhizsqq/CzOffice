@@ -17,10 +17,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputLayout
-import com.xieyi.etoffice.GpsTracker
-import com.xieyi.etoffice.MainActivity
-import com.xieyi.etoffice.R
-import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.*
 import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
 import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
@@ -101,6 +98,9 @@ class MyPagePlaceSettingActivity : AppCompatActivity(),
     // UI更新
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
+
+            //record_title
+            binding.recordTitle.text = "REGISTERED"
 
 
             mAdapter= GetUserLocationAdapter(pEtOfficeGetUserLocation.infoJson().result.locationlist)
