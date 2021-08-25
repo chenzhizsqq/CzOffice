@@ -1,6 +1,5 @@
 package com.xieyi.etoffice.ui.report
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,11 +28,14 @@ class ReportViewModel: ViewModel()  {
 
 
     fun visibilityChange() {
-        Log.e(TAG, "visibilityChange: begin", )
         if (mVisibility.value == View.VISIBLE){
             mVisibility.value =View.GONE
         }else if (mVisibility.value == View.GONE){
             mVisibility.value =View.VISIBLE
         }
+    }
+
+    fun isAllSelect(): Boolean? {
+        return mAllSelect.value
     }
 }

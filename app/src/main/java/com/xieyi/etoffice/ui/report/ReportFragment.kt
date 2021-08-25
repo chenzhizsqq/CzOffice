@@ -36,13 +36,7 @@ class ReportFragment : Fragment(),
     private lateinit var binding: FragmentReportBinding
 
 
-
-    class checkTagYmd{
-        var tag:String = ""
-        var ymd:String = ""
-
-    }
-    private val arrayListTagYmd = ArrayList<checkTagYmd>()
+    private val arrayListYmd = ArrayList<String>()
 
 
 
@@ -85,7 +79,7 @@ class ReportFragment : Fragment(),
     private fun refreshPage() {
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {
-                arrayListTagYmd.clear()
+                arrayListYmd.clear()
                 //データ更新
                 try {
                     //日報一覧取得
@@ -130,7 +124,16 @@ class ReportFragment : Fragment(),
 
         //allSelect click
         binding.allSelect.setOnClickListener {
+            arrayListYmd.clear()
             viewModel.allSelectChange()
+            if (viewModel.isAllSelect() == true){
+                for (i in pEtOfficeGetReportList.infoJson().result.group.indices){
+                    for (j in pEtOfficeGetReportList.infoJson().result.group[i].reportlist.indices)
+                        if(!arrayListYmd.contains(pEtOfficeGetReportList.infoJson().result.group[i].reportlist[j].yyyymmdd)) {
+                            arrayListYmd.add(pEtOfficeGetReportList.infoJson().result.group[i].reportlist[j].yyyymmdd)
+                        }
+                }
+            }
         }
 
         //commit click
@@ -140,15 +143,15 @@ class ReportFragment : Fragment(),
         }
     }
 
-    private fun commitClick(ymdArray : ArrayList<String>) {
+    private fun commitClick() {
         if (viewModel.visibility.value == View.VISIBLE) {
             try {
                 GlobalScope.launch(errorHandler) {
                     withContext(Dispatchers.IO) {
                         //指定された　発信
-                        if(ymdArray.size>0){
+                        if(arrayListYmd.size>0){
                             var r: String = "-1"
-                            r = pEtOfficeSetApprovalJsk.post(ymdArray)
+                            r = pEtOfficeSetApprovalJsk.post(arrayListYmd)
                             Log.e(TAG, "topMenu: r:$r")
 
                             if(r=="0"){
@@ -187,7 +190,7 @@ class ReportFragment : Fragment(),
             mAdapter= activity?.let {
                 GetReportListGroupAdapter(
                     pEtOfficeGetReportList.infoJson().result.group
-                    ,arrayListTagYmd
+                    ,arrayListYmd
                     ,it
                     ,viewModel
                     ,viewLifecycleOwner
@@ -215,21 +218,12 @@ class ReportFragment : Fragment(),
 
     private fun commitAlertDialog(){
 
-        val ymdArray = ArrayList<String>()
-
-        for (tagYmd in arrayListTagYmd) {
-            val checkBox: CheckBox =
-                binding.root.findViewWithTag(tagYmd.tag) as CheckBox
-            if (checkBox.isChecked) {
-                ymdArray.add(tagYmd.ymd)
-            }
-        }
-        if(ymdArray.size>0) {
+        if(arrayListYmd.size>0) {
             AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
                 .setTitle("消息")
                 .setMessage("現在選択されている情報を承認しますか？")
                 .setPositiveButton("确定") { _, which ->
-                    commitClick(ymdArray)
+                    commitClick()
                 }
                 .setNegativeButton("取消") { _, which ->
                 }

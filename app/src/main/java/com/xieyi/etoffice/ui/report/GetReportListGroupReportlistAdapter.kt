@@ -18,7 +18,7 @@ import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 //EtOfficeGetReportList.json result-group-reportlist
 class GetReportListGroupReportlistAdapter(
     val getReportListReportlist: ArrayList<EtOfficeGetReportList.Reportlist>
-    ,var arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
+    ,var arrayListYmd:ArrayList<String>
     ,val activity: Activity
     ,val viewModel: ReportViewModel
     ,val lifecycleOwner: LifecycleOwner
@@ -29,19 +29,18 @@ class GetReportListGroupReportlistAdapter(
 
     class ViewHolder(binding: GetReportListGroupReportlistBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val yyyymmdd: TextView = binding.yyyymmdd
-        private val title: TextView = binding.title
-        private val approval: TextView = binding.approval
-        private val content: TextView = binding.content
-        private val warning: TextView = binding.warning
-        private val checkbox: CheckBox = binding.checkbox
-        private val ll: LinearLayout = binding.ll
+        val yyyymmdd: TextView = binding.yyyymmdd
+        val title: TextView = binding.title
+        val approval: TextView = binding.approval
+        val content: TextView = binding.content
+        val warning: TextView = binding.warning
+        val checkbox: CheckBox = binding.checkbox
+        val ll: LinearLayout = binding.ll
 
 
         //bind
         fun bind(
             reportlist: EtOfficeGetReportList.Reportlist
-            ,arrayListTagYmd:ArrayList<ReportFragment.checkTagYmd>
             ,activity: Activity
             , viewModel: ReportViewModel
             ,lifecycleOwner: LifecycleOwner
@@ -61,10 +60,6 @@ class GetReportListGroupReportlistAdapter(
             //checkbox
             this.checkbox.tag = reportlist.yyyymmdd
 
-            val tagYmd = ReportFragment.checkTagYmd()
-            tagYmd.tag=this.checkbox.tag.toString()
-            tagYmd.ymd=reportlist.yyyymmdd
-            arrayListTagYmd.add(tagYmd)
 
             ll.setOnClickListener(View.OnClickListener {
                 if(viewModel.visibility.value == View.GONE) {
@@ -104,9 +99,21 @@ class GetReportListGroupReportlistAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
             getReportListReportlist[position]
-            ,arrayListTagYmd
             , activity
             , viewModel
         ,lifecycleOwner)
+
+
+        holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                if(!arrayListYmd.contains(getReportListReportlist[position].yyyymmdd)){
+                    arrayListYmd.add(getReportListReportlist[position].yyyymmdd)
+                }
+            } else {
+                if(arrayListYmd.contains(getReportListReportlist[position].yyyymmdd)) {
+                    arrayListYmd.remove(getReportListReportlist[position].yyyymmdd)
+                }
+            }
+        }
     }
 }
