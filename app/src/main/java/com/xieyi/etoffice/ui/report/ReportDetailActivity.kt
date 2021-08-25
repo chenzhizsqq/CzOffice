@@ -15,6 +15,8 @@ import androidx.fragment.app.FragmentManager
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
+import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportInfo
 import com.xieyi.etoffice.jsonData.EtOfficeSetComment
 
@@ -36,6 +38,7 @@ class ReportDetailActivity() : AppCompatActivity() {
     private lateinit var pEtOfficeGetReportInfo : EtOfficeGetReportInfo
     private lateinit var pEtOfficeSetComment : EtOfficeSetComment
 
+    private lateinit var binding: ActivityReportDetailBinding
 /*
     {
         "status": 0,
@@ -64,7 +67,8 @@ class ReportDetailActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        setContentView(R.layout.activity_report_detail)
+        binding = ActivityReportDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         pEtOfficeGetReportInfo = EtOfficeGetReportInfo()
         pEtOfficeSetComment = EtOfficeSetComment()
@@ -108,11 +112,11 @@ class ReportDetailActivity() : AppCompatActivity() {
 
 
             //検索の日付
-            val record_date: TextView = findViewById(R.id.record_date)
+            val record_date: TextView = binding.recordDate
             record_date.text = Tools.allDate(date)
 
             //予定
-            val appointment: TextView = findViewById(R.id.appointment)
+            val appointment: TextView = binding.appointment
             appointment.text = pEtOfficeGetReportInfo.infoJson().result.planworktime
 
             //planworklist
@@ -123,7 +127,7 @@ class ReportDetailActivity() : AppCompatActivity() {
 
 
             //実績：
-            val worktime: TextView = findViewById(R.id.worktime)
+            val worktime: TextView = binding.worktime
             worktime.text = pEtOfficeGetReportInfo.infoJson().result.worktime
 
 
@@ -135,7 +139,7 @@ class ReportDetailActivity() : AppCompatActivity() {
 
 
             //ReportDetailFragment open
-            val addView: ImageView = findViewById(R.id.addView)
+            val addView: ImageView = binding.addView
             addView.setOnClickListener {
 
 //                val pReportAddDialog = ReportAddDialog()
@@ -204,7 +208,7 @@ class ReportDetailActivity() : AppCompatActivity() {
     }
 
     private fun planworklistFun() {
-        val planworklist: LinearLayout = findViewById(R.id.planworklist)
+        val planworklist: LinearLayout = binding.planworklist
         planworklist.removeAllViews()
 /*
         {
@@ -240,7 +244,7 @@ class ReportDetailActivity() : AppCompatActivity() {
     }
 
     private fun reportlistFun() {
-        val reportlist: LinearLayout = findViewById(R.id.reportlist)
+        val reportlist: LinearLayout = binding.reportlist
         reportlist.removeAllViews()
 
 
@@ -300,7 +304,7 @@ class ReportDetailActivity() : AppCompatActivity() {
 
     private suspend fun commentlistFun() {
         withContext(Dispatchers.Main) {
-            val commentlist: LinearLayout = findViewById(R.id.commentlist)
+            val commentlist: LinearLayout = binding.commentlist
             commentlist.removeAllViews()
 /*
         "commentlist": [
@@ -357,7 +361,7 @@ class ReportDetailActivity() : AppCompatActivity() {
     }
 
     private fun workstatuslistfun(sizeEachY:Int) {
-        val content: LinearLayout = findViewById(R.id.content)
+        val content: LinearLayout = binding.content
         content.removeAllViews()
 
 
