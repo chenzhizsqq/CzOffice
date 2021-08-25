@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -15,7 +17,10 @@ import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.EtOfficeApp.Companion.context
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.base.BaseActivity
+import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.HttpUtil
+import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
 import com.xieyi.etoffice.enum.ResultType
 import com.xieyi.etoffice.jsonData.EtOfficeLogin
@@ -24,16 +29,15 @@ import okhttp3.*
 import org.json.JSONObject
 import kotlin.concurrent.thread
 
-class LoginActivity : AppCompatActivity(),View.OnClickListener {
+class LoginActivity : BaseActivity(), View.OnClickListener {
     val TAG: String = "LoginActivity"
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
 
-        if(Config.isCode) {
+        if (Config.isCode) {
             binding.userName.setText("demo1@xieyi.co.jp")
             binding.password.setText("pass")
         }
@@ -42,12 +46,12 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
 
         // 读取用户信息，如果已经登录了，直接跳转到Main画面
         val prefs = getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-        val isLogin = prefs.getBoolean("isLogin",false)
+        val isLogin = prefs.getBoolean("isLogin", false)
 
         if (isLogin) {
             Thread {
                 try {
-                    if(Config.isCode) {
+                    if (Config.isCode) {
                         val pEtOfficeLogin = EtOfficeLogin()
                         pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
                     }
@@ -63,88 +67,75 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.btn_login->{
+            R.id.btn_login -> {
                 if (isValid()) {
                     Snackbar.make(view, "登録中....", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
-                    sendLoginRequest()
+                    login()
                 }
             }
         }
     }
 
-    override fun dispatchTouchEvent(motionEvent: MotionEvent): Boolean {
-        // 点击屏幕空白区域，隐藏软键盘
-        if (currentFocus != null) {
-            val inputMethodManager: InputMethodManager =
-                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        }
-        return super.dispatchTouchEvent(motionEvent)
-    }
+    // ログイン処理
+    private fun login() {
+        Api.EtOfficeLogin(
+            context = this@LoginActivity,
+            uid = binding.userName.text.toString(),
+            password = binding.password.text.toString(),
+            registrationid = "6",
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
 
-    // 最新メッセージ一覧取得
-    private fun sendLoginRequest() {
-        thread {
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeLogin")
-            jsonObject.put("uid", binding.userName.text.toString())
-            jsonObject.put("password", binding.password.text.toString())
-            jsonObject.put("registrationid", "6")
-            jsonObject.put("device",Config.Device)
-            // 通信処理
-            HttpUtil.callAsyncHttp(
-                context = EtOfficeApp.context,
-                url = Config.LoginUrl,
-                parameter = jsonObject,
-                classType = LoginResponse::class.java as Class<Any>,
-                authToken = true,
-                fcmToken = true,
-                onSuccess = ::onSuccess,
-                onFailure = ::onFailure
-            )
-        }
-    }
-
-    // 成功結果処理
-    private fun onSuccess(data: Any){
-        if (data is LoginResponse)
-            when(data.status){
-                "0"-> {
-                    if(Config.isCode) {
-                        val pEtOfficeLogin = EtOfficeLogin()
-                        pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
+                    when (model.status) {
+                        0 -> {
+                            if (Config.isCode) {
+                                val pEtOfficeLogin = EtOfficeLogin()
+                                pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
+                            }
+                            saveUserInfo(model.result)
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        1 -> {
+                            Snackbar.make(
+                                binding.userName,
+                                R.string.login_failed_msg1,
+                                Snackbar.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.userName,
+                                R.string.login_failed_msg2,
+                                Snackbar.LENGTH_LONG
+                            )
+                                .show()
+                        }
                     }
-                    saveUserInfo(data.result)
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
                 }
-                "1"-> {
-                    Snackbar.make(binding.userName, R.string.login_failed_msg1, Snackbar.LENGTH_LONG)
-                        .show()
-                }
-                else ->{
-                    Snackbar.make(binding.userName, R.string.login_failed_msg2, Snackbar.LENGTH_LONG)
-                        .show()
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                    //CommonUtil.handleError(it, error, data)
                 }
             }
+        )
+
     }
 
-    // 通信失敗時、結果処理
-    private fun onFailure(error: ResultType, data: Any){
-        Log.e(TAG, "onFailure:$data");
-    }
-
-    private fun isValid() : Boolean{
+    private fun isValid(): Boolean {
         val username: String = binding.userName.text.toString()
         val password: String = binding.password.text.toString()
-        if (username.isNullOrEmpty()){
+        if (username.isNullOrEmpty()) {
             Snackbar.make(binding.userName, R.string.username_require, Snackbar.LENGTH_LONG)
                 .show()
             return false
         }
-        if (password.isNullOrEmpty()){
+        if (password.isNullOrEmpty()) {
             Snackbar.make(binding.password, R.string.password_require, Snackbar.LENGTH_LONG)
                 .show()
             return false
@@ -155,7 +146,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
     /**
      * 存储用户信息
      */
-    private fun saveUserInfo(user:Result) {
+    private fun saveUserInfo(user: LoginResultInfo) {
         val userInfo = getSharedPreferences(Config.EtOfficeUser, MODE_PRIVATE)
         val changeListener =
             SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
@@ -163,7 +154,7 @@ class LoginActivity : AppCompatActivity(),View.OnClickListener {
         userInfo.registerOnSharedPreferenceChangeListener(changeListener)
 
         val editor = userInfo.edit()
-        editor.apply(){
+        editor.apply() {
             putString("tenantid", user.tenantid)
             putString("hpid", user.hpid)
             putString("token", user.token)
