@@ -142,10 +142,6 @@ class ReportDetailActivity() : AppCompatActivity() {
             val addView: ImageView = binding.addView
             addView.setOnClickListener {
 
-//                val pReportAddDialog = ReportAddDialog()
-//                val fragmentManager = this@ReportDetailFragment.parentFragmentManager
-//                fragmentManager.let { it1 -> pReportAddDialog.show(it1, "pReportAddDialog") }
-
                 val fm: FragmentManager = supportFragmentManager
                 val dialog: ReportAddDialog =
                     ReportAddDialog.newInstance()
@@ -157,8 +153,6 @@ class ReportDetailActivity() : AppCompatActivity() {
             //returnpHome
             val returnHome = binding.returnHome
             returnHome.setOnClickListener {
-//                Navigation.findNavController(mainView)
-//                    .navigate(R.id.report_fragment);
                 val intent: Intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
