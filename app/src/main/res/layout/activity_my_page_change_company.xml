@@ -8,25 +8,22 @@
     tools:context=".ui.MyPage.MyPageChangeCompanyActivity"
     android:background="#E8E8E8">
 
-
-
-    <LinearLayout
-        android:id="@+id/topLL"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#FFFFFF"
-        android:gravity="center|bottom"
+        android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:id="@+id/activity_my_page_change_company_title"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/md_blue_500"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
+                android:id="@+id/topLL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -44,7 +41,7 @@
                     android:layout_height="50dp"
                     android:text="@string/change_company_title"
                     android:textSize="20sp"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:gravity="center"
                     />
                 <TextView
@@ -54,9 +51,8 @@
                     android:text=""
                     />
             </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
         android:id="@+id/record_title"
