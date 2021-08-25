@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.FragmentMemberBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 import kotlinx.coroutines.*
 
@@ -18,14 +18,14 @@ class MemberFragment : Fragment(),
 
     private val TAG = javaClass.simpleName
 
-    private lateinit var mainView: View
-
     private lateinit var pEtOfficeGetStuffList : EtOfficeGetStuffList
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
     private lateinit var mAdapter:GetStuffSectionListAdapter
+    
+    private lateinit var binding: FragmentMemberBinding
 
     //暂时看到的资料数量
     private var listInt = 0
@@ -42,16 +42,16 @@ class MemberFragment : Fragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mainView = inflater.inflate(R.layout.fragment_member, container, false)
+        binding = FragmentMemberBinding.inflate(inflater, container, false)
 
         refreshPage()
 
-        mSwipeRefreshLayout= mainView.findViewById(R.id.swipeRefreshLayout)
+        mSwipeRefreshLayout= binding.swipeRefreshLayout
 
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
-        mRecyclerView = mainView.findViewById(R.id.recycler_view_stuff_list)
+        mRecyclerView = binding.recyclerViewStuffList
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -66,7 +66,7 @@ class MemberFragment : Fragment(),
 
             }
         })
-        return mainView
+        return binding.root
     }
 
     private fun refreshPage() {
@@ -93,7 +93,7 @@ class MemberFragment : Fragment(),
     private suspend fun doOnUiRefresh() {
         withContext(Dispatchers.Main) {
             Log.e(TAG, "doOnUiRefresh: begin", )
-            val recyclerView: RecyclerView = mainView.findViewById(R.id.recycler_view_stuff_list)
+            val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
             val sectionlistEmpty = ArrayList<EtOfficeGetStuffList.SectionList>()
             mAdapter=GetStuffSectionListAdapter(sectionlistEmpty,requireActivity())
