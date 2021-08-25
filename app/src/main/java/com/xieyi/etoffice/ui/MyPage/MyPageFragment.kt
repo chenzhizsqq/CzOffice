@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.FragmentMyPageBinding
 import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
 
 import kotlinx.coroutines.*
@@ -22,15 +23,14 @@ class MyPageFragment : Fragment() {
     private val TAG: String = javaClass.simpleName
     private lateinit var pEtOfficeUserInfo : EtOfficeUserInfo
 
+    private lateinit var binding: FragmentMyPageBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin")
-
 
          pEtOfficeUserInfo = EtOfficeUserInfo()
 
     }
-    private lateinit var mainView: View
 
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -60,42 +60,33 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //Log.e(TAG, "onCreateView: begin")
+        binding = FragmentMyPageBinding.inflate(inflater, container, false)
 
-        mainView = inflater.inflate(R.layout.fragment_my_page, container, false)
         mainViewUpdate()
 
-        return mainView
+        return binding.root
     }
 
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
             try {
 
-                val mUserName: TextView = mainView.findViewById(R.id.user_name)
-                mUserName.text = pEtOfficeUserInfo.infoJson().result.username
+                binding.userName.text = pEtOfficeUserInfo.infoJson().result.username
 
-                val mUserMail: TextView = mainView.findViewById(R.id.user_mail)
-                mUserMail.text = pEtOfficeUserInfo.infoJson().result.mail
+                binding.userMail.text = pEtOfficeUserInfo.infoJson().result.mail
 
-                val mNameValue: TextView = mainView.findViewById(R.id.name_value)
-                mNameValue.text = pEtOfficeUserInfo.infoJson().result.username
+                binding.nameValue.text = pEtOfficeUserInfo.infoJson().result.username
 
-                val mMobileValue: TextView = mainView.findViewById(R.id.mobile_value)
-                mMobileValue.text = pEtOfficeUserInfo.infoJson().result.phone
+                binding.mobileValue.text = pEtOfficeUserInfo.infoJson().result.phone
 
-                val mMailValue: TextView = mainView.findViewById(R.id.mail_value)
-                mMailValue.text = pEtOfficeUserInfo.infoJson().result.mail
+                binding.mailValue.text = pEtOfficeUserInfo.infoJson().result.mail
 
             } catch (e: Exception) {
                 Log.e(TAG, "doOnUiCode", e)
             }
 
             //Place　Setting
-            val pTableRowPlaceManagement: LinearLayout =
-                mainView.findViewById(R.id.place_management) as LinearLayout
-            pTableRowPlaceManagement.setOnClickListener(View.OnClickListener {
-//                Navigation.findNavController(mainView)
-//                    .navigate(R.id.MyPagePlaceSettingFragment)
+            binding.placeManagement.setOnClickListener(View.OnClickListener {
 
                 EtOfficeApp.selectUi = 4
                 val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
@@ -105,10 +96,7 @@ class MyPageFragment : Fragment() {
             })
 
             //change　company
-            val pTableRow: LinearLayout = mainView.findViewById(R.id.change_company) as LinearLayout
-            pTableRow.setOnClickListener(View.OnClickListener {
-//                Navigation.findNavController(mainView)
-//                    .navigate(R.id.MyPageChangeCompanyFragment)
+            binding.changeCompany.setOnClickListener(View.OnClickListener {
 
                 EtOfficeApp.selectUi = 4
                 val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
@@ -118,8 +106,7 @@ class MyPageFragment : Fragment() {
 
 
             //ログアウト
-            val pTableLayout: TableLayout = mainView.findViewById(R.id.SYSTEM_info) as TableLayout
-            pTableLayout.setOnClickListener(View.OnClickListener {
+            binding.SYSTEMInfo.setOnClickListener(View.OnClickListener {
 
                 val mMyPageLogoutDialog = MyPageLogoutDialog()
                 val fragmentManager = this@MyPageFragment.parentFragmentManager
