@@ -15,6 +15,7 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.databinding.DialogHomeReportBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetStatusList
 
 import kotlinx.coroutines.*
@@ -28,13 +29,13 @@ class HomeReportDialog : DialogFragment() {
 
     private lateinit var pEtOfficeGetStatusList : EtOfficeGetStatusList
 
-    private lateinit var mainView: View
+    private lateinit var binding: DialogHomeReportBinding
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
             @Nullable container: ViewGroup?,
             @Nullable savedInstanceState: Bundle?
     ): View {
-        mainView = inflater.inflate(R.layout.dialog_home_report, container)
+        binding = DialogHomeReportBinding.inflate(inflater, container, false)
 
         pEtOfficeGetStatusList = EtOfficeGetStatusList()
 
@@ -53,7 +54,7 @@ class HomeReportDialog : DialogFragment() {
             }
         }
 
-        return mainView
+        return binding.root
     }
 
     private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -72,13 +73,13 @@ class HomeReportDialog : DialogFragment() {
 
 
             //ボタン　保存後に閉じる
-            val btnSaveAndClose = mainView.findViewById<TextView>(R.id.btn_save_and_close)
+            val btnSaveAndClose = binding.btnSaveAndClose
             btnSaveAndClose.setOnClickListener {
                 dialog!!.dismiss()
             }
 
             //record_linearLayout
-            val recordLinearLayout = mainView.findViewById<LinearLayout>(R.id.record_linearLayout)
+            val recordLinearLayout = binding.recordLinearLayout
             recordLinearLayout.setPadding(10)
 
 
