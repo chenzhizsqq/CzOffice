@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentManager
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
 import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportInfo
 import com.xieyi.etoffice.jsonData.EtOfficeSetComment
