@@ -93,13 +93,13 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
             //Log.e(TAG, "doOnUiRefresh: begin")
 
             //record_title
-            val recordTitle = findViewById<TextView>(R.id.record_title)
+            val recordTitle = binding.recordTitle
             val tenantid = EtOfficeApp.TenantId
             val hpid = EtOfficeApp.HpId
             recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
             //returnHome
-            val returnHome = findViewById<ImageView>(R.id.returnHome)
+            val returnHome = binding.returnHome
             returnHome.setOnClickListener {
 
                 val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
@@ -109,7 +109,7 @@ class MyPageChangeCompanyActivity : AppCompatActivity(),
             }
 
 
-            val recyclerView: RecyclerView = findViewById(R.id.recycler_view_get_tenant)
+            val recyclerView: RecyclerView = binding.recyclerViewGetTenant
 
             val sortedList = pEtOfficeGetTenant.infoJson().result.tenantlist.sortedWith(compareBy(
                 { it.tenantid }
