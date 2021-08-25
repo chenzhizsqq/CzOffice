@@ -3,31 +3,31 @@ package com.xieyi.etoffice.ui.MyPage
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.DialogMyPageLogoutBinding
 import com.xieyi.etoffice.ui.login.LoginActivity
 
 class MyPageLogoutDialog : DialogFragment() {
+
+    private lateinit var binding: DialogMyPageLogoutBinding
+
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
             @Nullable container: ViewGroup?,
             @Nullable savedInstanceState: Bundle?
     ): View {
-        val view: View = inflater.inflate(R.layout.dialog_my_page_logout, container)
+        binding = DialogMyPageLogoutBinding.inflate(inflater, container, false)
 
         //ボタン　保存後に閉じる
-        val btnCancel = view.findViewById<TextView>(R.id.btn_Cancel)
-        btnCancel.setOnClickListener {
+        binding.btnCancel.setOnClickListener {
             dialog!!.dismiss()
 
         }
 
         //ボタン　保存後に閉じる
-        val btnLogout = view.findViewById<TextView>(R.id.btn_Logout)
-        btnLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
 
 
             val intent = Intent(activity, LoginActivity::class.java)
@@ -35,6 +35,6 @@ class MyPageLogoutDialog : DialogFragment() {
             activity?.finish()
         }
 
-        return view
+        return binding.root
     }
 }
