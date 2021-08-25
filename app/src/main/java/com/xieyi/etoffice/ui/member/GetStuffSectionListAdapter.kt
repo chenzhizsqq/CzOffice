@@ -1,14 +1,11 @@
 package com.xieyi.etoffice.ui.member
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.GetStuffSectionListBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
-import com.xieyi.etoffice.ui.notifications.Message
 
 
 class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList.SectionList>, val context: Context) :
@@ -16,9 +13,9 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList
     val TAG:String = javaClass.simpleName
 
     // Describes an item view and its place within the RecyclerView
-    class sectionListViewHolder(itemView: View,val context: Context) : RecyclerView.ViewHolder(itemView) {
+    class sectionListViewHolder(binding: GetStuffSectionListBinding,val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
-        val recyclerView: RecyclerView = itemView.findViewById(R.id.recycler_view_stuff_list)
+        val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
 
         fun bind(sectionList: EtOfficeGetStuffList.SectionList) {
@@ -33,11 +30,11 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.get_stuff_section_list, parent, false)
 
+        val binding =
+            GetStuffSectionListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return sectionListViewHolder(view,context)
+        return sectionListViewHolder(binding, context)
     }
 
     override fun getItemCount(): Int {

@@ -14,9 +14,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.xieyi.etoffice.R
+import com.xieyi.etoffice.databinding.GetStuffStuffListBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 
 
@@ -27,16 +26,16 @@ class GetStuffStuffListAdapter(val getStuffList: List<EtOfficeGetStuffList.Stuff
     val TAG:String = javaClass.simpleName
 
 
-    class sectionListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tv_userkana: TextView = itemView.findViewById(R.id.userkana)
-        private val tv_username: TextView = itemView.findViewById(R.id.username)
-        private val tv_phone: TextView = itemView.findViewById(R.id.phone)
-        private val tv_mail: TextView = itemView.findViewById(R.id.mail)
+    class sectionListViewHolder(binding: GetStuffStuffListBinding) : RecyclerView.ViewHolder(binding.root) {
+        val tv_userkana: TextView = binding.userkana
+        val tv_username: TextView = binding.username
+        val tv_phone: TextView = binding.phone
+        val tv_mail: TextView = binding.mail
 
-        private val tv_sectioncd: TextView = itemView.findViewById(R.id.sectioncd)
-        private val tv_sectionname: TextView = itemView.findViewById(R.id.sectionname)
+        val tv_sectioncd: TextView = binding.sectioncd
+        val tv_sectionname: TextView = binding.sectionname
 
-        private val ll: LinearLayout = itemView.findViewById(R.id.ll)
+        val ll: LinearLayout = binding.ll
 
         //telephone
         fun bind(stufflist: EtOfficeGetStuffList.StuffList, sectioncd:String, sectionname:String,context: Context) {
@@ -83,11 +82,10 @@ class GetStuffStuffListAdapter(val getStuffList: List<EtOfficeGetStuffList.Stuff
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.get_stuff_stuff_list, parent, false)
 
+        val binding = GetStuffStuffListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         
-        return sectionListViewHolder(view)
+        return sectionListViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
