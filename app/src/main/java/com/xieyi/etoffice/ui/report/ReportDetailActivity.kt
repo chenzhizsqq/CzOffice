@@ -155,7 +155,7 @@ class ReportDetailActivity() : AppCompatActivity() {
 
 
             //returnpHome
-            val returnHome = findViewById<ImageView>(R.id.returnHome)
+            val returnHome = binding.returnHome
             returnHome.setOnClickListener {
 //                Navigation.findNavController(mainView)
 //                    .navigate(R.id.report_fragment);
@@ -172,8 +172,8 @@ class ReportDetailActivity() : AppCompatActivity() {
     }
 
     private fun sendMessage() {
-        val messageSend = findViewById<Button>(R.id.message_send)
-        val messageEdit = findViewById<EditText>(R.id.message_edit)
+        val messageSend = binding.messageSend
+        val messageEdit = binding.messageEdit
         messageSend.setOnClickListener {
 
             hideKeyboard(messageEdit)
