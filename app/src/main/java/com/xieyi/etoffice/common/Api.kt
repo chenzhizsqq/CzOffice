@@ -6,10 +6,7 @@ import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.common.model.LoginResultModel
 import com.xieyi.etoffice.enum.RequestMethod
 import com.xieyi.etoffice.enum.ResultType
-import com.xieyi.etoffice.jsonData.EtOfficeGetTenant
-import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
-import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
-import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
+import com.xieyi.etoffice.jsonData.*
 import org.json.JSONObject
 
 class Api {
@@ -230,6 +227,95 @@ class Api {
             )
         }
 
+
+
+        /**
+         * EtOfficeGetReportInfo
+         *
+         * @param context:          コンテキスト
+         * @param onSuccess:        成功コールバック
+         * @param onFailure:        失敗コールバック
+         */
+        @Suppress("UNCHECKED_CAST")
+        fun EtOfficeGetReportInfoPost(
+            context: Context,
+            ymd : String,
+            onSuccess: onSuccess<EtOfficeGetReportInfo.JsonClass>,
+            onFailure: onFailure<ResultType, Any>
+        ) {
+            val url: String = Config.ApiUrl
+
+            val jsonObject = JSONObject()
+            jsonObject.put("app", "EtOfficeGetReportInfo")
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("device", Config.Device)
+            jsonObject.put("userid", EtOfficeApp.userid)
+            jsonObject.put("ymd", ymd)
+
+            HttpUtil.callAsyncHttp(
+                context = context,
+                url = url,
+                method = RequestMethod.POST,
+                parameter = jsonObject,
+                authToken = false,
+                fcmToken = false,
+                classType = EtOfficeGetReportInfo.JsonClass::class.java as Class<Any>,
+                onSuccess = { data ->
+                    val model = data as EtOfficeGetReportInfo.JsonClass
+                    onSuccess(model)
+                },
+                onFailure = { error, data ->
+                    onFailure(error, data)
+                }
+            )
+        }
+
+
+        /**
+         * EtOfficeSetComment
+         *
+         * @param context:          コンテキスト
+         * @param onSuccess:        成功コールバック
+         * @param onFailure:        失敗コールバック
+         */
+        @Suppress("UNCHECKED_CAST")
+        fun EtOfficeSetCommentPost(
+            context: Context,
+            ymd : String,
+            comment : String,
+            onSuccess: onSuccess<EtOfficeSetComment.JsonClass>,
+            onFailure: onFailure<ResultType, Any>
+        ) {
+            val url: String = Config.ApiUrl
+
+            val jsonObject = JSONObject()
+            jsonObject.put("app", "EtOfficeSetComment")
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("device", Config.Device)
+            jsonObject.put("userid", EtOfficeApp.userid)
+            jsonObject.put("ymd", ymd)
+            jsonObject.put("comment", comment)
+            HttpUtil.callAsyncHttp(
+                context = context,
+                url = url,
+                method = RequestMethod.POST,
+                parameter = jsonObject,
+                authToken = false,
+                fcmToken = false,
+                classType = EtOfficeSetComment.JsonClass::class.java as Class<Any>,
+                onSuccess = { data ->
+                    val model = data as EtOfficeSetComment.JsonClass
+                    onSuccess(model)
+                },
+                onFailure = { error, data ->
+                    onFailure(error, data)
+                }
+            )
+        }
 
     }
 }

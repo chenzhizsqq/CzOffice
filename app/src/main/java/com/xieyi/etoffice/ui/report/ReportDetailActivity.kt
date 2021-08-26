@@ -5,24 +5,26 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.BaseActivity
+import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportInfo
-import com.xieyi.etoffice.jsonData.EtOfficeSetComment
-
 import kotlinx.coroutines.*
 
 
-class ReportDetailActivity() : AppCompatActivity() {
+class ReportDetailActivity() : BaseActivity() {
 
     val TAG = javaClass.simpleName
     lateinit var buttonImageButton1: ImageView
@@ -32,10 +34,6 @@ class ReportDetailActivity() : AppCompatActivity() {
 
     //検索の日付
     var date:String=""
-
-
-    private lateinit var pEtOfficeGetReportInfo : EtOfficeGetReportInfo
-    private lateinit var pEtOfficeSetComment : EtOfficeSetComment
 
     private lateinit var binding: ActivityReportDetailBinding
 /*
@@ -69,209 +67,179 @@ class ReportDetailActivity() : AppCompatActivity() {
         binding = ActivityReportDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pEtOfficeGetReportInfo = EtOfficeGetReportInfo()
-        pEtOfficeSetComment = EtOfficeSetComment()
-
-
         val intent = intent
         date = intent.getStringExtra("ReportFragmentMessage").toString()
 
-        DataUpdate()
+
+        EtOfficeGetReportInfoPost(date)
 
     }
 
 
-    private fun DataUpdate() {
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                //データ更新
-                try {
+    private fun EtOfficeGetReportInfoPost(ymd : String) {
+        Api.EtOfficeGetReportInfoPost(
+            context = this@ReportDetailActivity,
+            ymd = ymd,
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
 
-                    val r = pEtOfficeGetReportInfo.post(date)
-                    if(r=="0"){
-                        doOnUiCode()
-                    }
-
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetReportInfo.post()",e)
-
-                }
-            }
-        }
-    }
-
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
-
-
-    private suspend fun doOnUiCode() {
-        withContext(Dispatchers.Main) {
-            Log.e(TAG, "pEtOfficeGetReportInfo:" + pEtOfficeGetReportInfo.lastJson)
-
-
-            //検索の日付
-            val record_date: TextView = binding.recordDate
-            record_date.text = Tools.allDate(date)
-
-            //予定
-            val appointment: TextView = binding.appointment
-            appointment.text = pEtOfficeGetReportInfo.infoJson().result.planworktime
-
-            //planworklist
-            planworklistFun()
-
-            //reportlist
-            reportlistFun()
-
-
-            //実績：
-            val worktime: TextView = binding.worktime
-            worktime.text = pEtOfficeGetReportInfo.infoJson().result.worktime
-
-
-            //workstatuslist：
-            workstatuslistfun(5)
-
-            //commentlist
-            commentlistFun()
-
-
-            //ReportDetailFragment open
-            val addView: ImageView = binding.addView
-            addView.setOnClickListener {
-
-                val fm: FragmentManager = supportFragmentManager
-                val dialog: ReportAddDialog =
-                    ReportAddDialog.newInstance()
-                dialog.show(fm, "ReportAddDialog")
-
-            }
-
-
-            //returnpHome
-            val returnHome = binding.returnHome
-            returnHome.setOnClickListener {
-                val intent: Intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-
-            }
-
-
-
-            sendMessage()
-        }
-    }
-
-    private fun sendMessage() {
-        val messageSend = binding.messageSend
-        val messageEdit = binding.messageEdit
-        messageSend.setOnClickListener {
-
-            hideKeyboard(messageEdit)
-            val messageEditText:String = messageEdit.text.toString()
-
-            GlobalScope.launch(errorHandler) {
-                withContext(Dispatchers.IO) {
-                    //EtOfficeSetComment
-                    //データ更新
-                    try {
-
-                        var r = pEtOfficeSetComment.post(date,messageEditText)
-                        Log.e(TAG, "sendMessage: r:$r" )
-                        if(r=="0"){
-
-                            r = "-1"
-                            r = pEtOfficeGetReportInfo.post(date)
-                            if(r=="0"){
-                                commentlistFun()
-                                messageEdit.text.clear()
-                            }
-
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetReportInfoResult(model.result)
                         }
-
-                    }catch (e:Exception){
-                        Log.e(TAG, "pEtOfficeSetComment.post() :$e")
-
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                }
             }
+        )
+    }
+
+
+
+    private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
+
+        Api.EtOfficeSetCommentPost(
+            context = this@ReportDetailActivity,
+            ymd = ymd,
+            comment = comment,
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
+
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetReportInfoPost(date)
+                        }
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                }
+            }
+        )
+    }
+
+
+
+    private fun EtOfficeGetReportInfoResult(result: EtOfficeGetReportInfo.Result) {
+
+
+        //検索の日付
+        val record_date: TextView = binding.recordDate
+        record_date.text = Tools.allDate(date)
+
+        //予定
+        val appointment: TextView = binding.appointment
+        appointment.text = result.planworktime
+
+        //planworklist
+        planworklistFun(result)
+
+        //reportlist
+        reportlistFun(result)
+
+
+        //実績：
+        val worktime: TextView = binding.worktime
+        worktime.text = result.worktime
+
+
+        //workstatuslist：
+        workstatuslistfun(5,result)
+
+        //commentlist
+        commentlistFun(result)
+
+
+        //ReportDetailFragment open
+        val addView: ImageView = binding.addView
+        addView.setOnClickListener {
+
+            val fm: FragmentManager = supportFragmentManager
+            val dialog: ReportAddDialog =
+                ReportAddDialog.newInstance()
+            dialog.show(fm, "ReportAddDialog")
+
+        }
+
+
+        //returnpHome
+        val returnHome = binding.returnHome
+        returnHome.setOnClickListener {
+            val intent: Intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
+
+
+        binding.messageSend.setOnClickListener {
+
+            hideKeyboard(binding.messageEdit)
+
+            //EtOfficeSetComment
+            //データ更新
+            EtOfficeSetCommentPost(date,binding.messageEdit.text.toString())
+
+
+            binding.messageEdit.text.clear()
         }
     }
 
-    private fun planworklistFun() {
-        val planworklist: LinearLayout = binding.planworklist
-        planworklist.removeAllViews()
-/*
-        {
-            "project": "[2021XY07]EtOfficeAPP開発#1",
-            "wbs": "[W01]工程A(進捗:%)",
-            "date": "2021/07/01-2021/07/31",
-            "time": "(計画：160h)"
-        }
- */
-        val listSize = pEtOfficeGetReportInfo.infoJson().result.planworklist.size
 
-        for (i in 0 until listSize) {
-            val ll=ll_planworklist()
-
-            val t1 =getTextView2(pEtOfficeGetReportInfo.infoJson().result.planworklist[i].project)
-            t1.setTextColor(Color.parseColor("#000000"))
-            t1.textSize = 20F
-
-            val t2 =getTextView2(pEtOfficeGetReportInfo.infoJson().result.planworklist[i].wbs)
-
-            val v3=pEtOfficeGetReportInfo.infoJson().result.planworklist[i].date+" "+
-                    pEtOfficeGetReportInfo.infoJson().result.planworklist[i].time
-            val t3 =getTextView2(v3)
-
-            ll.addView(t1)
-            ll.addView(t2)
-            ll.addView(t3)
-
-            planworklist.addView(ll)
-        }
-
-
-    }
-
-    private fun reportlistFun() {
+    private fun reportlistFun(result: EtOfficeGetReportInfo.Result) {
         val reportlist: LinearLayout = binding.reportlist
         reportlist.removeAllViews()
 
 
-/*
-        "reportlist": [
-        {
-            "project": "2021XY07",
-            "wbs": "W01",
-            "time": "8.00",
-            "memo": "Test"
-        },
-        {
-            "project": "2021XY07",
-            "wbs": "W01",
-            "time": "",
-            "memo": ""
-        }
-        ],
- */
-
-        val listSize = pEtOfficeGetReportInfo.infoJson().result.reportlist.size
+        val listSize = result.reportlist.size
 
         for (i in 0 until listSize) {
             val ll=ll_planworklist()
 
-            val t1 =getTextView2("プロジェクト："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].project)
+            val t1 =getTextView2("プロジェクト："+result.reportlist[i].project)
             t1.setTextColor(Color.parseColor("#000000"))
             t1.textSize = 20F
 
-            val t2 =getTextView2("作業コード："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].wbs)
+            val t2 =getTextView2("作業コード："+result.reportlist[i].wbs)
 
-            val t3 =getTextView2("工数："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].time)
+            val t3 =getTextView2("工数："+result.reportlist[i].time)
 
-            val t4 =getTextView2("報告："+pEtOfficeGetReportInfo.infoJson().result.reportlist[i].memo)
+            val t4 =getTextView2("報告："+result.reportlist[i].memo)
 
 
             ll.addView(t1)
@@ -295,70 +263,51 @@ class ReportDetailActivity() : AppCompatActivity() {
 
     }
 
-    private suspend fun commentlistFun() {
-        withContext(Dispatchers.Main) {
-            val commentlist: LinearLayout = binding.commentlist
-            commentlist.removeAllViews()
+
+    private fun planworklistFun(result: EtOfficeGetReportInfo.Result) {
+        val planworklist: LinearLayout = binding.planworklist
+        planworklist.removeAllViews()
 /*
-        "commentlist": [
         {
-            "username": "ユーザー１",
-            "comment": "321321",
-            "time": "20210805115112"
-        },
-        {
-            "username": "ユーザー１",
-            "comment": "this is a test 2",
-            "time": "20210803153923"
-        },
-        {
-            "username": "ユーザー１",
-            "comment": "this is a test",
-            "time": "20210803153901"
+            "project": "[2021XY07]EtOfficeAPP開発#1",
+            "wbs": "[W01]工程A(進捗:%)",
+            "date": "2021/07/01-2021/07/31",
+            "time": "(計画：160h)"
         }
  */
+        val listSize = result.planworklist.size
 
-            val listSize = pEtOfficeGetReportInfo.infoJson().result.commentlist.size
+        for (i in 0 until listSize) {
+            val ll=ll_planworklist()
 
-            for (i in 0 until listSize) {
-                val ll = ll_planworklist()
+            val t1 =getTextView2(result.planworklist[i].project)
+            t1.setTextColor(Color.parseColor("#000000"))
+            t1.textSize = 20F
 
-                val t1 =
-                    getTextView2("username：" + pEtOfficeGetReportInfo.infoJson().result.commentlist[i].comment)
-                t1.setTextColor(Color.parseColor("#000000"))
-                t1.textSize = 20F
+            val t2 =getTextView2(result.planworklist[i].wbs)
 
-                val username = pEtOfficeGetReportInfo.infoJson().result.commentlist[i].username
-                val time = pEtOfficeGetReportInfo.infoJson().result.commentlist[i].time
+            val v3=result.planworklist[i].date+" "+
+                    result.planworklist[i].time
+            val t3 =getTextView2(v3)
 
-                val t2_text = username + " " + Tools.allDateTime(time)
+            ll.addView(t1)
+            ll.addView(t2)
+            ll.addView(t3)
 
-                val t2 = getTextView2(t2_text)
-
-
-
-                ll.addView(t1)
-                ll.addView(t2)
-                ll.setPadding(10)
-
-                val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-
-                commentlist.addView(ll, layoutParams)
-
-                commentlist.addView(linearLayout_line())
-            }
+            planworklist.addView(ll)
         }
+
 
     }
 
-    private fun workstatuslistfun(sizeEachY:Int) {
+
+
+    private fun workstatuslistfun(sizeEachY:Int, result: EtOfficeGetReportInfo.Result) {
         val content: LinearLayout = binding.content
         content.removeAllViews()
 
 
-        val size = pEtOfficeGetReportInfo.infoJson().result.workstatuslist.size
+        val size = result.workstatuslist.size
         Log.e(TAG, "doOnUiCode: size:$size")
         val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
         var x = 0
@@ -369,14 +318,14 @@ class ReportDetailActivity() : AppCompatActivity() {
 
             val l_X = getLinearLayout()
 
-            val time = pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].time
+            val time = result.workstatuslist[i].time
 
             val getTextView_time = getTextView(time)
             getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
             l_X.addView(getTextView_time)
 
 
-            val text = pEtOfficeGetReportInfo.infoJson().result.workstatuslist[i].status
+            val text = result.workstatuslist[i].status
 
             val getTextView_1 = getTextView(text)
             getTextView_1.setBackgroundColor(Color.YELLOW)
@@ -389,6 +338,45 @@ class ReportDetailActivity() : AppCompatActivity() {
                 content.addView(l_Y[y])
             }
         }
+    }
+
+
+    private fun commentlistFun(result: EtOfficeGetReportInfo.Result) {
+        val commentlist: LinearLayout = binding.commentlist
+        commentlist.removeAllViews()
+
+        val listSize = result.commentlist.size
+
+        for (i in 0 until listSize) {
+            val ll = ll_planworklist()
+
+            val t1 =
+                getTextView2("username：" + result.commentlist[i].comment)
+            t1.setTextColor(Color.parseColor("#000000"))
+            t1.textSize = 20F
+
+            val username = result.commentlist[i].username
+            val time = result.commentlist[i].time
+
+            val t2_text = username + " " + Tools.allDateTime(time)
+
+            val t2 = getTextView2(t2_text)
+
+
+
+            ll.addView(t1)
+            ll.addView(t2)
+            ll.setPadding(10)
+
+            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+
+            commentlist.addView(ll, layoutParams)
+
+            commentlist.addView(linearLayout_line())
+        }
+
     }
 
 
