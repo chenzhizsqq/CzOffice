@@ -185,6 +185,9 @@ class Api {
          * EtOfficeSetUserLocation
          *
          * @param context:          コンテキスト
+         * @param location:         location
+         * @param latitude:         latitude
+         * @param longitude:        longitude
          * @param onSuccess:        成功コールバック
          * @param onFailure:        失敗コールバック
          */
@@ -233,6 +236,7 @@ class Api {
          * EtOfficeGetReportInfo
          *
          * @param context:          コンテキスト
+         * @param ymd:              ymd
          * @param onSuccess:        成功コールバック
          * @param onFailure:        失敗コールバック
          */
@@ -277,6 +281,8 @@ class Api {
          * EtOfficeSetComment
          *
          * @param context:          コンテキスト
+         * @param ymd:              ymd
+         * @param comment:          comment
          * @param onSuccess:        成功コールバック
          * @param onFailure:        失敗コールバック
          */
