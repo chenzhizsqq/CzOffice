@@ -67,7 +67,7 @@ class Api {
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetTenantFun(
+        fun EtOfficeGetTenant(
             context: Context,
             onSuccess: onSuccess<EtOfficeGetTenant.JsonClass>,
             onFailure: onFailure<ResultType, Any>
@@ -106,7 +106,7 @@ class Api {
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
-        fun EtOfficeSetTenantFun(
+        fun EtOfficeSetTenant(
             context: Context,
             tenantid: String,
             onSuccess: onSuccess<EtOfficeSetTenant.JsonClass>,

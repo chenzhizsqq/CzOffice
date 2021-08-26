@@ -7,9 +7,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.MainActivity
-import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
@@ -49,13 +49,10 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                 super.onScrollStateChanged(recyclerView, newState)
                 if(newState == RecyclerView.SCROLL_STATE_IDLE){
                     if(!recyclerView.canScrollVertically(1)){
-                        //Log.e(TAG, "onScrollStateChanged: more date")
                         binding.swipeRefreshLayout.isRefreshing = false
                         EtOfficeGetTenantPost()
-
                     }
                 }
-
             }
         })
 
@@ -65,7 +62,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
 
     private fun EtOfficeGetTenantPost() {
-        Api.EtOfficeGetTenantFun(
+        Api.EtOfficeGetTenant(
             context = this@MyPageChangeCompanyActivity,
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -75,20 +72,18 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                             EtOfficeGetTenantResult(model.result)
                         }
                         1 -> {
-                            Tools.msgAlertDialog(
-                                this@MyPageChangeCompanyActivity,
-                                model.status.toString(),
+                            Snackbar.make(
+                                binding.root,
                                 model.message,
-                                "確認"
-                            )
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                         else -> {
-                            Tools.msgAlertDialog(
-                                this@MyPageChangeCompanyActivity,
-                                model.status.toString(),
+                            Snackbar.make(
+                                binding.root,
                                 model.message,
-                                "確認"
-                            )
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }
@@ -96,7 +91,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data");
-                    //CommonUtil.handleError(it, error, data)
                 }
             }
         )
@@ -104,7 +98,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     private fun EtOfficeSetTenantPost(tenantid: String) {
-        Api.EtOfficeSetTenantFun(
+        Api.EtOfficeSetTenant(
             context = this@MyPageChangeCompanyActivity,
             tenantid= tenantid,
             onSuccess = { model ->
@@ -115,20 +109,18 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                             EtOfficeSetTenantResult(model.result)
                         }
                         1 -> {
-                            Tools.msgAlertDialog(
-                                this@MyPageChangeCompanyActivity,
-                                model.status.toString(),
+                            Snackbar.make(
+                                binding.root,
                                 model.message,
-                                "確認"
-                            )
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                         else -> {
-                            Tools.msgAlertDialog(
-                                this@MyPageChangeCompanyActivity,
-                                model.status.toString(),
+                            Snackbar.make(
+                                binding.root,
                                 model.message,
-                                "確認"
-                            )
+                                Snackbar.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }
@@ -136,7 +128,55 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data");
-                    //CommonUtil.handleError(it, error, data)
+                }
+            }
+        )
+
+    }
+
+    private fun EtOfficeLoginPost(uid:String, password:String) {
+        Api.EtOfficeLogin(
+            context = this@MyPageChangeCompanyActivity,
+            uid = uid,
+            password = password,
+            registrationid = "6",
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
+
+                    when (model.status) {
+                        0 -> {
+
+                            //data save
+                            EtOfficeApp.TenantId = model.result.tenantid
+                            EtOfficeApp.HpId = model.result.hpid
+                            EtOfficeApp.uid = uid
+                            EtOfficeApp.password = password
+                            EtOfficeApp.userid = model.result.userid
+                            EtOfficeGetTenantPost()
+                        }
+                        1 -> {
+
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            )
+                                .show()
+                        }
+                    }
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
                 }
             }
         )
@@ -187,55 +227,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
     private  fun EtOfficeSetTenantResult(result: EtOfficeSetTenant.Result) {
         EtOfficeLoginPost(EtOfficeApp.uid,EtOfficeApp.password)
-    }
-
-    private fun EtOfficeLoginPost(uid:String, password:String) {
-        Api.EtOfficeLogin(
-            context = this@MyPageChangeCompanyActivity,
-            uid = uid,
-            password = password,
-            registrationid = "6",
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-
-                            //data save
-                            EtOfficeApp.TenantId = model.result.tenantid
-                            EtOfficeApp.HpId = model.result.hpid
-                            EtOfficeApp.uid = uid
-                            EtOfficeApp.password = password
-                            EtOfficeApp.userid = model.result.userid
-                            EtOfficeGetTenantPost()
-                        }
-                        1 -> {
-                            Tools.msgAlertDialog(
-                                this@MyPageChangeCompanyActivity,
-                                model.status.toString(),
-                                model.message,
-                                "確認"
-                            )
-                        }
-                        else -> {
-                            Tools.msgAlertDialog(
-                                this@MyPageChangeCompanyActivity,
-                                model.status.toString(),
-                                model.message,
-                                "確認"
-                            )
-                        }
-                    }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
-                    //CommonUtil.handleError(it, error, data)
-                }
-            }
-        )
-
     }
 
     override fun onRefresh() {
