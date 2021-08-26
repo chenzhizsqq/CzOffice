@@ -13,14 +13,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
+import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.databinding.ActivityMainBinding
-import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
-import com.xieyi.etoffice.jsonData.*
 
 import kotlinx.coroutines.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     val TAG: String = javaClass.simpleName
 
     private lateinit var binding: ActivityMainBinding
