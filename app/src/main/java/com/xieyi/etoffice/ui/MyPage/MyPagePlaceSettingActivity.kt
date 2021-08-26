@@ -3,30 +3,29 @@ package com.xieyi.etoffice.ui.MyPage
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.util.Log
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.*
+import com.xieyi.etoffice.base.BaseActivity
+import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
-import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
-
 import kotlinx.coroutines.*
 
 
-class MyPagePlaceSettingActivity : AppCompatActivity(),
+class MyPagePlaceSettingActivity : BaseActivity(),
     SwipeRefreshLayout.OnRefreshListener {
     private val TAG = javaClass.simpleName
 
     private lateinit var gpsTracker: GpsTracker
-    private var longitude = 0.0
     private var latitude = 0.0
-
-    private lateinit var pEtOfficeGetUserLocation : EtOfficeGetUserLocation
-    private lateinit var pEtOfficeSetUserLocation : EtOfficeSetUserLocation
+    private var longitude = 0.0
 
 
     private lateinit var mAdapter:GetUserLocationAdapter
@@ -49,10 +48,7 @@ class MyPagePlaceSettingActivity : AppCompatActivity(),
         binding = ActivityMyPagePlaceSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pEtOfficeGetUserLocation = EtOfficeGetUserLocation()
-        pEtOfficeSetUserLocation = EtOfficeSetUserLocation()
-
-        refreshPage()
+        EtOfficeGetUserLocationPost()
 
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this);
@@ -61,117 +57,137 @@ class MyPagePlaceSettingActivity : AppCompatActivity(),
 
     }
 
-    private fun refreshPage() {
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                //データ更新
-                try {
-                    val r: String = pEtOfficeGetUserLocation.post()                   //Json 送信
-                    Log.e(TAG, "pEtOfficeGetUserLocation.post() :$r")
+    private fun EtOfficeGetUserLocationPost() {
+        Api.EtOfficeGetUserLocation(
+            context = this@MyPagePlaceSettingActivity,
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
 
-
-                    doOnUiCode()
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetUserLocation.post() :$e")
-
-                }
-
-            }
-        }
-    }
-
-
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
-
-
-
-    // UI更新
-    private suspend fun doOnUiCode() {
-        withContext(Dispatchers.Main) {
-
-            //record_title
-            binding.recordTitle.text = "REGISTERED"
-
-
-            mAdapter= GetUserLocationAdapter(pEtOfficeGetUserLocation.infoJson().result.locationlist)
-            binding.recyclerView.adapter = mAdapter
-
-            //returnpHome
-            binding.returnHome.setOnClickListener {
-                val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-
-            }
-
-            //locationAlertDialog
-            binding.locationAlertDialog.setOnClickListener {
-
-                val textInputLayout = TextInputLayout(this@MyPagePlaceSettingActivity)
-                val input = EditText(this@MyPagePlaceSettingActivity)
-                input.maxLines = 1
-                input.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
-                textInputLayout.addView(input)
-
-                AlertDialog.Builder(this@MyPagePlaceSettingActivity)
-                    .setTitle("Message")
-                    .setMessage("Please enter an alias for the current location.")
-                    .setView(textInputLayout)
-                    .setPositiveButton("OK") { _, which ->
-                        //Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
-
-                        val location = input.text.toString()
-                        postLocation(location)
-
-                    }
-                    .setNegativeButton("Cancel") { _, which ->
-                    }
-                    .show()
-
-
-            }
-
-        }
-    }
-
-    private fun postLocation(location: String) {
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                if (gpsTracker.canGetLocation()) {
-                    try {
-                        val r: String =
-                            pEtOfficeSetUserLocation.post(
-                                longitude.toString(),
-                                latitude.toString(),
-                                location
-                            )                   //Json 送信
-                        Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
-
-                        if (r == "0") {
-                            Tools.showMsg(binding.root, "登録します")
-                        } else {
-                            Tools.showMsg(
-                                binding.root,
-                                pEtOfficeSetUserLocation.infoJson().message
-                            )
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetUserLocationResult(model.result)
                         }
-                    } catch (e: Exception) {
-                        Log.e(TAG, "pEtOfficeSetUserLocation.post()", e)
-
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
-
-                    refreshPage()
-                } else {
-                    gpsTracker.showSettingsAlert()
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
                 }
             }
+        )
+    }
+
+
+
+    private fun EtOfficeSetUserLocationPost(location: String) {
+        if (gpsTracker.canGetLocation()) {
+            Api.EtOfficeSetUserLocation(
+                context = this@MyPagePlaceSettingActivity,
+                location = location,
+                latitude = latitude.toString(),
+                longitude = longitude.toString(),
+                onSuccess = { model ->
+                    Handler(Looper.getMainLooper()).post {
+
+                        when (model.status) {
+                            0 -> {
+                                Tools.showMsg(binding.root, "登録します")
+                                EtOfficeGetUserLocationPost()
+                            }
+                            1 -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            else -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                },
+                onFailure = { error, data ->
+                    Handler(Looper.getMainLooper()).post {
+                        Log.e(TAG, "onFailure:$data");
+                    }
+                }
+            )
+        } else {
+            gpsTracker.showSettingsAlert()
         }
     }
+
+
+    // EtOfficeGetUserLocationResult
+    private fun EtOfficeGetUserLocationResult(result: EtOfficeGetUserLocation.Result) {
+        //record_title
+        binding.recordTitle.text = "REGISTERED"
+
+
+        mAdapter= GetUserLocationAdapter(result.locationlist)
+        binding.recyclerView.adapter = mAdapter
+
+        //returnpHome
+        binding.returnHome.setOnClickListener {
+            val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
+        //locationAlertDialog
+        binding.locationAlertDialog.setOnClickListener {
+
+            val textInputLayout = TextInputLayout(this@MyPagePlaceSettingActivity)
+            val input = EditText(this@MyPagePlaceSettingActivity)
+            input.maxLines = 1
+            input.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
+            textInputLayout.addView(input)
+
+            AlertDialog.Builder(this@MyPagePlaceSettingActivity)
+                .setTitle("Message")
+                .setMessage("Please enter an alias for the current location.")
+                .setView(textInputLayout)
+                .setPositiveButton("OK") { _, which ->
+                    //Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
+
+                    val location = input.text.toString()
+                    gpsCheck()
+                    EtOfficeSetUserLocationPost(location)
+
+                }
+                .setNegativeButton("Cancel") { _, which ->
+                }
+                .show()
+
+
+        }
+
+    }
+
 
     override fun onRefresh() {
         binding.swipeRefreshLayout.isRefreshing = false;
-        refreshPage()
+        EtOfficeGetUserLocationPost()
     }
 }
