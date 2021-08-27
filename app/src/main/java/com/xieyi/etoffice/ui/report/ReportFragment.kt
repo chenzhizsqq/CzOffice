@@ -2,6 +2,8 @@ package com.xieyi.etoffice.ui.report
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.*
@@ -9,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
+import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.FragmentReportBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
-import com.xieyi.etoffice.jsonData.EtOfficeSetApprovalJsk
 
 import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
@@ -21,10 +24,6 @@ import java.util.*
 class ReportFragment : Fragment(),
     SwipeRefreshLayout.OnRefreshListener {
     private val TAG = javaClass.simpleName
-
-
-    private lateinit var pEtOfficeGetReportList : EtOfficeGetReportList
-    private lateinit var pEtOfficeSetApprovalJsk : EtOfficeSetApprovalJsk
 
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
@@ -37,17 +36,6 @@ class ReportFragment : Fragment(),
 
 
     private val arrayListYmd = ArrayList<String>()
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //Log.e(TAG, "onCreate: begin")
-
-        pEtOfficeGetReportList = EtOfficeGetReportList()
-        pEtOfficeSetApprovalJsk = EtOfficeSetApprovalJsk()
-    }
-
 
 
     private lateinit var viewModel: ReportViewModel
@@ -71,30 +59,114 @@ class ReportFragment : Fragment(),
 
         topMenu()
 
-        refreshPage()
+        EtOfficeGetReportListPost("","")
 
         return binding.root
     }
 
-    private fun refreshPage() {
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                arrayListYmd.clear()
-                //データ更新
-                try {
-                    //日報一覧取得
-                    val r = pEtOfficeGetReportList.post()
-                    Log.e(TAG, "pEtOfficeGetReportList.post() :$r")
 
-                    if(r=="0"){
-                        doOnUiCode()
+    private fun EtOfficeGetReportListPost(startym:String,months:String) {
+        Api.EtOfficeGetReportListPost(
+            context = requireActivity(),
+            startym = startym,
+            months = months,
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
+
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetReportListResult(model.result)
+                        }
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
-
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetReportList.post()",e)
-
                 }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                }
+            }
+        )
+    }
 
+    private fun EtOfficeSetApprovalJskPost(arrayListYmd : ArrayList<String>) {
+        //指定された　発信
+        if (arrayListYmd.size > 0) {
+
+            Api.EtOfficeSetApprovalJskPost(
+                context = requireActivity(),
+                ymdArray = arrayListYmd,
+                onSuccess = { model ->
+                    Handler(Looper.getMainLooper()).post {
+
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeGetReportListPost("","")
+                            }
+                            1 -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            else -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                },
+                onFailure = { error, data ->
+                    Handler(Looper.getMainLooper()).post {
+                        Log.e(TAG, "onFailure:$data");
+                    }
+                }
+            )
+        }
+    }
+
+    private fun EtOfficeGetReportListResult(result: EtOfficeGetReportList.Result) {
+        viewModel.allSelectChangeFalse()
+        mAdapter= activity?.let {
+            GetReportListGroupAdapter(
+                result.group
+                ,arrayListYmd
+                ,it
+                ,viewModel
+                ,viewLifecycleOwner
+            )
+        }!!
+        mRecyclerView.adapter = mAdapter
+
+
+        //allSelect click
+        binding.allSelect.setOnClickListener {
+            arrayListYmd.clear()
+            viewModel.allSelectChange()
+            if (viewModel.isAllSelect() == true){
+                for (i in result.group.indices){
+                    for (j in result.group[i].reportlist.indices)
+                        if(!arrayListYmd.contains(result.group[i].reportlist[j].yyyymmdd)) {
+                            arrayListYmd.add(result.group[i].reportlist[j].yyyymmdd)
+                        }
+                }
             }
         }
     }
@@ -122,94 +194,11 @@ class ReportFragment : Fragment(),
         })
 
 
-        //allSelect click
-        binding.allSelect.setOnClickListener {
-            arrayListYmd.clear()
-            viewModel.allSelectChange()
-            if (viewModel.isAllSelect() == true){
-                for (i in pEtOfficeGetReportList.infoJson().result.group.indices){
-                    for (j in pEtOfficeGetReportList.infoJson().result.group[i].reportlist.indices)
-                        if(!arrayListYmd.contains(pEtOfficeGetReportList.infoJson().result.group[i].reportlist[j].yyyymmdd)) {
-                            arrayListYmd.add(pEtOfficeGetReportList.infoJson().result.group[i].reportlist[j].yyyymmdd)
-                        }
-                }
-            }
-        }
 
         //commit click
         binding.commit.setOnClickListener {
             commitAlertDialog()
 
-        }
-    }
-
-    private fun commitClick() {
-        if (viewModel.visibility.value == View.VISIBLE) {
-            try {
-                GlobalScope.launch(errorHandler) {
-                    withContext(Dispatchers.IO) {
-                        //指定された　発信
-                        if(arrayListYmd.size>0){
-                            var r: String = "-1"
-                            r = pEtOfficeSetApprovalJsk.post(arrayListYmd)
-                            Log.e(TAG, "topMenu: r:$r")
-
-                            if(r=="0"){
-                                //データ更新
-                                try {
-
-                                    //日報一覧取得
-                                    Log.e(TAG, "commitClick: 日報一覧取得", )
-                                    refreshPage()
-
-                                } catch (e: Exception) {
-                                    Log.e(TAG, "pEtOfficeGetReportList.post()",e)
-
-                                }
-                            }
-                        }
-
-                    }
-
-                }
-
-            } catch (e: Exception) {
-                Log.e(TAG, "tv_commit.setOnClickListener", e)
-            }
-        }
-    }
-
-
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
-
-    private suspend fun doOnUiCode() {
-        withContext(Dispatchers.Main) {
-            viewModel.allSelectChangeFalse()
-            mAdapter= activity?.let {
-                GetReportListGroupAdapter(
-                    pEtOfficeGetReportList.infoJson().result.group
-                    ,arrayListYmd
-                    ,it
-                    ,viewModel
-                    ,viewLifecycleOwner
-                )
-            }!!
-            mRecyclerView.adapter = mAdapter
-
-
-
-            mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener{
-                override fun onClick(tenantid: String) {
-                    GlobalScope.launch(errorHandler) {
-                        withContext(Dispatchers.IO) {
-
-                        }
-                    }
-
-                }
-            })
         }
     }
 
@@ -223,7 +212,9 @@ class ReportFragment : Fragment(),
                 .setTitle("消息")
                 .setMessage("現在選択されている情報を承認しますか？")
                 .setPositiveButton("确定") { _, which ->
-                    commitClick()
+                    if (viewModel.visibility.value == View.VISIBLE) {
+                        EtOfficeSetApprovalJskPost(arrayListYmd)
+                    }
                 }
                 .setNegativeButton("取消") { _, which ->
                 }
@@ -247,6 +238,6 @@ class ReportFragment : Fragment(),
     override fun onRefresh() {
         Log.e(TAG, "onRefresh: begin", )
         mSwipeRefreshLayout.isRefreshing = false;
-        refreshPage()
+        EtOfficeGetReportListPost("","")
     }
 }

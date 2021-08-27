@@ -1,11 +1,9 @@
 package com.xieyi.etoffice.jsonData
 
 import android.util.Log
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
+import com.google.gson.Gson
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
-import com.xieyi.etoffice.Tools
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -47,13 +45,12 @@ class EtOfficeSetApprovalJsk {
             jsonObject.put("hpid", EtOfficeApp.HpId)
             jsonObject.put("device", "android")
             jsonObject.put("userid", EtOfficeApp.userid)
-//            jsonObject.put("updateymd", "[\"20210301\",\"20210302\"]")
-//            jsonObject.put("updateymd", ymd)
-            val ymdJsonArray = JSONArray()
+
+            val ymdJSONArray = JSONArray()
             for ( ymd in ymdArray){
-                ymdJsonArray.put(ymd)
+                ymdJSONArray.put(ymd)
             }
-            jsonObject.putOpt("updateymd",ymdJsonArray)
+            jsonObject.put("updateymd",ymdJSONArray)
 
             Log.e(TAG, "jsonObject:"+jsonObject.toString(), )
 
@@ -83,6 +80,22 @@ class EtOfficeSetApprovalJsk {
         return status
     }
 
+
+    fun infoJson(): JsonClass? {
+        try {
+            val gson = Gson()
+            return gson.fromJson(lastJson, JsonClass::class.java)
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
+        }
+        return null
+    }
+
+    data class JsonClass(
+        val message: String,
+        val result: String,
+        val status: Int
+    )
 
 
 
