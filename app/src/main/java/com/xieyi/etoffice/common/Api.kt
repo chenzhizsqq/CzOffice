@@ -281,7 +281,7 @@ class Api {
 
 
         /**
-         * EtOfficeSetComment
+         * EtOfficeSetComment    コメント登録
          *
          * @param context:          コンテキスト
          * @param ymd:              ymd
