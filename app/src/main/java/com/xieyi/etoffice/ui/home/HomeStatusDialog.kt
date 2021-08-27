@@ -1,36 +1,31 @@
 package com.xieyi.etoffice.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
-import android.widget.EditText
-import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.GpsTracker
-import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
-import com.xieyi.etoffice.jsonData.EtOfficeSetUserLocation
-import com.xieyi.etoffice.jsonData.EtOfficeSetUserStatus
 
-import kotlinx.coroutines.*
 
 class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment() {
 
     private val TAG = javaClass.simpleName
 
-    private val _statusvalue = statusvalue
+    private val mStatusvalue = statusvalue
 
-    private val _statustext = statustext
+    private val mStatustext = statustext
 
     private var longitude = 0.0
 
     private var latitude = 0.0
-
-    private lateinit var pEtOfficeSetUserStatus : EtOfficeSetUserStatus
-    private lateinit var pEtOfficeSetUserLocation : EtOfficeSetUserLocation
 
     private lateinit var binding: DialogHomeStatusBinding
 
@@ -47,12 +42,6 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         this.listener = dialogListener
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pEtOfficeSetUserStatus = EtOfficeSetUserStatus()
-        pEtOfficeSetUserLocation = EtOfficeSetUserLocation()
-    }
-
 
     override fun onCreateView(
             @NonNull inflater: LayoutInflater,
@@ -61,7 +50,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
     ): View {
         binding = DialogHomeStatusBinding.inflate(inflater, container, false)
 
-
+        gpsCheck()
 
         //フルスクリーン　Full screen
         val window = dialog!!.window
@@ -73,137 +62,138 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
 
         //ボタン　保存後に閉じる
-        val btnSaveAndClose = binding.btnCancelAndClose
-        btnSaveAndClose.setOnClickListener {
+        binding.btnCancelAndClose.setOnClickListener {
 
-            val etUserLocation: EditText = binding.userLocation
-            val userLocation: String = etUserLocation.text.toString()
-
-            val etMemo: EditText = binding.userStatusMemo
-            val memo: String = etMemo.text.toString()
-
-            listener?.onClick(userLocation, memo)
+            listener?.onClick(binding.userLocation.text.toString(), binding.userStatusMemo.text.toString())
             dialog!!.dismiss()
         }
 
         //状態表示
-        val tvState:TextView= binding.tvState
-        tvState.text = _statustext
+        binding.tvState.text = mStatustext
 
         //set_user_Status
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                setUserStatus()
-            }
+
+        binding.setUserStatus.setOnClickListener {
+            EtOfficeSetUserStatusPost(
+                longitude,
+                latitude,
+                binding.userLocation.toString(),
+                mStatusvalue,
+                mStatustext,
+                binding.userStatusMemo.toString())
         }
 
         //set_user_location
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                setUserLocation()
-            }
+        binding.setUserLocation.setOnClickListener {
+            EtOfficeSetUserLocationPost(binding.userLocation.text.toString())
         }
-
-        gpsCheck()
 
 
         return binding.root
     }
 
-    private fun gpsCheck() {
-        val tvLatitude = binding.tvLatitude
-        val tvLongitude = binding.tvLongitude
-        gpsTracker = GpsTracker(activity)
+    private fun EtOfficeSetUserStatusPost(
+        longitude:Double,
+        latitude:Double,
+        location:String,
+        statusvalue:String,
+        statustext:String,
+        memo:String) {
         if (gpsTracker.canGetLocation()) {
-            latitude= gpsTracker.getLatitude()
-            longitude = gpsTracker.getLongitude()
-            tvLatitude.setText(latitude.toString())
-            tvLongitude.setText(longitude.toString())
+            Api.EtOfficeSetUserStatusPost(
+                context = requireActivity(),
+                longitude = longitude,
+                latitude = latitude,
+                location = location,
+                statusvalue = statusvalue,
+                statustext = statustext,
+                memo= memo,
+                onSuccess = { model ->
+                    Handler(Looper.getMainLooper()).post {
+
+                        when (model.status) {
+                            0 -> {
+                                Tools.showMsg(binding.root, "登録します")
+                            }
+                            1 -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            else -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                },
+                onFailure = { error, data ->
+                    Handler(Looper.getMainLooper()).post {
+                        Log.e(TAG, "onFailure:$data");
+                    }
+                }
+            )
         } else {
             gpsTracker.showSettingsAlert()
         }
     }
 
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
+    private fun EtOfficeSetUserLocationPost(location: String) {
+        if (gpsTracker.canGetLocation()) {
+            Api.EtOfficeSetUserLocation(
+                context = requireActivity(),
+                location = location,
+                latitude = latitude.toString(),
+                longitude = longitude.toString(),
+                onSuccess = { model ->
+                    Handler(Looper.getMainLooper()).post {
 
-    private suspend fun setUserStatus() {
-        withContext(Dispatchers.Main) {
-            val etMemo: EditText = binding.userStatusMemo
-            val setUserStatus: TextView = binding.setUserStatus
-            val userLocation: EditText = binding.userLocation
-
-            setUserStatus.setOnClickListener {
-                Log.e(TAG, "setUserStatus.setOnClickListener: begin")
-                GlobalScope.launch(errorHandler) {
-                    withContext(Dispatchers.IO) {
-                        SetUserStatusPost(etMemo,userLocation.toString())
+                        when (model.status) {
+                            0 -> {
+                                Tools.showMsg(binding.root, "登録します")
+                            }
+                            1 -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            else -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    model.message,
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                },
+                onFailure = { error, data ->
+                    Handler(Looper.getMainLooper()).post {
+                        Log.e(TAG, "onFailure:$data");
                     }
                 }
-            }
+            )
+        } else {
+            gpsTracker.showSettingsAlert()
         }
     }
 
-    private fun SetUserStatusPost(etMemo: EditText,userLocation:String) {
-        val memo: String = etMemo.text.toString()
-        Log.e(TAG, "userStatus.text: $memo")
-        try {
-            val r: String =
-                pEtOfficeSetUserStatus.post(
-                    longitude,
-                    latitude,
-                    userLocation,
-                    _statusvalue,
-                    _statustext,
-                    memo
-                )                   //Json 送信
-            Log.e(TAG, "pEtOfficeSetUserStatus.post() :$r")
-
-            if (r == "0") {
-                Tools.showMsg(binding.root, "登録します")
-            } else {
-                Tools.showMsg(binding.root, "pEtOfficeSetUserStatus.post() :$r")
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "pEtOfficeSetUserStatus.post()",e)
-
-        }
-    }
-
-    private suspend fun setUserLocation() {
-        withContext(Dispatchers.Main) {
-            val userLocation: EditText = binding.userLocation
-            val setUserLocation: TextView = binding.setUserLocation
-            setUserLocation.setOnClickListener {
-                Log.e(TAG, "setUserLocation.setOnClickListener: begin")
-
-                GlobalScope.launch(errorHandler) {
-                    withContext(Dispatchers.IO) {
-                        setUserLocationPost(userLocation)
-                    }
-                }
-
-            }
-        }
-    }
-
-    private fun setUserLocationPost(userLocation: EditText) {
-        val s: String = userLocation.text.toString()
-        Log.e(TAG, "userLocation.text: $s")
-        try {
-            val r: String =
-                pEtOfficeSetUserLocation.post(longitude.toString(), latitude.toString(), s)                   //Json 送信
-            Log.e(TAG, "pEtOfficeSetUserLocation.post() :$r")
-
-            if (r == "0") {
-                Tools.showMsg(binding.root, "登録します")
-            } else {
-                Tools.showMsg(binding.root, "pEtOfficeSetUserLocation.post() :$r")
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "pEtOfficeSetUserLocation.post()",e)
-
+    private fun gpsCheck() {
+        gpsTracker = GpsTracker(activity)
+        if (gpsTracker.canGetLocation()) {
+            latitude= gpsTracker.getLatitude()
+            longitude = gpsTracker.getLongitude()
+            binding.tvLatitude.text = latitude.toString()
+            binding.tvLongitude.text = longitude.toString()
+        } else {
+            gpsTracker.showSettingsAlert()
         }
     }
 }

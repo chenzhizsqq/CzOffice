@@ -636,5 +636,63 @@ class Api {
             )
         }
 
+
+
+        /**
+         * EtOfficeSetUserStatus
+         *
+         * @param context:          コンテキスト
+         * @param count:            count
+         * @param lasttime:         lasttime
+         * @param lastsubid:        lastsubid
+         * @param onSuccess:        成功コールバック
+         * @param onFailure:        失敗コールバック
+         */
+        @Suppress("UNCHECKED_CAST")
+        fun EtOfficeSetUserStatusPost(
+            context: Context,
+            longitude:Double,
+            latitude:Double,
+            location:String,
+            statusvalue:String,
+            statustext:String,
+            memo:String,
+            onSuccess: onSuccess<EtOfficeSetUserStatus.JsonClass>,
+            onFailure: onFailure<ResultType, Any>
+        ) {
+            val url: String = Config.ApiUrl
+
+            val jsonObject = JSONObject()
+            jsonObject.put("app", "EtOfficeSetUserStatus")
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("device", Config.Device)
+
+            jsonObject.put("statusvalue", statusvalue)
+            jsonObject.put("statustext", statustext)
+            jsonObject.put("location", location.toString())
+            jsonObject.put("longitude", longitude.toString())
+            jsonObject.put("latitude", latitude)
+            jsonObject.put("memo", memo)
+
+            HttpUtil.callAsyncHttp(
+                context = context,
+                url = url,
+                method = RequestMethod.POST,
+                parameter = jsonObject,
+                authToken = false,
+                fcmToken = false,
+                classType = EtOfficeSetUserStatus.JsonClass::class.java as Class<Any>,
+                onSuccess = { data ->
+                    val model = data as EtOfficeSetUserStatus.JsonClass
+                    onSuccess(model)
+                },
+                onFailure = { error, data ->
+                    onFailure(error, data)
+                }
+            )
+        }
+
     }
 }

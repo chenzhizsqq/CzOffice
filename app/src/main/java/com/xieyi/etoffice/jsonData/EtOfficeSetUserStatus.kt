@@ -19,9 +19,14 @@ class EtOfficeSetUserStatus {
     var lastJson: String = ""
     val app: String = "EtOfficeSetUserStatus"
 
-    fun post(longitude:Double,latitude:Double,location:String,
-             statusvalue:String,statustext:String
-             ,memo:String): String {
+    fun post(
+        longitude:Double,
+        latitude:Double,
+        location:String,
+         statusvalue:String,
+        statustext:String
+         ,memo:String
+    ): String {
         var status:String = "-1"
         val client: OkHttpClient = OkHttpClient()
         val url:String = Config.LoginUrl
