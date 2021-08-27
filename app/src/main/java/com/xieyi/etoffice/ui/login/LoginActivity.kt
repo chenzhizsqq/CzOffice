@@ -49,19 +49,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val isLogin = prefs.getBoolean("isLogin", false)
 
         if (isLogin) {
-            Thread {
-                try {
-                    if (Config.isCode) {
-                        val pEtOfficeLogin = EtOfficeLogin()
-                        pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
-                    }
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeLogin.post", e)
-                }
-            }.start()
+            login()
         }
     }
 
@@ -89,10 +77,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                     when (model.status) {
                         0 -> {
-                            if (Config.isCode) {
-                                val pEtOfficeLogin = EtOfficeLogin()
-                                pEtOfficeLogin.post("demo1@xieyi.co.jp", "pass")
-                            }
+
                             saveUserInfo(model.result)
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
@@ -165,6 +150,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         EtOfficeApp.Token = user.token
         EtOfficeApp.HpId = user.hpid
         EtOfficeApp.TenantId = user.tenantid
+        EtOfficeApp.userid = user.userid
     }
 
 }
