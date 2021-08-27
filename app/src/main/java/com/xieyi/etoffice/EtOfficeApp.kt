@@ -10,9 +10,6 @@ class EtOfficeApp : Application() {
         lateinit var TenantId :String // 用户tenantid
         lateinit var HpId :String     // 用户hpid
 
-
-        lateinit var uid :String            // 用户uid
-        lateinit var password :String       // 用户password
         lateinit var userid :String         // 用户userid
 
         var selectUi : Int = 0              // 打开MainActivity后，第一个打开的UI

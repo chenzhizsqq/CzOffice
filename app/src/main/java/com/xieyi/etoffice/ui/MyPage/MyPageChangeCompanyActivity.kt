@@ -129,55 +129,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
     }
 
-    private fun EtOfficeLoginPost(uid:String, password:String) {
-        Api.EtOfficeLogin(
-            context = this@MyPageChangeCompanyActivity,
-            uid = uid,
-            password = password,
-            registrationid = "6",
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-
-                            //data save
-                            EtOfficeApp.TenantId = model.result.tenantid
-                            EtOfficeApp.HpId = model.result.hpid
-                            EtOfficeApp.uid = uid
-                            EtOfficeApp.password = password
-                            EtOfficeApp.userid = model.result.userid
-                            EtOfficeGetTenantPost()
-                        }
-                        1 -> {
-
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            )
-                                .show()
-                        }
-                        else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            )
-                                .show()
-                        }
-                    }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
-                }
-            }
-        )
-
-    }
-
     // UI更新
     private  fun EtOfficeGetTenantResult(result: EtOfficeGetTenant.Result) {
         //Log.e(TAG, "doOnUiRefresh: begin")
@@ -221,7 +172,14 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     private  fun EtOfficeSetTenantResult(result: EtOfficeSetTenant.Result) {
-        EtOfficeLoginPost(EtOfficeApp.uid,EtOfficeApp.password)
+        for (i in result.tenantlist.indices){
+            if (result.tenantlist[i].startflg == "1"){
+                EtOfficeApp.TenantId = result.tenantlist[i].tenantid
+                EtOfficeApp.HpId = result.tenantlist[i].hpid
+
+                EtOfficeGetTenantPost()
+            }
+        }
     }
 
     override fun onRefresh() {
