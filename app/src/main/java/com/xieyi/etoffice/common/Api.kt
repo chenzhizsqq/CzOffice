@@ -241,7 +241,7 @@ class Api {
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetReportInfoPost(
+        fun EtOfficeGetReportInfo(
             context: Context,
             ymd : String,
             onSuccess: onSuccess<EtOfficeGetReportInfo.JsonClass>,
@@ -287,7 +287,7 @@ class Api {
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
-        fun EtOfficeSetCommentPost(
+        fun EtOfficeSetComment(
             context: Context,
             ymd : String,
             comment : String,
@@ -315,6 +315,46 @@ class Api {
                 classType = EtOfficeSetComment.JsonClass::class.java as Class<Any>,
                 onSuccess = { data ->
                     val model = data as EtOfficeSetComment.JsonClass
+                    onSuccess(model)
+                },
+                onFailure = { error, data ->
+                    onFailure(error, data)
+                }
+            )
+        }
+
+
+        /**
+         * EtOfficeGetStuffList
+         *
+         * @param context:          コンテキスト
+         * @param onSuccess:        成功コールバック
+         * @param onFailure:        失敗コールバック
+         */
+        @Suppress("UNCHECKED_CAST")
+        fun EtOfficeGetStuffList(
+            context: Context,
+            onSuccess: onSuccess<EtOfficeGetStuffList.JsonClass>,
+            onFailure: onFailure<ResultType, Any>
+        ) {
+            val url: String = Config.ApiUrl
+
+            val jsonObject = JSONObject()
+            jsonObject.put("app", "EtOfficeGetStuffList")
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("device", Config.Device)
+            HttpUtil.callAsyncHttp(
+                context = context,
+                url = url,
+                method = RequestMethod.POST,
+                parameter = jsonObject,
+                authToken = false,
+                fcmToken = false,
+                classType = EtOfficeGetStuffList.JsonClass::class.java as Class<Any>,
+                onSuccess = { data ->
+                    val model = data as EtOfficeGetStuffList.JsonClass
                     onSuccess(model)
                 },
                 onFailure = { error, data ->
