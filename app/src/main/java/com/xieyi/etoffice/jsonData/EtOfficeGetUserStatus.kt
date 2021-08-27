@@ -15,61 +15,6 @@ import org.json.JSONObject
 //EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
 class EtOfficeGetUserStatus {
 
-    val TAG = javaClass.simpleName
-    var lastJson: String = ""
-    val app: String = "EtOfficeGetUserStatus"
-
-        /*
-        {"app":"EtOfficeGetUserStatus"
-        , "token":"202011291352391050000000090010000000000000010125"
-        ,"tenant":"1"
-        , "hpid":"6"
-        , "device":"android"}
-         */
-    fun post(): String {
-            var status:String = "-1"
-            val client: OkHttpClient = OkHttpClient()
-            val url:String = Config.LoginUrl
-
-            try {
-                val jsonObject = JSONObject()
-                jsonObject.put("app", app)
-                jsonObject.put("token", EtOfficeApp.Token)
-                jsonObject.put("tenant", EtOfficeApp.TenantId)
-                jsonObject.put("hpid", EtOfficeApp.HpId)
-                jsonObject.put("device", "android")
-                //Log.e(TAG, "jsonObject:$jsonObject")
-                val body = jsonObject.toString()
-                    .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-
-                val request = Request.Builder().url(url).post(body).build()
-
-                val response: Response = client.newCall(request).execute();
-                if (response.isSuccessful) {
-
-                    val json:String = response.body!!.string()
-                    lastJson = json
-                    val mJsonResult = JSONObject(json)
-                    //Log.e(TAG, "!!!!!!mJsonResult:$mJsonResult" )
-
-                    status = mJsonResult.getString("status")
-
-
-                    return status
-                }else{
-                    Log.e(TAG, "postRequest: false" )
-                }
-            }catch (e: Exception){
-                Log.e(TAG, e.toString())
-            }
-            return status
-        }
-
-    fun infoJson(): JsonClass {
-        val gson = Gson()
-        return gson.fromJson(lastJson, JsonClass::class.java)
-    }
-
     data class JsonClass(
         val message: String,
         val result: Result,
