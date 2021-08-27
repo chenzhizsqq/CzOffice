@@ -14,16 +14,7 @@ class HomeViewModel : ViewModel() {
 
 
     private val _date = MutableLiveData<String>().apply {
-
-
         value = Tools.getDate(".")
-
-
-//        Thread {
-//            if (pEtOfficeUserInfo.post() == "0") {
-//                postValue(pEtOfficeUserInfo.infoUserStatusList()?.mail)
-//            }
-//        }.start()
     }
     val date: LiveData<String> = _date
 }
