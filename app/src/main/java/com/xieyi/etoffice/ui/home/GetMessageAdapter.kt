@@ -16,8 +16,6 @@ class GetMessageAdapter(
 ) : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
-    private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
-
 
     class ViewHolder(binding: GetMessageListBinding) : RecyclerView.ViewHolder(binding.root) {
         private val tv_title: TextView = binding.title
@@ -40,7 +38,6 @@ class GetMessageAdapter(
         val binding = GetMessageListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
-        pEtOfficeSetTenant = EtOfficeSetTenant()
         return viewHolder
     }
 

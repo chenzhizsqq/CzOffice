@@ -2,6 +2,8 @@ package com.xieyi.etoffice.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -14,8 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
@@ -28,22 +32,12 @@ class HomeFragment : Fragment(),
 
     private val TAG = javaClass.simpleName
 
-    private lateinit var pEtOfficeGetUserStatus : EtOfficeGetUserStatus
-    private lateinit var pEtOfficeGetStatusList : EtOfficeGetStatusList
-    private lateinit var pEtOfficeGetMessage : EtOfficeGetMessage
     private lateinit var mAdapter: GetMessageAdapter
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        pEtOfficeGetUserStatus = EtOfficeGetUserStatus()
-        pEtOfficeGetStatusList = EtOfficeGetStatusList()
-        pEtOfficeGetMessage = EtOfficeGetMessage()
-    }
-
     private lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -102,62 +96,187 @@ class HomeFragment : Fragment(),
 
 
         //ページを更新
-        refreshPage()
+        dataPost()
 
         return binding.root
     }
 
+
     //ページを更新
-    private fun refreshPage() {
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-                Log.e(TAG, "refreshPage: begin", )
+    private fun dataPost() {
+        EtOfficeGetUserStatusPost()
+        EtOfficeGetStatusListPost()
+        EtOfficeGetMessagePost()
+    }
 
+    private  fun EtOfficeGetUserStatusPost(){
+        Api.EtOfficeGetUserStatusPost(
+            context = requireActivity(),
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
 
-                //出勤記録 データ更新
-                try {
-                    val r: String = pEtOfficeGetUserStatus.post()                   //Json 送信
-                    Log.e(TAG, "pEtOfficeGetUserStatus.post() :$r")
-
-                    if (r=="0"){
-                        //今状態 データ更新
-                        doOnUiCode_NowStatus()
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetUserStatusResult(model.result)
+                        }
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
                     }
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetUserStatus", e)
-
                 }
-
-
-
-
-                //GetStatusList
-                try {
-                    val r: String = pEtOfficeGetStatusList.post()                   //Json 送信
-                    Log.e(TAG, "pEtOfficeGetStatusList.post() :$r")
-                    if (r=="0"){
-                        doOnUiCode_GetStatusList()
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetStatusList.post()", e)
-                }
-
-
-                //Message データ更新
-                try {
-                    val r: String = pEtOfficeGetMessage.post()                   //Json 送信
-                    Log.e(TAG, "pEtOfficeGetMessage.post() :$r")
-
-
-                    if(r=="0"){
-                        doOnUiCode_Message()
-                    }
-                } catch (e: Exception) {
-                    Log.e(TAG, "pEtOfficeGetMessage.post()", e)
-
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
                 }
             }
+        )
+    }
+
+
+    private fun EtOfficeGetUserStatusResult(result: EtOfficeGetUserStatus.Result) {
+        if(result.userstatuslist.size>0)
+        {
+            Log.e(TAG, "doOnUiCode_NowStatus: size>0", )
+
+            val tvState = binding.state
+            val statustext = result.userstatuslist[0].statustext
+
+            Log.e(TAG, "doOnUiCode_NowStatus: statustext:$statustext", )
+            tvState.text = statustext
         }
+
+    }
+
+    private fun EtOfficeGetStatusListPost(){
+        Api.EtOfficeGetStatusListPost(
+            context = requireActivity(),
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
+
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetStatusListResult(model.result)
+                        }
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                }
+            }
+        )
+    }
+
+
+    // GetStatusList UI更新
+    private fun EtOfficeGetStatusListResult(result:EtOfficeGetStatusList.Result) {
+        val state_layout = binding.stateLayout
+        state_layout.removeAllViews()
+
+        //表示量
+        val srcSize = 2
+
+        //今表示量
+        var srcNum = 0
+
+        val size = result.recordlist.size
+
+        Log.e(TAG, "recordlist.size: $size")
+
+
+
+        for (i in 0 until size) {
+            val time = result.recordlist[i].statustime
+            val timeSrc = Tools.allDateTime(time)
+            val status = result.recordlist[i].statustext
+            val memo = result.recordlist[i].memo
+
+
+            val textView = TextView(activity)
+            textView.text = "・$timeSrc $status $memo"
+            textView.setPadding(5)
+
+
+            state_layout.addView(textView)
+
+            if(++srcNum >= srcSize){
+                break
+            }
+        }
+    }
+
+    private fun EtOfficeGetMessagePost(){
+        Api.EtOfficeGetMessagePost(
+            context = requireActivity(),
+            count = "50",
+            lasttime = "",
+            lastsubid = "",
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
+
+                    when (model.status) {
+                        0 -> {
+                            EtOfficeGetMessageResult(model.result)
+                        }
+                        1 -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                        else -> {
+                            Snackbar.make(
+                                binding.root,
+                                model.message,
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                }
+            }
+        )
+    }
+
+    // Message UI更新
+    private fun EtOfficeGetMessageResult(result:EtOfficeGetMessage.Result) {
+            Log.e(TAG, "doOnUiCode_Message: begin", )
+
+            mAdapter=GetMessageAdapter(result.messagelist)
+            binding.recyclerMessage.adapter = mAdapter
+
     }
 
     private fun showStatusDialog(statusvalue:String,statustext:String) {
@@ -170,89 +289,14 @@ class HomeFragment : Fragment(),
             override fun onClick(userLocation: String, memo: String) {
                 Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo", )
 
-                refreshPage()
+                dataPost()
             }
         })
-    }
-
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
-
-
-
-    // GetStatusList UI更新
-    private suspend fun doOnUiCode_GetStatusList() {
-        withContext(Dispatchers.Main) {
-            val state_layout = binding.stateLayout
-            state_layout.removeAllViews()
-
-            //表示量
-            val srcSize = 2
-
-            //今表示量
-            var srcNum = 0
-
-            val size = pEtOfficeGetStatusList.infoJson().result.recordlist.size
-
-            Log.e(TAG, "recordlist.size: $size")
-
-
-
-            for (i in 0 until size) {
-                val time = pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustime
-                val timeSrc = Tools.allDateTime(time)
-                val status = pEtOfficeGetStatusList.infoJson().result.recordlist[i].statustext
-                val memo = pEtOfficeGetStatusList.infoJson().result.recordlist[i].memo
-
-
-                val textView = TextView(activity)
-                textView.text = "・$timeSrc $status $memo"
-                textView.setPadding(5)
-
-
-                state_layout.addView(textView)
-
-                if(++srcNum >= srcSize){
-                    break
-                }
-            }
-        }
-    }
-
-
-    // 今状態 state 更新
-    private suspend fun doOnUiCode_NowStatus() {
-        withContext(Dispatchers.Main) {
-
-            if(pEtOfficeGetUserStatus.infoJson().result.userstatuslist.size>0)
-            {
-                Log.e(TAG, "doOnUiCode_NowStatus: size>0", )
-
-                val tvState = binding.state
-                val statustext = pEtOfficeGetUserStatus.infoJson().result.userstatuslist[0].statustext
-
-                Log.e(TAG, "doOnUiCode_NowStatus: statustext:$statustext", )
-                tvState.text = statustext
-            }
-
-        }
-    }
-
-    // Message UI更新
-    private suspend fun doOnUiCode_Message() {
-        withContext(Dispatchers.Main) {
-            Log.e(TAG, "doOnUiCode_Message: begin", )
-
-            mAdapter=GetMessageAdapter(pEtOfficeGetMessage.infoJson().result.messagelist)
-            binding.recyclerMessage.adapter = mAdapter
-
-        }
     }
 
     override fun onRefresh() {
 
         mSwipeRefreshLayout.isRefreshing = false;
-        refreshPage()
+        dataPost()
     }
 }
