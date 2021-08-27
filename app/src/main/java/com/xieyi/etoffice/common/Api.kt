@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.common
 
 import android.content.Context
+import android.util.Log
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.common.model.LoginResultModel
@@ -62,7 +63,7 @@ class Api {
         }
 
         /**
-         * EtOfficeGetTenant
+         * EtOfficeGetTenant        所属会社一覧
          *
          * @param context:          コンテキスト
          * @param onSuccess:        成功コールバック
@@ -100,7 +101,7 @@ class Api {
         }
 
         /**
-         * EtOfficeSetTenant
+         * EtOfficeSetTenant        起動会社設定登録
          *
          * @param context:          コンテキスト
          * @param tenantid:         tenantid
@@ -142,7 +143,7 @@ class Api {
 
 
         /**
-         * EtOfficeGetUserLocation
+         * EtOfficeGetUserLocation  ユーザー勤務場所一覧取得
          *
          * @param context:          コンテキスト
          * @param onSuccess:        成功コールバック
@@ -185,7 +186,7 @@ class Api {
 
 
         /**
-         * EtOfficeSetUserLocation
+         * EtOfficeSetUserLocation  ユーザー勤務場所設定
          *
          * @param context:          コンテキスト
          * @param location:         location
@@ -236,7 +237,7 @@ class Api {
 
 
         /**
-         * EtOfficeGetReportInfo
+         * EtOfficeGetReportInfo    日報詳細取得
          *
          * @param context:          コンテキスト
          * @param ymd:              ymd
@@ -328,7 +329,7 @@ class Api {
 
 
         /**
-         * EtOfficeGetStuffList
+         * EtOfficeGetStuffList     社員一覧取得
          *
          * @param context:          コンテキスト
          * @param onSuccess:        成功コールバック
@@ -368,7 +369,7 @@ class Api {
 
 
         /**
-         * EtOfficeGetReportList
+         * EtOfficeGetReportList    レポート
          *
          * @param context:          コンテキスト
          * @param startym:          startym,
@@ -413,7 +414,7 @@ class Api {
         }
 
         /**
-         * EtOfficeSetApprovalJsk
+         * EtOfficeSetApprovalJsk 勤務実績承認
          *
          * @param context:          コンテキスト
          * @param onSuccess:        成功コールバック
@@ -451,6 +452,8 @@ class Api {
                 classType = EtOfficeSetApprovalJsk.JsonClass::class.java as Class<Any>,
                 onSuccess = { data ->
                     val model = data as EtOfficeSetApprovalJsk.JsonClass
+
+                    Log.e(TAG, "EtOfficeSetApprovalJskPost: EtOfficeSetApprovalJsk:$data", )
                     onSuccess(model)
                 },
                 onFailure = { error, data ->
