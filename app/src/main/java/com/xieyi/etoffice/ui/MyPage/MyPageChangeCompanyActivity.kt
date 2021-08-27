@@ -23,9 +23,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     SwipeRefreshLayout.OnRefreshListener  {
 
     private val TAG = javaClass.simpleName
-
-    private lateinit var pEtOfficeGetTenant : EtOfficeGetTenant
-    private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
     private lateinit var pEtOfficeLogin : EtOfficeLogin
 
     private lateinit var mAdapter:GetTenantAdapter
@@ -38,8 +35,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         binding = ActivityMyPageChangeCompanyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        pEtOfficeGetTenant = EtOfficeGetTenant()
-        pEtOfficeSetTenant = EtOfficeSetTenant()
         pEtOfficeLogin = EtOfficeLogin()
 
         EtOfficeGetTenantPost()
