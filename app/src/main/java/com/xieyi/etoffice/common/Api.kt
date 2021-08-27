@@ -460,6 +460,45 @@ class Api {
         }
 
 
+        /**
+         * EtOfficeUserInfo ユーザー情報取得
+         *
+         * @param context:          コンテキスト
+         * @param onSuccess:        成功コールバック
+         * @param onFailure:        失敗コールバック
+         */
+        @Suppress("UNCHECKED_CAST")
+        fun EtOfficeUserInfo(
+            context: Context,
+            onSuccess: onSuccess<EtOfficeUserInfo.JsonClass>,
+            onFailure: onFailure<ResultType, Any>
+        ) {
+            val url: String = Config.ApiUrl
+
+            val jsonObject = JSONObject()
+            jsonObject.put("app", "EtOfficeUserInfo")
+            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("tenant", EtOfficeApp.TenantId)
+            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("device", Config.Device)
+
+            HttpUtil.callAsyncHttp(
+                context = context,
+                url = url,
+                method = RequestMethod.POST,
+                parameter = jsonObject,
+                authToken = false,
+                fcmToken = false,
+                classType = EtOfficeUserInfo.JsonClass::class.java as Class<Any>,
+                onSuccess = { data ->
+                    val model = data as EtOfficeUserInfo.JsonClass
+                    onSuccess(model)
+                },
+                onFailure = { error, data ->
+                    onFailure(error, data)
+                }
+            )
+        }
 
 
     }
