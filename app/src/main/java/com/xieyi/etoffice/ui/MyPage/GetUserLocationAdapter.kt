@@ -14,8 +14,6 @@ class GetUserLocationAdapter(
 ) : RecyclerView.Adapter<GetUserLocationAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
-    private lateinit var pEtOfficeGetUserLocation : EtOfficeGetUserLocation
-
 
     class ViewHolder(binding: GetUserLocationBinding) : RecyclerView.ViewHolder(binding.root) {
         private val latitude: TextView = binding.latitude
@@ -39,7 +37,6 @@ class GetUserLocationAdapter(
         val binding = GetUserLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
-        pEtOfficeGetUserLocation = EtOfficeGetUserLocation()
         return viewHolder
     }
 
