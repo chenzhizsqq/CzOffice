@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:text="マイページ"
+                    android:text="@string/title_my_page"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -88,14 +88,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="ユーザー　１2"
                         android:textSize="12dp"/>
 
                     <TextView
                         android:id="@+id/user_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="demo1@xieyi.co.jp"
                         android:textSize="12dp"/>
                 </LinearLayout>
 
@@ -106,7 +104,7 @@
                 android:id="@+id/PERSONAL_INFO_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PERSONAL INFO"
+                android:text="@string/fragment_my_page_personal_info"
                 android:paddingTop="30dp"
 
                 android:textSize="12dp"/>
@@ -128,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name"
+                        android:text="@string/fragment_my_page_name"
                         android:textColor="@color/black"
                         android:gravity="left"
                         android:singleLine="true"/>
@@ -138,7 +136,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="text"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -167,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Mobile"
+                        android:text="@string/fragment_my_page_mobile"
                         android:gravity="left"
                         android:singleLine="true"/>
 
@@ -176,7 +173,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="text"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -207,7 +203,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:text="Mail"
+                        android:text="@string/fragment_my_page_mail"
                         android:gravity="left"
                         android:singleLine="true"/>
 
@@ -216,7 +212,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="text"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -249,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:singleLine="true"
-                        android:text="Place Management"
+                        android:text="@string/fragment_my_page_place_management"
                         android:textColor="@color/black" />
 
                     <TextView
@@ -258,7 +253,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:singleLine="true"
-                        android:text=" > " />
+                        android:text="@string/fragment_my_page_more" />
 
                 </LinearLayout>
 
@@ -287,7 +282,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Change Company"
+                        android:text="@string/fragment_my_page_change_company"
                         android:textColor="@color/black"
                         android:gravity="left"
                         android:singleLine="true"/>
@@ -296,7 +291,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text=" > "
+                        android:text="@string/fragment_my_page_more"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -309,7 +304,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
-                android:text="SYSTEM"
+                android:text="@string/fragment_my_page_system"
 
                 android:textSize="12dp"
                 />
@@ -333,7 +328,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/black"
-                        android:text="Signout"
+                        android:text="@string/fragment_my_page_signout"
                         android:gravity="left"
                         android:singleLine="true"/>
 

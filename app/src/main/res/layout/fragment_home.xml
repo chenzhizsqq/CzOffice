@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:text="ホーム"
+                    android:text="@string/fragment_home_title"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -129,10 +129,10 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/text_title2"
+                android:id="@+id/common_function"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="共通機能"
+                android:text="@string/fragment_home_common_function"
                 android:textAlignment="textStart"
                 android:layout_margin="5dp"
                 android:textColor="@color/black"
@@ -273,12 +273,12 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/text_title3"
+                android:id="@+id/visit_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
-                android:text="出勤記録"
+                android:text="@string/fragment_home_visit_record"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -298,7 +298,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
-                android:text="Message"
+                android:text="@string/fragment_home_message"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 

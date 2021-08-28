@@ -40,7 +40,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="全て選択"
+                        android:text="@string/fragment_report_all_select"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
                 <LinearLayout
@@ -55,7 +55,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="承認"
+                        android:text="@string/fragment_report_commit"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
                 <LinearLayout
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:gravity="center"
-                        android:text="日報"
+                        android:text="@string/title_report"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
                 <LinearLayout
@@ -101,7 +101,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Edit"
+                        android:text="@string/fragment_report_edit"
                         android:textColor="#FFFFFF" />
                 </LinearLayout>
 

@@ -36,7 +36,7 @@
                         android:layout_width="1dp"
                         android:layout_weight="1"
                         android:layout_height="50dp"
-                        android:text="日報"
+                        android:text="@string/title_report"
                         android:textSize="20sp"
                         android:textColor="#FFFFFF"
                         android:gravity="center"
@@ -45,7 +45,6 @@
                         android:layout_width="1dp"
                         android:layout_weight="1"
                         android:layout_height="50dp"
-                        android:text=""
                         />
                 </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -96,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:gravity="center|left"
-                        android:text="予定："
+                        android:text="@string/activity_report_detail_予定"
                         android:textColor="#000000"/>
                     <TextView
                         android:id="@+id/appointment"
@@ -104,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:gravity="center|left"
-                        android:text="予定："
+                        android:text="予定内容"
                         android:textColor="#000000"/>
                 </LinearLayout>
 
@@ -138,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:gravity="center|left"
-                        android:text="実績："
+                        android:text="@string/activity_report_detail_実績"
                         android:textColor="#000000"/>
                     <TextView
                         android:id="@+id/worktime"
@@ -146,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:gravity="center|left"
-                        android:text="実績："
+                        android:text="実績内容"
                         android:textColor="#000000"/>
                 </LinearLayout>
 
@@ -193,7 +192,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="追加する"
+                            android:text="@string/activity_report_detail_buttom_title"
                             android:textSize="18sp"
                             android:gravity="center"
                             />
@@ -263,7 +262,7 @@
                 android:layout_weight="1"
                 android:layout_height="50dp"
                 android:layout_margin="5dp"
-                android:text="送信"
+                android:text="@string/message_send"
                 />
         </LinearLayout>
 

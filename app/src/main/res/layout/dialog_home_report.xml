@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_margin="30dp"
-        android:text="出勤記録"
+        android:text="dialog_home_report_出勤記録"
         android:textSize="20dp"
         android:textColor="#222"
         android:textStyle="bold"
@@ -174,7 +174,7 @@
                 android:id="@+id/btn_save_and_close"
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
-                android:text="close"
+                android:text="@string/dialog_home_report_close"
                 android:textSize="18dp"
                 android:gravity="center"
                 />

@@ -51,7 +51,7 @@
         android:id="@+id/button_cancel"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="取消"
+        android:text="@string/button_cancel"
         android:textSize="20sp"
         android:textColor="#057dff"
         android:gravity="center"
