@@ -19,10 +19,6 @@ class Config {
          * 程序开发，强行添加的代码
          */
         const val isCode = true
-
-        const val tenantid="3"
-
-        const val hpid="6"
     }
 
 }
