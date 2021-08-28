@@ -22,22 +22,22 @@ class MyPageLogoutDialog : DialogFragment() {
     ): View {
         binding = DialogMyPageLogoutBinding.inflate(inflater, container, false)
 
-        //ボタン　保存後に閉じる
+        //ボタン　
         binding.btnCancel.setOnClickListener {
             dialog!!.dismiss()
 
         }
 
-        //ボタン　保存後に閉じる
+        //ボタン　
         binding.btnLogout.setOnClickListener {
 
             //清空SharedPreferences文件中用户信息
             val prefs = activity?.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-            prefs?.edit()?.clear()?.apply();
+            prefs?.edit()?.clear()?.apply()
 
             //消除所有的Activity
             val intent = Intent(activity, LoginActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK)
 
             startActivity(intent)
             activity?.finish()
