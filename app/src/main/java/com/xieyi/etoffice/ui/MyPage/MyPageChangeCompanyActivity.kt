@@ -29,7 +29,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     private lateinit var binding: ActivityMyPageChangeCompanyBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
 
         binding = ActivityMyPageChangeCompanyBinding.inflate(layoutInflater)
         setContentView(binding.root)

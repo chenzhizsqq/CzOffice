@@ -44,7 +44,6 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
         binding = ActivityMyPagePlaceSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
