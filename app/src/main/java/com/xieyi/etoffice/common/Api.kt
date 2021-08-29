@@ -642,18 +642,21 @@ class Api {
          * EtOfficeSetUserStatus
          *
          * @param context:          コンテキスト
-         * @param count:            count
-         * @param lasttime:         lasttime
-         * @param lastsubid:        lastsubid
+         * @param location:         String,
+         * @param longitude:        Double,
+         * @param latitude:         Double,
+         * @param statusvalue:      String,
+         * @param statustext:       String,
+         * @param memo:             String,
          * @param onSuccess:        成功コールバック
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
         fun EtOfficeSetUserStatusPost(
             context: Context,
+            location:String,
             longitude:Double,
             latitude:Double,
-            location:String,
             statusvalue:String,
             statustext:String,
             memo:String,
@@ -671,9 +674,9 @@ class Api {
 
             jsonObject.put("statusvalue", statusvalue)
             jsonObject.put("statustext", statustext)
-            jsonObject.put("location", location.toString())
+            jsonObject.put("location", location)
             jsonObject.put("longitude", longitude.toString())
-            jsonObject.put("latitude", latitude)
+            jsonObject.put("latitude", latitude.toString())
             jsonObject.put("memo", memo)
 
             HttpUtil.callAsyncHttp(

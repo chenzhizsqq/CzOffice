@@ -102,9 +102,9 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         if (gpsTracker.canGetLocation()) {
             Api.EtOfficeSetUserStatusPost(
                 context = requireActivity(),
+                location = location,
                 longitude = longitude,
                 latitude = latitude,
-                location = location,
                 statusvalue = statusvalue,
                 statustext = statustext,
                 memo= memo,
