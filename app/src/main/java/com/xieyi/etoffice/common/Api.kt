@@ -77,10 +77,14 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeGetTenant")
-            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("token", token)
             jsonObject.put("device", Config.Device)
+
 
             HttpUtil.callAsyncHttp(
                 context = context,
@@ -117,10 +121,13 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeSetTenant")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("device", "android")
+            jsonObject.put("token", token)
+            jsonObject.put("device", Config.Device)
             jsonObject.put("tenantid",tenantid)
 
             HttpUtil.callAsyncHttp(
@@ -157,11 +164,16 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+            val tenantid: String? = prefs.getString("tenantid", "")
+            val hpid: String? = prefs.getString("hpid", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeGetUserLocation")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("token", token)
+            jsonObject.put("tenant", tenantid)
+            jsonObject.put("hpid", hpid)
             jsonObject.put("device", Config.Device)
 
             HttpUtil.callAsyncHttp(
@@ -206,11 +218,16 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+            val tenantid: String? = prefs.getString("tenantid", "")
+            val hpid: String? = prefs.getString("hpid", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeSetUserLocation")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("token", token)
+            jsonObject.put("tenant", tenantid)
+            jsonObject.put("hpid", hpid)
             jsonObject.put("device", Config.Device)
             jsonObject.put("location", location)
             jsonObject.put("latitude", latitude)
@@ -253,13 +270,19 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+            val tenantid: String? = prefs.getString("tenantid", "")
+            val hpid: String? = prefs.getString("hpid", "")
+            val userid: String? = prefs.getString("userid", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeGetReportInfo")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("token", token)
+            jsonObject.put("tenant", tenantid)
+            jsonObject.put("hpid", hpid)
+            jsonObject.put("userid", userid)
             jsonObject.put("device", Config.Device)
-            jsonObject.put("userid", EtOfficeApp.userid)
             jsonObject.put("ymd", ymd)
 
             HttpUtil.callAsyncHttp(
@@ -300,13 +323,19 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+            val tenantid: String? = prefs.getString("tenantid", "")
+            val hpid: String? = prefs.getString("hpid", "")
+            val userid: String? = prefs.getString("userid", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeSetComment")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("token", token)
+            jsonObject.put("tenant", tenantid)
+            jsonObject.put("hpid", hpid)
+            jsonObject.put("userid", userid)
             jsonObject.put("device", Config.Device)
-            jsonObject.put("userid", EtOfficeApp.userid)
             jsonObject.put("ymd", ymd)
             jsonObject.put("comment", comment)
             HttpUtil.callAsyncHttp(
@@ -343,11 +372,17 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+            val tenantid: String? = prefs.getString("tenantid", "")
+            val hpid: String? = prefs.getString("hpid", "")
+            val userid: String? = prefs.getString("userid", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeGetStuffList")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
+            jsonObject.put("token", token)
+            jsonObject.put("tenant", tenantid)
+            jsonObject.put("hpid", hpid)
             jsonObject.put("device", Config.Device)
             HttpUtil.callAsyncHttp(
                 context = context,
