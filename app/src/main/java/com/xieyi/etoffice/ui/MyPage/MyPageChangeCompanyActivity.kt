@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.MyPage
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,7 @@ import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
+import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.base.BaseActivity
@@ -170,6 +172,19 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             if (result.tenantlist[i].startflg == "1"){
                 EtOfficeApp.TenantId = result.tenantlist[i].tenantid
                 EtOfficeApp.HpId = result.tenantlist[i].hpid
+
+
+                val userInfo = getSharedPreferences(Config.EtOfficeUser, MODE_PRIVATE)
+                val changeListener =
+                    SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->
+                    }
+                userInfo.registerOnSharedPreferenceChangeListener(changeListener)
+
+                val editor = userInfo.edit()
+                editor.apply() {
+                    putString("tenantid", result.tenantlist[i].tenantid)
+                    putString("hpid", result.tenantlist[i].hpid)
+                }.apply()
 
                 EtOfficeGetTenantPost()
             }
