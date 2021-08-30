@@ -1,16 +1,13 @@
 package com.xieyi.etoffice.common
 
 import android.content.Context
-import android.util.Log
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.common.model.*
 import com.xieyi.etoffice.enum.RequestMethod
 import com.xieyi.etoffice.enum.ResultType
-import com.xieyi.etoffice.jsonData.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.ArrayList
 
 class Api {
     companion object {
@@ -789,19 +786,16 @@ class Api {
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
-        fun EtOfficeUserInfoPost(
+        fun EtOfficeUserInfo(
             context: Context,
-            onSuccess: onSuccess<EtOfficeUserInfo.JsonClass>,
+            onSuccess: onSuccess<UserInfoModel>,
             onFailure: onFailure<ResultType, Any>
         ) {
             val url: String = Config.ApiUrl
 
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeUserInfo")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device", Config.Device)
+            setCommonParam(jsonObject)
 
             HttpUtil.callAsyncHttp(
                 context = context,
@@ -810,9 +804,9 @@ class Api {
                 parameter = jsonObject,
                 authToken = false,
                 fcmToken = false,
-                classType = EtOfficeUserInfo.JsonClass::class.java as Class<Any>,
+                classType = UserInfoModel::class.java as Class<Any>,
                 onSuccess = { data ->
-                    val model = data as EtOfficeUserInfo.JsonClass
+                    val model = data as UserInfoModel
                     onSuccess(model)
                 },
                 onFailure = { error, data ->

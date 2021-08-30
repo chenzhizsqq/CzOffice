@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
-import com.xieyi.etoffice.jsonData.EtOfficeUserInfo
 
 import kotlinx.coroutines.*
 
@@ -42,7 +42,7 @@ class MyPageFragment : Fragment() {
 
     private fun EtOfficeUserInfoPost() {
 
-        Api.EtOfficeUserInfoPost(
+        Api.EtOfficeUserInfo(
             context = requireContext(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -78,7 +78,7 @@ class MyPageFragment : Fragment() {
 
 
 
-    private fun EtOfficeUserInfoResult(result: EtOfficeUserInfo.Result) {
+    private fun EtOfficeUserInfoResult(result: UserInfoResult) {
         try {
 
             binding.userName.text = result.username
