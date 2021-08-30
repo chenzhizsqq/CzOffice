@@ -6,13 +6,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.common.model.TenantInfo
 import com.xieyi.etoffice.databinding.GetTenantListBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetTenant
 import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
 
 
 class GetTenantAdapter(
-    val getGetTenant: List<EtOfficeGetTenant.Tenantlist>,
+    val getGetTenant: List<TenantInfo>,
 ) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -37,17 +37,17 @@ class GetTenantAdapter(
         val ll: LinearLayout = binding.ll
 
         //bind
-        fun bind(stufflist: EtOfficeGetTenant.Tenantlist,listener:OnAdapterListener) {
-            tv_posturl.text = stufflist.posturl
-            tv_tenantname.text = stufflist.tenantname
-            if (stufflist.startflg == "1"){
+        fun bind(tenantInfo: TenantInfo, listener:OnAdapterListener) {
+            tv_posturl.text = tenantInfo.posturl
+            tv_tenantname.text = tenantInfo.tenantname
+            if (tenantInfo.startflg == "1"){
                 iv_clicked.visibility = View.VISIBLE
             }else{
                 iv_clicked.visibility = View.GONE
             }
 
             ll.setOnClickListener(View.OnClickListener {
-                listener.onClick(stufflist.tenantid)
+                listener.onClick(tenantInfo.tenantid)
             })
 
         }

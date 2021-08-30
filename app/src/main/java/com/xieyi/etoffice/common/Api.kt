@@ -778,48 +778,6 @@ class Api {
         }
 
         /**
-         * EtOfficeGetTenant        所属会社一覧
-         *
-         * @param context:          コンテキスト
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetTenantPost(
-            context: Context,
-            onSuccess: onSuccess<EtOfficeGetTenant.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-            val token: String? = prefs.getString("token", "")
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetTenant")
-            jsonObject.put("token", token)
-            jsonObject.put("device", Config.Device)
-
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeGetTenant.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeGetTenant.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
-        /**
          * EtOfficeSetTenant        起動会社設定登録
          *
          * @param context:          コンテキスト
