@@ -14,8 +14,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.UserLocationResult
 import com.xieyi.etoffice.databinding.ActivityMyPagePlaceSettingBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetUserLocation
 import kotlinx.coroutines.*
 
 
@@ -57,7 +57,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
     private fun EtOfficeGetUserLocationPost() {
-        Api.EtOfficeGetUserLocationPost(
+        Api.EtOfficeGetUserLocation(
             context = this@MyPagePlaceSettingActivity,
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -138,7 +138,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
 
     // EtOfficeGetUserLocationResult
-    private fun EtOfficeGetUserLocationResult(result: EtOfficeGetUserLocation.Result) {
+    private fun EtOfficeGetUserLocationResult(result: UserLocationResult) {
         //record_title
         binding.recordTitle.text = "REGISTERED"
 

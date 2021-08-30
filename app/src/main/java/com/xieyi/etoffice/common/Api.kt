@@ -777,53 +777,6 @@ class Api {
             )
         }
 
-        /**
-         * EtOfficeGetUserLocation  ユーザー勤務場所一覧取得
-         *
-         * @param context:          コンテキスト
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetUserLocationPost(
-            context: Context,
-            onSuccess: onSuccess<EtOfficeGetUserLocation.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-            val token: String? = prefs.getString("token", "")
-            val tenantid: String? = prefs.getString("tenantid", "")
-            val hpid: String? = prefs.getString("hpid", "")
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetUserLocation")
-            jsonObject.put("token", token)
-            jsonObject.put("tenant", tenantid)
-            jsonObject.put("hpid", hpid)
-            jsonObject.put("device", Config.Device)
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeGetUserLocation.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeGetUserLocation.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
-
-
 
         /**
          * EtOfficeSetUserLocation  ユーザー勤務場所設定
