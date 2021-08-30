@@ -19,15 +19,10 @@ import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
-import com.xieyi.etoffice.common.HttpUtil
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
-import com.xieyi.etoffice.enum.ResultType
-import com.xieyi.etoffice.jsonData.EtOfficeLogin
 
 import okhttp3.*
-import org.json.JSONObject
-import kotlin.concurrent.thread
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     val TAG: String = "LoginActivity"

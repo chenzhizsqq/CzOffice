@@ -872,45 +872,6 @@ class Api {
         }
 
 
-        /**
-         * EtOfficeGetUserStatus ユーザー最新勤務状態の一覧取得
-         *
-         * @param context:          コンテキスト
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetUserStatusPost(
-            context: Context,
-            onSuccess: onSuccess<EtOfficeGetUserStatus.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetUserStatus")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device", Config.Device)
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeGetUserStatus.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeGetUserStatus.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
 
         /**
          * EtOfficeSetUserStatus

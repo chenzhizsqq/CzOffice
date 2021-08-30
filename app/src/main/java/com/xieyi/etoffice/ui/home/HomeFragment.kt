@@ -22,6 +22,8 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
 import com.xieyi.etoffice.common.model.StatusResult
+import com.xieyi.etoffice.common.model.UserStatusModel
+import com.xieyi.etoffice.common.model.UserStatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
@@ -112,7 +114,7 @@ class HomeFragment : Fragment(),
     }
 
     private  fun EtOfficeGetUserStatusPost(){
-        Api.EtOfficeGetUserStatusPost(
+        Api.EtOfficeGetUserStatus(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -147,16 +149,10 @@ class HomeFragment : Fragment(),
     }
 
 
-    private fun EtOfficeGetUserStatusResult(result: EtOfficeGetUserStatus.Result) {
+    private fun EtOfficeGetUserStatusResult(result: UserStatusResult) {
         if(result.userstatuslist.size>0)
         {
-            Log.e(TAG, "doOnUiCode_NowStatus: size>0", )
-
-            val tvState = binding.state
-            val statustext = result.userstatuslist[0].statustext
-
-            Log.e(TAG, "doOnUiCode_NowStatus: statustext:$statustext", )
-            tvState.text = statustext
+            binding.state.text = result.userstatuslist[0].statustext
         }
 
     }
