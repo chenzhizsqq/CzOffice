@@ -72,5 +72,6 @@
     <string name="fragment_report_edit">Edit</string>
     <string name="get_user_location_latitude">: latitude:</string>
     <string name="get_user_location_longitude">| longitude:</string>
+    <string name="dialog_home_report_title">出勤記録</string>
 
 </resources>
