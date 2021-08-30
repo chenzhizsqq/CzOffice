@@ -115,7 +115,7 @@ class ReportDetailActivity() : BaseActivity() {
 
     private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
 
-        Api.EtOfficeSetCommentPost(
+        Api.EtOfficeSetComment(
             context = this@ReportDetailActivity,
             ymd = ymd,
             comment = comment,

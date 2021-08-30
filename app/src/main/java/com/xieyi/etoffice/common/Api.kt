@@ -780,58 +780,6 @@ class Api {
 
 
 
-        /**
-         * EtOfficeSetComment    コメント登録
-         *
-         * @param context:          コンテキスト
-         * @param ymd:              ymd
-         * @param comment:          comment
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeSetCommentPost(
-            context: Context,
-            ymd : String,
-            comment : String,
-            onSuccess: onSuccess<EtOfficeSetComment.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-            val token: String? = prefs.getString("token", "")
-            val tenantid: String? = prefs.getString("tenantid", "")
-            val hpid: String? = prefs.getString("hpid", "")
-            val userid: String? = prefs.getString("userid", "")
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeSetComment")
-            jsonObject.put("token", token)
-            jsonObject.put("tenant", tenantid)
-            jsonObject.put("hpid", hpid)
-            jsonObject.put("userid", userid)
-            jsonObject.put("device", Config.Device)
-            jsonObject.put("ymd", ymd)
-            jsonObject.put("comment", comment)
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeSetComment.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeSetComment.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
 
         /**
          * EtOfficeSetApprovalJsk 勤務実績承認
