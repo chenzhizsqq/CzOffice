@@ -17,9 +17,14 @@ class Api {
          * 共通パラメータを設定
          */
         private fun setCommonParam(jsonObject: JSONObject) {
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+            val tenantid: String? = prefs.getString("tenantid", "")
+            val hpid: String? = prefs.getString("hpid", "")
+
+            jsonObject.put("token", token)
+            jsonObject.put("tenant", tenantid)
+            jsonObject.put("hpid", hpid)
             jsonObject.put("device", Config.Device)
         }
 
@@ -301,9 +306,13 @@ class Api {
         ) {
             val url: String = Config.ApiUrl
 
+
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val token: String? = prefs.getString("token", "")
+
             val jsonObject = JSONObject()
             jsonObject.put("app", "EtOfficeSetTenant")
-            jsonObject.put("token", EtOfficeApp.Token)
+            jsonObject.put("token", token)
             jsonObject.put("device", Config.Device)
             jsonObject.put("tenantid", tenant)
 
