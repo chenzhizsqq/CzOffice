@@ -7,14 +7,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
-import com.xieyi.etoffice.EtOfficeApp.Companion.context
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.base.BaseActivity

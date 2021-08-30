@@ -11,8 +11,6 @@ import org.json.JSONObject
 
 class Api {
     companion object {
-        private val TAG = javaClass.simpleName
-
         /**
          * 共通パラメータを設定
          */
@@ -73,7 +71,6 @@ class Api {
                 }
             )
         }
-
 
         /**
          * ユーザー最新勤務状態の一覧取得
@@ -782,10 +779,6 @@ class Api {
                 }
             )
         }
-
-
-
-
 
         /**
          * EtOfficeUserInfo ユーザー情報取得
