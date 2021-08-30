@@ -106,7 +106,7 @@ class ReportFragment : Fragment(),
         //指定された　発信
         if (arrayListYmd.size > 0) {
 
-            Api.EtOfficeSetApprovalJskPost(
+            Api.EtOfficeSetApprovalJsk(
                 context = requireActivity(),
                 ymdArray = arrayListYmd,
                 onSuccess = { model ->

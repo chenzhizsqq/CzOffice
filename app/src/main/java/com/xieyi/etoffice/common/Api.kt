@@ -782,56 +782,6 @@ class Api {
 
 
         /**
-         * EtOfficeSetApprovalJsk 勤務実績承認
-         *
-         * @param context:          コンテキスト
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeSetApprovalJskPost(
-            context: Context,
-            ymdArray: ArrayList<String>,
-            onSuccess: onSuccess<EtOfficeSetApprovalJsk.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeSetApprovalJsk")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device", Config.Device)
-            jsonObject.put("userid", EtOfficeApp.userid)
-            val ymdJSONArray = JSONArray()
-            for ( ymd in ymdArray){
-                ymdJSONArray.put(ymd)
-            }
-            jsonObject.put("updateymd",ymdJSONArray)
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeSetApprovalJsk.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeSetApprovalJsk.JsonClass
-
-                    Log.e(TAG, "EtOfficeSetApprovalJskPost: EtOfficeSetApprovalJsk:$data", )
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
-
-        /**
          * EtOfficeUserInfo ユーザー情報取得
          *
          * @param context:          コンテキスト
