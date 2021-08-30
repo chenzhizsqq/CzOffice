@@ -4,11 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.common.model.SectionInfo
 import com.xieyi.etoffice.databinding.GetStuffSectionListBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 
 
-class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList.SectionList>, val context: Context) :
+class GetStuffSectionListAdapter(var sectionList: ArrayList<SectionInfo>, val context: Context) :
     RecyclerView.Adapter<GetStuffSectionListAdapter.sectionListViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -18,7 +18,7 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
 
-        fun bind(sectionList: EtOfficeGetStuffList.SectionList) {
+        fun bind(sectionList: SectionInfo) {
             recyclerView.adapter = GetStuffStuffListAdapter(
                 sectionList.stufflist
                 ,sectionList.sectioncd
@@ -45,13 +45,13 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<EtOfficeGetStuffList
         holder.bind(sectionList[position])
     }
 
-    fun notifyDataAdd(sectionList: EtOfficeGetStuffList.SectionList) {
+    fun notifyDataAdd(section: SectionInfo) {
         //Log.e(TAG, "notifyDataAdd: sectionList:$sectionList", )
-        this.sectionList.add(sectionList)
+        this.sectionList.add(section)
         notifyDataSetChanged()
     }
 
-    fun notifyDataAddList(sectionList: ArrayList<EtOfficeGetStuffList.SectionList>) {
+    fun notifyDataAddList(sectionList: ArrayList<SectionInfo>) {
         this.sectionList.addAll(sectionList)
         notifyDataSetChanged()
     }

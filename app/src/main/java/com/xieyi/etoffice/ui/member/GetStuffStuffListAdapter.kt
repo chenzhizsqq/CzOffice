@@ -15,11 +15,11 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.common.model.StuffInfo
 import com.xieyi.etoffice.databinding.GetStuffStuffListBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 
 
-class GetStuffStuffListAdapter(val getStuffList: List<EtOfficeGetStuffList.StuffList>
+class GetStuffStuffListAdapter(val getStuffList: List<StuffInfo>
 , val sectioncd:String, val sectionname:String,val context: Context
 ) :
     RecyclerView.Adapter<GetStuffStuffListAdapter.sectionListViewHolder>() {
@@ -38,7 +38,7 @@ class GetStuffStuffListAdapter(val getStuffList: List<EtOfficeGetStuffList.Stuff
         val ll: LinearLayout = binding.ll
 
         //telephone
-        fun bind(stufflist: EtOfficeGetStuffList.StuffList, sectioncd:String, sectionname:String,context: Context) {
+        fun bind(stufflist: StuffInfo, sectioncd:String, sectionname:String,context: Context) {
             tv_userkana.text = stufflist.userkana
             tv_username.text = stufflist.username
             tv_phone.text = stufflist.phone

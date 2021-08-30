@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.StuffListResult
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetStuffList
 
 
 class MemberFragment : Fragment(),
@@ -57,7 +57,7 @@ class MemberFragment : Fragment(),
     }
 
     private fun EtOfficeGetStuffListPost() {
-        Api.EtOfficeGetStuffListPost(
+        Api.EtOfficeGetStuffList(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -92,7 +92,7 @@ class MemberFragment : Fragment(),
     }
 
 
-    private fun EtOfficeGetStuffListResult(result: EtOfficeGetStuffList.Result) {
+    private fun EtOfficeGetStuffListResult(result: StuffListResult) {
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
         mAdapter=GetStuffSectionListAdapter(result.sectionlist,requireActivity())
