@@ -145,7 +145,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     private fun EtOfficeSetUserLocationPost(location: String) {
         if (gpsTracker.canGetLocation()) {
-            Api.EtOfficeSetUserLocationPost(
+            Api.EtOfficeSetUserLocation(
                 context = requireActivity(),
                 location = location,
                 latitude = latitude.toString(),
