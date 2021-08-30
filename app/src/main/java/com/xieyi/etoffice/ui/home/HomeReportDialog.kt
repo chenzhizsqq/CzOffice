@@ -16,11 +16,10 @@ import androidx.annotation.Nullable
 import androidx.core.view.setPadding
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.StatusResult
 import com.xieyi.etoffice.databinding.DialogHomeReportBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetStatusList
 
 import kotlinx.coroutines.*
 
@@ -51,7 +50,7 @@ class HomeReportDialog : DialogFragment() {
 
 
     private fun EtOfficeGetStatusListPost(){
-        Api.EtOfficeGetStatusListPost(
+        Api.EtOfficeGetStatusList(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -85,7 +84,7 @@ class HomeReportDialog : DialogFragment() {
         )
     }
 
-    private fun EtOfficeGetStatusListResult(result:EtOfficeGetStatusList.Result) {
+    private fun EtOfficeGetStatusListResult(result: StatusResult) {
         //フルスクリーン　Full screen
         val window = dialog!!.window
         window!!.setBackgroundDrawableResource(android.R.color.transparent)

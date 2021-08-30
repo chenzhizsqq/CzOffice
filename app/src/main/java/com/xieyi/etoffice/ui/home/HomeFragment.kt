@@ -21,6 +21,7 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
+import com.xieyi.etoffice.common.model.StatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
@@ -161,7 +162,7 @@ class HomeFragment : Fragment(),
     }
 
     private fun EtOfficeGetStatusListPost(){
-        Api.EtOfficeGetStatusListPost(
+        Api.EtOfficeGetStatusList(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -197,7 +198,7 @@ class HomeFragment : Fragment(),
 
 
     // GetStatusList UI更新
-    private fun EtOfficeGetStatusListResult(result:EtOfficeGetStatusList.Result) {
+    private fun EtOfficeGetStatusListResult(result: StatusResult) {
         val state_layout = binding.stateLayout
         state_layout.removeAllViews()
 
