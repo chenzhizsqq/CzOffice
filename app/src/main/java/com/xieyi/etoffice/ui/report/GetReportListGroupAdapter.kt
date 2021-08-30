@@ -6,12 +6,12 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.common.model.GroupInfo
 import com.xieyi.etoffice.databinding.GetReportListGroupBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
 //EtOfficeGetReportList.json result中的group
 class GetReportListGroupAdapter(
-    val getReportListGroup: ArrayList<EtOfficeGetReportList.Group>
+    val getReportListGroup: List<GroupInfo>
     ,var arrayListYmd:ArrayList<String>
     ,val activity: Activity
     ,val viewModel: ReportViewModel
@@ -38,7 +38,7 @@ class GetReportListGroupAdapter(
 
         //bind
         fun bind(
-            group: EtOfficeGetReportList.Group
+            group: GroupInfo
             , arrayListYmd:ArrayList<String>
             , activity: Activity
             , viewModel: ReportViewModel

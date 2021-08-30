@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.common.model.ReportListnfo
 import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
 //EtOfficeGetReportList.json result-group-reportlist
 class GetReportListGroupReportlistAdapter(
-    val getReportListReportlist: ArrayList<EtOfficeGetReportList.Reportlist>
+    val getReportListReportlist: List<ReportListnfo>
     ,var arrayListYmd:ArrayList<String>
     ,val activity: Activity
     ,val viewModel: ReportViewModel
@@ -40,7 +40,7 @@ class GetReportListGroupReportlistAdapter(
 
         //bind
         fun bind(
-            reportlist: EtOfficeGetReportList.Reportlist
+            reportlist: ReportListnfo
             ,activity: Activity
             , viewModel: ReportViewModel
             ,lifecycleOwner: LifecycleOwner

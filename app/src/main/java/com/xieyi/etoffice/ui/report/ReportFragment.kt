@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetReportList
 
 import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
@@ -66,7 +66,7 @@ class ReportFragment : Fragment(),
 
 
     private fun EtOfficeGetReportListPost(startym:String,months:String) {
-        Api.EtOfficeGetReportListPost(
+        Api.EtOfficeGetReportList(
             context = requireActivity(),
             startym = startym,
             months = months,
@@ -142,7 +142,7 @@ class ReportFragment : Fragment(),
         }
     }
 
-    private fun EtOfficeGetReportListResult(result: EtOfficeGetReportList.Result) {
+    private fun EtOfficeGetReportListResult(result: ReportListResult) {
         viewModel.allSelectChangeFalse()
         mAdapter= activity?.let {
             GetReportListGroupAdapter(

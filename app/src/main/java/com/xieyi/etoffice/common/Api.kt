@@ -928,52 +928,6 @@ class Api {
             )
         }
 
-
-        /**
-         * EtOfficeGetReportList    レポート
-         *
-         * @param context:          コンテキスト
-         * @param startym:          startym,
-         * @param months:           months,
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetReportListPost(
-            context: Context,
-            startym:String,
-            months:String,
-            onSuccess: onSuccess<EtOfficeGetReportList.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetReportList")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device", Config.Device)
-            jsonObject.put("startym", startym)
-            jsonObject.put("months", months)
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeGetReportList.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeGetReportList.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
         /**
          * EtOfficeSetApprovalJsk 勤務実績承認
          *
