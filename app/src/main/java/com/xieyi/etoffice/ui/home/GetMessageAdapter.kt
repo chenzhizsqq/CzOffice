@@ -4,12 +4,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.GetMessageListBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetMessage
 
 
 class GetMessageAdapter(
-    val messagelist: List<EtOfficeGetMessage.Messagelist>
+    val messagelist: List<MessageInfo>
 ) : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -23,7 +23,7 @@ class GetMessageAdapter(
         val ll: LinearLayout = binding.ll
 
         //bind
-        fun bind(messagelist: EtOfficeGetMessage.Messagelist) {
+        fun bind(messagelist: MessageInfo) {
             tv_title.text = messagelist.title
             tv_updatetime.text = messagelist.updatetime
             tv_content.text = messagelist.content

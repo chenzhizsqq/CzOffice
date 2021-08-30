@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.MessageResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
@@ -233,9 +234,9 @@ class HomeFragment : Fragment(),
     }
 
     private fun EtOfficeGetMessagePost(){
-        Api.EtOfficeGetMessagePost(
+        Api.EtOfficeGetMessage(
             context = requireActivity(),
-            count = "50",
+            count = 50,
             lasttime = "",
             lastsubid = "",
             onSuccess = { model ->
@@ -271,7 +272,7 @@ class HomeFragment : Fragment(),
     }
 
     // Message UI更新
-    private fun EtOfficeGetMessageResult(result:EtOfficeGetMessage.Result) {
+    private fun EtOfficeGetMessageResult(result: MessageResult) {
             Log.e(TAG, "doOnUiCode_Message: begin", )
 
             mAdapter=GetMessageAdapter(result.messagelist)

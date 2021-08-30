@@ -1146,59 +1146,6 @@ class Api {
             )
         }
 
-
-
-        /**
-         * EtOfficeGetMessage   最新メッセージ一覧取得
-         *
-         * @param context:          コンテキスト
-         * @param count:            count
-         * @param lasttime:         lasttime
-         * @param lastsubid:        lastsubid
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetMessagePost(
-            context: Context,
-            count:String,
-            lasttime:String,
-            lastsubid:String,
-            onSuccess: onSuccess<EtOfficeGetMessage.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetMessage")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device", Config.Device)
-            jsonObject.put("count", count)
-            jsonObject.put("lasttime", lasttime)
-            jsonObject.put("lastsubid", lastsubid)
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeGetMessage.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeGetMessage.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
-
-
         /**
          * EtOfficeSetUserStatus
          *
