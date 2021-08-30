@@ -779,56 +779,6 @@ class Api {
 
 
 
-        /**
-         * EtOfficeGetReportInfo    日報詳細取得
-         *
-         * @param context:          コンテキスト
-         * @param ymd:              ymd
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeGetReportInfoPost(
-            context: Context,
-            ymd : String,
-            onSuccess: onSuccess<EtOfficeGetReportInfo.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-            val token: String? = prefs.getString("token", "")
-            val tenantid: String? = prefs.getString("tenantid", "")
-            val hpid: String? = prefs.getString("hpid", "")
-            val userid: String? = prefs.getString("userid", "")
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetReportInfo")
-            jsonObject.put("token", token)
-            jsonObject.put("tenant", tenantid)
-            jsonObject.put("hpid", hpid)
-            jsonObject.put("userid", userid)
-            jsonObject.put("device", Config.Device)
-            jsonObject.put("ymd", ymd)
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeGetReportInfo.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeGetReportInfo.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
 
         /**
          * EtOfficeSetComment    コメント登録

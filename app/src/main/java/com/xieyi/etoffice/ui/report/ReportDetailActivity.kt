@@ -19,8 +19,8 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.ReportResult
 import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
-import com.xieyi.etoffice.jsonData.EtOfficeGetReportInfo
 import kotlinx.coroutines.*
 
 
@@ -76,7 +76,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
     private fun EtOfficeGetReportInfoPost(ymd : String) {
-        Api.EtOfficeGetReportInfoPost(
+        Api.EtOfficeGetReportInfo(
             context = this@ReportDetailActivity,
             ymd = ymd,
             onSuccess = { model ->
@@ -153,7 +153,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
 
-    private fun EtOfficeGetReportInfoResult(result: EtOfficeGetReportInfo.Result) {
+    private fun EtOfficeGetReportInfoResult(result: ReportResult) {
 
 
         //検索の日付
@@ -220,7 +220,7 @@ class ReportDetailActivity() : BaseActivity() {
     }
 
 
-    private fun reportlistFun(result: EtOfficeGetReportInfo.Result) {
+    private fun reportlistFun(result: ReportResult) {
         val reportlist: LinearLayout = binding.reportlist
         reportlist.removeAllViews()
 
@@ -263,7 +263,7 @@ class ReportDetailActivity() : BaseActivity() {
     }
 
 
-    private fun planworklistFun(result: EtOfficeGetReportInfo.Result) {
+    private fun planworklistFun(result: ReportResult) {
         val planworklist: LinearLayout = binding.planworklist
         planworklist.removeAllViews()
 /*
@@ -301,7 +301,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
 
-    private fun workstatuslistfun(sizeEachY:Int, result: EtOfficeGetReportInfo.Result) {
+    private fun workstatuslistfun(sizeEachY:Int, result: ReportResult) {
         val content: LinearLayout = binding.content
         content.removeAllViews()
 
@@ -340,7 +340,7 @@ class ReportDetailActivity() : BaseActivity() {
     }
 
 
-    private fun commentlistFun(result: EtOfficeGetReportInfo.Result) {
+    private fun commentlistFun(result: ReportResult) {
         val commentlist: LinearLayout = binding.commentlist
         commentlist.removeAllViews()
 
