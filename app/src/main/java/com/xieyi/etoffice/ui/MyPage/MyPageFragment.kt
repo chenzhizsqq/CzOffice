@@ -10,7 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.EtOfficeApp
+import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
@@ -100,7 +101,8 @@ class MyPageFragment : Fragment() {
         //Place　Setting
         binding.placeManagement.setOnClickListener(View.OnClickListener {
 
-            EtOfficeApp.selectUi = 4
+            Tools.sharedPrePut(Config.FragKey,4)
+            //EtOfficeApp.selectUi = 4
             val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
             startActivity(intent)
             activity?.finish()
@@ -110,7 +112,8 @@ class MyPageFragment : Fragment() {
         //change　company
         binding.changeCompany.setOnClickListener(View.OnClickListener {
 
-            EtOfficeApp.selectUi = 4
+            Tools.sharedPrePut(Config.FragKey,4)
+            //EtOfficeApp.selectUi = 4
             val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
             startActivity(intent)
             activity?.finish()

@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.xieyi.etoffice.EtOfficeApp
+import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.ReportListnfo
@@ -63,7 +63,8 @@ class GetReportListGroupReportlistAdapter(
 
             ll.setOnClickListener(View.OnClickListener {
                 if(viewModel.visibility.value == View.GONE) {
-                    EtOfficeApp.selectUi = 3
+                    Tools.sharedPrePut(Config.FragKey,3)
+                    //EtOfficeApp.selectUi = 3
                     val intent = Intent(activity, ReportDetailActivity::class.java)
                     intent.putExtra("ReportFragmentMessage", reportlist.yyyymmdd)
                     activity.startActivity(intent)

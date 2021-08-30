@@ -5,8 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import java.text.SimpleDateFormat
@@ -205,5 +204,35 @@ object Tools {
             .setPositiveButton(buttonMsg) { _, which ->
             }
             .show()
+    }
+
+    fun sharedPrePut(key:String,value:String){
+        val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, AppCompatActivity.MODE_PRIVATE)
+
+        val editor = prefs.edit()
+        editor.apply() {
+            putString(key, value)
+        }.apply()
+    }
+
+    fun sharedPreGetString(key: String): String {
+        val prefs =
+            EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+        return prefs.getString(key, "")!!
+    }
+
+    fun sharedPrePut(key:String,value:Int){
+        val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, AppCompatActivity.MODE_PRIVATE)
+
+        val editor = prefs.edit()
+        editor.apply() {
+            putInt(key, value)
+        }.apply()
+    }
+
+    fun sharedPreGetInt(key: String): Int {
+        val prefs =
+            EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+        return prefs.getInt(key, 0)!!
     }
 }

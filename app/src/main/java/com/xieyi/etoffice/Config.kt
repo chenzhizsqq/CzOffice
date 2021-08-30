@@ -10,6 +10,10 @@ class Config {
         const val EtOfficeUser = "EtOfficeUser"
         const val LoginUrl = "https://ssl.ethp.net/EthpJson.aspx"
         const val Device = "android"
+
+        //初回登録Frag key
+        const val FragKey = "selectFragKey"
+
         /**
          * 程序测试，强行添加的代码
          */

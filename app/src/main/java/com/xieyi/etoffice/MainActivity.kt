@@ -4,8 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
@@ -98,7 +96,8 @@ class MainActivity : BaseActivity() {
         listFrag.add(R.id.MyPageFragment)
 
         //初回登録Frag
-        val index = EtOfficeApp.selectUi
+        //val index = EtOfficeApp.selectUi
+        val index = Tools.sharedPreGetInt(Config.FragKey)
         selectFrag(index)
     }
 
