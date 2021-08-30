@@ -42,7 +42,7 @@ class MyPageFragment : Fragment() {
 
     private fun EtOfficeUserInfoPost() {
 
-        Api.EtOfficeUserInfo(
+        Api.EtOfficeUserInfoPost(
             context = requireContext(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {

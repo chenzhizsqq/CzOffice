@@ -57,7 +57,7 @@ class MemberFragment : Fragment(),
     }
 
     private fun EtOfficeGetStuffListPost() {
-        Api.EtOfficeGetStuffList(
+        Api.EtOfficeGetStuffListPost(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {

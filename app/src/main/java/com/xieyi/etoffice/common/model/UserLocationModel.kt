@@ -1,7 +1,7 @@
 package com.xieyi.etoffice.common.model
 
-data class LoginResultModel(
+data class UserLocationModel(
     var message: String,
-    var result: LoginResultInfo,
+    var result: UserLocationResult,
     var status: Int
 )

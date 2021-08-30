@@ -14,7 +14,6 @@ import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
 import com.xieyi.etoffice.jsonData.EtOfficeGetTenant
-import com.xieyi.etoffice.jsonData.EtOfficeLogin
 import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
 import kotlinx.coroutines.*
 
@@ -53,7 +52,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
 
     private fun EtOfficeGetTenantPost() {
-        Api.EtOfficeGetTenant(
+        Api.EtOfficeGetTenantPost(
             context = this@MyPageChangeCompanyActivity,
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -89,7 +88,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     private fun EtOfficeSetTenantPost(tenantid: String) {
-        Api.EtOfficeSetTenant(
+        Api.EtOfficeSetTenantPost(
             context = this@MyPageChangeCompanyActivity,
             tenantid= tenantid,
             onSuccess = { model ->

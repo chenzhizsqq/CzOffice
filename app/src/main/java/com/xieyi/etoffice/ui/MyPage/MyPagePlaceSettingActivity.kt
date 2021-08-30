@@ -57,7 +57,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
     private fun EtOfficeGetUserLocationPost() {
-        Api.EtOfficeGetUserLocation(
+        Api.EtOfficeGetUserLocationPost(
             context = this@MyPagePlaceSettingActivity,
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
@@ -95,7 +95,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
     private fun EtOfficeSetUserLocationPost(location: String) {
         if (gpsTracker.canGetLocation()) {
-            Api.EtOfficeSetUserLocation(
+            Api.EtOfficeSetUserLocationPost(
                 context = this@MyPagePlaceSettingActivity,
                 location = location,
                 latitude = latitude.toString(),

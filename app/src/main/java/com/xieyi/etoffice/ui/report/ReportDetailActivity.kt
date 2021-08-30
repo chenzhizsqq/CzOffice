@@ -76,7 +76,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
     private fun EtOfficeGetReportInfoPost(ymd : String) {
-        Api.EtOfficeGetReportInfo(
+        Api.EtOfficeGetReportInfoPost(
             context = this@ReportDetailActivity,
             ymd = ymd,
             onSuccess = { model ->
@@ -115,7 +115,7 @@ class ReportDetailActivity() : BaseActivity() {
 
     private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
 
-        Api.EtOfficeSetComment(
+        Api.EtOfficeSetCommentPost(
             context = this@ReportDetailActivity,
             ymd = ymd,
             comment = comment,

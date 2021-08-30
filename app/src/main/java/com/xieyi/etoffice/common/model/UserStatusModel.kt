@@ -1,7 +1,7 @@
 package com.xieyi.etoffice.common.model
 
-data class LoginResultModel(
+data class UserStatusModel(
     var message: String,
-    var result: LoginResultInfo,
+    var result: UserStatusResult,
     var status: Int
 )
