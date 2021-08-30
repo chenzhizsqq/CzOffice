@@ -308,7 +308,7 @@ class Api {
             jsonObject.put("app", "EtOfficeSetTenant")
             jsonObject.put("token", EtOfficeApp.Token)
             jsonObject.put("device", Config.Device)
-            jsonObject.put("tenant", tenant)
+            jsonObject.put("tenantid", tenant)
 
             HttpUtil.callAsyncHttp(
                 context = context,
@@ -776,51 +776,6 @@ class Api {
                 }
             )
         }
-
-        /**
-         * EtOfficeSetTenant        起動会社設定登録
-         *
-         * @param context:          コンテキスト
-         * @param tenantid:         tenantid
-         * @param onSuccess:        成功コールバック
-         * @param onFailure:        失敗コールバック
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun EtOfficeSetTenantPost(
-            context: Context,
-            tenantid: String,
-            onSuccess: onSuccess<EtOfficeSetTenant.JsonClass>,
-            onFailure: onFailure<ResultType, Any>
-        ) {
-            val url: String = Config.ApiUrl
-
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-            val token: String? = prefs.getString("token", "")
-
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeSetTenant")
-            jsonObject.put("token", token)
-            jsonObject.put("device", Config.Device)
-            jsonObject.put("tenantid",tenantid)
-
-            HttpUtil.callAsyncHttp(
-                context = context,
-                url = url,
-                method = RequestMethod.POST,
-                parameter = jsonObject,
-                authToken = false,
-                fcmToken = false,
-                classType = EtOfficeSetTenant.JsonClass::class.java as Class<Any>,
-                onSuccess = { data ->
-                    val model = data as EtOfficeSetTenant.JsonClass
-                    onSuccess(model)
-                },
-                onFailure = { error, data ->
-                    onFailure(error, data)
-                }
-            )
-        }
-
 
         /**
          * EtOfficeGetUserLocation  ユーザー勤務場所一覧取得

@@ -8,15 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.common.model.TenantInfo
 import com.xieyi.etoffice.databinding.GetTenantListBinding
-import com.xieyi.etoffice.jsonData.EtOfficeSetTenant
 
 
 class GetTenantAdapter(
     val getGetTenant: List<TenantInfo>,
 ) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
-
-    private lateinit var pEtOfficeSetTenant : EtOfficeSetTenant
 
     private lateinit var listener: OnAdapterListener
 
@@ -57,7 +54,6 @@ class GetTenantAdapter(
         val binding = GetTenantListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
-        pEtOfficeSetTenant = EtOfficeSetTenant()
         return viewHolder
     }
 
