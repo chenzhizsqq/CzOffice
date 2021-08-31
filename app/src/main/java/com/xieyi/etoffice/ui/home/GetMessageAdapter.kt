@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.GetMessageListBinding
 
@@ -25,7 +26,7 @@ class GetMessageAdapter(
         //bind
         fun bind(messagelist: MessageInfo) {
             tv_title.text = messagelist.title
-            tv_updatetime.text = messagelist.updatetime
+            tv_updatetime.text =Tools.allDateTime(messagelist.updatetime)
             tv_content.text = messagelist.content
 
         }

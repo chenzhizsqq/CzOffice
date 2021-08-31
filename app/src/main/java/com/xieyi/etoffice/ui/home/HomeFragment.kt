@@ -1,15 +1,12 @@
 package com.xieyi.etoffice.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
@@ -17,15 +14,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
 import com.xieyi.etoffice.common.model.StatusResult
-import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.common.model.UserStatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
-import com.xieyi.etoffice.jsonData.*
 import kotlinx.coroutines.*
 
 
