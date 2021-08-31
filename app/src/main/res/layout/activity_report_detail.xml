@@ -76,13 +76,13 @@
         <!--        date-->
                 <TextView
                     android:id="@+id/record_date"
-                    android:background="@drawable/ic_round_edge_grey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:gravity="center"
                     android:layout_margin="10dp"
-                    android:textColor="#000000"/>
+                    android:background="@drawable/ic_round_edge_grey"
+                    android:gravity="center"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
         <!--        予定：-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -169,8 +169,12 @@
 <!--                </LinearLayout>-->
 
                 <!--            reportlist-->
-
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_reportlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="center"
+                    app:layoutManager="LinearLayoutManager" />
                 <LinearLayout
                     android:id="@+id/reportlist"
                     android:layout_width="match_parent"
@@ -213,13 +217,7 @@
 
                 <!--            commentlist-->
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_commentlist"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    app:layoutManager="LinearLayoutManager" />
-<!--                <LinearLayout-->
+                <!--                <LinearLayout-->
 <!--                    android:id="@+id/commentlist"-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="match_parent"-->
@@ -227,6 +225,13 @@
 <!--                    android:orientation="vertical"/>-->
         <!--線-->
 
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_commentlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:gravity="center"
+                    app:layoutManager="LinearLayoutManager" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

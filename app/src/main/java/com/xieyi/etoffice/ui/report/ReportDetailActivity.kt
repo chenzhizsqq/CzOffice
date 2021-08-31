@@ -37,6 +37,10 @@ class ReportDetailActivity() : BaseActivity() {
     var date:String=""
 
     private lateinit var mWorkstatuslistAdapter: WorkstatuslistAdapter
+
+    //ReportListAdapter
+    private lateinit var mReportListAdapter: ReportListAdapter
+
     private lateinit var mCommentListAdapter: CommentListAdapter
 
     private lateinit var binding: ActivityReportDetailBinding
@@ -81,6 +85,10 @@ class ReportDetailActivity() : BaseActivity() {
             this, LinearLayoutManager.HORIZONTAL
             , false)
 
+        binding.recyclerViewReportlist.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL
+            , false)
+
 
         EtOfficeGetReportInfoPost(date)
 
@@ -101,6 +109,7 @@ class ReportDetailActivity() : BaseActivity() {
                             EtOfficeGetReportInfoResult(model.result)
 
                             EtOfficeGetStatusListResult(model.result)
+                            EtOfficeGetReportlistResult(model.result)
                             EtOfficeCommentlistResult(model.result)
                         }
                         1 -> {
@@ -132,6 +141,12 @@ class ReportDetailActivity() : BaseActivity() {
     private fun EtOfficeGetStatusListResult(result: ReportResult) {
         mWorkstatuslistAdapter= WorkstatuslistAdapter(result.workstatuslist)
         binding.recyclerViewWorkstatuslist.adapter = mWorkstatuslistAdapter
+
+    }
+
+    private fun EtOfficeGetReportlistResult(result: ReportResult) {
+        mReportListAdapter= ReportListAdapter(result.reportlist)
+        binding.recyclerViewReportlist.adapter = mReportListAdapter
 
     }
 
@@ -194,7 +209,7 @@ class ReportDetailActivity() : BaseActivity() {
         planworklistFun(result)
 
         //reportlist
-        reportlistFun(result)
+        //reportlistFun(result)
 
 
         //実績：
@@ -243,49 +258,6 @@ class ReportDetailActivity() : BaseActivity() {
     }
 
 
-    private fun reportlistFun(result: ReportResult) {
-        val reportlist: LinearLayout = binding.reportlist
-        reportlist.removeAllViews()
-
-
-        val listSize = result.reportlist.size
-
-        for (i in 0 until listSize) {
-            val ll=ll_planworklist()
-
-            val t1 =getTextView2("プロジェクト："+result.reportlist[i].project)
-            t1.setTextColor(Color.parseColor("#000000"))
-            t1.textSize = 20F
-
-            val t2 =getTextView2("作業コード："+result.reportlist[i].wbs)
-
-            val t3 =getTextView2("工数："+result.reportlist[i].time)
-
-            val t4 =getTextView2("報告："+result.reportlist[i].memo)
-
-
-            ll.addView(t1)
-            ll.addView(t2)
-            ll.addView(t3)
-            ll.addView(t4)
-
-            ll.setPadding(10)
-
-            ll.setBackgroundResource(R.drawable.ic_round_edge_grey)
-
-            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-
-            layoutParams.setMargins(10, 5, 10, 5)
-
-            reportlist.addView(ll,layoutParams)
-        }
-
-
-    }
-
-
     private fun planworklistFun(result: ReportResult) {
         val planworklist: LinearLayout = binding.planworklist
         planworklist.removeAllViews()
@@ -324,99 +296,6 @@ class ReportDetailActivity() : BaseActivity() {
 
 
 
-
-
-//    private fun workstatuslistfun(sizeEachY:Int, result: ReportResult) {
-//        val content: LinearLayout = binding.content
-//        content.removeAllViews()
-//
-//
-//        val size = result.workstatuslist.size
-//        Log.e(TAG, "doOnUiCode: size:$size")
-//        val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
-//        var x = 0
-//        var y = 0
-//        for (i in 0 until size) {
-//            x = i % sizeEachY
-//            y = i / sizeEachY
-//
-//            val l_X = getLinearLayout()
-//
-//            val time = result.workstatuslist[i].time
-//
-//            val getTextView_time = getTextView(time)
-//            getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
-//            l_X.addView(getTextView_time)
-//
-//
-//            val text = result.workstatuslist[i].status
-//
-//            val getTextView_1 = getTextView(text)
-//            getTextView_1.setBackgroundColor(Color.YELLOW)
-//            l_X.addView(getTextView_1)
-//
-//
-//            l_Y[y].addView(l_X)
-//
-//            if (x == sizeEachY - 1) {
-//                content.addView(l_Y[y])
-//            }
-//        }
-//    }
-
-
-//    private fun commentlistFun(result: ReportResult) {
-//        val commentlist: LinearLayout = binding.commentlist
-//        commentlist.removeAllViews()
-//
-//        val listSize = result.commentlist.size
-//
-//        for (i in 0 until listSize) {
-//            val ll = ll_planworklist()
-//
-//            val t1 =
-//                getTextView2("username：" + result.commentlist[i].comment)
-//            t1.setTextColor(Color.parseColor("#000000"))
-//            t1.textSize = 20F
-//
-//            val username = result.commentlist[i].username
-//            val time = result.commentlist[i].time
-//
-//            val t2_text = username + " " + Tools.allDateTime(time)
-//
-//            val t2 = getTextView2(t2_text)
-//
-//
-//
-//            ll.addView(t1)
-//            ll.addView(t2)
-//            ll.setPadding(10)
-//
-//            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-//                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-//            )
-//
-//            commentlist.addView(ll, layoutParams)
-//
-//            commentlist.addView(linearLayout_line())
-//        }
-//
-//    }
-
-
-    private fun getLinearLayoutContent(): LinearLayout {
-        val r=LinearLayout(applicationContext)
-
-        val ll = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        r.layoutParams = ll
-
-        r.gravity = Gravity.CENTER
-
-        r.orientation = LinearLayout.HORIZONTAL
-
-        return r
-    }
-
     //planworklist LinearLayout
     private fun ll_planworklist(): LinearLayout {
         val r=LinearLayout(applicationContext)
@@ -447,24 +326,6 @@ class ReportDetailActivity() : BaseActivity() {
         return r
     }
 
-    private fun getTextView(text:String): TextView {
-        val r=TextView(applicationContext)
-
-        val ll = LinearLayout.LayoutParams( WRAP_CONTENT,WRAP_CONTENT)
-        r.layoutParams = ll
-
-        r.gravity = Gravity.CENTER
-
-        r.text=text
-
-        r.width = 200
-
-        r.height = 100
-
-        r.setTextColor(Color.BLACK)
-
-        return r
-    }
 
     private fun getTextView2(text:String): TextView {
         val r=TextView(applicationContext)
@@ -480,15 +341,6 @@ class ReportDetailActivity() : BaseActivity() {
         r.setTextColor(Color.BLACK)
 
         return r
-    }
-
-
-    private fun linearLayout_line(): LinearLayout {
-        val mLinearLayout2 = LinearLayout(applicationContext)
-        val lp2 = LinearLayout.LayoutParams(MATCH_PARENT, 1)
-        mLinearLayout2.layoutParams = lp2
-        mLinearLayout2.setBackgroundColor(Color.parseColor("#656565"))
-        return mLinearLayout2
     }
 
     private fun hideKeyboard(v: View) {
