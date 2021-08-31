@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
@@ -35,6 +36,7 @@ class ReportDetailActivity() : BaseActivity() {
     //検索の日付
     var date:String=""
 
+    private lateinit var mWorkstatuslistAdapter: WorkstatuslistAdapter
     private lateinit var binding: ActivityReportDetailBinding
 /*
     {
@@ -61,6 +63,8 @@ class ReportDetailActivity() : BaseActivity() {
     }
  */
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityReportDetailBinding.inflate(layoutInflater)
@@ -70,7 +74,15 @@ class ReportDetailActivity() : BaseActivity() {
         date = intent.getStringExtra("ReportFragmentMessage").toString()
 
 
+
+
+
         EtOfficeGetReportInfoPost(date)
+
+
+        binding.recyclerViewWorkstatuslist.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL
+            , false)
 
     }
 
@@ -85,6 +97,7 @@ class ReportDetailActivity() : BaseActivity() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetReportInfoResult(model.result)
+                            EtOfficeGetStatusListResult(model.result)
                         }
                         1 -> {
                             Snackbar.make(
@@ -112,6 +125,11 @@ class ReportDetailActivity() : BaseActivity() {
     }
 
 
+    private fun EtOfficeGetStatusListResult(result: ReportResult) {
+        mWorkstatuslistAdapter= WorkstatuslistAdapter(result.workstatuslist)
+        binding.recyclerViewWorkstatuslist.adapter = mWorkstatuslistAdapter
+
+    }
 
     private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
 
@@ -174,7 +192,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
         //workstatuslist：
-        workstatuslistfun(5,result)
+        //workstatuslistfun(5,result)
 
         //commentlist
         commentlistFun(result)
@@ -296,43 +314,45 @@ class ReportDetailActivity() : BaseActivity() {
 
 
 
-    private fun workstatuslistfun(sizeEachY:Int, result: ReportResult) {
-        val content: LinearLayout = binding.content
-        content.removeAllViews()
 
 
-        val size = result.workstatuslist.size
-        Log.e(TAG, "doOnUiCode: size:$size")
-        val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
-        var x = 0
-        var y = 0
-        for (i in 0 until size) {
-            x = i % sizeEachY
-            y = i / sizeEachY
-
-            val l_X = getLinearLayout()
-
-            val time = result.workstatuslist[i].time
-
-            val getTextView_time = getTextView(time)
-            getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
-            l_X.addView(getTextView_time)
-
-
-            val text = result.workstatuslist[i].status
-
-            val getTextView_1 = getTextView(text)
-            getTextView_1.setBackgroundColor(Color.YELLOW)
-            l_X.addView(getTextView_1)
-
-
-            l_Y[y].addView(l_X)
-
-            if (x == sizeEachY - 1) {
-                content.addView(l_Y[y])
-            }
-        }
-    }
+//    private fun workstatuslistfun(sizeEachY:Int, result: ReportResult) {
+//        val content: LinearLayout = binding.content
+//        content.removeAllViews()
+//
+//
+//        val size = result.workstatuslist.size
+//        Log.e(TAG, "doOnUiCode: size:$size")
+//        val l_Y: Array<LinearLayout> = Array(size / sizeEachY + 1) { getLinearLayoutContent() }
+//        var x = 0
+//        var y = 0
+//        for (i in 0 until size) {
+//            x = i % sizeEachY
+//            y = i / sizeEachY
+//
+//            val l_X = getLinearLayout()
+//
+//            val time = result.workstatuslist[i].time
+//
+//            val getTextView_time = getTextView(time)
+//            getTextView_time.setBackgroundColor(Color.parseColor("#E8E8E8"))
+//            l_X.addView(getTextView_time)
+//
+//
+//            val text = result.workstatuslist[i].status
+//
+//            val getTextView_1 = getTextView(text)
+//            getTextView_1.setBackgroundColor(Color.YELLOW)
+//            l_X.addView(getTextView_1)
+//
+//
+//            l_Y[y].addView(l_X)
+//
+//            if (x == sizeEachY - 1) {
+//                content.addView(l_Y[y])
+//            }
+//        }
+//    }
 
 
     private fun commentlistFun(result: ReportResult) {
