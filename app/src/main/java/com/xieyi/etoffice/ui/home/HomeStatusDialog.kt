@@ -69,7 +69,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         }
 
         //状態表示
-        binding.tvState.text = mStatustext
+        binding.state.text = mStatustext
 
         //set_user_Status
 
@@ -190,8 +190,8 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         if (gpsTracker.canGetLocation()) {
             latitude= gpsTracker.getLatitude()
             longitude = gpsTracker.getLongitude()
-            binding.tvLatitude.text = latitude.toString()
-            binding.tvLongitude.text = longitude.toString()
+            binding.latitude.text = latitude.toString()
+            binding.longitude.text = longitude.toString()
         } else {
             gpsTracker.showSettingsAlert()
         }
