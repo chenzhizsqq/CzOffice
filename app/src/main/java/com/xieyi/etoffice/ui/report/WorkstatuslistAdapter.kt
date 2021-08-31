@@ -4,16 +4,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.common.model.WorkStatusInfo
-import com.xieyi.etoffice.databinding.GetPlanworkListWorkStatusInfoBinding
+import com.xieyi.etoffice.databinding.GetWorkStatusInfoBinding
 
 
 class WorkstatuslistAdapter(
-    val getUserLocation:  List<WorkStatusInfo>,
+    val workStatusList:  List<WorkStatusInfo>,
 ) : RecyclerView.Adapter<WorkstatuslistAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetPlanworkListWorkStatusInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(binding: GetWorkStatusInfoBinding) : RecyclerView.ViewHolder(binding.root) {
          val location: TextView = binding.location
          val time: TextView = binding.time
 
@@ -28,17 +28,17 @@ class WorkstatuslistAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetPlanworkListWorkStatusInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = GetWorkStatusInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder
     }
 
     override fun getItemCount(): Int {
-        return getUserLocation.size
+        return workStatusList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getUserLocation[position])
+        holder.bind(workStatusList[position])
     }
 }

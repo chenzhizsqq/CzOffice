@@ -37,6 +37,8 @@ class ReportDetailActivity() : BaseActivity() {
     var date:String=""
 
     private lateinit var mWorkstatuslistAdapter: WorkstatuslistAdapter
+    private lateinit var mCommentListAdapter: CommentListAdapter
+
     private lateinit var binding: ActivityReportDetailBinding
 /*
     {
@@ -75,14 +77,14 @@ class ReportDetailActivity() : BaseActivity() {
 
 
 
+        binding.recyclerViewWorkstatuslist.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL
+            , false)
 
 
         EtOfficeGetReportInfoPost(date)
 
 
-        binding.recyclerViewWorkstatuslist.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL
-            , false)
 
     }
 
@@ -97,7 +99,9 @@ class ReportDetailActivity() : BaseActivity() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetReportInfoResult(model.result)
+
                             EtOfficeGetStatusListResult(model.result)
+                            EtOfficeCommentlistResult(model.result)
                         }
                         1 -> {
                             Snackbar.make(
@@ -128,6 +132,12 @@ class ReportDetailActivity() : BaseActivity() {
     private fun EtOfficeGetStatusListResult(result: ReportResult) {
         mWorkstatuslistAdapter= WorkstatuslistAdapter(result.workstatuslist)
         binding.recyclerViewWorkstatuslist.adapter = mWorkstatuslistAdapter
+
+    }
+
+    private fun EtOfficeCommentlistResult(result: ReportResult) {
+        mCommentListAdapter= CommentListAdapter(result.commentlist)
+        binding.recyclerViewCommentlist.adapter = mCommentListAdapter
 
     }
 
@@ -195,7 +205,7 @@ class ReportDetailActivity() : BaseActivity() {
         //workstatuslistfun(5,result)
 
         //commentlist
-        commentlistFun(result)
+        //commentlistFun(result)
 
 
         //ReportDetailFragment open
@@ -355,43 +365,43 @@ class ReportDetailActivity() : BaseActivity() {
 //    }
 
 
-    private fun commentlistFun(result: ReportResult) {
-        val commentlist: LinearLayout = binding.commentlist
-        commentlist.removeAllViews()
-
-        val listSize = result.commentlist.size
-
-        for (i in 0 until listSize) {
-            val ll = ll_planworklist()
-
-            val t1 =
-                getTextView2("username：" + result.commentlist[i].comment)
-            t1.setTextColor(Color.parseColor("#000000"))
-            t1.textSize = 20F
-
-            val username = result.commentlist[i].username
-            val time = result.commentlist[i].time
-
-            val t2_text = username + " " + Tools.allDateTime(time)
-
-            val t2 = getTextView2(t2_text)
-
-
-
-            ll.addView(t1)
-            ll.addView(t2)
-            ll.setPadding(10)
-
-            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-
-            commentlist.addView(ll, layoutParams)
-
-            commentlist.addView(linearLayout_line())
-        }
-
-    }
+//    private fun commentlistFun(result: ReportResult) {
+//        val commentlist: LinearLayout = binding.commentlist
+//        commentlist.removeAllViews()
+//
+//        val listSize = result.commentlist.size
+//
+//        for (i in 0 until listSize) {
+//            val ll = ll_planworklist()
+//
+//            val t1 =
+//                getTextView2("username：" + result.commentlist[i].comment)
+//            t1.setTextColor(Color.parseColor("#000000"))
+//            t1.textSize = 20F
+//
+//            val username = result.commentlist[i].username
+//            val time = result.commentlist[i].time
+//
+//            val t2_text = username + " " + Tools.allDateTime(time)
+//
+//            val t2 = getTextView2(t2_text)
+//
+//
+//
+//            ll.addView(t1)
+//            ll.addView(t2)
+//            ll.setPadding(10)
+//
+//            val layoutParams: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+//            )
+//
+//            commentlist.addView(ll, layoutParams)
+//
+//            commentlist.addView(linearLayout_line())
+//        }
+//
+//    }
 
 
     private fun getLinearLayoutContent(): LinearLayout {

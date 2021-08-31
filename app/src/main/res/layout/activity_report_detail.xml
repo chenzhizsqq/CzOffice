@@ -150,6 +150,7 @@
                 </LinearLayout>
 
 
+                <!--        content -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_workstatuslist"
                     android:layout_width="match_parent"
@@ -157,7 +158,7 @@
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
 
-        <!--        content -->
+
 <!--                <LinearLayout-->
 <!--                    android:id="@+id/content"-->
 <!--                    android:layout_width="match_parent"-->
@@ -168,6 +169,8 @@
 <!--                </LinearLayout>-->
 
                 <!--            reportlist-->
+
+
                 <LinearLayout
                     android:id="@+id/reportlist"
                     android:layout_width="match_parent"
@@ -209,12 +212,19 @@
 
 
                 <!--            commentlist-->
-                <LinearLayout
-                    android:id="@+id/commentlist"
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_commentlist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:orientation="vertical"/>
+                    android:gravity="center"
+                    app:layoutManager="LinearLayoutManager" />
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/commentlist"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:padding="10dp"-->
+<!--                    android:orientation="vertical"/>-->
         <!--線-->
 
 
