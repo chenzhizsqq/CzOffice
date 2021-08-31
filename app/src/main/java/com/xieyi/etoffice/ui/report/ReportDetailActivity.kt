@@ -157,12 +157,10 @@ class ReportDetailActivity() : BaseActivity() {
 
 
         //検索の日付
-        val record_date: TextView = binding.recordDate
-        record_date.text = Tools.allDate(date)
+        binding.recordDate.text = Tools.allDate(date)
 
         //予定
-        val appointment: TextView = binding.appointment
-        appointment.text = result.planworktime
+        binding.appointment.text = result.planworktime
 
         //planworklist
         planworklistFun(result)
@@ -172,8 +170,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
         //実績：
-        val worktime: TextView = binding.worktime
-        worktime.text = result.worktime
+        binding.worktime.text = result.worktime
 
 
         //workstatuslist：
@@ -184,8 +181,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
         //ReportDetailFragment open
-        val addView: ImageView = binding.addView
-        addView.setOnClickListener {
+        binding.addView.setOnClickListener {
 
             val fm: FragmentManager = supportFragmentManager
             val dialog: ReportAddDialog =
@@ -196,8 +192,7 @@ class ReportDetailActivity() : BaseActivity() {
 
 
         //returnpHome
-        val returnHome = binding.returnHome
-        returnHome.setOnClickListener {
+        binding.returnHome.setOnClickListener {
             val intent: Intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
             startActivity(intent)
             finish()

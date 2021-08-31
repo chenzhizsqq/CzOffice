@@ -12,7 +12,6 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<SectionInfo>, val co
     RecyclerView.Adapter<GetStuffSectionListAdapter.sectionListViewHolder>() {
     val TAG:String = javaClass.simpleName
 
-    // Describes an item view and its place within the RecyclerView
     class sectionListViewHolder(binding: GetStuffSectionListBinding,val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
