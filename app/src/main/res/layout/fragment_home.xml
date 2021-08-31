@@ -165,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/fragment_home_勤務中"
+                        android:text="@string/fragment_home_on_duty"
                         android:textColor="#000000" />
                 </LinearLayout>
 
@@ -190,7 +190,7 @@
                         android:layout_height="wrap_content"
 
                         android:gravity="center"
-                        android:text="@string/fragment_home_勤務外"
+                        android:text="@string/fragment_home_outside_duty"
                         android:textColor="#000000" />
                 </LinearLayout>
 
@@ -215,7 +215,7 @@
                         android:layout_height="wrap_content"
 
                         android:gravity="center"
-                        android:text="@string/fragment_home_休憩中"
+                        android:text="@string/fragment_home_rest"
                         android:textColor="#000000" />
                 </LinearLayout>
 
@@ -240,7 +240,7 @@
                         android:layout_height="wrap_content"
 
                         android:gravity="center"
-                        android:text="@string/fragment_home_移動中"
+                        android:text="@string/fragment_home_moving"
                         android:textColor="#000000" />
                 </LinearLayout>
 
@@ -265,7 +265,7 @@
                         android:layout_height="wrap_content"
 
                         android:gravity="center"
-                        android:text="@string/fragment_home_会議中"
+                        android:text="@string/fragment_home_meeting"
                         android:textColor="#000000" />
                 </LinearLayout>
 

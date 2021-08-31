@@ -77,10 +77,10 @@
     <string name="copyright_xieyi">Copyright @ 2021 Xieyi</string>
     <string name="dialog_home_status_user_status_memo_hint">備考</string>
     <string name="dialog_home_status_user_location_hint">自宅、カフェ、事務所等</string>
-    <string name="fragment_home_勤務中">勤務中</string>
-    <string name="fragment_home_勤務外">勤務外</string>
-    <string name="fragment_home_休憩中">休憩中</string>
-    <string name="fragment_home_移動中">移動中</string>
-    <string name="fragment_home_会議中">会議中</string>
+    <string name="fragment_home_on_duty">勤務中</string>
+    <string name="fragment_home_outside_duty">勤務外</string>
+    <string name="fragment_home_rest">休憩中</string>
+    <string name="fragment_home_moving">移動中</string>
+    <string name="fragment_home_meeting">会議中</string>
 
 </resources>
