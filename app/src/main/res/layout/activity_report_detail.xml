@@ -62,7 +62,7 @@
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
@@ -87,7 +87,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#60AAAAAA"
+                    android:background="@color/f0f0f0"
                     android:padding="10dp"
                     android:orientation="horizontal">
                     <TextView
@@ -109,14 +109,13 @@
 
 
     <!--            planworklist-->
-                <LinearLayout
-                    android:id="@+id/planworklist"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_planworklist"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:orientation="vertical"/>
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    app:layoutManager="LinearLayoutManager" />
 
-                <!--線-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -129,7 +128,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#60AAAAAA"
+                    android:background="@color/f0f0f0"
                     android:padding="10dp"
                     android:orientation="horizontal">
                     <TextView
@@ -150,29 +149,20 @@
                 </LinearLayout>
 
 
-                <!--        content -->
+                <!--        workstatuslis -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_workstatuslist"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="70dp"
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
 
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/content"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:gravity="center"-->
-<!--                    android:padding="5dp"-->
-<!--                    android:orientation="vertical">-->
-<!--                </LinearLayout>-->
-
-                <!--            reportlist-->
+                <!--        reportlist -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_reportlist"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="120dp"
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
                 <LinearLayout
@@ -215,21 +205,11 @@
                 </LinearLayout>
 
 
-                <!--            commentlist-->
-
-                <!--                <LinearLayout-->
-<!--                    android:id="@+id/commentlist"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:padding="10dp"-->
-<!--                    android:orientation="vertical"/>-->
-        <!--線-->
-
-
+                <!--        commentlist -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_commentlist"
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
+                    android:layout_height="600dp"
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
 
@@ -241,13 +221,6 @@
             </LinearLayout>
             <!--内容-->
 
-            <!--bottom-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="vertical">
-            </LinearLayout>
-            <!--bottom-->
         </LinearLayout>
     </ScrollView>
 

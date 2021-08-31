@@ -28,47 +28,20 @@ import kotlinx.coroutines.*
 class ReportDetailActivity() : BaseActivity() {
 
     val TAG = javaClass.simpleName
-    lateinit var buttonImageButton1: ImageView
 
-    private val WRAP_CONTENT = LinearLayout.LayoutParams.WRAP_CONTENT
-    private val MATCH_PARENT = LinearLayout.LayoutParams.MATCH_PARENT
 
     //検索の日付
     var date:String=""
 
+    private lateinit var mPlanworklistAdapter: PlanworklistAdapter
+
     private lateinit var mWorkstatuslistAdapter: WorkstatuslistAdapter
 
-    //ReportListAdapter
     private lateinit var mReportListAdapter: ReportListAdapter
 
     private lateinit var mCommentListAdapter: CommentListAdapter
 
     private lateinit var binding: ActivityReportDetailBinding
-/*
-    {
-        "status": 0,
-        "result": {
-        "authflag": "",
-        "planworktime": "",
-        "worktime": "通常勤務 19:02-",
-        "planworklist": [],
-        "workstatuslist": [
-        {
-            "time": "19:02",
-            "status": "会議中"
-        },
-        {
-            "time": "19:02",
-            "status": "移動中"
-        }
-        ],
-        "reportlist": [],
-        "commentlist": []
-    },
-        "message": ""
-    }
- */
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,6 +53,10 @@ class ReportDetailActivity() : BaseActivity() {
         date = intent.getStringExtra("ReportFragmentMessage").toString()
 
 
+
+        binding.recyclerViewPlanworklist.layoutManager = LinearLayoutManager(
+            this, LinearLayoutManager.HORIZONTAL
+            , false)
 
         binding.recyclerViewWorkstatuslist.layoutManager = LinearLayoutManager(
             this, LinearLayoutManager.HORIZONTAL
@@ -108,6 +85,7 @@ class ReportDetailActivity() : BaseActivity() {
                         0 -> {
                             EtOfficeGetReportInfoResult(model.result)
 
+                            EtOfficePlanworklistResult(model.result)
                             EtOfficeGetStatusListResult(model.result)
                             EtOfficeGetReportlistResult(model.result)
                             EtOfficeCommentlistResult(model.result)
@@ -135,6 +113,13 @@ class ReportDetailActivity() : BaseActivity() {
                 }
             }
         )
+    }
+
+
+    private fun EtOfficePlanworklistResult(result: ReportResult) {
+        mPlanworklistAdapter= PlanworklistAdapter(result.planworklist)
+        binding.recyclerViewPlanworklist.adapter = mPlanworklistAdapter
+
     }
 
 
@@ -205,22 +190,8 @@ class ReportDetailActivity() : BaseActivity() {
         //予定
         binding.appointment.text = result.planworktime
 
-        //planworklist
-        planworklistFun(result)
-
-        //reportlist
-        //reportlistFun(result)
-
-
         //実績：
         binding.worktime.text = result.worktime
-
-
-        //workstatuslist：
-        //workstatuslistfun(5,result)
-
-        //commentlist
-        //commentlistFun(result)
 
 
         //ReportDetailFragment open
@@ -250,97 +221,14 @@ class ReportDetailActivity() : BaseActivity() {
 
             //EtOfficeSetComment
             //データ更新
-            EtOfficeSetCommentPost(date,binding.messageEdit.text.toString())
+            EtOfficeSetCommentPost(
+                date,
+                binding.messageEdit.text.toString()
+            )
 
 
             binding.messageEdit.text.clear()
         }
-    }
-
-
-    private fun planworklistFun(result: ReportResult) {
-        val planworklist: LinearLayout = binding.planworklist
-        planworklist.removeAllViews()
-/*
-        {
-            "project": "[2021XY07]EtOfficeAPP開発#1",
-            "wbs": "[W01]工程A(進捗:%)",
-            "date": "2021/07/01-2021/07/31",
-            "time": "(計画：160h)"
-        }
- */
-        val listSize = result.planworklist.size
-
-        for (i in 0 until listSize) {
-            val ll=ll_planworklist()
-
-            val t1 =getTextView2(result.planworklist[i].project)
-            t1.setTextColor(Color.parseColor("#000000"))
-            t1.textSize = 20F
-
-            val t2 =getTextView2(result.planworklist[i].wbs)
-
-            val v3=result.planworklist[i].date+" "+
-                    result.planworklist[i].time
-            val t3 =getTextView2(v3)
-
-            ll.addView(t1)
-            ll.addView(t2)
-            ll.addView(t3)
-
-            planworklist.addView(ll)
-        }
-
-
-    }
-
-
-
-    //planworklist LinearLayout
-    private fun ll_planworklist(): LinearLayout {
-        val r=LinearLayout(applicationContext)
-
-        val ll = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-        r.layoutParams = ll
-
-        r.orientation = LinearLayout.VERTICAL
-
-        return r
-    }
-
-
-    private fun getLinearLayout(): LinearLayout {
-        val r=LinearLayout(applicationContext)
-
-        val ll = LinearLayout.LayoutParams(0, MATCH_PARENT,1.0F)
-        r.layoutParams = ll
-
-        r.gravity = Gravity.CENTER
-
-        r.setBackgroundResource(R.drawable.ic_round_edge_white)
-
-        r.setPadding(20)
-
-        r.orientation = LinearLayout.VERTICAL
-
-        return r
-    }
-
-
-    private fun getTextView2(text:String): TextView {
-        val r=TextView(applicationContext)
-
-        val ll = LinearLayout.LayoutParams( WRAP_CONTENT,WRAP_CONTENT)
-        r.layoutParams = ll
-
-        r.gravity = Gravity.CENTER
-
-        r.text=text
-
-
-        r.setTextColor(Color.BLACK)
-
-        return r
     }
 
     private fun hideKeyboard(v: View) {
