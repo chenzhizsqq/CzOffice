@@ -207,7 +207,7 @@ class ReportDetailActivity() : BaseActivity() {
 
         //returnpHome
         binding.returnHome.setOnClickListener {
-            val intent: Intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
+            val intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
 
