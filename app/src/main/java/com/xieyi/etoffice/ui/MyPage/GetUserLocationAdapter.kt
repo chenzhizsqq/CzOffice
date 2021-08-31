@@ -16,8 +16,8 @@ class GetUserLocationAdapter(
 
 
     class ViewHolder(binding: GetUserLocationBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val latitude: TextView = binding.latitude
-        private val longitude: TextView = binding.longitude
+//        private val latitude: TextView = binding.latitude
+//        private val longitude: TextView = binding.longitude
         private val location: TextView = binding.location
 
 
@@ -25,8 +25,8 @@ class GetUserLocationAdapter(
 
         //bind
         fun bind(locationList: UserLocationInfo) {
-            latitude.text = Tools.srcContent(locationList.latitude,8,"")
-            longitude.text = Tools.srcContent(locationList.longitude,8,"")
+//            latitude.text = Tools.srcContent(locationList.latitude,8,"")
+//            longitude.text = Tools.srcContent(locationList.longitude,8,"")
             location.text = locationList.location
 
 
