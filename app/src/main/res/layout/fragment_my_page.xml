@@ -129,6 +129,7 @@
                         android:text="@string/fragment_my_page_name"
                         android:textColor="@color/black"
                         android:gravity="left"
+                        android:textStyle="bold"
                         android:singleLine="true"/>
 
                     <TextView
@@ -166,6 +167,7 @@
                         android:textColor="@color/black"
                         android:text="@string/fragment_my_page_mobile"
                         android:gravity="left"
+                        android:textStyle="bold"
                         android:singleLine="true"/>
 
                     <TextView
@@ -204,6 +206,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:text="@string/fragment_my_page_mail"
+                        android:textStyle="bold"
                         android:gravity="left"
                         android:singleLine="true"/>
 
@@ -243,6 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
+                        android:textStyle="bold"
                         android:singleLine="true"
                         android:text="@string/fragment_my_page_place_management"
                         android:textColor="@color/black" />
@@ -284,6 +288,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fragment_my_page_change_company"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:gravity="left"
                         android:singleLine="true"/>
 
@@ -330,6 +335,7 @@
                         android:textColor="@color/black"
                         android:text="@string/fragment_my_page_signout"
                         android:gravity="left"
+                        android:textStyle="bold"
                         android:singleLine="true"/>
 
 
