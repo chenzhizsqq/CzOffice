@@ -45,13 +45,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="tenantname"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    />
                 <TextView
                     android:id="@+id/posturl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="posturl"
-                    android:textSize="20sp" />
+                    android:textColor="@color/black"
+                    android:text="posturl" />
             </LinearLayout>
 
 

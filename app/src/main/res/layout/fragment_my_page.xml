@@ -66,7 +66,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="left|center"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -88,13 +88,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:textSize="12dp"/>
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
 
                     <TextView
                         android:id="@+id/user_mail"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"/>
+                        android:textSize="16sp"
+                        android:layout_height="wrap_content"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -106,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_my_page_personal_info"
                 android:paddingTop="30dp"
-
-                android:textSize="12dp"/>
+                android:paddingBottom="10dp"
+                />
 
             <LinearLayout
                 android:id="@+id/PERSONAL_INFO"
@@ -308,10 +309,9 @@
                 android:id="@+id/SYSTEM_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dp"
                 android:text="@string/fragment_my_page_system"
-
-                android:textSize="12dp"
+                android:paddingTop="30dp"
+                android:paddingBottom="10dp"
                 />
 
             <TableLayout
