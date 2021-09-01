@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="5dp"
+                    android:padding="3dp"
                     >
 
                     <TextView
@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:text="title"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                     <TextView
                         android:id="@+id/updatetime"
                         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="content"
-                    android:padding="5dp"
+                    android:padding="3dp"
                     android:textSize="12sp" />
             </LinearLayout>
     </LinearLayout>
