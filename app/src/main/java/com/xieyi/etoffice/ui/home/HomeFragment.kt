@@ -23,8 +23,9 @@ import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import kotlinx.coroutines.*
 
 
-class HomeFragment : Fragment(),
-    SwipeRefreshLayout.OnRefreshListener  {
+class HomeFragment : Fragment()
+//    ,SwipeRefreshLayout.OnRefreshListener
+{
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -32,7 +33,7 @@ class HomeFragment : Fragment(),
 
     private lateinit var mAdapter: GetMessageAdapter
 
-    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+//    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -47,9 +48,9 @@ class HomeFragment : Fragment(),
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        mSwipeRefreshLayout= binding.swipeRefreshLayout
-        // Listenerをセット
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+//        mSwipeRefreshLayout= binding.swipeRefreshLayout
+//        // Listenerをセット
+//        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         val textCompanyTitle: TextView = binding.textCompanyTitle
         homeViewModel.companyTitle.observe(viewLifecycleOwner, Observer {
@@ -286,9 +287,9 @@ class HomeFragment : Fragment(),
         })
     }
 
-    override fun onRefresh() {
-
-        mSwipeRefreshLayout.isRefreshing = false;
-        dataPost()
-    }
+//    override fun onRefresh() {
+//
+//        mSwipeRefreshLayout.isRefreshing = false;
+//        dataPost()
+//    }
 }
