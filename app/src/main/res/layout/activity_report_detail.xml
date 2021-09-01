@@ -158,50 +158,44 @@
                     app:layoutManager="LinearLayoutManager" />
 
 
-                <!--        reportlist -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_reportlist"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:gravity="center"
-                    app:layoutManager="LinearLayoutManager" />
-                <LinearLayout
-                    android:id="@+id/reportlist"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"/>
 
 
 
-                <!--                add button-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
+                    <!--                add button-->
                     <LinearLayout
                         android:gravity="center"
                         android:background="@drawable/ic_round_edge_grey"
-                        android:padding="10dp"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="100dp"
                         android:orientation="vertical">
                         <ImageView
                             android:id="@+id/addView"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:gravity="center"
-                            android:background="#FFFFFF"
                             app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/activity_report_detail_buttom_title"
-                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
                             android:gravity="center"
                             />
                     </LinearLayout>
 
+                    <!--        reportlist -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_reportlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:gravity="center"
+                        app:layoutManager="LinearLayoutManager" />
                 </LinearLayout>
 
 
