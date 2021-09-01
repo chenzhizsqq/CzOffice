@@ -73,7 +73,7 @@
                     android:id="@+id/imageView_MyPage_Logo"
                     android:layout_width="99dp"
                     android:layout_height="84dp"
-                    app:srcCompat="@drawable/ic_home_black_24dp"
+                    app:srcCompat="@drawable/ic_baseline_account_circle_24_blue"
 
                     />
 
