@@ -160,9 +160,9 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/btn_star_big_on" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/ic_launcher_main_page_1_foreground" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -185,9 +185,9 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/btn_star_big_on" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/ic_launcher_main_page_2_foreground" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -211,9 +211,9 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/btn_star_big_on" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/ic_launcher_main_page_3_foreground" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -237,9 +237,9 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/btn_star_big_on" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/ic_launcher_main_page_4_foreground" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -263,9 +263,9 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@android:drawable/btn_star_big_on" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:srcCompat="@drawable/ic_launcher_main_page_5_foreground" />
 
                     <TextView
                         android:layout_width="wrap_content"
