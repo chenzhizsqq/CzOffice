@@ -12,7 +12,6 @@ import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
@@ -24,7 +23,6 @@ import kotlinx.coroutines.*
 
 
 class HomeFragment : Fragment()
-//    ,SwipeRefreshLayout.OnRefreshListener
 {
 
     private lateinit var homeViewModel: HomeViewModel
@@ -33,24 +31,18 @@ class HomeFragment : Fragment()
 
     private lateinit var mAdapter: GetMessageAdapter
 
-//    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-//        mSwipeRefreshLayout= binding.swipeRefreshLayout
-//        // Listenerをセット
-//        mSwipeRefreshLayout.setOnRefreshListener(this);
 
         val textCompanyTitle: TextView = binding.textCompanyTitle
         homeViewModel.companyTitle.observe(viewLifecycleOwner, Observer {
@@ -287,9 +279,4 @@ class HomeFragment : Fragment()
         })
     }
 
-//    override fun onRefresh() {
-//
-//        mSwipeRefreshLayout.isRefreshing = false;
-//        dataPost()
-//    }
 }
