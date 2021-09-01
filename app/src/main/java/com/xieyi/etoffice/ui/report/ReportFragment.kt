@@ -188,8 +188,7 @@ class ReportFragment : Fragment(),
             binding.commit.visibility = it
             if(it==View.GONE){
                 binding.edit.text = "Edit"
-            }else{
-
+            }else if (it==View.VISIBLE){
                 binding.edit.text = "Cancel"
             }
         })
