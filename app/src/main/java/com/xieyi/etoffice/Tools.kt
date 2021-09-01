@@ -2,6 +2,7 @@ package com.xieyi.etoffice
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -233,6 +234,13 @@ object Tools {
     fun sharedPreGetInt(key: String): Int {
         val prefs =
             EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-        return prefs.getInt(key, 0)!!
+        return prefs.getInt(key, 0)
+    }
+
+    fun sharedPreRemove(key: String){
+        val pref = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = pref.edit()
+        editor.remove(key)
+        editor.apply()
     }
 }

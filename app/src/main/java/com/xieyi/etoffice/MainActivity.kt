@@ -13,7 +13,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.databinding.ActivityMainBinding
-
 import kotlinx.coroutines.*
 
 class MainActivity : BaseActivity() {
@@ -99,6 +98,9 @@ class MainActivity : BaseActivity() {
         //val index = EtOfficeApp.selectUi
         val index = Tools.sharedPreGetInt(Config.FragKey)
         selectFrag(index)
+
+        //初回登録した後、KEY削除します
+        Tools.sharedPreRemove(Config.FragKey)
     }
 
     //选择frag登录
