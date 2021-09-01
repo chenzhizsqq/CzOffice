@@ -22,7 +22,6 @@ class HomeReportDialog : DialogFragment(),
     private val TAG: String = "HomeReportDialog"
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var mRecyclerView: RecyclerView
 
     private lateinit var mAdapter:GetStatusListAdapter
     private lateinit var binding: DialogHomeReportBinding
@@ -54,8 +53,6 @@ class HomeReportDialog : DialogFragment(),
 
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this);
-
-        mRecyclerView = binding.recyclerView
 
 
         EtOfficeGetStatusListPost()
