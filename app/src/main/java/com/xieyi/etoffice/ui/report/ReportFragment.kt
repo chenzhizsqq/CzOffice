@@ -186,7 +186,12 @@ class ReportFragment : Fragment(),
         viewModel.visibility.observe(viewLifecycleOwner,{
             binding.allSelect.visibility = it
             binding.commit.visibility = it
-            binding.people.visibility = it
+            if(it==View.GONE){
+                binding.edit.text = "Edit"
+            }else{
+
+                binding.edit.text = "Cancel"
+            }
         })
 
         binding.edit.setOnClickListener(View.OnClickListener {
