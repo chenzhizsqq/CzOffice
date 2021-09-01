@@ -67,7 +67,7 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:gravity="center"
-                    app:srcCompat="@drawable/ic_baseline_account_circle_24_blue" />
+                    app:srcCompat="@drawable/ic_baseline_check_24_0088ff" />
 
             </LinearLayout>
         </LinearLayout>
