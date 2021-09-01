@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="50dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
-
+                android:textStyle="bold"
                 android:text="株式会社"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -132,6 +132,7 @@
                 android:id="@+id/common_function"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="@string/fragment_home_common_function"
                 android:textAlignment="textStart"
                 android:layout_margin="5dp"
@@ -143,7 +144,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -278,6 +278,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
+                android:textStyle="bold"
                 android:text="@string/fragment_home_visit_record"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -298,6 +299,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
+                android:textStyle="bold"
                 android:text="@string/fragment_home_message"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
