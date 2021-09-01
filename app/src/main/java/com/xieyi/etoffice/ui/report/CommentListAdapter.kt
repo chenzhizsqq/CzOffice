@@ -5,21 +5,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.CommentInfo
-import com.xieyi.etoffice.common.model.WorkStatusInfo
 import com.xieyi.etoffice.databinding.GetCommentInfoBinding
-import com.xieyi.etoffice.databinding.GetWorkStatusInfoBinding
 
 
 class CommentListAdapter(
-    val workStatusList:  List<CommentInfo>,
+    val list:  List<CommentInfo>,
 ) : RecyclerView.Adapter<CommentListAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
 
     class ViewHolder(binding: GetCommentInfoBinding) : RecyclerView.ViewHolder(binding.root) {
-        //            var username: String,    // ユーザー名
-        //            var comment: String,     // 内容
-        //            var time: String,        // 時間
 
         val username: TextView = binding.username
         val comment: TextView = binding.comment
@@ -44,10 +39,10 @@ class CommentListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return workStatusList.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(workStatusList[position])
+        holder.bind(list[position])
     }
 }

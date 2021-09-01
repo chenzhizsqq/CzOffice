@@ -10,7 +10,7 @@ import com.xieyi.etoffice.databinding.GetMessageListBinding
 
 
 class GetMessageAdapter(
-    val messagelist: List<MessageInfo>
+    val list: List<MessageInfo>
 ) : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -24,10 +24,10 @@ class GetMessageAdapter(
         val ll: LinearLayout = binding.ll
 
         //bind
-        fun bind(messagelist: MessageInfo) {
-            tv_title.text = messagelist.title
-            tv_updatetime.text =Tools.allDateTime(messagelist.updatetime)
-            tv_content.text = messagelist.content
+        fun bind(info: MessageInfo) {
+            tv_title.text = info.title
+            tv_updatetime.text =Tools.allDateTime(info.updatetime)
+            tv_content.text = info.content
 
         }
     }
@@ -40,10 +40,10 @@ class GetMessageAdapter(
     }
 
     override fun getItemCount(): Int {
-        return messagelist.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(messagelist[position])
+        holder.bind(list[position])
     }
 }

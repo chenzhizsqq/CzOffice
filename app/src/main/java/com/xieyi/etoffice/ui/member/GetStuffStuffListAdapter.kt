@@ -19,7 +19,7 @@ import com.xieyi.etoffice.common.model.StuffInfo
 import com.xieyi.etoffice.databinding.GetStuffStuffListBinding
 
 
-class GetStuffStuffListAdapter(val getStuffList: List<StuffInfo>
+class GetStuffStuffListAdapter(val list: List<StuffInfo>
 , val sectioncd:String, val sectionname:String,val context: Context
 ) :
     RecyclerView.Adapter<GetStuffStuffListAdapter.sectionListViewHolder>() {
@@ -38,11 +38,11 @@ class GetStuffStuffListAdapter(val getStuffList: List<StuffInfo>
         val ll: LinearLayout = binding.ll
 
         //telephone
-        fun bind(stufflist: StuffInfo, sectioncd:String, sectionname:String,context: Context) {
-            tv_userkana.text = stufflist.userkana
-            tv_username.text = stufflist.username
-            tv_phone.text = stufflist.phone
-            tv_mail.text = stufflist.mail
+        fun bind(info: StuffInfo, sectioncd:String, sectionname:String, context: Context) {
+            tv_userkana.text = info.userkana
+            tv_username.text = info.username
+            tv_phone.text = info.phone
+            tv_mail.text = info.mail
             tv_sectioncd.text = sectioncd
             tv_sectionname.text = sectionname
 
@@ -65,10 +65,10 @@ class GetStuffStuffListAdapter(val getStuffList: List<StuffInfo>
 
                     AlertDialog.Builder(context)
                         .setTitle("電話番号")
-                        .setMessage(stufflist.phone)
+                        .setMessage(info.phone)
                         .setPositiveButton("call") { _, _ ->
 
-                            val uri: Uri = Uri.parse("tel:"+stufflist.phone)
+                            val uri: Uri = Uri.parse("tel:"+info.phone)
                             val intent = Intent(Intent.ACTION_CALL, uri)
                             it.context.startActivity(intent)
 
@@ -89,10 +89,10 @@ class GetStuffStuffListAdapter(val getStuffList: List<StuffInfo>
     }
 
     override fun getItemCount(): Int {
-        return getStuffList.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
-        holder.bind(getStuffList[position],sectioncd,sectionname,context)
+        holder.bind(list[position],sectioncd,sectionname,context)
     }
 }

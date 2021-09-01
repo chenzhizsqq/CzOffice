@@ -4,13 +4,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.UserLocationInfo
 import com.xieyi.etoffice.databinding.GetUserLocationBinding
 
 
 class GetUserLocationAdapter(
-    val getUserLocation: List<UserLocationInfo>,
+    val list: List<UserLocationInfo>,
 ) : RecyclerView.Adapter<GetUserLocationAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -24,10 +23,10 @@ class GetUserLocationAdapter(
         val ll: LinearLayout = binding.ll
 
         //bind
-        fun bind(locationList: UserLocationInfo) {
+        fun bind(info: UserLocationInfo) {
 //            latitude.text = Tools.srcContent(locationList.latitude,8,"")
 //            longitude.text = Tools.srcContent(locationList.longitude,8,"")
-            location.text = locationList.location
+            location.text = info.location
 
 
         }
@@ -41,10 +40,10 @@ class GetUserLocationAdapter(
     }
 
     override fun getItemCount(): Int {
-        return getUserLocation.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getUserLocation[position])
+        holder.bind(list[position])
     }
 }

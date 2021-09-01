@@ -8,7 +8,7 @@ import com.xieyi.etoffice.databinding.GetWorkStatusInfoBinding
 
 
 class WorkstatuslistAdapter(
-    val workStatusList:  List<WorkStatusInfo>,
+    val list:  List<WorkStatusInfo>,
 ) : RecyclerView.Adapter<WorkstatuslistAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -20,9 +20,9 @@ class WorkstatuslistAdapter(
 
 
         //bind
-        fun bind(locationList: WorkStatusInfo) {
-            location.text = locationList.status
-            time.text = locationList.time
+        fun bind(info: WorkStatusInfo) {
+            location.text = info.status
+            time.text = info.time
 
         }
     }
@@ -35,10 +35,10 @@ class WorkstatuslistAdapter(
     }
 
     override fun getItemCount(): Int {
-        return workStatusList.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(workStatusList[position])
+        holder.bind(list[position])
     }
 }

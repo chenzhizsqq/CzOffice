@@ -17,7 +17,7 @@ import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
 
 //EtOfficeGetReportList.json result-group-reportlist
 class GetReportListGroupReportlistAdapter(
-    val getReportListReportlist: List<ReportListnfo>
+    val list: List<ReportListnfo>
     ,var arrayListYmd:ArrayList<String>
     ,val activity: Activity
     ,val viewModel: ReportViewModel
@@ -40,13 +40,13 @@ class GetReportListGroupReportlistAdapter(
 
         //bind
         fun bind(
-            reportlist: ReportListnfo
-            ,activity: Activity
+            info: ReportListnfo
+            , activity: Activity
             , viewModel: ReportViewModel
-            ,lifecycleOwner: LifecycleOwner
+            , lifecycleOwner: LifecycleOwner
         ) {
-            this.yyyymmdd.text  = Tools.allDate(reportlist.yyyymmdd)
-            this.approval.text  = reportlist.approval
+            this.yyyymmdd.text  = Tools.allDate(info.yyyymmdd)
+            this.approval.text  = info.approval
             if (this.approval.text.isEmpty()){
                 this.warning.text = "未承認"
                 this.warning.setBackgroundResource(R.drawable.ic_round_edge_red)
@@ -54,11 +54,11 @@ class GetReportListGroupReportlistAdapter(
                 this.warning.text = "承認済み"
                 this.warning.setBackgroundResource(R.drawable.ic_round_edge_blue)
             }
-            this.title.text     = reportlist.title
-            this.content.text   = reportlist.content
+            this.title.text     = info.title
+            this.content.text   = info.content
 
             //checkbox
-            this.checkbox.tag = reportlist.yyyymmdd
+            this.checkbox.tag = info.yyyymmdd
 
 
             ll.setOnClickListener(View.OnClickListener {
@@ -66,7 +66,7 @@ class GetReportListGroupReportlistAdapter(
                     Tools.sharedPrePut(Config.FragKey,3)
                     //EtOfficeApp.selectUi = 3
                     val intent = Intent(activity, ReportDetailActivity::class.java)
-                    intent.putExtra("ReportFragmentMessage", reportlist.yyyymmdd)
+                    intent.putExtra("ReportFragmentMessage", info.yyyymmdd)
                     activity.startActivity(intent)
                     activity.finish()
                 }
@@ -94,12 +94,12 @@ class GetReportListGroupReportlistAdapter(
     }
 
     override fun getItemCount(): Int {
-        return getReportListReportlist.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(
-            getReportListReportlist[position]
+            list[position]
             , activity
             , viewModel
         ,lifecycleOwner)
@@ -107,12 +107,12 @@ class GetReportListGroupReportlistAdapter(
 
         holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                if(!arrayListYmd.contains(getReportListReportlist[position].yyyymmdd)){
-                    arrayListYmd.add(getReportListReportlist[position].yyyymmdd)
+                if(!arrayListYmd.contains(list[position].yyyymmdd)){
+                    arrayListYmd.add(list[position].yyyymmdd)
                 }
             } else {
-                if(arrayListYmd.contains(getReportListReportlist[position].yyyymmdd)) {
-                    arrayListYmd.remove(getReportListReportlist[position].yyyymmdd)
+                if(arrayListYmd.contains(list[position].yyyymmdd)) {
+                    arrayListYmd.remove(list[position].yyyymmdd)
                 }
             }
         }

@@ -15,10 +15,6 @@ class PlanworklistAdapter(
 
     class ViewHolder(binding: GetPlanWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
-//        var project: String,    // 項目名
-//        var wbs: String,        // 作業名
-//        var date: String,       // 時間帯
-//        var time: String,       // 計画時間
          val project: TextView = binding.project
         val wbs: TextView = binding.wbs
         val date: TextView = binding.date

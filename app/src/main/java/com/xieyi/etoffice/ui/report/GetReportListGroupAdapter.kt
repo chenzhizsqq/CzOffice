@@ -11,7 +11,7 @@ import com.xieyi.etoffice.databinding.GetReportListGroupBinding
 
 //EtOfficeGetReportList.json result中的group
 class GetReportListGroupAdapter(
-    val getReportListGroup: List<GroupInfo>
+    val list: List<GroupInfo>
     ,var arrayListYmd:ArrayList<String>
     ,val activity: Activity
     ,val viewModel: ReportViewModel
@@ -38,14 +38,14 @@ class GetReportListGroupAdapter(
 
         //bind
         fun bind(
-            group: GroupInfo
+            info: GroupInfo
             , arrayListYmd:ArrayList<String>
             , activity: Activity
             , viewModel: ReportViewModel
             , lifecycleOwner: LifecycleOwner
         ) {
-            this.month.text = Tools.dateGetYear(group.month)+"."+Tools.dateGetMonth(group.month)
-            recyclerView.adapter=GetReportListGroupReportlistAdapter(group.reportlist,arrayListYmd,activity,viewModel,lifecycleOwner)
+            this.month.text = Tools.dateGetYear(info.month)+"."+Tools.dateGetMonth(info.month)
+            recyclerView.adapter=GetReportListGroupReportlistAdapter(info.reportlist,arrayListYmd,activity,viewModel,lifecycleOwner)
 
         }
     }
@@ -57,11 +57,11 @@ class GetReportListGroupAdapter(
     }
 
     override fun getItemCount(): Int {
-        return getReportListGroup.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getReportListGroup[position],arrayListYmd,activity,viewModel
+        holder.bind(list[position],arrayListYmd,activity,viewModel
             ,lifecycleOwner)
     }
 }

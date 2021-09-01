@@ -9,7 +9,7 @@ import com.xieyi.etoffice.databinding.GetStatusListBinding
 
 
 class GetStatusListAdapter(
-    val recordlist: List<StatusInfo>,
+    val list: List<StatusInfo>,
 ) : RecyclerView.Adapter<GetStatusListAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -36,10 +36,10 @@ class GetStatusListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return recordlist.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(recordlist[position])
+        holder.bind(list[position])
     }
 }

@@ -8,7 +8,7 @@ import com.xieyi.etoffice.common.model.SectionInfo
 import com.xieyi.etoffice.databinding.GetStuffSectionListBinding
 
 
-class GetStuffSectionListAdapter(var sectionList: ArrayList<SectionInfo>, val context: Context) :
+class GetStuffSectionListAdapter(var list: ArrayList<SectionInfo>, val context: Context) :
     RecyclerView.Adapter<GetStuffSectionListAdapter.sectionListViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -17,11 +17,11 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<SectionInfo>, val co
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
 
-        fun bind(sectionList: SectionInfo) {
+        fun bind(info: SectionInfo) {
             recyclerView.adapter = GetStuffStuffListAdapter(
-                sectionList.stufflist
-                ,sectionList.sectioncd
-                ,sectionList.sectionname
+                info.stufflist
+                ,info.sectioncd
+                ,info.sectionname
                 ,context
             )
 
@@ -37,21 +37,21 @@ class GetStuffSectionListAdapter(var sectionList: ArrayList<SectionInfo>, val co
     }
 
     override fun getItemCount(): Int {
-        return sectionList.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
-        holder.bind(sectionList[position])
+        holder.bind(list[position])
     }
 
     fun notifyDataAdd(section: SectionInfo) {
         //Log.e(TAG, "notifyDataAdd: sectionList:$sectionList", )
-        this.sectionList.add(section)
+        this.list.add(section)
         notifyDataSetChanged()
     }
 
     fun notifyDataAddList(sectionList: ArrayList<SectionInfo>) {
-        this.sectionList.addAll(sectionList)
+        this.list.addAll(sectionList)
         notifyDataSetChanged()
     }
 }

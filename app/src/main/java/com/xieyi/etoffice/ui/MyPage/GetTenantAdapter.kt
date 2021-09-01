@@ -11,7 +11,7 @@ import com.xieyi.etoffice.databinding.GetTenantListBinding
 
 
 class GetTenantAdapter(
-    val getGetTenant: List<TenantInfo>,
+    val list: List<TenantInfo>,
 ) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
     val TAG:String = javaClass.simpleName
 
@@ -34,17 +34,17 @@ class GetTenantAdapter(
         val ll: LinearLayout = binding.ll
 
         //bind
-        fun bind(tenantInfo: TenantInfo, listener:OnAdapterListener) {
-            tv_posturl.text = tenantInfo.posturl
-            tv_tenantname.text = tenantInfo.tenantname
-            if (tenantInfo.startflg == "1"){
+        fun bind(info: TenantInfo, listener:OnAdapterListener) {
+            tv_posturl.text = info.posturl
+            tv_tenantname.text = info.tenantname
+            if (info.startflg == "1"){
                 iv_clicked.visibility = View.VISIBLE
             }else{
                 iv_clicked.visibility = View.GONE
             }
 
             ll.setOnClickListener(View.OnClickListener {
-                listener.onClick(tenantInfo.tenantid)
+                listener.onClick(info.tenantid)
             })
 
         }
@@ -58,10 +58,10 @@ class GetTenantAdapter(
     }
 
     override fun getItemCount(): Int {
-        return getGetTenant.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getGetTenant[position],listener)
+        holder.bind(list[position],listener)
     }
 }

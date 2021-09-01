@@ -15,11 +15,6 @@ class ReportListAdapter(
 
     class ViewHolder(binding: GetReportListBinding) : RecyclerView.ViewHolder(binding.root) {
 
-//        var project: String,    // 項目名
-//        var wbs: String,        // 作業名
-//        var time: String,       // 作業時間
-//        var memo: String,       // 報告、備考
-
         val project: TextView = binding.project
         val wbs: TextView = binding.wbs
         val time: TextView = binding.time
