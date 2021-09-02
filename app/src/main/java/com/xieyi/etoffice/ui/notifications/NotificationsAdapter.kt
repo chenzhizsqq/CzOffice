@@ -3,10 +3,10 @@ package com.xieyi.etoffice.ui.notifications
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.NotificationsItemBinding
 import com.xieyi.etoffice.widget.CustomCheckBox
 import java.text.ParseException
@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class NotificationsAdapter(private var messagelist:List<Message>):
+class NotificationsAdapter(private var messagelist:List<MessageInfo>):
     RecyclerView.Adapter<NotificationsAdapter.ViewHolder>(){
     //用来记录所有checkbox的状态
     private var checkStatus = hashMapOf<Int, String>()
@@ -28,6 +28,7 @@ class NotificationsAdapter(private var messagelist:List<Message>):
     fun setOnItemClickListener(onItemClickListener:OnItemClickListener){
         this.onItemClickListener = onItemClickListener
     }
+
     inner class ViewHolder(binding : NotificationsItemBinding):RecyclerView.ViewHolder(binding.root){
         val msgTitle:TextView = binding.msgTitle
         val msgUpdateTime:TextView = binding.msgUpdateTime
@@ -36,14 +37,14 @@ class NotificationsAdapter(private var messagelist:List<Message>):
     }
 
     //更新适配器数据
-    fun notifyDataChange(list: List<Message>, checkStatus: HashMap<Int, String>) {
+    fun notifyDataChange(list: List<MessageInfo>, checkStatus: HashMap<Int, String>) {
         this.messagelist = list
         this.checkStatus = checkStatus
         notifyDataSetChanged()
     }
 
     //更新适配器数据
-    fun notifyDataChange(list: List<Message>) {
+    fun notifyDataChange(list: List<MessageInfo>) {
         this.messagelist = list
         notifyDataSetChanged()
     }
@@ -57,13 +58,13 @@ class NotificationsAdapter(private var messagelist:List<Message>):
                 onItemClickListener.onItemClick(position)
             }
         })
-    return viewHolder
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val message = messagelist[position]
         holder.msgTitle.text = message.title
-        holder.msgUpdateTime.text = strToDateLong(message.updatetime)
+        holder.msgUpdateTime.text = Tools.strToDateLong(message.updatetime)
         holder.msgContent.text = message.content
         holder.itemView.tag = message.updatetime
         if (isEdit) {
@@ -74,13 +75,11 @@ class NotificationsAdapter(private var messagelist:List<Message>):
             //再设置一次CheckBox的选中监听器，当CheckBox的选中状态发生改变时，把改变后的状态储存在Map中
             holder.checkBox.setOnCheckChangeListener(object : CustomCheckBox.OnCheckChangeListener{
                 override fun onCheckChange(isChecked:Boolean) {
-                    // checkStatus[position] = isChecked
                     if (isChecked) {
                         checkStatus[position] = message.updatetime + message.subid
 
                     } else {
                         checkStatus[position] = ""
-
                     }
                 }
             })
@@ -91,12 +90,17 @@ class NotificationsAdapter(private var messagelist:List<Message>):
 
     override fun getItemCount() = messagelist.size
 
-    // 全选
+    /**
+     * 全选
+     */
     fun selectAll() {
         initCheck(true)
         notifyDataSetChanged()
     }
-    // 全不选
+
+    /**
+     * 全不选
+     */
     fun unSelectAll() {
         initCheck(false)
         notifyDataSetChanged()
@@ -106,7 +110,10 @@ class NotificationsAdapter(private var messagelist:List<Message>):
         return checkStatus
     }
 
-    //更改集合内部存储的状态
+    /**
+     * 更改集合内部存储的状态
+     * @param flag 选中状态
+     */
     fun initCheck(flag: Boolean) {
         for (i in messagelist.indices) {
             //更改指定位置的数据
@@ -116,23 +123,6 @@ class NotificationsAdapter(private var messagelist:List<Message>):
                 checkStatus[i] = ""
             }
         }
-    }
-
-    /**
-     * 时间日期转换
-     * @param strDate 字符串yyyyMMddHHmmss
-     * @return 字符串yyyy-MM-dd HH:mm:ss
-     */
-    fun strToDateLong(strDate: String?): String? {
-        var date: Date? = Date()
-        try {
-            //先按照原格式转换为时间
-            date = SimpleDateFormat("yyyyMMddHHmmss").parse(strDate)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        //再将时间转换为对应格式字符串
-        return SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(date)
     }
 
 }

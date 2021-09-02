@@ -9,7 +9,7 @@ import com.xieyi.etoffice.databinding.DialogBottomPickerBinding
 
 class OptionsPickerDialog:  DialogFragment() {
     private val TAG = "OptionsPickerDialog"
-    private lateinit var optionsData: ArrayList<OptionItem>
+    private lateinit var optionsData: ArrayList<OptionItemModel>
     private lateinit var adapter: OptionsPickerAdapter
     private lateinit var flag:String
     private var _binding:DialogBottomPickerBinding? = null
@@ -25,7 +25,7 @@ class OptionsPickerDialog:  DialogFragment() {
 
         val bundle = arguments
         flag = bundle?.getString("flag")?:"10"
-        optionsData = bundle?.get("data") as ArrayList<OptionItem>
+        optionsData = bundle?.get("data") as ArrayList<OptionItemModel>
 
         adapter = OptionsPickerAdapter(this.requireContext(), R.layout.option_item, optionsData)
         binding.optionList.adapter = adapter
@@ -39,7 +39,7 @@ class OptionsPickerDialog:  DialogFragment() {
         if (flag == "10") {
             binding.listTitle.text = getString(R.string.project_require)
         } else {
-            binding.listTitle.text = "作業コードを選択する"
+            binding.listTitle.text = getString(R.string.workCd_option)
         }
         binding.buttonCancel.setOnClickListener { dismiss() }
         initWindow()

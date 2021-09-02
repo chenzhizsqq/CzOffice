@@ -6,6 +6,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.NotificationsCustomDialogBinding
 
 class NotificationsAlertDialog:  DialogFragment(),View.OnClickListener{
@@ -13,7 +14,7 @@ class NotificationsAlertDialog:  DialogFragment(),View.OnClickListener{
     private val binding get() = _binding!!
     private var mDeleteListener: OnDeleteListener? = null
     private var mArchiveListener: OnArchiveListener? = null
-    private lateinit var messageItem:Message
+    private lateinit var messageItem: MessageInfo
     override fun onCreateView(
         @NonNull inflater: LayoutInflater,
         @Nullable container: ViewGroup?,
@@ -22,7 +23,7 @@ class NotificationsAlertDialog:  DialogFragment(),View.OnClickListener{
         _binding = NotificationsCustomDialogBinding.inflate(inflater, container, false)
 
         val bundle = arguments
-        messageItem = bundle?.get("messageItem") as Message
+        messageItem = bundle?.get("messageItem") as MessageInfo
         binding.title.text = messageItem.title
         binding.message.text = messageItem.content
         setStyle(STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
@@ -80,11 +81,11 @@ class NotificationsAlertDialog:  DialogFragment(),View.OnClickListener{
 
     // 回调接口，用于传递数据给Activity
     interface OnDeleteListener  {
-        fun onDeleteClick(message: Message)
+        fun onDeleteClick(message: MessageInfo)
     }
 
     interface OnArchiveListener  {
-        fun onArchiveClick(message: Message)
+        fun onArchiveClick(message: MessageInfo)
     }
 
     fun setOnDeleteClick(deleteListener: OnDeleteListener) {

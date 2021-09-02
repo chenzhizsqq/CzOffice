@@ -24,7 +24,6 @@ import kotlinx.coroutines.*
 
 class HomeFragment : Fragment()
 {
-
     private lateinit var homeViewModel: HomeViewModel
 
     private val TAG = javaClass.simpleName

@@ -2,21 +2,22 @@ package com.xieyi.etoffice.ui.report
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.xieyi.etoffice.common.model.ProjectInfo
 
-class ReportAddViewModel  : ViewModel() {
-    val projectList = ArrayList<Project>()
+class ReportAddViewModel : ViewModel() {
+    val projectList = ArrayList<ProjectInfo>()
     var minuteList = ArrayList<String>()
     var hourList= ArrayList<String>()
 
     val projectCd = MutableLiveData<String>()
-    var wbsPickerData = ArrayList<OptionItem>()
+    var wbsPickerData = ArrayList<OptionItemModel>()
     fun getProjectWbsOption(){
         if (projectList != null) {
             for(i in 0 until projectList!!.size){
                 var itemCd = projectList[i].projectcd
                 if(itemCd == projectCd.value){
                     for(wbs in projectList[i].wbslist) {
-                        wbsPickerData.add(OptionItem(wbs.wbscd, wbs.wbsname))
+                        wbsPickerData.add(OptionItemModel(wbs.wbscd, wbs.wbsname))
                     }
                     break
                 }
@@ -24,12 +25,12 @@ class ReportAddViewModel  : ViewModel() {
         }
     }
 
-    val projectPickerData = ArrayList<OptionItem>()
+    val projectPickerData = ArrayList<OptionItemModel>()
     fun initProjectOption(){
         for(i in 0 until projectList!!.size){
             var code = projectList[i].projectcd
             val name = projectList[i].projectname
-            projectPickerData.add(OptionItem(code, name))
+            projectPickerData.add(OptionItemModel(code, name))
         }
     }
 

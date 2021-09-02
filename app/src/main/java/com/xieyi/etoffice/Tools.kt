@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -242,5 +243,21 @@ object Tools {
         val editor: SharedPreferences.Editor = pref.edit()
         editor.remove(key)
         editor.apply()
+    }
+    /**
+     * 时间日期转换
+     * @param strDate 字符串yyyyMMddHHmmss
+     * @return 字符串yyyy-MM-dd HH:mm:ss
+     */
+    fun strToDateLong(strDate: String?): String? {
+        var date: Date? = Date()
+        try {
+            //先按照原格式转换为时间
+            date = SimpleDateFormat("yyyyMMddHHmmss").parse(strDate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        //再将时间转换为对应格式字符串
+        return SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(date)
     }
 }

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -19,11 +21,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.common.HttpUtil
+import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.model.ProjectModel
+import com.xieyi.etoffice.common.model.SetReportModel
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
-import com.xieyi.etoffice.enum.ResultType
-import org.json.JSONObject
-import kotlin.concurrent.thread
 
 
 class ReportAddDialog : DialogFragment(),View.OnClickListener{
@@ -205,7 +206,6 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             .setCyclic(false,false,false)
             .setTitleText("時間を選択する")
             .setDecorView(dialog!!.window!!.decorView as ViewGroup)
-           // .isDialog(true)
             .build().also { pvOptions = it }
         pvOptions.setNPicker(viewModel.hourList as List<Any>?, viewModel.minuteList as List<Any>?, null)
         pvOptions.show()
@@ -213,84 +213,57 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
 
     // 最新メッセージ一覧取得
     private fun sendSetReport() {
-
-        thread {
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeSetReport")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device",Config.Device)
-            jsonObject.put("userid",prefs.getString("userid", ""))
-            jsonObject.put("ymd","20210728")
-            jsonObject.put("projectcd",binding.projectCode.text)
-            jsonObject.put("wbscd",binding.wbsCode.text)
-            jsonObject.put("totaltime",binding.tvWorktime.text)
-            jsonObject.put("starttime",binding.tvStarttime.text)
-            jsonObject.put("endtime",binding.tvEndtime.text)
-            jsonObject.put("place",binding.etPlace.text)
-            jsonObject.put("memo",binding.etWorkDetail.text)
-
-            // 通信処理
-            HttpUtil.callAsyncHttp(
-                context = requireContext(),
-                url = Config.LoginUrl,
-                parameter = jsonObject,
-                classType = ReportResponse::class.java as Class<Any>,
-                authToken = true,
-                fcmToken = true,
-                onSuccess = ::onSuccess,
-                onFailure = ::onFailure
-            )
-        }
-    }
-
-    // 成功結果処理
-    private fun onSuccess(data: Any){
-        if (data is ReportResponse) {
-            dialog!!.dismiss()
-        }
-    }
-
-    // 通信失敗時、結果処理
-    private fun onFailure(error: ResultType, data: Any){
-        Log.e(TAG, "onFailure:$data");
+        Api.EtOfficeSetReport(
+           // userid = "",
+            context = requireContext(),
+            ymd = "20210728",
+            projectcd = binding.projectCode.text.toString(),
+            wbscd= binding.wbsCode.text.toString(),
+            totaltime = binding.tvWorktime.text.toString(),
+            starttime= binding.tvStarttime.text.toString(),
+            endtime = binding.tvEndtime.text.toString(),
+            place = binding.etPlace.text.toString(),
+            memo = binding.etWorkDetail.text.toString(),
+            onSuccess = { data ->
+                Handler(Looper.getMainLooper()).post {
+                    if (data is SetReportModel) {
+                        dialog!!.dismiss()
+                    }
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                    //CommonUtil.handleError(it, error, data)
+                }
+            }
+        )
     }
 
 
     // 最新メッセージ一覧取得
     private fun searchProject() {
-        thread {
-            val jsonObject = JSONObject()
-            jsonObject.put("app", "EtOfficeGetProject")
-            jsonObject.put("token", EtOfficeApp.Token)
-            jsonObject.put("tenant", EtOfficeApp.TenantId)
-            jsonObject.put("hpid", EtOfficeApp.HpId)
-            jsonObject.put("device",Config.Device)
-            jsonObject.put("userid",prefs.getString("userid", ""))
-            jsonObject.put("ymd","20210727")
-            // 通信処理
-            HttpUtil.callAsyncHttp(
-                context = requireContext(),
-                url = Config.LoginUrl,
-                parameter = jsonObject,
-                classType = ProjectResponse::class.java as Class<Any>,
-                authToken = true,
-                fcmToken = true,
-                onSuccess = ::onSuccess2,
-                onFailure = ::onFailure
-            )
-        }
-    }
-
-    // 成功結果処理
-    private fun onSuccess2(data: Any){
-        if (data is ProjectResponse) {
-            viewModel.projectList.clear()
-            for(project in data.result.projectlist){
-                viewModel.projectList.add(project)
-                viewModel.initProjectOption()
+        Api.EtOfficeGetProject(
+           // userid = prefs.getString("userid", "")?:"",
+            context = requireContext(),
+            ymd = "20210727",
+            onSuccess = { data ->
+                Handler(Looper.getMainLooper()).post {
+                    if (data is ProjectModel) {
+                        viewModel.projectList.clear()
+                        for(project in data.result.projectlist){
+                            viewModel.projectList.add(project)
+                            viewModel.initProjectOption()
+                        }
+                    }
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    Log.e(TAG, "onFailure:$data");
+                    //CommonUtil.handleError(it, error, data)
+                }
             }
-        }
+        )
     }
 }

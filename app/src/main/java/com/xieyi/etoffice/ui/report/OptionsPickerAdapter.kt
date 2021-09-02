@@ -7,8 +7,8 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.xieyi.etoffice.R
 
-class OptionsPickerAdapter(context: Context, resourceId:Int, data:List<OptionItem>)
-    : ArrayAdapter<OptionItem>(context,resourceId, data) {
+class OptionsPickerAdapter(context: Context, resourceId:Int, data:List<OptionItemModel>)
+    : ArrayAdapter<OptionItemModel>(context,resourceId, data) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var viewHolder:ViewHolder?

@@ -391,7 +391,7 @@ class Api {
         @Suppress("UNCHECKED_CAST")
         fun EtOfficeSetMessage(
             context: Context,
-            updateid: String,
+            updateid: JSONArray,
             readflg: String,
             onSuccess: onSuccess<SetMessageModel>,
             onFailure: onFailure<ResultType, Any>
