@@ -151,7 +151,7 @@ class HomeFragment : Fragment()
 
                     when (model.status) {
                         0 -> {
-                            EtOfficeGetStatusListResult(model.result)
+                            //EtOfficeGetStatusListResult(model.result)
                         }
                         1 -> {
                             Snackbar.make(
