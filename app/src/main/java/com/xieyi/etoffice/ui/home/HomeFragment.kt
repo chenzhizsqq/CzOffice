@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
 import com.xieyi.etoffice.common.model.StatusResult
@@ -29,6 +28,8 @@ class HomeFragment : Fragment()
     private val TAG = javaClass.simpleName
 
     private lateinit var mAdapter: GetMessageAdapter
+    private lateinit var mGetStatusListAdapter: GetStatusListAdapter
+
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -151,7 +152,7 @@ class HomeFragment : Fragment()
 
                     when (model.status) {
                         0 -> {
-                            //EtOfficeGetStatusListResult(model.result)
+                            EtOfficeGetStatusListResult(model.result)
                         }
                         1 -> {
                             Snackbar.make(
@@ -181,39 +182,8 @@ class HomeFragment : Fragment()
 
     // GetStatusList UI更新
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        val state_layout = binding.stateLayout
-        state_layout.removeAllViews()
-
-        //表示量
-        val srcSize = 2
-
-        //今表示量
-        var srcNum = 0
-
-        val size = result.recordlist.size
-
-        Log.e(TAG, "recordlist.size: $size")
-
-
-
-        for (i in 0 until size) {
-            val time = result.recordlist[i].statustime
-            val timeSrc = Tools.allDateTime(time)
-            val status = result.recordlist[i].statustext
-            val memo = result.recordlist[i].memo
-
-
-            val textView = TextView(requireContext())
-            textView.text = "・$timeSrc $status $memo"
-            textView.setPadding(5)
-
-
-            state_layout.addView(textView)
-
-            if(++srcNum >= srcSize){
-                break
-            }
-        }
+        mGetStatusListAdapter= GetStatusListAdapter(result.recordlist)
+        binding.recyclerView.adapter = mGetStatusListAdapter
     }
 
     private fun EtOfficeGetMessagePost(){
