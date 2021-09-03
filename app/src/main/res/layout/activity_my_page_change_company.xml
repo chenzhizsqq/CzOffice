@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MyPage.MyPageChangeCompanyActivity"
-    android:background="#E8E8E8">
+    android:background="@color/main_bg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -57,9 +57,11 @@
     <TextView
         android:id="@+id/record_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_marginTop="60dp"
-        android:padding="5dp"
+        android:padding="10dp"
+        android:textColor="@color/font_8e8e93"
+        android:gravity="bottom|left"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,13 +72,13 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="60dp"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_get_tenant"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layoutManager="LinearLayoutManager" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

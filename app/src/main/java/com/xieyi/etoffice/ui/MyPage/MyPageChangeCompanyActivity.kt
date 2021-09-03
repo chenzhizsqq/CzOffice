@@ -17,6 +17,7 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.TenantResult
 import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
 import kotlinx.coroutines.*
+import java.util.*
 
 
 class MyPageChangeCompanyActivity : BaseActivity(),
@@ -154,6 +155,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             , { it.hpid }
             , { it.posturl }
         ))
+        Collections.reverse(sortedList)
         mAdapter=GetTenantAdapter(sortedList)
 
 
