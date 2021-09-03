@@ -8,11 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
 import com.xieyi.etoffice.common.model.StatusResult
@@ -55,23 +55,23 @@ class HomeFragment : Fragment()
         })
 
         binding.inWork.setOnClickListener {
-            showStatusDialog("1","勤務中")
+            showStatusDialog("1",getString(R.string.fragment_home_on_duty))
         }
 
         binding.outWork.setOnClickListener {
-            showStatusDialog("2","勤務外")
+            showStatusDialog("2",getString(R.string.fragment_home_outside_duty))
         }
 
         binding.sleep.setOnClickListener {
-            showStatusDialog("3","休憩中")
+            showStatusDialog("3",getString(R.string.fragment_home_rest))
         }
 
         binding.moving.setOnClickListener {
-            showStatusDialog("4","移動中")
+            showStatusDialog("4",getString(R.string.fragment_home_moving))
         }
 
         binding.meeting.setOnClickListener {
-            showStatusDialog("5","会議中")
+            showStatusDialog("5",getString(R.string.fragment_home_meeting))
         }
 
 
@@ -80,7 +80,7 @@ class HomeFragment : Fragment()
             val mHomeReportDialog = HomeReportDialog()
 
             val fragmentManager = this@HomeFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog")  }
+            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, getString(R.string.HomeReportDialogTag))  }
 
 
         }

@@ -84,5 +84,6 @@
     <string name="fragment_home_rest">休憩中</string>
     <string name="fragment_home_moving">移動中</string>
     <string name="fragment_home_meeting">会議中</string>
+    <string name="HomeReportDialogTag">HomeReportDialog</string>
 
 </resources>
