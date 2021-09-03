@@ -175,8 +175,6 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                     EtOfficeSetUserLocationPost(location)
 
                 }
-                .setNegativeButton("Cancel") { _, which ->
-                }
                 .show()
 
 
