@@ -35,13 +35,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         binding.btnLogin.setOnClickListener(this)
 
-        // 读取用户信息，如果已经登录了，直接跳转到Main画面
-        val prefs = getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-        val isLogin = prefs.getBoolean("isLogin", false)
-
-        if (isLogin) {
-            login()
-        }
     }
 
     override fun onClick(view: View?) {
@@ -79,16 +72,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                 binding.userName,
                                 R.string.login_failed_msg1,
                                 Snackbar.LENGTH_LONG
-                            )
-                                .show()
+                            ).show()
                         }
                         else -> {
                             Snackbar.make(
                                 binding.userName,
                                 R.string.login_failed_msg2,
                                 Snackbar.LENGTH_LONG
-                            )
-                                .show()
+                            ).show()
                         }
                     }
                 }
@@ -96,7 +87,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data");
-                    //CommonUtil.handleError(it, error, data)
+                    Snackbar.make(
+                        binding.userName,
+                        R.string.login_failed_msg2,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         )

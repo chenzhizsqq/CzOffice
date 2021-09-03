@@ -203,7 +203,7 @@ class HomeFragment : Fragment()
             val memo = result.recordlist[i].memo
 
 
-            val textView = TextView(activity)
+            val textView = TextView(requireContext())
             textView.text = "・$timeSrc $status $memo"
             textView.setPadding(5)
 
