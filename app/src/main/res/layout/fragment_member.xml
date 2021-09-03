@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.member.MemberFragment"
-    android:background="#E8E8E8">
+    android:background="@color/main_bg">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -48,13 +48,13 @@
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:layout_marginBottom="60dp"
         >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_stuff_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layoutManager="LinearLayoutManager" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -16,5 +16,6 @@
     <color name="main_bg">#f2f2f7</color>
     <color name="line_eeeeef">#eeeeef</color>
     <color name="font_8e8e93">#8e8e93</color>
+    <color name="system_green">#00FF00</color>
 
 </resources>

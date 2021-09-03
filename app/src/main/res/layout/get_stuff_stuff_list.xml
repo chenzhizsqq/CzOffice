@@ -25,6 +25,8 @@
         android:orientation="vertical"
         android:gravity="center"
         android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,6 +34,9 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:id="@+id/ll"
+            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             >
             <ImageView
                 android:id="@+id/returnHome"
@@ -50,8 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
+                    android:textColor="@color/font_8e8e93"
                     />
 
                 <TextView
@@ -59,15 +63,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"  />
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
                 <TextView
                     android:id="@+id/phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"  />
+                    android:textColor="@color/font_8e8e93" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,11 +88,10 @@
                     android:gravity="center|right"
                     >
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" ● "
-                        android:textColor="@color/teal_200"
-                        android:textStyle="bold"  />
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/system_green" />
                     <TextView
                         android:id="@+id/sectioncd"
                         android:layout_width="wrap_content"
@@ -102,14 +104,19 @@
                     android:id="@+id/sectionname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textStyle="bold"  />
-                <TextView
-                    android:id="@+id/mail"
-                    android:layout_width="wrap_content"
+                    android:text="TextView"  />
+                <LinearLayout
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textStyle="bold"  />
+                    android:orientation="horizontal"
+                    android:gravity="center|left"
+                    >
+                    <TextView
+                        android:id="@+id/mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="mail"  />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
