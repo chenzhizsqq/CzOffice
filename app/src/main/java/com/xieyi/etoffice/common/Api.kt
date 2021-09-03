@@ -563,7 +563,11 @@ class Api {
             jsonObject.put("app", "EtOfficeSetApprovalJsk")
             setCommonParam(jsonObject)
 
-            jsonObject.put("userid", EtOfficeApp.userid)
+
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val userid: String? = prefs.getString("userid", "")
+
+            jsonObject.put("userid", userid)
             val ymdJsonArray = JSONArray()
             for (ymd in ymdArray) {
                 ymdJsonArray.put(ymd)
@@ -609,7 +613,10 @@ class Api {
             jsonObject.put("app", "EtOfficeGetReportInfo")
             setCommonParam(jsonObject)
 
-            jsonObject.put("userid", EtOfficeApp.userid)
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val userid: String? = prefs.getString("userid", "")
+
+            jsonObject.put("userid", userid)
             jsonObject.put("ymd", ymd)
 
             HttpUtil.callAsyncHttp(
@@ -651,7 +658,10 @@ class Api {
             jsonObject.put("app", "EtOfficeGetProject")
             setCommonParam(jsonObject)
 
-            jsonObject.put("userid", EtOfficeApp.userid)
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val userid: String? = prefs.getString("userid", "")
+
+            jsonObject.put("userid", userid)
             jsonObject.put("ymd", ymd)
 
             HttpUtil.callAsyncHttp(
@@ -707,7 +717,10 @@ class Api {
             jsonObject.put("app", "EtOfficeSetReport")
             setCommonParam(jsonObject)
 
-            jsonObject.put("userid", EtOfficeApp.userid)
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val userid: String? = prefs.getString("userid", "")
+
+            jsonObject.put("userid", userid)
             jsonObject.put("ymd", ymd)
             jsonObject.put("projectcd", projectcd)
             jsonObject.put("wbscd", wbscd)
@@ -758,7 +771,11 @@ class Api {
             jsonObject.put("app", "EtOfficeSetComment")
             setCommonParam(jsonObject)
 
-            jsonObject.put("userid", EtOfficeApp.userid)
+
+            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val userid: String? = prefs.getString("userid", "")
+
+            jsonObject.put("userid", userid)
             jsonObject.put("ymd", ymd)
             jsonObject.put("comment", comment)
 
