@@ -37,7 +37,6 @@
             android:height="30dp"
             android:text="time"
             android:textColor="@color/black"
-            android:background="@color/f0f0f0"
             />
         <TextView
             android:id="@+id/location"
