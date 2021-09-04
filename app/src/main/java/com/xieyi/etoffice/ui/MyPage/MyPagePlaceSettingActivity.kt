@@ -140,7 +140,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     // EtOfficeGetUserLocationResult
     private fun EtOfficeGetUserLocationResult(result: UserLocationResult) {
         //record_title
-        binding.recordTitle.text = "REGISTERED"
+        binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGISTERED_title)
 
 
         mAdapter= GetUserLocationAdapter(result.locationlist)

@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.EtOfficeApp.Companion.context
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.ReportListnfo
@@ -48,10 +49,10 @@ class GetReportListGroupReportlistAdapter(
             this.yyyymmdd.text  = Tools.allDate(info.yyyymmdd)
             this.approval.text  = info.approval
             if (this.approval.text.isEmpty()){
-                this.warning.text = "未承認"
+                this.warning.text = context.getString(R.string.unacknowledged)
                 this.warning.setBackgroundResource(R.drawable.ic_round_edge_red)
             }else{
-                this.warning.text = "承認済み"
+                this.warning.text = context.getString(R.string.Approved)
                 this.warning.setBackgroundResource(R.drawable.ic_round_edge_blue)
             }
             this.title.text     = info.title

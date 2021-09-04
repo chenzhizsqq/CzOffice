@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
+import com.xieyi.etoffice.EtOfficeApp
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
@@ -187,9 +189,9 @@ class ReportFragment : Fragment(),
             binding.allSelect.visibility = it
             binding.commit.visibility = it
             if(it==View.GONE){
-                binding.edit.text = "Edit"
+                binding.edit.text = EtOfficeApp.context.getString(R.string.Edit)
             }else if (it==View.VISIBLE){
-                binding.edit.text = "Cancel"
+                binding.edit.text = EtOfficeApp.context.getString(R.string.Cancel)
             }
         })
 

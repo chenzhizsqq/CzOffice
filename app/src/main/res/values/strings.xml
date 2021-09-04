@@ -85,5 +85,16 @@
     <string name="fragment_home_moving">移動中</string>
     <string name="fragment_home_meeting">会議中</string>
     <string name="HomeReportDialogTag">HomeReportDialog</string>
+    <string name="unacknowledged">未承認</string>
+    <string name="Approved">承認済み</string>
+    <string name="Edit">Edit</string>
+    <string name="Cancel">Cancel</string>
+
+    <string name="project_title">プロジェクト：</string>
+    <string name="wbs_title">作業コード：</string>
+    <string name="time_title">工数：</string>
+    <string name="memo_title">報告：</string>
+    <string name="REGISTERED_title">REGISTERED</string>
+
 
 </resources>

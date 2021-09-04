@@ -3,6 +3,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.EtOfficeApp
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.model.ReportInfo
 import com.xieyi.etoffice.databinding.GetReportListBinding
 
@@ -24,10 +26,10 @@ class ReportListAdapter(
 
         //bind
         fun bind(info: ReportInfo) {
-            project.text = "プロジェクト：" + info.project
-            wbs.text = "作業コード："+info.wbs
-            time.text = "工数："+info.time
-            memo.text = "報告："+info.memo
+            project.text = EtOfficeApp.context.getString(R.string.project_title) + info.project
+            wbs.text = EtOfficeApp.context.getString(R.string.wbs_title)+info.wbs
+            time.text = EtOfficeApp.context.getString(R.string.time_title)+info.time
+            memo.text = EtOfficeApp.context.getString(R.string.memo_title)+info.memo
 
         }
     }
