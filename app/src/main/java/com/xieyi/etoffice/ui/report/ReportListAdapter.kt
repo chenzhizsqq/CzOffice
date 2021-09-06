@@ -16,22 +16,11 @@ class ReportListAdapter(
     val TAG: String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetReportListBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    inner class ViewHolder(binding: GetReportListBinding) : RecyclerView.ViewHolder(binding.root) {
         val project: TextView = binding.project
         val wbs: TextView = binding.wbs
         val time: TextView = binding.time
         val memo: TextView = binding.memo
-
-
-        //bind
-        fun bind(info: ReportInfo) {
-            project.text = EtOfficeApp.context.getString(R.string.project_title) + info.project
-            wbs.text = EtOfficeApp.context.getString(R.string.wbs_title) + info.wbs
-            time.text = EtOfficeApp.context.getString(R.string.time_title) + info.time
-            memo.text = EtOfficeApp.context.getString(R.string.memo_title) + info.memo
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,6 +36,9 @@ class ReportListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.project.text = EtOfficeApp.context.getString(R.string.project_title) + list[position].project
+        holder.wbs.text = EtOfficeApp.context.getString(R.string.wbs_title) + list[position].wbs
+        holder.time.text = EtOfficeApp.context.getString(R.string.time_title) + list[position].time
+        holder.memo.text = EtOfficeApp.context.getString(R.string.memo_title) + list[position].memo
     }
 }
