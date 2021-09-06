@@ -19,14 +19,15 @@ import com.xieyi.etoffice.common.model.StuffInfo
 import com.xieyi.etoffice.databinding.GetStuffStuffListBinding
 
 
-class GetStuffStuffListAdapter(val list: List<StuffInfo>
-, val sectioncd:String, val sectionname:String,val context: Context
+class GetStuffStuffListAdapter(
+    val list: List<StuffInfo>, val sectioncd: String, val sectionname: String, val context: Context
 ) :
     RecyclerView.Adapter<GetStuffStuffListAdapter.sectionListViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
 
-    class sectionListViewHolder(binding: GetStuffStuffListBinding) : RecyclerView.ViewHolder(binding.root) {
+    class sectionListViewHolder(binding: GetStuffStuffListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val tv_userkana: TextView = binding.userkana
         val tv_username: TextView = binding.username
         val tv_phone: TextView = binding.phone
@@ -38,7 +39,7 @@ class GetStuffStuffListAdapter(val list: List<StuffInfo>
         val ll: LinearLayout = binding.ll
 
         //telephone
-        fun bind(info: StuffInfo, sectioncd:String, sectionname:String, context: Context) {
+        fun bind(info: StuffInfo, sectioncd: String, sectionname: String, context: Context) {
             tv_userkana.text = info.userkana
             tv_username.text = info.username
             tv_phone.text = info.phone
@@ -68,7 +69,7 @@ class GetStuffStuffListAdapter(val list: List<StuffInfo>
                         .setMessage(info.phone)
                         .setPositiveButton("call") { _, _ ->
 
-                            val uri: Uri = Uri.parse("tel:"+info.phone)
+                            val uri: Uri = Uri.parse("tel:" + info.phone)
                             val intent = Intent(Intent.ACTION_CALL, uri)
                             it.context.startActivity(intent)
 
@@ -83,8 +84,9 @@ class GetStuffStuffListAdapter(val list: List<StuffInfo>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
 
-        val binding = GetStuffStuffListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        
+        val binding =
+            GetStuffStuffListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return sectionListViewHolder(binding)
     }
 
@@ -93,6 +95,6 @@ class GetStuffStuffListAdapter(val list: List<StuffInfo>
     }
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
-        holder.bind(list[position],sectioncd,sectionname,context)
+        holder.bind(list[position], sectioncd, sectionname, context)
     }
 }

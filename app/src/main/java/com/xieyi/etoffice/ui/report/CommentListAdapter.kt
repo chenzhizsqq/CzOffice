@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.report
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,9 +10,9 @@ import com.xieyi.etoffice.databinding.GetCommentInfoBinding
 
 
 class CommentListAdapter(
-    val list:  List<CommentInfo>,
+    val list: List<CommentInfo>,
 ) : RecyclerView.Adapter<CommentListAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
 
     class ViewHolder(binding: GetCommentInfoBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -19,7 +20,6 @@ class CommentListAdapter(
         val username: TextView = binding.username
         val comment: TextView = binding.comment
         val time: TextView = binding.time
-
 
 
         //bind
@@ -32,7 +32,8 @@ class CommentListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetCommentInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetCommentInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder

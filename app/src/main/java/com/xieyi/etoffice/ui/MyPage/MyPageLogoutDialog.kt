@@ -3,7 +3,9 @@ package com.xieyi.etoffice.ui.MyPage
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
@@ -16,9 +18,9 @@ class MyPageLogoutDialog : DialogFragment() {
     private lateinit var binding: DialogMyPageLogoutBinding
 
     override fun onCreateView(
-            @NonNull inflater: LayoutInflater,
-            @Nullable container: ViewGroup?,
-            @Nullable savedInstanceState: Bundle?
+        @NonNull inflater: LayoutInflater,
+        @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?
     ): View {
         binding = DialogMyPageLogoutBinding.inflate(inflater, container, false)
 

@@ -24,8 +24,8 @@ class MemberFragment : Fragment(),
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
-    private lateinit var mAdapter:GetStuffSectionListAdapter
-    
+    private lateinit var mAdapter: GetStuffSectionListAdapter
+
     private lateinit var binding: FragmentMemberBinding
 
 
@@ -37,17 +37,17 @@ class MemberFragment : Fragment(),
 
         EtOfficeGetStuffListPost()
 
-        mSwipeRefreshLayout= binding.swipeRefreshLayout
+        mSwipeRefreshLayout = binding.swipeRefreshLayout
 
         // Listenerをセット
-        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setOnRefreshListener(this)
 
         mRecyclerView = binding.recyclerViewStuffList
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    if(!recyclerView.canScrollVertically(1)){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (!recyclerView.canScrollVertically(1)) {
                     }
                 }
 
@@ -85,7 +85,7 @@ class MemberFragment : Fragment(),
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -95,13 +95,13 @@ class MemberFragment : Fragment(),
     private fun EtOfficeGetStuffListResult(result: StuffListResult) {
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
-        mAdapter=GetStuffSectionListAdapter(result.sectionlist,requireActivity())
+        mAdapter = GetStuffSectionListAdapter(result.sectionlist, requireActivity())
         recyclerView.adapter = mAdapter
 
     }
 
     override fun onRefresh() {
-        mSwipeRefreshLayout.isRefreshing = false;
+        mSwipeRefreshLayout.isRefreshing = false
         EtOfficeGetStuffListPost()
     }
 }

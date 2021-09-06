@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.MyPage
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -11,11 +12,11 @@ import com.xieyi.etoffice.databinding.GetUserLocationBinding
 class GetUserLocationAdapter(
     val list: List<UserLocationInfo>,
 ) : RecyclerView.Adapter<GetUserLocationAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
 
     class ViewHolder(binding: GetUserLocationBinding) : RecyclerView.ViewHolder(binding.root) {
-//        private val latitude: TextView = binding.latitude
+        //        private val latitude: TextView = binding.latitude
 //        private val longitude: TextView = binding.longitude
         private val location: TextView = binding.location
 
@@ -33,7 +34,8 @@ class GetUserLocationAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetUserLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetUserLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder

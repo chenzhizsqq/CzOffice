@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
@@ -15,7 +18,7 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
 
 
-class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment() {
+class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment() {
 
     private val TAG = javaClass.simpleName
 
@@ -34,8 +37,8 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
     var listener: OnDialogListener? = null
 
-    interface OnDialogListener  {
-        fun onClick(userLocation:String, memo:String)
+    interface OnDialogListener {
+        fun onClick(userLocation: String, memo: String)
     }
 
     fun setOnDialogListener(dialogListener: OnDialogListener) {
@@ -44,9 +47,9 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
 
 
     override fun onCreateView(
-            @NonNull inflater: LayoutInflater,
-            @Nullable container: ViewGroup?,
-            @Nullable savedInstanceState: Bundle?
+        @NonNull inflater: LayoutInflater,
+        @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?
     ): View {
         binding = DialogHomeStatusBinding.inflate(inflater, container, false)
 
@@ -64,7 +67,10 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
         //ボタン　保存後に閉じる
         binding.btnCancelAndClose.setOnClickListener {
 
-            listener?.onClick(binding.userLocation.text.toString(), binding.userStatusMemo.text.toString())
+            listener?.onClick(
+                binding.userLocation.text.toString(),
+                binding.userStatusMemo.text.toString()
+            )
             dialog!!.dismiss()
         }
 
@@ -80,7 +86,8 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 binding.userLocation.toString(),
                 mStatusvalue,
                 mStatustext,
-                binding.userStatusMemo.toString())
+                binding.userStatusMemo.toString()
+            )
         }
 
         //set_user_location
@@ -93,12 +100,13 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
     }
 
     private fun EtOfficeSetUserStatusPost(
-        longitude:Double,
-        latitude:Double,
-        location:String,
-        statusvalue:String,
-        statustext:String,
-        memo:String) {
+        longitude: Double,
+        latitude: Double,
+        location: String,
+        statusvalue: String,
+        statustext: String,
+        memo: String
+    ) {
         if (gpsTracker.canGetLocation()) {
             Api.EtOfficeSetUserStatus(
                 context = requireActivity(),
@@ -107,7 +115,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 latitude = latitude,
                 statusvalue = statusvalue,
                 statustext = statustext,
-                memo= memo,
+                memo = memo,
                 onSuccess = { model ->
                     Handler(Looper.getMainLooper()).post {
 
@@ -134,7 +142,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 },
                 onFailure = { error, data ->
                     Handler(Looper.getMainLooper()).post {
-                        Log.e(TAG, "onFailure:$data");
+                        Log.e(TAG, "onFailure:$data")
                     }
                 }
             )
@@ -176,7 +184,7 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
                 },
                 onFailure = { error, data ->
                     Handler(Looper.getMainLooper()).post {
-                        Log.e(TAG, "onFailure:$data");
+                        Log.e(TAG, "onFailure:$data")
                     }
                 }
             )
@@ -188,8 +196,8 @@ class HomeStatusDialog(statusvalue: String,statustext:String) : DialogFragment()
     private fun gpsCheck() {
         gpsTracker = GpsTracker(activity)
         if (gpsTracker.canGetLocation()) {
-            latitude= gpsTracker.getLatitude()
-            longitude = gpsTracker.getLongitude()
+            latitude = gpsTracker.latitude
+            longitude = gpsTracker.longitude
             binding.latitude.text = latitude.toString()
             binding.longitude.text = longitude.toString()
         } else {

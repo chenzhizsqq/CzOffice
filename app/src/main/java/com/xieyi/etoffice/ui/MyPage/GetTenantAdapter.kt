@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.MyPage
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,12 @@ import com.xieyi.etoffice.databinding.GetTenantListBinding
 class GetTenantAdapter(
     val list: List<TenantInfo>,
 ) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
     private lateinit var listener: OnAdapterListener
 
-    interface OnAdapterListener  {
-        fun onClick(tenantid:String)
+    interface OnAdapterListener {
+        fun onClick(tenantid: String)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {
@@ -34,12 +35,12 @@ class GetTenantAdapter(
         val ll: LinearLayout = binding.ll
 
         //bind
-        fun bind(info: TenantInfo, listener:OnAdapterListener) {
+        fun bind(info: TenantInfo, listener: OnAdapterListener) {
             tv_posturl.text = info.posturl
             tv_tenantname.text = info.tenantname
-            if (info.startflg == "1"){
+            if (info.startflg == "1") {
                 iv_clicked.visibility = View.VISIBLE
-            }else{
+            } else {
                 iv_clicked.visibility = View.GONE
             }
 
@@ -51,7 +52,8 @@ class GetTenantAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetTenantListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetTenantListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder
@@ -62,6 +64,6 @@ class GetTenantAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position],listener)
+        holder.bind(list[position], listener)
     }
 }

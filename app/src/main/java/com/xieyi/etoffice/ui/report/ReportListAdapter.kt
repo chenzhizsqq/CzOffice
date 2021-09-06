@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.report
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -12,7 +13,7 @@ import com.xieyi.etoffice.databinding.GetReportListBinding
 class ReportListAdapter(
     val list: List<ReportInfo>
 ) : RecyclerView.Adapter<ReportListAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
 
     class ViewHolder(binding: GetReportListBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -23,19 +24,19 @@ class ReportListAdapter(
         val memo: TextView = binding.memo
 
 
-
         //bind
         fun bind(info: ReportInfo) {
             project.text = EtOfficeApp.context.getString(R.string.project_title) + info.project
-            wbs.text = EtOfficeApp.context.getString(R.string.wbs_title)+info.wbs
-            time.text = EtOfficeApp.context.getString(R.string.time_title)+info.time
-            memo.text = EtOfficeApp.context.getString(R.string.memo_title)+info.memo
+            wbs.text = EtOfficeApp.context.getString(R.string.wbs_title) + info.wbs
+            time.text = EtOfficeApp.context.getString(R.string.time_title) + info.time
+            memo.text = EtOfficeApp.context.getString(R.string.memo_title) + info.memo
 
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetReportListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetReportListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder

@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.home
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -11,7 +12,7 @@ import com.xieyi.etoffice.databinding.GetStatusListBinding
 class GetStatusListAdapter(
     val list: List<StatusInfo>,
 ) : RecyclerView.Adapter<GetStatusListAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
 
     class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -22,14 +23,15 @@ class GetStatusListAdapter(
 
         //bind
         fun bind(info: StatusInfo) {
-            statusTime.text =Tools.allDateTime(info.statustime)
+            statusTime.text = Tools.allDateTime(info.statustime)
             status.text = info.statustext
             memo.text = info.memo
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetStatusListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetStatusListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder

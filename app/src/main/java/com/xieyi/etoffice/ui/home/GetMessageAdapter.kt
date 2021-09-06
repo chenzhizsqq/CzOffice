@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.home
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -12,7 +13,7 @@ import com.xieyi.etoffice.databinding.GetMessageListBinding
 class GetMessageAdapter(
     val list: List<MessageInfo>
 ) : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
 
     class ViewHolder(binding: GetMessageListBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -26,14 +27,15 @@ class GetMessageAdapter(
         //bind
         fun bind(info: MessageInfo) {
             tv_title.text = info.title
-            tv_updatetime.text =Tools.allDateTime(info.updatetime)
+            tv_updatetime.text = Tools.allDateTime(info.updatetime)
             tv_content.text = info.content
 
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetMessageListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetMessageListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder

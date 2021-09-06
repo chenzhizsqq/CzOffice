@@ -21,11 +21,11 @@ import java.util.*
 
 
 class MyPageChangeCompanyActivity : BaseActivity(),
-    SwipeRefreshLayout.OnRefreshListener  {
+    SwipeRefreshLayout.OnRefreshListener {
 
     private val TAG = javaClass.simpleName
 
-    private lateinit var mAdapter:GetTenantAdapter
+    private lateinit var mAdapter: GetTenantAdapter
 
     private lateinit var binding: ActivityMyPageChangeCompanyBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,8 +39,8 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         binding.recyclerViewGetTenant.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if(newState == RecyclerView.SCROLL_STATE_IDLE){
-                    if(!recyclerView.canScrollVertically(1)){
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (!recyclerView.canScrollVertically(1)) {
                         binding.swipeRefreshLayout.isRefreshing = false
                         EtOfficeGetTenantPost()
                     }
@@ -49,7 +49,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         })
 
         // Listenerをセット
-        binding.swipeRefreshLayout.setOnRefreshListener(this);
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
     }
 
 
@@ -82,7 +82,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -92,7 +92,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     private fun EtOfficeSetTenantPost(tenantid: String) {
         Api.EtOfficeSetTenant(
             context = this@MyPageChangeCompanyActivity,
-            tenant= tenantid,
+            tenant = tenantid,
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
 
@@ -119,7 +119,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -127,7 +127,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     // UI更新
-    private  fun EtOfficeGetTenantResult(result: TenantResult) {
+    private fun EtOfficeGetTenantResult(result: TenantResult) {
         //Log.e(TAG, "doOnUiRefresh: begin")
 
         //record_title
@@ -150,16 +150,13 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         val recyclerView: RecyclerView = binding.recyclerViewGetTenant
 
         val sortedList = result.tenantlist.sortedWith(compareBy(
-            { it.tenantid }
-            , { it.tenantname }
-            , { it.hpid }
-            , { it.posturl }
+            { it.tenantid }, { it.tenantname }, { it.hpid }, { it.posturl }
         ))
         Collections.reverse(sortedList)
-        mAdapter=GetTenantAdapter(sortedList)
+        mAdapter = GetTenantAdapter(sortedList)
 
 
-        mAdapter.setOnAdapterListener(object : GetTenantAdapter.OnAdapterListener{
+        mAdapter.setOnAdapterListener(object : GetTenantAdapter.OnAdapterListener {
             override fun onClick(tenantid: String) {
                 EtOfficeSetTenantPost(tenantid)
             }
@@ -169,9 +166,9 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
     }
 
-    private  fun EtOfficeSetTenantResult(result: TenantResult) {
-        for (i in result.tenantlist.indices){
-            if (result.tenantlist[i].startflg == "1"){
+    private fun EtOfficeSetTenantResult(result: TenantResult) {
+        for (i in result.tenantlist.indices) {
+            if (result.tenantlist[i].startflg == "1") {
                 EtOfficeApp.TenantId = result.tenantlist[i].tenantid
                 EtOfficeApp.HpId = result.tenantlist[i].hpid
 
@@ -183,7 +180,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                 userInfo.registerOnSharedPreferenceChangeListener(changeListener)
 
                 val editor = userInfo.edit()
-                editor.apply() {
+                editor.apply {
                     putString("tenantid", result.tenantlist[i].tenantid)
                     putString("hpid", result.tenantlist[i].hpid)
                 }.apply()
@@ -194,7 +191,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     override fun onRefresh() {
-        binding.swipeRefreshLayout.isRefreshing = false;
+        binding.swipeRefreshLayout.isRefreshing = false
         EtOfficeGetTenantPost()
     }
 

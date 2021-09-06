@@ -3,7 +3,6 @@ package com.xieyi.etoffice.ui.report
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,12 +10,10 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.core.view.setPadding
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.MainActivity
-import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
@@ -25,13 +22,13 @@ import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.*
 
 
-class ReportDetailActivity() : BaseActivity() {
+class ReportDetailActivity : BaseActivity() {
 
     val TAG = javaClass.simpleName
 
 
     //検索の日付
-    var date:String=""
+    var date: String = ""
 
     private lateinit var mPlanworklistAdapter: PlanworklistAdapter
 
@@ -55,26 +52,25 @@ class ReportDetailActivity() : BaseActivity() {
 
 
         binding.recyclerViewPlanworklist.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL
-            , false)
+            this, LinearLayoutManager.HORIZONTAL, false
+        )
 
         binding.recyclerViewWorkstatuslist.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL
-            , false)
+            this, LinearLayoutManager.HORIZONTAL, false
+        )
 
         binding.recyclerViewReportlist.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL
-            , false)
+            this, LinearLayoutManager.HORIZONTAL, false
+        )
 
 
         EtOfficeGetReportInfoPost(date)
 
 
-
     }
 
 
-    private fun EtOfficeGetReportInfoPost(ymd : String) {
+    private fun EtOfficeGetReportInfoPost(ymd: String) {
         Api.EtOfficeGetReportInfo(
             context = this@ReportDetailActivity,
             ymd = ymd,
@@ -109,7 +105,7 @@ class ReportDetailActivity() : BaseActivity() {
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -117,26 +113,26 @@ class ReportDetailActivity() : BaseActivity() {
 
 
     private fun EtOfficePlanworklistResult(result: ReportResult) {
-        mPlanworklistAdapter= PlanworklistAdapter(result.planworklist)
+        mPlanworklistAdapter = PlanworklistAdapter(result.planworklist)
         binding.recyclerViewPlanworklist.adapter = mPlanworklistAdapter
 
     }
 
 
     private fun EtOfficeGetStatusListResult(result: ReportResult) {
-        mWorkstatuslistAdapter= WorkstatuslistAdapter(result.workstatuslist)
+        mWorkstatuslistAdapter = WorkstatuslistAdapter(result.workstatuslist)
         binding.recyclerViewWorkstatuslist.adapter = mWorkstatuslistAdapter
 
     }
 
     private fun EtOfficeGetReportlistResult(result: ReportResult) {
-        mReportListAdapter= ReportListAdapter(result.reportlist)
+        mReportListAdapter = ReportListAdapter(result.reportlist)
         binding.recyclerViewReportlist.adapter = mReportListAdapter
 
     }
 
     private fun EtOfficeCommentlistResult(result: ReportResult) {
-        mCommentListAdapter= CommentListAdapter(result.commentlist)
+        mCommentListAdapter = CommentListAdapter(result.commentlist)
         binding.recyclerViewCommentlist.adapter = mCommentListAdapter
 
     }
@@ -173,12 +169,11 @@ class ReportDetailActivity() : BaseActivity() {
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
     }
-
 
 
     private fun EtOfficeGetReportInfoResult(result: ReportResult) {
@@ -235,7 +230,7 @@ class ReportDetailActivity() : BaseActivity() {
         val imm: InputMethodManager =
             v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (imm.isActive) {
-            imm.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0)
+            imm.hideSoftInputFromWindow(v.applicationWindowToken, 0)
         }
     }
 

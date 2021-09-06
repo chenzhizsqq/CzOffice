@@ -42,16 +42,16 @@ class ReportFragment : Fragment(),
 
     private lateinit var viewModel: ReportViewModel
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentReportBinding.inflate(inflater, container, false)
 
         viewModel =
             ViewModelProvider(this).get(ReportViewModel::class.java)
 
-        mSwipeRefreshLayout= binding.swipeRefreshLayout
+        mSwipeRefreshLayout = binding.swipeRefreshLayout
 
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this)
@@ -61,13 +61,13 @@ class ReportFragment : Fragment(),
 
         topMenu()
 
-        EtOfficeGetReportListPost("","")
+        EtOfficeGetReportListPost("", "")
 
         return binding.root
     }
 
 
-    private fun EtOfficeGetReportListPost(startym:String,months:String) {
+    private fun EtOfficeGetReportListPost(startym: String, months: String) {
         Api.EtOfficeGetReportList(
             context = requireActivity(),
             startym = startym,
@@ -98,13 +98,13 @@ class ReportFragment : Fragment(),
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
     }
 
-    private fun EtOfficeSetApprovalJskPost(arrayListYmd : ArrayList<String>) {
+    private fun EtOfficeSetApprovalJskPost(arrayListYmd: ArrayList<String>) {
         //指定された　発信
         if (arrayListYmd.size > 0) {
 
@@ -116,7 +116,7 @@ class ReportFragment : Fragment(),
 
                         when (model.status) {
                             0 -> {
-                                EtOfficeGetReportListPost("","")
+                                EtOfficeGetReportListPost("", "")
                             }
                             1 -> {
                                 Snackbar.make(
@@ -137,7 +137,7 @@ class ReportFragment : Fragment(),
                 },
                 onFailure = { error, data ->
                     Handler(Looper.getMainLooper()).post {
-                        Log.e(TAG, "onFailure:$data");
+                        Log.e(TAG, "onFailure:$data")
                     }
                 }
             )
@@ -146,13 +146,9 @@ class ReportFragment : Fragment(),
 
     private fun EtOfficeGetReportListResult(result: ReportListResult) {
         viewModel.allSelectChangeFalse()
-        mAdapter= activity?.let {
+        mAdapter = activity?.let {
             GetReportListGroupAdapter(
-                result.group
-                ,arrayListYmd
-                ,it
-                ,viewModel
-                ,viewLifecycleOwner
+                result.group, arrayListYmd, it, viewModel, viewLifecycleOwner
             )
         }!!
         mRecyclerView.adapter = mAdapter
@@ -162,10 +158,10 @@ class ReportFragment : Fragment(),
         binding.allSelect.setOnClickListener {
             arrayListYmd.clear()
             viewModel.allSelectChange()
-            if (viewModel.isAllSelect() == true){
-                for (i in result.group.indices){
+            if (viewModel.isAllSelect() == true) {
+                for (i in result.group.indices) {
                     for (j in result.group[i].reportlist.indices)
-                        if(!arrayListYmd.contains(result.group[i].reportlist[j].yyyymmdd)) {
+                        if (!arrayListYmd.contains(result.group[i].reportlist[j].yyyymmdd)) {
                             arrayListYmd.add(result.group[i].reportlist[j].yyyymmdd)
                         }
                 }
@@ -181,16 +177,16 @@ class ReportFragment : Fragment(),
             val mHomeReportDialog = HomeReportDialog()
 
             val fragmentManager = this@ReportFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog")  }
+            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
         }
 
 
-        viewModel.visibility.observe(viewLifecycleOwner,{
+        viewModel.visibility.observe(viewLifecycleOwner, {
             binding.allSelect.visibility = it
             binding.commit.visibility = it
-            if(it==View.GONE){
+            if (it == View.GONE) {
                 binding.edit.text = EtOfficeApp.context.getString(R.string.Edit)
-            }else if (it==View.VISIBLE){
+            } else if (it == View.VISIBLE) {
                 binding.edit.text = EtOfficeApp.context.getString(R.string.Cancel)
             }
         })
@@ -198,7 +194,6 @@ class ReportFragment : Fragment(),
         binding.edit.setOnClickListener(View.OnClickListener {
             viewModel.visibilityChange()
         })
-
 
 
         //commit click
@@ -209,11 +204,9 @@ class ReportFragment : Fragment(),
     }
 
 
+    private fun commitAlertDialog() {
 
-
-    private fun commitAlertDialog(){
-
-        if(arrayListYmd.size>0) {
+        if (arrayListYmd.size > 0) {
             AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
                 .setTitle("消息")
                 .setMessage("現在選択されている情報を承認しますか？")
@@ -225,7 +218,7 @@ class ReportFragment : Fragment(),
                 .setNegativeButton("取消") { _, which ->
                 }
                 .show()
-        }else{
+        } else {
             AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
                 .setTitle("消息")
                 .setMessage("まだ選択していません。選択してください。")
@@ -242,8 +235,8 @@ class ReportFragment : Fragment(),
     }
 
     override fun onRefresh() {
-        Log.e(TAG, "onRefresh: begin", )
-        mSwipeRefreshLayout.isRefreshing = false;
-        EtOfficeGetReportListPost("","")
+        Log.e(TAG, "onRefresh: begin")
+        mSwipeRefreshLayout.isRefreshing = false
+        EtOfficeGetReportListPost("", "")
     }
 }

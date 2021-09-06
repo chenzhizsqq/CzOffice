@@ -28,15 +28,15 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     private var longitude = 0.0
 
 
-    private lateinit var mAdapter:GetUserLocationAdapter
+    private lateinit var mAdapter: GetUserLocationAdapter
     private lateinit var binding: ActivityMyPagePlaceSettingBinding
 
     private fun gpsCheck() {
 
         gpsTracker = GpsTracker(applicationContext)
         if (gpsTracker.canGetLocation()) {
-            latitude= gpsTracker.getLatitude()
-            longitude = gpsTracker.getLongitude()
+            latitude = gpsTracker.latitude
+            longitude = gpsTracker.longitude
         } else {
             gpsTracker.showSettingsAlert()
         }
@@ -50,7 +50,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         EtOfficeGetUserLocationPost()
 
         // Listenerをセット
-        binding.swipeRefreshLayout.setOnRefreshListener(this);
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
 
         gpsCheck()
 
@@ -85,12 +85,11 @@ class MyPagePlaceSettingActivity : BaseActivity(),
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
     }
-
 
 
     private fun EtOfficeSetUserLocationPost(location: String) {
@@ -127,7 +126,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                 },
                 onFailure = { error, data ->
                     Handler(Looper.getMainLooper()).post {
-                        Log.e(TAG, "onFailure:$data");
+                        Log.e(TAG, "onFailure:$data")
                     }
                 }
             )
@@ -143,7 +142,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGISTERED_title)
 
 
-        mAdapter= GetUserLocationAdapter(result.locationlist)
+        mAdapter = GetUserLocationAdapter(result.locationlist)
         binding.recyclerView.adapter = mAdapter
 
         //returnpHome
@@ -184,7 +183,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
 
     override fun onRefresh() {
-        binding.swipeRefreshLayout.isRefreshing = false;
+        binding.swipeRefreshLayout.isRefreshing = false
         EtOfficeGetUserLocationPost()
     }
 }

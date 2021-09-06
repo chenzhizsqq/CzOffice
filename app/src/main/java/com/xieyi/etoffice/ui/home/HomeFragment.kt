@@ -22,8 +22,7 @@ import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import kotlinx.coroutines.*
 
 
-class HomeFragment : Fragment()
-{
+class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
     private val TAG = javaClass.simpleName
@@ -57,23 +56,23 @@ class HomeFragment : Fragment()
         })
 
         binding.inWork.setOnClickListener {
-            showStatusDialog("1",getString(R.string.fragment_home_on_duty))
+            showStatusDialog("1", getString(R.string.fragment_home_on_duty))
         }
 
         binding.outWork.setOnClickListener {
-            showStatusDialog("2",getString(R.string.fragment_home_outside_duty))
+            showStatusDialog("2", getString(R.string.fragment_home_outside_duty))
         }
 
         binding.sleep.setOnClickListener {
-            showStatusDialog("3",getString(R.string.fragment_home_rest))
+            showStatusDialog("3", getString(R.string.fragment_home_rest))
         }
 
         binding.moving.setOnClickListener {
-            showStatusDialog("4",getString(R.string.fragment_home_moving))
+            showStatusDialog("4", getString(R.string.fragment_home_moving))
         }
 
         binding.meeting.setOnClickListener {
-            showStatusDialog("5",getString(R.string.fragment_home_meeting))
+            showStatusDialog("5", getString(R.string.fragment_home_meeting))
         }
 
 
@@ -82,13 +81,15 @@ class HomeFragment : Fragment()
             val mHomeReportDialog = HomeReportDialog()
 
             val fragmentManager = this@HomeFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, getString(R.string.HomeReportDialogTag))  }
+            fragmentManager.let { it1 ->
+                mHomeReportDialog.show(
+                    it1,
+                    getString(R.string.HomeReportDialogTag)
+                )
+            }
 
 
         }
-
-
-
 
 
         //ページを更新
@@ -105,7 +106,7 @@ class HomeFragment : Fragment()
         EtOfficeGetMessagePost()
     }
 
-    private  fun EtOfficeGetUserStatusPost(){
+    private fun EtOfficeGetUserStatusPost() {
         Api.EtOfficeGetUserStatus(
             context = requireActivity(),
             onSuccess = { model ->
@@ -134,7 +135,7 @@ class HomeFragment : Fragment()
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -142,27 +143,26 @@ class HomeFragment : Fragment()
 
 
     private fun EtOfficeGetUserStatusResult(result: UserStatusResult) {
-        if(result.userstatuslist.size>0)
-        {
+        if (result.userstatuslist.size > 0) {
             binding.state.text = result.userstatuslist[0].statustext
 
-            when(result.userstatuslist[0].statustext){
-                "勤務中" ->{
+            when (result.userstatuslist[0].statustext) {
+                "勤務中" -> {
                     binding.tvOnDuty.setTextColor(Color.BLACK)
                 }
-                "勤務外" ->{
+                "勤務外" -> {
                     binding.tvOutsideDuty.setTextColor(Color.BLACK)
 
                 }
-                "休憩中" ->{
+                "休憩中" -> {
                     binding.tvRest.setTextColor(Color.BLACK)
 
                 }
-                "移動中" ->{
+                "移動中" -> {
                     binding.tvMoving.setTextColor(Color.BLACK)
 
                 }
-                "会議中" ->{
+                "会議中" -> {
                     binding.tvMeeting.setTextColor(Color.BLACK)
 
                 }
@@ -172,7 +172,7 @@ class HomeFragment : Fragment()
 
     }
 
-    private fun EtOfficeGetStatusListPost(){
+    private fun EtOfficeGetStatusListPost() {
         Api.EtOfficeGetStatusList(
             context = requireActivity(),
             onSuccess = { model ->
@@ -201,7 +201,7 @@ class HomeFragment : Fragment()
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -210,11 +210,11 @@ class HomeFragment : Fragment()
 
     // GetStatusList UI更新
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        mGetStatusListAdapter= GetStatusListAdapter(result.recordlist)
+        mGetStatusListAdapter = GetStatusListAdapter(result.recordlist)
         binding.recyclerView.adapter = mGetStatusListAdapter
     }
 
-    private fun EtOfficeGetMessagePost(){
+    private fun EtOfficeGetMessagePost() {
         Api.EtOfficeGetMessage(
             context = requireActivity(),
             count = 50,
@@ -246,7 +246,7 @@ class HomeFragment : Fragment()
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
@@ -254,22 +254,22 @@ class HomeFragment : Fragment()
 
     // Message UI更新
     private fun EtOfficeGetMessageResult(result: MessageResult) {
-            Log.e(TAG, "doOnUiCode_Message: begin", )
+        Log.e(TAG, "doOnUiCode_Message: begin")
 
-            mAdapter=GetMessageAdapter(result.messagelist)
-            binding.recyclerMessage.adapter = mAdapter
+        mAdapter = GetMessageAdapter(result.messagelist)
+        binding.recyclerMessage.adapter = mAdapter
 
     }
 
-    private fun showStatusDialog(statusvalue:String,statustext:String) {
-        val mHomeStatusDialog = HomeStatusDialog(statusvalue,statustext)
+    private fun showStatusDialog(statusvalue: String, statustext: String) {
+        val mHomeStatusDialog = HomeStatusDialog(statusvalue, statustext)
 
         val fragmentManager = this@HomeFragment.parentFragmentManager
         fragmentManager.let { it1 -> mHomeStatusDialog.show(it1, "mHomeStatusDialog") }
 
-        mHomeStatusDialog.setOnDialogListener(object : HomeStatusDialog.OnDialogListener{
+        mHomeStatusDialog.setOnDialogListener(object : HomeStatusDialog.OnDialogListener {
             override fun onClick(userLocation: String, memo: String) {
-                Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo", )
+                Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo")
 
                 dataPost()
             }

@@ -10,19 +10,17 @@ import com.xieyi.etoffice.databinding.GetStuffSectionListBinding
 
 class GetStuffSectionListAdapter(var list: ArrayList<SectionInfo>, val context: Context) :
     RecyclerView.Adapter<GetStuffSectionListAdapter.sectionListViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG: String = javaClass.simpleName
 
-    class sectionListViewHolder(binding: GetStuffSectionListBinding,val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    class sectionListViewHolder(binding: GetStuffSectionListBinding, val context: Context) :
+        RecyclerView.ViewHolder(binding.root) {
 
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
 
 
         fun bind(info: SectionInfo) {
             recyclerView.adapter = GetStuffStuffListAdapter(
-                info.stufflist
-                ,info.sectioncd
-                ,info.sectionname
-                ,context
+                info.stufflist, info.sectioncd, info.sectionname, context
             )
 
         }

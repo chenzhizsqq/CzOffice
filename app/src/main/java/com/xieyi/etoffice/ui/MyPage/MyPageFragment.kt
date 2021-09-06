@@ -40,7 +40,6 @@ class MyPageFragment : Fragment() {
     }
 
 
-
     private fun EtOfficeUserInfoPost() {
 
         Api.EtOfficeUserInfo(
@@ -71,12 +70,11 @@ class MyPageFragment : Fragment() {
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
+                    Log.e(TAG, "onFailure:$data")
                 }
             }
         )
     }
-
 
 
     private fun EtOfficeUserInfoResult(result: UserInfoResult) {
@@ -101,7 +99,7 @@ class MyPageFragment : Fragment() {
         //Place　Setting
         binding.placeManagement.setOnClickListener(View.OnClickListener {
 
-            Tools.sharedPrePut(Config.FragKey,4)
+            Tools.sharedPrePut(Config.FragKey, 4)
             //EtOfficeApp.selectUi = 4
             val intent = Intent(activity, MyPagePlaceSettingActivity::class.java)
             startActivity(intent)
@@ -112,7 +110,7 @@ class MyPageFragment : Fragment() {
         //change　company
         binding.changeCompany.setOnClickListener(View.OnClickListener {
 
-            Tools.sharedPrePut(Config.FragKey,4)
+            Tools.sharedPrePut(Config.FragKey, 4)
             //EtOfficeApp.selectUi = 4
             val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
             startActivity(intent)
