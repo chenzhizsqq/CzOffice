@@ -1,6 +1,5 @@
 package com.xieyi.etoffice.ui.login
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -17,7 +16,6 @@ import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
-
 import okhttp3.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -41,7 +39,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         when (view?.id) {
             R.id.btn_login -> {
                 if (isValid()) {
-                    Snackbar.make(view, "登録中....", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, getString(R.string.login_registering), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                     login()
                 }

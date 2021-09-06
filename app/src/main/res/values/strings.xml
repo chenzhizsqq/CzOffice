@@ -4,6 +4,7 @@
     <string name="login">ログイン</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>
+    <string name="login_registering">登録中....</string>
     <string name="title_home">ホーム</string>
     <string name="title_notifications">メッセージ</string>
     <string name="title_report">日報</string>

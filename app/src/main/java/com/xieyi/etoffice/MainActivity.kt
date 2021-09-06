@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
@@ -84,7 +85,7 @@ class MainActivity : BaseActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
+        navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED
 
         //fragのリスト
         listFrag.clear()
