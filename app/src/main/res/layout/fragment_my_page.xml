@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_my_page_personal_info"
                 android:paddingTop="30dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="8dp"
                 />
 
             <LinearLayout
@@ -121,7 +121,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp"
+                    android:layout_margin="11dp"
                     android:weightSum="2">
 
                     <TextView
@@ -130,7 +130,7 @@
                         android:text="@string/fragment_my_page_name"
                         android:textColor="@color/black"
                         android:gravity="left"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:singleLine="true"/>
 
                     <TextView
@@ -138,6 +138,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
+                        android:textSize="18sp"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -159,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp"
+                    android:layout_margin="11dp"
                     android:weightSum="2">
 
                     <TextView
@@ -168,7 +169,7 @@
                         android:textColor="@color/black"
                         android:text="@string/fragment_my_page_mobile"
                         android:gravity="left"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:singleLine="true"/>
 
                     <TextView
@@ -176,6 +177,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
+                        android:textSize="18sp"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -199,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp"
+                    android:layout_margin="11dp"
                     android:weightSum="2">
 
                     <TextView
@@ -207,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:text="@string/fragment_my_page_mail"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:gravity="left"
                         android:singleLine="true"/>
 
@@ -216,6 +218,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
+                        android:textSize="18sp"
                         android:singleLine="true"/>
 
                 </LinearLayout>
@@ -237,7 +240,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="11dp"
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:id="@+id/place_management"
@@ -247,7 +250,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:singleLine="true"
                         android:text="@string/fragment_my_page_place_management"
                         android:textColor="@color/black" />
@@ -258,6 +261,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:singleLine="true"
+                        android:textSize="18sp"
                         android:text="@string/fragment_my_page_more" />
 
                 </LinearLayout>
@@ -280,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp"
+                    android:layout_margin="11dp"
                     android:id="@+id/change_company"
                     android:weightSum="2">
 
@@ -289,7 +293,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fragment_my_page_change_company"
                         android:textColor="@color/black"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:gravity="left"
                         android:singleLine="true"/>
 
@@ -297,6 +301,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="right"
+                        android:textSize="18sp"
                         android:text="@string/fragment_my_page_more"
                         android:singleLine="true"/>
 
@@ -310,8 +315,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_my_page_system"
-                android:paddingTop="30dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="25dp"
+                android:paddingBottom="8dp"
                 />
 
             <TableLayout
@@ -325,7 +330,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:orientation="vertical"
-                    android:layout_margin="10dp"
+                    android:layout_margin="8dp"
                     android:weightSum="1">
 
                     <TextView
@@ -335,7 +340,7 @@
                         android:textColor="@color/black"
                         android:text="@string/fragment_my_page_signout"
                         android:gravity="left"
-                        android:textStyle="bold"
+                        android:textSize="18sp"
                         android:singleLine="true"/>
 
 

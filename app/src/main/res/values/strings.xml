@@ -69,7 +69,7 @@
     <string name="fragment_my_page_place_management">Place Management</string>
     <string name="fragment_my_page_change_company">Change Company</string>
     <string name="fragment_my_page_signout">Signout</string>
-    <string name="fragment_my_page_more"><![CDATA[>]]></string>
+    <string name="fragment_my_page_more"><![CDATA[＞]]></string>
     <string name="fragment_report_all_select">全て選択</string>
     <string name="fragment_report_commit">承認</string>
     <string name="fragment_report_edit">Edit</string>
