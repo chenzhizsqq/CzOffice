@@ -11,6 +11,7 @@ class NotificationsViewModel : ViewModel() {
         value = "メッセージ"
     }
     val text: LiveData<String> = _text
+    val searchCount = 50
     var messageList = ArrayList<MessageInfo>()
     var lasttime = ""
     var lastsubid = ""

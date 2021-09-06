@@ -10,6 +10,7 @@ class ReportAddViewModel : ViewModel() {
     var hourList= ArrayList<String>()
 
     val projectCd = MutableLiveData<String>()
+    var reportAddDate = ""
     var wbsPickerData = ArrayList<OptionItemModel>()
     fun getProjectWbsOption(){
         if (projectList != null) {

@@ -38,6 +38,7 @@
     <string name="login_failed_msg1">「アカウント」や「パスウード」が間違います。</string>
     <string name="login_failed_msg2">ログイン失敗しました。</string>
 	<string name="workCd_option">工数を選択する</string>
+    <string name="select_time">時間を選択する</string>
     <string name="activity_report_detail_予定">予定：</string>
     <string name="activity_report_detail_実績">実績：</string>
     <string name="activity_report_detail_buttom_title">追加する</string>

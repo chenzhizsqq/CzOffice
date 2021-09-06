@@ -15,7 +15,7 @@ class PlanworklistAdapter(
 
     class ViewHolder(binding: GetPlanWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
-         val project: TextView = binding.project
+        val project: TextView = binding.project
         val wbs: TextView = binding.wbs
         val date: TextView = binding.date
         val time: TextView = binding.time

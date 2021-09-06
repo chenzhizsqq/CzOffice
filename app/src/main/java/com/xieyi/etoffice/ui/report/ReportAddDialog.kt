@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.bigkoo.pickerview.OptionsPickerView
 import com.google.android.material.snackbar.Snackbar
@@ -36,8 +37,12 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
     private lateinit var pvOptions:OptionsPickerView<Any>
 
     companion object {
-        fun newInstance(): ReportAddDialog {
-            return ReportAddDialog()
+        fun actionStart(fm: FragmentManager,reportDate:String){
+            val bundle = Bundle()
+            bundle.putString("reportDate", reportDate)
+            val reportAddDialog = ReportAddDialog()
+            reportAddDialog.arguments = bundle
+            reportAddDialog.show(fm, "ReportAddDialog")
         }
     }
 
@@ -53,16 +58,22 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                 return super.dispatchTouchEvent(motionEvent)
             }
         }
-        return super.onCreateDialog(savedInstanceState)
+        //return super.onCreateDialog(savedInstanceState)
     }
+
     override fun onCreateView(
-            @NonNull inflater: LayoutInflater,
-            @Nullable container: ViewGroup?,
-            @Nullable savedInstanceState: Bundle?
+        @NonNull inflater: LayoutInflater,
+        @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?,
     ): View {
         _binding = DialogReportAddBinding.inflate(inflater, container, false)
         viewModel =
             ViewModelProvider(this).get(ReportAddViewModel::class.java)
+
+        val bundle = arguments
+        if (bundle != null) {
+            viewModel.reportAddDate = bundle.getString("reportDate", "")
+        }
         // 初始化时间表示内容
         viewModel.initTime()
 
@@ -101,11 +112,17 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
         return binding.root
     }
 
+    /**
+     * 销毁View
+     **/
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    /**
+     * 监听事件
+     **/
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.btn_starttime -> {
@@ -204,19 +221,20 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
             .setContentTextSize(20)
             .setCyclic(false,false,false)
-            .setTitleText("時間を選択する")
+            .setTitleText(getString(R.string.select_time))
             .setDecorView(dialog!!.window!!.decorView as ViewGroup)
             .build().also { pvOptions = it }
         pvOptions.setNPicker(viewModel.hourList as List<Any>?, viewModel.minuteList as List<Any>?, null)
         pvOptions.show()
     }
 
-    // 最新メッセージ一覧取得
+    /**
+     * 日報登録
+     **/
     private fun sendSetReport() {
         Api.EtOfficeSetReport(
-           // userid = "",
             context = requireContext(),
-            ymd = "20210728",
+            ymd = viewModel.reportAddDate,
             projectcd = binding.projectCode.text.toString(),
             wbscd= binding.wbsCode.text.toString(),
             totaltime = binding.tvWorktime.text.toString(),
@@ -226,8 +244,10 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             memo = binding.etWorkDetail.text.toString(),
             onSuccess = { data ->
                 Handler(Looper.getMainLooper()).post {
-                    if (data is SetReportModel) {
+                    if (data.status == 0) {
                         dialog!!.dismiss()
+                    } else {
+                        Snackbar.make(binding.root, data.message,Snackbar.LENGTH_SHORT).show()
                     }
                 }
             },
@@ -241,15 +261,16 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
     }
 
 
-    // 最新メッセージ一覧取得
+    /**
+     * プロジェクト一覧
+     * */
     private fun searchProject() {
         Api.EtOfficeGetProject(
-           // userid = prefs.getString("userid", "")?:"",
             context = requireContext(),
-            ymd = "20210727",
+            ymd = viewModel.reportAddDate,
             onSuccess = { data ->
                 Handler(Looper.getMainLooper()).post {
-                    if (data is ProjectModel) {
+                    if (data.status == 0) {
                         viewModel.projectList.clear()
                         for(project in data.result.projectlist){
                             viewModel.projectList.add(project)

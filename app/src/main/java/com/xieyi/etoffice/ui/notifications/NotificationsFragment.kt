@@ -135,18 +135,18 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener, OnRefreshLis
             context = requireContext(),
             lasttime = viewModel.lasttime,
             lastsubid = viewModel.lastsubid,
-            count = 50,
+            count = viewModel.searchCount,
             onSuccess = { data ->
                 Handler(Looper.getMainLooper()).post {
-                    if (data is MessageModel && data.status == 0) {
+                    if (data.status == 0) {
                         viewModel.appendMessage(data.result.messagelist)
 
-                        if (data.result.messagelist.size>0) {
+                        if (data.result.messagelist.isNotEmpty()) {
                             var lastMessage = data.result.messagelist.last()
                             viewModel.lastsubid = lastMessage.subid
                             viewModel.lasttime = lastMessage.updatetime
 
-                            if (data.result.messagelist.size < 10) {
+                            if (data.result.messagelist.size < viewModel.searchCount) {
                                 binding.swipeToLoadLayout.isLoadMoreEnabled = false
                                 binding.swipeToLoadLayout.isLoadingMore = false
                             }

@@ -26,6 +26,7 @@ class EtOfficeApp : Application() {
             Token = prefs.getString("token", "").toString()
             TenantId = prefs.getString("tenantid", "").toString()
             HpId = prefs.getString("hpid", "").toString()
+            userid = prefs.getString("userid", "").toString()
         }
     }
 }

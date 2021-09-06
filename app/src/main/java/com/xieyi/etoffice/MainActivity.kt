@@ -82,7 +82,6 @@ class MainActivity : BaseActivity() {
             )
         )
 
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.labelVisibilityMode = NavigationBarView.LABEL_VISIBILITY_LABELED

@@ -9,8 +9,6 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.NotificationsItemBinding
 import com.xieyi.etoffice.widget.CustomCheckBox
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -73,16 +71,24 @@ class NotificationsAdapter(private var messagelist:List<MessageInfo>):
             holder.checkBox.isCheck = !checkStatus[position].isNullOrEmpty()
 
             //再设置一次CheckBox的选中监听器，当CheckBox的选中状态发生改变时，把改变后的状态储存在Map中
-            holder.checkBox.setOnCheckChangeListener(object : CustomCheckBox.OnCheckChangeListener{
-                override fun onCheckChange(isChecked:Boolean) {
-                    if (isChecked) {
-                        checkStatus[position] = message.updatetime + message.subid
-
-                    } else {
-                        checkStatus[position] = ""
-                    }
+//            holder.checkBox.setOnCheckChangeListener { isChecked ->
+//                if (isChecked) {
+//                    checkStatus[position] = message.updatetime + message.subid
+//
+//                } else {
+//                    checkStatus[position] = ""
+//                }
+//            }
+            holder.itemView.setOnClickListener {
+                if (holder.checkBox.isCheck){
+                    holder.checkBox.isCheck = false
+                    checkStatus[position] = ""
+                } else {
+                    holder.checkBox.isCheck = true
+                    checkStatus[position] = message.updatetime + message.subid
                 }
-            })
+                notifyDataSetChanged()
+            }
         } else {
             holder.checkBox.visibility = View.GONE
         }

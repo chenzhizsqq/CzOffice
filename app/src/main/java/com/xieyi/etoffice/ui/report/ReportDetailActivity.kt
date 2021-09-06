@@ -198,10 +198,10 @@ class ReportDetailActivity() : BaseActivity() {
         binding.addView.setOnClickListener {
 
             val fm: FragmentManager = supportFragmentManager
-            val dialog: ReportAddDialog =
-                ReportAddDialog.newInstance()
-            dialog.show(fm, "ReportAddDialog")
-
+//            val dialog: ReportAddDialog =
+//                ReportAddDialog.newInstance()
+//            dialog.show(fm, "ReportAddDialog")
+            ReportAddDialog.actionStart(fm, date)
         }
 
 
