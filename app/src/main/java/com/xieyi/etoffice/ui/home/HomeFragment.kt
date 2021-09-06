@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -32,6 +33,7 @@ class HomeFragment : Fragment()
 
 
     private lateinit var binding: FragmentHomeBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,6 +86,9 @@ class HomeFragment : Fragment()
 
 
         }
+
+
+
 
 
         //ページを更新
@@ -140,6 +145,29 @@ class HomeFragment : Fragment()
         if(result.userstatuslist.size>0)
         {
             binding.state.text = result.userstatuslist[0].statustext
+
+            when(result.userstatuslist[0].statustext){
+                "勤務中" ->{
+                    binding.tvOnDuty.setTextColor(Color.BLACK)
+                }
+                "勤務外" ->{
+                    binding.tvOutsideDuty.setTextColor(Color.BLACK)
+
+                }
+                "休憩中" ->{
+                    binding.tvRest.setTextColor(Color.BLACK)
+
+                }
+                "移動中" ->{
+                    binding.tvMoving.setTextColor(Color.BLACK)
+
+                }
+                "会議中" ->{
+                    binding.tvMeeting.setTextColor(Color.BLACK)
+
+                }
+            }
+
         }
 
     }
