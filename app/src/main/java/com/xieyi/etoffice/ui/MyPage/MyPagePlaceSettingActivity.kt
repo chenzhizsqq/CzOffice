@@ -66,13 +66,6 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                         0 -> {
                             EtOfficeGetUserLocationResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,
@@ -107,13 +100,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                                 Tools.showMsg(binding.root, "登録します")
                                 EtOfficeGetUserLocationPost()
                             }
-                            1 -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
-                            }
+
                             else -> {
                                 Snackbar.make(
                                     binding.root,

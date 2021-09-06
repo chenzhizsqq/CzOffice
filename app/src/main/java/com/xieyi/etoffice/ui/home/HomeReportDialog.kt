@@ -78,13 +78,6 @@ class HomeReportDialog : DialogFragment(),
                         0 -> {
                             EtOfficeGetStatusListResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,

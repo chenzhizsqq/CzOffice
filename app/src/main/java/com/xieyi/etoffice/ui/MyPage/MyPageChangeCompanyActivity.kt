@@ -63,13 +63,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                         0 -> {
                             EtOfficeGetTenantResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,
@@ -99,13 +92,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                     when (model.status) {
                         0 -> {
                             EtOfficeSetTenantResult(model.result)
-                        }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
                         }
                         else -> {
                             Snackbar.make(

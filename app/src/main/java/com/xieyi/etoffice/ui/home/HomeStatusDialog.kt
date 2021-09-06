@@ -123,13 +123,6 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                             0 -> {
                                 Tools.showMsg(binding.root, "登録します")
                             }
-                            1 -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
-                            }
                             else -> {
                                 Snackbar.make(
                                     binding.root,
@@ -164,13 +157,6 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                         when (model.status) {
                             0 -> {
                                 Tools.showMsg(binding.root, "登録します")
-                            }
-                            1 -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
                             }
                             else -> {
                                 Snackbar.make(

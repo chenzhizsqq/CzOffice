@@ -116,13 +116,6 @@ class HomeFragment : Fragment() {
                         0 -> {
                             EtOfficeGetUserStatusResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,
@@ -182,13 +175,6 @@ class HomeFragment : Fragment() {
                         0 -> {
                             EtOfficeGetStatusListResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,
@@ -226,13 +212,6 @@ class HomeFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetMessageResult(model.result)
-                        }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
                         }
                         else -> {
                             Snackbar.make(

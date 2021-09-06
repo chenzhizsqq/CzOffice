@@ -86,13 +86,6 @@ class ReportDetailActivity : BaseActivity() {
                             EtOfficeGetReportlistResult(model.result)
                             EtOfficeCommentlistResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,
@@ -149,13 +142,6 @@ class ReportDetailActivity : BaseActivity() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetReportInfoPost(date)
-                        }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
                         }
                         else -> {
                             Snackbar.make(

@@ -51,13 +51,6 @@ class MyPageFragment : Fragment() {
                         0 -> {
                             EtOfficeUserInfoResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,

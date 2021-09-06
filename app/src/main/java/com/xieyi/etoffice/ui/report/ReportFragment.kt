@@ -79,13 +79,6 @@ class ReportFragment : Fragment(),
                         0 -> {
                             EtOfficeGetReportListResult(model.result)
                         }
-                        1 -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
                         else -> {
                             Snackbar.make(
                                 binding.root,
@@ -117,13 +110,6 @@ class ReportFragment : Fragment(),
                         when (model.status) {
                             0 -> {
                                 EtOfficeGetReportListPost("", "")
-                            }
-                            1 -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
                             }
                             else -> {
                                 Snackbar.make(
