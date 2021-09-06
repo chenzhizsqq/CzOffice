@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/month"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:gravity="bottom"
             android:padding="10dp"
             android:text="month" />
