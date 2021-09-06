@@ -203,7 +203,7 @@ class HomeFragment : Fragment() {
     private fun EtOfficeGetMessagePost() {
         Api.EtOfficeGetMessage(
             context = requireActivity(),
-            count = 50,
+            count = 5,
             lasttime = "",
             lastsubid = "",
             onSuccess = { model ->
