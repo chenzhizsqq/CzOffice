@@ -117,13 +117,11 @@
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
 
-                <LinearLayout
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:gravity="center"
-                    android:background="#9F9F9F"
-                    android:orientation="horizontal">
-                </LinearLayout>
+                    android:background="#9F9F9F">
+                </View>
 
         <!--        実績：-->
                 <LinearLayout

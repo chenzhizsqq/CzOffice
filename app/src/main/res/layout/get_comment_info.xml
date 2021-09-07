@@ -63,13 +63,10 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@color/line_eeeeef"
-            />
+            android:layout_height="1dp"
+            android:background="@color/line_eeeeef"/>
     </LinearLayout>
 
 </FrameLayout>
