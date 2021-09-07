@@ -20,7 +20,7 @@ import com.xieyi.etoffice.common.model.StatusResult
 import com.xieyi.etoffice.common.model.UserStatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import kotlinx.coroutines.*
-import java.util.ArrayList
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
     private val TAG = "HomeFragment"
 
     private lateinit var mGetMessageAdapter: GetMessageAdapter
-    private lateinit var mGetStatusListAdapter: GetStatusListAdapter
+    private lateinit var mGetStatusListHomeAdapter: GetStatusListHomeAdapter
 
 
     private lateinit var binding: FragmentHomeBinding
@@ -78,7 +78,7 @@ class HomeFragment : Fragment() {
 
 
         mGetMessageAdapter = GetMessageAdapter(ArrayList())
-        mGetStatusListAdapter = GetStatusListAdapter(ArrayList())
+        mGetStatusListHomeAdapter = GetStatusListHomeAdapter(ArrayList())
 
         //出勤記録を表示します
         binding.stateLayout.setOnClickListener {
@@ -200,8 +200,15 @@ class HomeFragment : Fragment() {
 
     // GetStatusList UI更新
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        mGetStatusListAdapter.notifyDataChange(result.recordlist)
-        binding.recyclerView.adapter = mGetStatusListAdapter
+        if (result.recordlist.isNotEmpty()){
+            Collections.reverse(result.recordlist)
+            var topTwo = 2
+            if (2 > result.recordlist.size) {
+                topTwo = result.recordlist.size
+            }
+            mGetStatusListHomeAdapter.notifyDataChange(result.recordlist.subList(0, topTwo))
+            binding.recyclerView.adapter = mGetStatusListHomeAdapter
+        }
     }
 
     private fun EtOfficeGetMessagePost() {
