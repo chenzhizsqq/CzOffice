@@ -27,60 +27,15 @@ class GetStuffStuffListAdapter(
     val TAG: String = javaClass.simpleName
 
 
-    class sectionListViewHolder(binding: GetStuffStuffListBinding) :
+    inner class sectionListViewHolder(binding: GetStuffStuffListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val tv_userkana: TextView = binding.userkana
         val tv_username: TextView = binding.username
         val tv_phone: TextView = binding.phone
         val tv_mail: TextView = binding.mail
-
         val tv_sectioncd: TextView = binding.sectioncd
         val tv_sectionname: TextView = binding.sectionname
-
         val ll: LinearLayout = binding.ll
-
-        //telephone
-        fun bind(info: StuffInfo, sectioncd: String, sectionname: String, context: Context) {
-            tv_userkana.text = info.userkana
-            tv_username.text = info.username
-            tv_phone.text = info.phone
-            tv_mail.text = info.mail
-            tv_sectioncd.text = sectioncd
-            tv_sectionname.text = sectionname
-
-            val REQUEST_CALL_PERMISSION = 10111 //電話　申し込む
-            ll.setOnClickListener(View.OnClickListener {
-                if (ContextCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.CALL_PHONE
-                    ) !== PackageManager.PERMISSION_GRANTED
-                ) {
-                    // CALL_PHONE 権利　ない
-                    ActivityCompat.requestPermissions(
-                        context as Activity,
-                        arrayOf<String>(Manifest.permission.CALL_PHONE),
-                        REQUEST_CALL_PERMISSION
-                    )
-                } else {
-                    //CALL_PHONE 権利　ある
-
-
-                    AlertDialog.Builder(context)
-                        .setTitle(context.getString(R.string.telephone_number))
-                        .setMessage(info.phone+context.getString(R.string.telephone_call_question))
-                        .setPositiveButton(context.getString(R.string.telephone_number_call)) { _, _ ->
-
-                            val uri: Uri = Uri.parse("tel:" + info.phone)
-                            val intent = Intent(Intent.ACTION_CALL, uri)
-                            it.context.startActivity(intent)
-
-                        }
-                        .setNegativeButton(context.getString(R.string.telephone_number_Cancel)) { _, which ->
-                        }
-                        .show()
-                }
-            })
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
@@ -96,6 +51,45 @@ class GetStuffStuffListAdapter(
     }
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
-        holder.bind(list[position], sectioncd, sectionname, context)
+        holder.tv_userkana.text = list[position].userkana
+        holder.tv_username.text = list[position].username
+        holder.tv_phone.text = list[position].phone
+        holder.tv_mail.text = list[position].mail
+        holder.tv_sectioncd.text = sectioncd
+        holder.tv_sectionname.text = sectionname
+
+        val REQUEST_CALL_PERMISSION = 10111 //電話　申し込む
+        holder.ll.setOnClickListener(View.OnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.CALL_PHONE
+                ) !== PackageManager.PERMISSION_GRANTED
+            ) {
+                // CALL_PHONE 権利　ない
+                ActivityCompat.requestPermissions(
+                    context as Activity,
+                    arrayOf<String>(Manifest.permission.CALL_PHONE),
+                    REQUEST_CALL_PERMISSION
+                )
+            } else {
+                //CALL_PHONE 権利　ある
+
+
+                AlertDialog.Builder(context)
+                    .setTitle(context.getString(R.string.telephone_number))
+                    .setMessage(list[position].phone+context.getString(R.string.telephone_call_question))
+                    .setPositiveButton(context.getString(R.string.telephone_number_call)) { _, _ ->
+
+                        val uri: Uri = Uri.parse("tel:" + list[position].phone)
+                        val intent = Intent(Intent.ACTION_CALL, uri)
+                        it.context.startActivity(intent)
+
+                    }
+                    .setNegativeButton(context.getString(R.string.telephone_number_Cancel)) { _, which ->
+                    }
+                    .show()
+            }
+        })
+
     }
 }

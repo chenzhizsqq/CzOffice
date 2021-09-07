@@ -26,29 +26,11 @@ class GetTenantAdapter(
         this.listener = adapterListener
     }
 
-    class ViewHolder(binding: GetTenantListBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val tv_posturl: TextView = binding.posturl
-        private val tv_tenantname: TextView = binding.tenantname
-        private val iv_clicked: ImageView = binding.clicked
-
-
+    inner class ViewHolder(binding: GetTenantListBinding) : RecyclerView.ViewHolder(binding.root) {
+        val tv_posturl: TextView = binding.posturl
+        val tv_tenantname: TextView = binding.tenantname
+        val iv_clicked: ImageView = binding.clicked
         val ll: LinearLayout = binding.ll
-
-        //bind
-        fun bind(info: TenantInfo, listener: OnAdapterListener) {
-            tv_posturl.text = info.posturl
-            tv_tenantname.text = info.tenantname
-            if (info.startflg == "1") {
-                iv_clicked.visibility = View.VISIBLE
-            } else {
-                iv_clicked.visibility = View.GONE
-            }
-
-            ll.setOnClickListener(View.OnClickListener {
-                listener.onClick(info.tenantid)
-            })
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -64,6 +46,19 @@ class GetTenantAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position], listener)
+
+        holder.tv_posturl.text = list[position].posturl
+        holder.tv_tenantname.text = list[position].tenantname
+        if (list[position].startflg == "1") {
+            holder.iv_clicked.visibility = View.VISIBLE
+        } else {
+            holder.iv_clicked.visibility = View.GONE
+        }
+
+        holder.ll.setOnClickListener(View.OnClickListener {
+            listener.onClick(list[position].tenantid)
+        })
+
+
     }
 }

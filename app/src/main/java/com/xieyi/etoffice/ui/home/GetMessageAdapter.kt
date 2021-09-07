@@ -16,21 +16,11 @@ class GetMessageAdapter(
     val TAG: String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetMessageListBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val tv_title: TextView = binding.title
-        private val tv_updatetime: TextView = binding.updatetime
-        private val tv_content: TextView = binding.content
-
-
+    inner class ViewHolder(binding: GetMessageListBinding) : RecyclerView.ViewHolder(binding.root) {
+        val tv_title: TextView = binding.title
+        val tv_updatetime: TextView = binding.updatetime
+        val tv_content: TextView = binding.content
         val ll: LinearLayout = binding.ll
-
-        //bind
-        fun bind(info: MessageInfo) {
-            tv_title.text = info.title
-            tv_updatetime.text = Tools.allDateTime(info.updatetime)
-            tv_content.text = info.content
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,6 +36,8 @@ class GetMessageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.tv_title.text = list[position].title
+        holder.tv_updatetime.text = Tools.allDateTime(list[position].updatetime)
+        holder.tv_content.text = list[position].content
     }
 }

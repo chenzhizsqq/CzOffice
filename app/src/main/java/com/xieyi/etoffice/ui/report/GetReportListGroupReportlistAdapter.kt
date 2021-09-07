@@ -29,7 +29,7 @@ class GetReportListGroupReportlistAdapter(
 
     private lateinit var binding: GetReportListGroupReportlistBinding
 
-    class ViewHolder(binding: GetReportListGroupReportlistBinding) :
+    inner class ViewHolder(binding: GetReportListGroupReportlistBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val yyyymmdd: TextView = binding.yyyymmdd
         val title: TextView = binding.title
@@ -38,51 +38,6 @@ class GetReportListGroupReportlistAdapter(
         val warning: TextView = binding.warning
         val checkbox: CheckBox = binding.checkbox
         val ll: LinearLayout = binding.ll
-
-
-        //bind
-        fun bind(
-            info: ReportListnfo,
-            activity: Activity,
-            viewModel: ReportViewModel,
-            lifecycleOwner: LifecycleOwner
-        ) {
-            this.yyyymmdd.text = Tools.allDate(info.yyyymmdd)
-            this.approval.text = info.approval
-            if (this.approval.text.isEmpty()) {
-                this.warning.text = context.getString(R.string.unacknowledged)
-                this.warning.setBackgroundResource(R.drawable.ic_round_edge_red)
-            } else {
-                this.warning.text = context.getString(R.string.Approved)
-                this.warning.setBackgroundResource(R.drawable.ic_round_edge_blue)
-            }
-            this.title.text = info.title
-            this.content.text = info.content
-
-            //checkbox
-            this.checkbox.tag = info.yyyymmdd
-
-
-            ll.setOnClickListener(View.OnClickListener {
-                if (viewModel.visibility.value == View.GONE) {
-                    Tools.sharedPrePut(Config.FragKey, 3)
-                    //EtOfficeApp.selectUi = 3
-                    val intent = Intent(activity, ReportDetailActivity::class.java)
-                    intent.putExtra("ReportFragmentMessage", info.yyyymmdd)
-                    activity.startActivity(intent)
-                    activity.finish()
-                }
-
-            })
-
-            viewModel.allSelect.observe(lifecycleOwner, {
-                this.checkbox.isChecked = it
-            })
-
-            viewModel.visibility.observe(lifecycleOwner, {
-                this.checkbox.visibility = it
-            })
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -100,10 +55,42 @@ class GetReportListGroupReportlistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(
-            list[position], activity, viewModel, lifecycleOwner
-        )
 
+        holder.yyyymmdd.text = Tools.allDate(list[position].yyyymmdd)
+        holder.approval.text = list[position].approval
+        if (holder.approval.text.isEmpty()) {
+            holder.warning.text = context.getString(R.string.unacknowledged)
+            holder.warning.setBackgroundResource(R.drawable.ic_round_edge_red)
+        } else {
+            holder.warning.text = context.getString(R.string.Approved)
+            holder.warning.setBackgroundResource(R.drawable.ic_round_edge_blue)
+        }
+        holder.title.text = list[position].title
+        holder.content.text = list[position].content
+
+        //checkbox
+        holder.checkbox.tag = list[position].yyyymmdd
+
+
+        holder.ll.setOnClickListener(View.OnClickListener {
+            if (viewModel.visibility.value == View.GONE) {
+                Tools.sharedPrePut(Config.FragKey, 3)
+                //EtOfficeApp.selectUi = 3
+                val intent = Intent(activity, ReportDetailActivity::class.java)
+                intent.putExtra("ReportFragmentMessage", list[position].yyyymmdd)
+                activity.startActivity(intent)
+                activity.finish()
+            }
+
+        })
+
+        viewModel.allSelect.observe(lifecycleOwner, {
+            holder.checkbox.isChecked = it
+        })
+
+        viewModel.visibility.observe(lifecycleOwner, {
+            holder.checkbox.visibility = it
+        })
 
         holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

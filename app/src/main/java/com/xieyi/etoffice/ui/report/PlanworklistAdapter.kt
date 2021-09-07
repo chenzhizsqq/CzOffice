@@ -13,23 +13,11 @@ class PlanworklistAdapter(
     val TAG:String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetPlanWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    inner class ViewHolder(binding: GetPlanWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         val project: TextView = binding.project
         val wbs: TextView = binding.wbs
         val date: TextView = binding.date
         val time: TextView = binding.time
-
-
-
-        //bind
-        fun bind(info: PlanWorkInfo) {
-            project.text = info.project
-            wbs.text = info.wbs
-            date.text = info.date
-            time.text = info.time
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +32,9 @@ class PlanworklistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.project.text = list[position].project
+        holder.wbs.text = list[position].wbs
+        holder.date.text = list[position].date
+        holder.time.text = list[position].time
     }
 }

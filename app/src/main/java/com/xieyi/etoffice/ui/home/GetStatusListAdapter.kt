@@ -15,18 +15,10 @@ class GetStatusListAdapter(
     val TAG: String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val statusTime: TextView = binding.statusTime
-        private val status: TextView = binding.status
-        private val memo: TextView = binding.memo
-
-
-        //bind
-        fun bind(info: StatusInfo) {
-            statusTime.text = Tools.allDateTime(info.statustime)
-            status.text = info.statustext
-            memo.text = info.memo
-        }
+    inner class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {
+        val statusTime: TextView = binding.statusTime
+        val status: TextView = binding.status
+        val memo: TextView = binding.memo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,6 +34,8 @@ class GetStatusListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.statusTime.text = Tools.allDateTime(list[position].statustime)
+        holder.status.text = list[position].statustext
+        holder.memo.text = list[position].memo
     }
 }

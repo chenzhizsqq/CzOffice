@@ -35,7 +35,6 @@ class GetReportListGroupAdapter(
     inner class ViewHolder(binding: GetReportListGroupBinding) : RecyclerView.ViewHolder(binding.root) {
         val month: TextView = binding.month
         val recyclerView: RecyclerView = binding.recyclerViewGetReportReportlist
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

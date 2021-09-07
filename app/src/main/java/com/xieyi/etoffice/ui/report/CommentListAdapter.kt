@@ -15,20 +15,10 @@ class CommentListAdapter(
     val TAG: String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetCommentInfoBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    inner class ViewHolder(binding: GetCommentInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         val username: TextView = binding.username
         val comment: TextView = binding.comment
         val time: TextView = binding.time
-
-
-        //bind
-        fun bind(info: CommentInfo) {
-            username.text = info.username
-            comment.text = info.comment
-            time.text = Tools.allDateTime(info.time)
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +34,8 @@ class CommentListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.username.text = list[position].username
+        holder.comment.text = list[position].comment
+        holder.time.text = Tools.allDateTime(list[position].time)
     }
 }

@@ -12,18 +12,9 @@ class GetStuffSectionListAdapter(var list: ArrayList<SectionInfo>, val context: 
     RecyclerView.Adapter<GetStuffSectionListAdapter.sectionListViewHolder>() {
     val TAG: String = javaClass.simpleName
 
-    class sectionListViewHolder(binding: GetStuffSectionListBinding, val context: Context) :
+    inner class sectionListViewHolder(binding: GetStuffSectionListBinding, val context: Context) :
         RecyclerView.ViewHolder(binding.root) {
-
         val recyclerView: RecyclerView = binding.recyclerViewStuffList
-
-
-        fun bind(info: SectionInfo) {
-            recyclerView.adapter = GetStuffStuffListAdapter(
-                info.stufflist, info.sectioncd, info.sectionname, context
-            )
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): sectionListViewHolder {
@@ -39,7 +30,11 @@ class GetStuffSectionListAdapter(var list: ArrayList<SectionInfo>, val context: 
     }
 
     override fun onBindViewHolder(holder: sectionListViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.recyclerView.adapter = GetStuffStuffListAdapter(
+            list[position].stufflist,
+            list[position].sectioncd,
+            list[position].sectionname, context
+        )
     }
 
     fun notifyDataAdd(section: SectionInfo) {

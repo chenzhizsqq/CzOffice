@@ -13,18 +13,9 @@ class WorkstatuslistAdapter(
     val TAG:String = javaClass.simpleName
 
 
-    class ViewHolder(binding: GetWorkStatusInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: GetWorkStatusInfoBinding) : RecyclerView.ViewHolder(binding.root) {
          val location: TextView = binding.location
          val time: TextView = binding.time
-
-
-
-        //bind
-        fun bind(info: WorkStatusInfo) {
-            location.text = info.status
-            time.text = info.time
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,6 +30,7 @@ class WorkstatuslistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.location.text = list[position].status
+        holder.time.text = list[position].time
     }
 }
