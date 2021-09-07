@@ -97,6 +97,10 @@
     <string name="time_title">工数：</string>
     <string name="memo_title">報告：</string>
     <string name="REGISTERED_title">REGISTERED</string>
+    <string name="telephone_number">電話番号</string>
+    <string name="telephone_call_question">へ電話してよろしいでしょうか</string>
+    <string name="telephone_number_call">電話をかける</string>
+    <string name="telephone_number_Cancel">キャンセル</string>
 
 
 </resources>

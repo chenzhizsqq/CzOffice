@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.model.StuffInfo
 import com.xieyi.etoffice.databinding.GetStuffStuffListBinding
 
@@ -65,16 +66,16 @@ class GetStuffStuffListAdapter(
 
 
                     AlertDialog.Builder(context)
-                        .setTitle("電話番号")
-                        .setMessage(info.phone)
-                        .setPositiveButton("call") { _, _ ->
+                        .setTitle(context.getString(R.string.telephone_number))
+                        .setMessage(info.phone+context.getString(R.string.telephone_call_question))
+                        .setPositiveButton(context.getString(R.string.telephone_number_call)) { _, _ ->
 
                             val uri: Uri = Uri.parse("tel:" + info.phone)
                             val intent = Intent(Intent.ACTION_CALL, uri)
                             it.context.startActivity(intent)
 
                         }
-                        .setNegativeButton("Cancel") { _, which ->
+                        .setNegativeButton(context.getString(R.string.telephone_number_Cancel)) { _, which ->
                         }
                         .show()
                 }
