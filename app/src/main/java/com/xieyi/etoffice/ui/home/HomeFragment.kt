@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
 
     private val TAG = "HomeFragment"
 
-    private lateinit var mAdapter: GetMessageAdapter
+    private lateinit var mGetMessageAdapter: GetMessageAdapter
     private lateinit var mGetStatusListAdapter: GetStatusListAdapter
 
 
@@ -76,6 +76,8 @@ class HomeFragment : Fragment() {
             showStatusDialog("5", getString(R.string.fragment_home_meeting))
         }
 
+
+        mGetMessageAdapter = GetMessageAdapter(ArrayList())
         mGetStatusListAdapter = GetStatusListAdapter(ArrayList())
 
         //出勤記録を表示します
@@ -235,10 +237,9 @@ class HomeFragment : Fragment() {
 
     // Message UI更新
     private fun EtOfficeGetMessageResult(result: MessageResult) {
-        Log.e(TAG, "doOnUiCode_Message: begin")
 
-        mAdapter = GetMessageAdapter(result.messagelist)
-        binding.recyclerMessage.adapter = mAdapter
+        mGetMessageAdapter.notifyDataChange(result.messagelist)
+        binding.recyclerMessage.adapter = mGetMessageAdapter
 
     }
 
@@ -250,8 +251,6 @@ class HomeFragment : Fragment() {
 
         mHomeStatusDialog.setOnDialogListener(object : HomeStatusDialog.OnDialogListener {
             override fun onClick(userLocation: String, memo: String) {
-                Log.e(TAG, "onDialogClick: userLocation:$userLocation memo:$memo")
-
                 dataPost()
             }
         })
