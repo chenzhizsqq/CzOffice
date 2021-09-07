@@ -26,7 +26,8 @@
         android:orientation="vertical"
         android:gravity="center"
         android:background="@color/white"
-        android:padding="5dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
         >
 
         <TextView
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:height="30dp"
+            android:background="@color/f0f0f0"
             android:text="time"
             android:textColor="@color/black"
             />

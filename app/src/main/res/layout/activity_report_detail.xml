@@ -113,6 +113,7 @@
                     android:id="@+id/recycler_view_planworklist"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:paddingLeft="10dp"
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
 
@@ -165,21 +166,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:orientation="horizontal">
                     <!--                add button-->
                     <LinearLayout
                         android:gravity="center"
                         android:background="@drawable/ic_round_edge_grey"
                         android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:layout_margin="10dp"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
                         <ImageView
                             android:id="@+id/addView"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:layout_marginBottom="15dp"
                             android:gravity="center"
-                            app:srcCompat="@drawable/ic_baseline_add_circle_outline_24" />
+                            app:srcCompat="@drawable/ic_add_button_foreground" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -194,7 +197,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_reportlist"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         app:layoutManager="LinearLayoutManager" />
                 </LinearLayout>
