@@ -32,29 +32,10 @@ class GetReportListGroupAdapter(
         this.listener = adapterListener
     }
 
-    class ViewHolder(binding: GetReportListGroupBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val month: TextView = binding.month
-        private val recyclerView: RecyclerView = binding.recyclerViewGetReportReportlist
+    inner class ViewHolder(binding: GetReportListGroupBinding) : RecyclerView.ViewHolder(binding.root) {
+        val month: TextView = binding.month
+        val recyclerView: RecyclerView = binding.recyclerViewGetReportReportlist
 
-
-        //bind
-        fun bind(
-            info: GroupInfo,
-            arrayListYmd: ArrayList<String>,
-            activity: Activity,
-            viewModel: ReportViewModel,
-            lifecycleOwner: LifecycleOwner
-        ) {
-            this.month.text = Tools.dateGetYear(info.month) + "." + Tools.dateGetMonth(info.month)
-            recyclerView.adapter = GetReportListGroupReportlistAdapter(
-                info.reportlist,
-                arrayListYmd,
-                activity,
-                viewModel,
-                lifecycleOwner
-            )
-
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -68,8 +49,14 @@ class GetReportListGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(
-            list[position], arrayListYmd, activity, viewModel, lifecycleOwner
+
+        holder.month.text = Tools.dateGetYear(list[position].month) + "." + Tools.dateGetMonth(list[position].month)
+        binding.recyclerViewGetReportReportlist.adapter = GetReportListGroupReportlistAdapter(
+            list[position].reportlist,
+            arrayListYmd,
+            activity,
+            viewModel,
+            lifecycleOwner
         )
     }
 }
