@@ -10,10 +10,14 @@ import com.xieyi.etoffice.databinding.GetStatusListBinding
 
 
 class GetStatusListAdapter(
-    val list: List<StatusInfo>,
+    var list: List<StatusInfo>,
 ) : RecyclerView.Adapter<GetStatusListAdapter.ViewHolder>() {
     val TAG: String = "GetStatusListAdapter"
 
+    fun notifyDataChange( list: List<StatusInfo>) {
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {
         val statusTime: TextView = binding.statusTime

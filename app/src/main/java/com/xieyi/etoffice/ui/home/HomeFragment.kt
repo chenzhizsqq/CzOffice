@@ -20,6 +20,7 @@ import com.xieyi.etoffice.common.model.StatusResult
 import com.xieyi.etoffice.common.model.UserStatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import kotlinx.coroutines.*
+import java.util.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -75,6 +76,7 @@ class HomeFragment : Fragment() {
             showStatusDialog("5", getString(R.string.fragment_home_meeting))
         }
 
+        mGetStatusListAdapter = GetStatusListAdapter(ArrayList())
 
         //出勤記録を表示します
         binding.stateLayout.setOnClickListener {
@@ -196,7 +198,7 @@ class HomeFragment : Fragment() {
 
     // GetStatusList UI更新
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        mGetStatusListAdapter = GetStatusListAdapter(result.recordlist)
+        mGetStatusListAdapter.notifyDataChange(result.recordlist)
         binding.recyclerView.adapter = mGetStatusListAdapter
     }
 
