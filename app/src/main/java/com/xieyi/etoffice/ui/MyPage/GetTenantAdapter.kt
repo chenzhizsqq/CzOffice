@@ -14,7 +14,7 @@ import com.xieyi.etoffice.databinding.GetTenantListBinding
 class GetTenantAdapter(
     val list: List<TenantInfo>,
 ) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "GetTenantAdapter"
 
     private lateinit var listener: OnAdapterListener
 

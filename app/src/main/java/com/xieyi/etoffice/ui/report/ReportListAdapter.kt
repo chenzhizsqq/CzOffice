@@ -13,7 +13,7 @@ import com.xieyi.etoffice.databinding.GetReportListBinding
 class ReportListAdapter(
     val list: List<ReportInfo>
 ) : RecyclerView.Adapter<ReportListAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "ReportListAdapter"
 
 
     inner class ViewHolder(binding: GetReportListBinding) : RecyclerView.ViewHolder(binding.root) {

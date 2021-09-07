@@ -12,7 +12,7 @@ import com.xieyi.etoffice.databinding.GetStatusListBinding
 class GetStatusListAdapter(
     val list: List<StatusInfo>,
 ) : RecyclerView.Adapter<GetStatusListAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "GetStatusListAdapter"
 
 
     inner class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {

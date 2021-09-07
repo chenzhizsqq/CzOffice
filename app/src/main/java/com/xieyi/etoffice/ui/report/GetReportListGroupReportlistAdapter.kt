@@ -25,7 +25,7 @@ class GetReportListGroupReportlistAdapter(
     val viewModel: ReportViewModel,
     val lifecycleOwner: LifecycleOwner
 ) : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "GetReportListGroupReportlistAdapter"
 
     private lateinit var binding: GetReportListGroupReportlistBinding
 

@@ -12,7 +12,7 @@ import com.xieyi.etoffice.databinding.GetCommentInfoBinding
 class CommentListAdapter(
     val list: List<CommentInfo>,
 ) : RecyclerView.Adapter<CommentListAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "CommentListAdapter"
 
 
     inner class ViewHolder(binding: GetCommentInfoBinding) : RecyclerView.ViewHolder(binding.root) {

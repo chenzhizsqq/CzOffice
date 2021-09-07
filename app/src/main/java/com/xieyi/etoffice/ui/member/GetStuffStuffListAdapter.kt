@@ -24,7 +24,7 @@ class GetStuffStuffListAdapter(
     val list: List<StuffInfo>, val sectioncd: String, val sectionname: String, val context: Context
 ) :
     RecyclerView.Adapter<GetStuffStuffListAdapter.sectionListViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "GetStuffStuffListAdapter"
 
 
     inner class sectionListViewHolder(binding: GetStuffStuffListBinding) :

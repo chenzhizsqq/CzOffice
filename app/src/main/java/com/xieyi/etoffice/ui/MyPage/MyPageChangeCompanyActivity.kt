@@ -23,7 +23,7 @@ import java.util.*
 class MyPageChangeCompanyActivity : BaseActivity(),
     SwipeRefreshLayout.OnRefreshListener {
 
-    private val TAG = javaClass.simpleName
+    private val TAG = "MyPageChangeCompanyActivity"
 
     private lateinit var mAdapter: GetTenantAdapter
 

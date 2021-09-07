@@ -25,7 +25,7 @@ import kotlinx.coroutines.*
 class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
-    private val TAG = javaClass.simpleName
+    private val TAG = "HomeFragment"
 
     private lateinit var mAdapter: GetMessageAdapter
     private lateinit var mGetStatusListAdapter: GetStatusListAdapter

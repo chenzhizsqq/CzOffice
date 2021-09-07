@@ -21,7 +21,7 @@ import kotlinx.coroutines.*
 
 class MyPageFragment : Fragment() {
 
-    private val TAG: String = javaClass.simpleName
+    private val TAG: String = "MyPageFragment"
 
     private lateinit var binding: FragmentMyPageBinding
 

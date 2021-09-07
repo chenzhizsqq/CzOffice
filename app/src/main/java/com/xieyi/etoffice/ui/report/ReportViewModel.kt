@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ReportViewModel : ViewModel() {
-    private val TAG = javaClass.simpleName
     private val mAllSelect = MutableLiveData(false)
     private val mVisibility = MutableLiveData(View.GONE)
 

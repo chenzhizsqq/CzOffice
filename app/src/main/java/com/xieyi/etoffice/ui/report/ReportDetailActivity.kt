@@ -24,7 +24,7 @@ import kotlinx.coroutines.*
 
 class ReportDetailActivity : BaseActivity() {
 
-    val TAG = javaClass.simpleName
+    val TAG = "ReportDetailActivity"
 
 
     //検索の日付

@@ -17,7 +17,7 @@ import com.xieyi.etoffice.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
 class MainActivity : BaseActivity() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "MainActivity"
 
     private lateinit var binding: ActivityMainBinding
 

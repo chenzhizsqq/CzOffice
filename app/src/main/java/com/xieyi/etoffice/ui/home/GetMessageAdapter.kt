@@ -13,7 +13,7 @@ import com.xieyi.etoffice.databinding.GetMessageListBinding
 class GetMessageAdapter(
     val list: List<MessageInfo>
 ) : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "GetMessageAdapter"
 
 
     inner class ViewHolder(binding: GetMessageListBinding) : RecyclerView.ViewHolder(binding.root) {

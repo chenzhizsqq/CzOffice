@@ -25,7 +25,7 @@ import java.util.*
 
 class ReportFragment : Fragment(),
     SwipeRefreshLayout.OnRefreshListener {
-    private val TAG = javaClass.simpleName
+    private val TAG = "ReportFragment"
 
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout

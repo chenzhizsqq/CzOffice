@@ -21,7 +21,7 @@ import kotlinx.coroutines.*
 
 class MyPagePlaceSettingActivity : BaseActivity(),
     SwipeRefreshLayout.OnRefreshListener {
-    private val TAG = javaClass.simpleName
+    private val TAG = "MyPagePlaceSettingActivity"
 
     private lateinit var gpsTracker: GpsTracker
     private var latitude = 0.0

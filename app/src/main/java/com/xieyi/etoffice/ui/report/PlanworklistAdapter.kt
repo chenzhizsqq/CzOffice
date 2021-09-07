@@ -10,7 +10,7 @@ import com.xieyi.etoffice.databinding.GetPlanWorkInfoBinding
 class PlanworklistAdapter(
     val list:  List<PlanWorkInfo>,
 ) : RecyclerView.Adapter<PlanworklistAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG:String = "PlanworklistAdapter"
 
 
     inner class ViewHolder(binding: GetPlanWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {

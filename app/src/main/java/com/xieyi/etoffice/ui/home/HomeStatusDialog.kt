@@ -20,7 +20,7 @@ import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
 
 class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment() {
 
-    private val TAG = javaClass.simpleName
+    private val TAG = "HomeStatusDialog"
 
     private val mStatusvalue = statusvalue
 

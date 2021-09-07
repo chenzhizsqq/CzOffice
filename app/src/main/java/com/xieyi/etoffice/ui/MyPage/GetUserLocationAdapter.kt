@@ -12,7 +12,7 @@ import com.xieyi.etoffice.databinding.GetUserLocationBinding
 class GetUserLocationAdapter(
     val list: List<UserLocationInfo>,
 ) : RecyclerView.Adapter<GetUserLocationAdapter.ViewHolder>() {
-    val TAG: String = javaClass.simpleName
+    val TAG: String = "GetUserLocationAdapter"
 
 
     inner class ViewHolder(binding: GetUserLocationBinding) : RecyclerView.ViewHolder(binding.root) {

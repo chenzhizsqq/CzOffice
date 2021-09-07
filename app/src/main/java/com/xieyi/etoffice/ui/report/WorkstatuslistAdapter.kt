@@ -10,7 +10,7 @@ import com.xieyi.etoffice.databinding.GetWorkStatusInfoBinding
 class WorkstatuslistAdapter(
     val list:  List<WorkStatusInfo>,
 ) : RecyclerView.Adapter<WorkstatuslistAdapter.ViewHolder>() {
-    val TAG:String = javaClass.simpleName
+    val TAG:String = "WorkstatuslistAdapter"
 
 
     inner class ViewHolder(binding: GetWorkStatusInfoBinding) : RecyclerView.ViewHolder(binding.root) {

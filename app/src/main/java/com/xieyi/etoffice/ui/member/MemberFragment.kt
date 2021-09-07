@@ -19,7 +19,7 @@ import com.xieyi.etoffice.databinding.FragmentMemberBinding
 class MemberFragment : Fragment(),
     SwipeRefreshLayout.OnRefreshListener {
 
-    private val TAG = javaClass.simpleName
+    private val TAG = "MemberFragment"
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView

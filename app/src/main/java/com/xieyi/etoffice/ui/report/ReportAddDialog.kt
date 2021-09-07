@@ -29,7 +29,7 @@ import com.xieyi.etoffice.databinding.DialogReportAddBinding
 
 
 class ReportAddDialog : DialogFragment(),View.OnClickListener{
-    private val TAG = javaClass.simpleName
+    private val TAG = "ReportAddDialog"
     private var _binding: DialogReportAddBinding? = null
     private val binding get() = _binding!!
     private lateinit var prefs:SharedPreferences
