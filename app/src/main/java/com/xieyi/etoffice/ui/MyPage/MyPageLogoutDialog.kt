@@ -39,7 +39,7 @@ class MyPageLogoutDialog : DialogFragment() {
 
             //消除所有的Activity
             val intent = Intent(activity, LoginActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK and Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 
             startActivity(intent)
             activity?.finish()
