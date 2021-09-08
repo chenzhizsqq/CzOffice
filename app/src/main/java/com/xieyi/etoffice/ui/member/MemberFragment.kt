@@ -53,6 +53,15 @@ class MemberFragment : Fragment(),
 
             }
         })
+
+        //只是测试用，以后删掉
+        binding.title.setOnClickListener {
+            val mMemberTelDialog = MemberTelDialog("08012345678")
+            val fragmentManager = this@MemberFragment.parentFragmentManager
+            fragmentManager.let { it1 -> mMemberTelDialog.show(it1, "mHomeStatusDialog") }
+        }
+        //只是测试用，以后删掉
+
         return binding.root
     }
 
