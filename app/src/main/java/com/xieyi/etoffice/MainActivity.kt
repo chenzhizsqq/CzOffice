@@ -14,17 +14,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.databinding.ActivityMainBinding
-import kotlinx.coroutines.*
 
 class MainActivity : BaseActivity() {
     val TAG: String = "MainActivity"
 
     private lateinit var binding: ActivityMainBinding
-
-    private val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        // 发生异常时的捕获
-    }
-
 
     //fragのリスト
     private val listFrag = ArrayList<Int>()
@@ -41,37 +35,6 @@ class MainActivity : BaseActivity() {
         if (!isNetworkConnected()){
             Tools.showMsg(binding.root,getString(R.string.network_no))
         }
-
-        //Jsonテスト   begin
-        GlobalScope.launch(errorHandler) {
-            withContext(Dispatchers.IO) {
-
-                //特別データ　テスト
-//                try {
-//                    var r:String ="-1"
-//                    r = pEtOfficeSetComment.post("20210802","ok")
-//                    Log.e(TAG,"EtOfficeSetComment infoJson:"
-//                            + pEtOfficeSetComment.infoJson().result.toString()
-//                    )
-//                    Log.e(TAG, "onCreate: pEtOfficeSetComment r:$r" )
-//                } catch (e: Exception) {
-//
-//                    Snackbar.make(view, "Error:$e", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null)
-//                        .show()
-//                    Log.e(TAG, "TAG", e)
-//                }
-
-                //全部データ　テスト
-                try {
-                    //testJson()
-                } catch (e: Exception) {
-                    Log.e(TAG, "testJson catch:$e")
-                }
-
-            }
-        }
-        //Jsonテスト   end
 
         val navView: BottomNavigationView = binding.navView
 
@@ -100,7 +63,6 @@ class MainActivity : BaseActivity() {
         listFrag.add(R.id.MyPageFragment)
 
         //初回登録Frag
-        //val index = EtOfficeApp.selectUi
         val index = Tools.sharedPreGetInt(Config.FragKey)
         selectFrag(index)
 
