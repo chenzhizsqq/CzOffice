@@ -37,6 +37,11 @@ class MainActivity : BaseActivity() {
         //gps検査する
         gpsCheck()
 
+        //Network検査
+        if (!isNetworkConnected()){
+            Tools.showMsg(binding.root,getString(R.string.network_no))
+        }
+
         //Jsonテスト   begin
         GlobalScope.launch(errorHandler) {
             withContext(Dispatchers.IO) {

@@ -101,6 +101,7 @@
     <string name="telephone_call_question">へ電話してよろしいでしょうか</string>
     <string name="telephone_number_call">電話をかける</string>
     <string name="telephone_number_Cancel">キャンセル</string>
+    <string name="network_no">ネットワークがありません</string>
 
 
 </resources>

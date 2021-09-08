@@ -8,10 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import com.xieyi.etoffice.Config
-import com.xieyi.etoffice.EtOfficeApp
-import com.xieyi.etoffice.MainActivity
-import com.xieyi.etoffice.R
+import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.LoginResultInfo
@@ -33,6 +30,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         binding.btnLogin.setOnClickListener(this)
 
+        if (!isNetworkConnected()){
+            Tools.showMsg(binding.root,getString(R.string.network_no))
+        }
     }
 
     override fun onClick(view: View?) {

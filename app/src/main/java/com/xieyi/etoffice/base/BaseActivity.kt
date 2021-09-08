@@ -9,6 +9,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.chepsi.callbackdemo.NetworkMonitor
+import com.chepsi.callbackdemo.Variables
 import com.xieyi.etoffice.Config.Companion.DOUBLE_CLICK_INTERVAL
 
 /**
@@ -28,6 +30,9 @@ open class BaseActivity : AppCompatActivity() {
 
         // タイトルバー非表示
         supportActionBar?.hide()
+
+        //network callback
+        NetworkMonitor(this).startNetworkCallback()
     }
 
     /**
@@ -95,4 +100,11 @@ open class BaseActivity : AppCompatActivity() {
         return false
     }
 
+    /**
+     * Network判断
+     * @return
+     */
+    open fun isNetworkConnected(): Boolean {
+        return Variables.isNetworkConnected
+    }
 }
