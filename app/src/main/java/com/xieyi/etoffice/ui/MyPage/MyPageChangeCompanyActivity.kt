@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.MyPage
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -114,12 +115,13 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
     // UI更新
     private fun EtOfficeGetTenantResult(result: TenantResult) {
-        //Log.e(TAG, "doOnUiRefresh: begin")
 
         //record_title
         val recordTitle = binding.recordTitle
-        val tenantid = EtOfficeApp.TenantId
-        val hpid = EtOfficeApp.HpId
+
+        val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+        val tenantid: String? = prefs.getString("tenantid", "")
+        val hpid: String? = prefs.getString("hpid", "")
         recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
         //returnHome
@@ -155,10 +157,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     private fun EtOfficeSetTenantResult(result: TenantResult) {
         for (i in result.tenantlist.indices) {
             if (result.tenantlist[i].startflg == "1") {
-                EtOfficeApp.TenantId = result.tenantlist[i].tenantid
-                EtOfficeApp.HpId = result.tenantlist[i].hpid
-
-
                 val userInfo = getSharedPreferences(Config.EtOfficeUser, MODE_PRIVATE)
                 val changeListener =
                     SharedPreferences.OnSharedPreferenceChangeListener { preferences, key ->

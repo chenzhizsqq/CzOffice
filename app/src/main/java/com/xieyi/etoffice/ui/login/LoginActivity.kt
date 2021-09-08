@@ -131,10 +131,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             putString("userid", user.userid)
             putBoolean("isLogin", true)
         }.apply()
-        EtOfficeApp.Token = user.token
-        EtOfficeApp.HpId = user.hpid
-        EtOfficeApp.TenantId = user.tenantid
-        EtOfficeApp.userid = user.userid
     }
 
 }
