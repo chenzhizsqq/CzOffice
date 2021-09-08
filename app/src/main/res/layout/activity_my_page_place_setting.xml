@@ -68,7 +68,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/title_my_page_place_setting"
-                            android:textSize="20sp"
+                            android:textSize="15sp"
                             android:textColor="#FFFFFF"
                             android:gravity="center"
                             />

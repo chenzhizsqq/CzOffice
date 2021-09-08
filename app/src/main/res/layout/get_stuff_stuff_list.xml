@@ -90,8 +90,8 @@
                     <TextView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
+                        android:gravity="center"
                         android:text="●"
                         android:textColor="@color/system_green" />
                     <TextView
