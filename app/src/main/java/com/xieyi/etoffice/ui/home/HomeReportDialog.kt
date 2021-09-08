@@ -11,10 +11,12 @@ import android.view.WindowManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.common.Api
-import com.xieyi.etoffice.common.model.StatusResult
+import com.xieyi.etoffice.common.model.StatusInfo
 import com.xieyi.etoffice.databinding.DialogHomeReportBinding
 
 
@@ -23,9 +25,10 @@ class HomeReportDialog : DialogFragment(),
     private val TAG: String = "HomeReportDialog"
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-
     private lateinit var mAdapter: GetStatusListAdapter
+    private var recordlist: List<StatusInfo> = ArrayList()
     private lateinit var binding: DialogHomeReportBinding
+    private var loading: Boolean = false
 
     override fun onCreateView(
         @NonNull inflater: LayoutInflater,
@@ -33,7 +36,6 @@ class HomeReportDialog : DialogFragment(),
         @Nullable savedInstanceState: Bundle?
     ): View {
         binding = DialogHomeReportBinding.inflate(inflater, container, false)
-
 
         //フルスクリーン　Full screen
         val window = dialog!!.window
@@ -50,33 +52,58 @@ class HomeReportDialog : DialogFragment(),
             dialog!!.dismiss()
         }
 
-        mSwipeRefreshLayout = binding.swipeRefreshLayout
-
-        // Listenerをセット
-        mSwipeRefreshLayout.setOnRefreshListener(this)
-
+        // リストビュー初期化
+        initRecycleView()
 
         EtOfficeGetStatusListPost()
 
         return binding.root
     }
 
+    /**
+     * リストビュー初期化
+     */
+    private fun initRecycleView() {
 
-    private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        mAdapter = GetStatusListAdapter(result.recordlist)
+        mSwipeRefreshLayout = binding.swipeRefreshLayout
+
+        // Listenerをセット
+        mSwipeRefreshLayout.setOnRefreshListener(this)
+
+        mAdapter = GetStatusListAdapter(recordlist)
         binding.recyclerView.adapter = mAdapter
 
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition: Int = layoutManager.findLastVisibleItemPosition()
+
+                if (lastVisibleItemPosition + 1 == binding.recyclerView.adapter?.itemCount && !loading) {
+                    loading = true
+                    Log.e(TAG, "EtOfficeGetStatusListPost calling 000...dx:" + dx + "   dy:" + dy)
+                    EtOfficeGetStatusListPost()
+                }
+            }
+        })
     }
 
     private fun EtOfficeGetStatusListPost() {
+        loading = true
+        Log.e(TAG, "EtOfficeGetStatusListPost calling...")
         Api.EtOfficeGetStatusList(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
-
                     when (model.status) {
                         0 -> {
-                            EtOfficeGetStatusListResult(model.result)
+                            mAdapter.updateData(model.result.recordlist)
+                            mAdapter.notifyDataSetChanged()
                         }
                         else -> {
                             Snackbar.make(
@@ -86,10 +113,14 @@ class HomeReportDialog : DialogFragment(),
                             ).show()
                         }
                     }
+                    loading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
+                    loading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
                     Log.e(TAG, "onFailure:$data")
                 }
             }
@@ -97,7 +128,7 @@ class HomeReportDialog : DialogFragment(),
     }
 
     override fun onRefresh() {
-        binding.swipeRefreshLayout.isRefreshing = false
+        Log.e(TAG, "EtOfficeGetStatusListPost calling...onRefresh")
         EtOfficeGetStatusListPost()
     }
 }

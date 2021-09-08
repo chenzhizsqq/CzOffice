@@ -14,12 +14,7 @@ class GetStatusListAdapter(
 ) : RecyclerView.Adapter<GetStatusListAdapter.ViewHolder>() {
     val TAG: String = "GetStatusListAdapter"
 
-    fun notifyDataChange( list: List<StatusInfo>) {
-        this.list = list
-        notifyDataSetChanged()
-    }
-
-    inner class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {
+    open class ViewHolder(binding: GetStatusListBinding) : RecyclerView.ViewHolder(binding.root) {
         val statusTime: TextView = binding.statusTime
         val status: TextView = binding.status
         val memo: TextView = binding.memo
@@ -38,8 +33,19 @@ class GetStatusListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.statusTime.text = Tools.allDateTime(list[position].statustime)
-        holder.status.text = list[position].statustext
-        holder.memo.text = list[position].memo
+        val info = list[position]
+
+        holder.statusTime.text = Tools.allDateTime(info.statustime)
+        holder.status.text = info.statustext
+        holder.memo.text = info.memo
+    }
+
+    /**
+     * データ更新
+     *
+     * @param list ステータスリスト
+     */
+    fun updateData(recordList: List<StatusInfo>) {
+        this.list = recordList
     }
 }
