@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -57,22 +58,32 @@ class HomeFragment : Fragment() {
         })
 
         binding.inWork.setOnClickListener {
+            buttonColorReset()
+            binding.tvOnDuty.setTextColor(Color.BLACK)
             showStatusDialog("1", getString(R.string.fragment_home_on_duty))
         }
 
         binding.outWork.setOnClickListener {
+            buttonColorReset()
+            binding.tvOutsideDuty.setTextColor(Color.BLACK)
             showStatusDialog("2", getString(R.string.fragment_home_outside_duty))
         }
 
         binding.sleep.setOnClickListener {
+            buttonColorReset()
+            binding.tvRest.setTextColor(Color.BLACK)
             showStatusDialog("3", getString(R.string.fragment_home_rest))
         }
 
         binding.moving.setOnClickListener {
+            buttonColorReset()
+            binding.tvMoving.setTextColor(Color.BLACK)
             showStatusDialog("4", getString(R.string.fragment_home_moving))
         }
 
         binding.meeting.setOnClickListener {
+            buttonColorReset()
+            binding.tvMeeting.setTextColor(Color.BLACK)
             showStatusDialog("5", getString(R.string.fragment_home_meeting))
         }
 
@@ -142,28 +153,6 @@ class HomeFragment : Fragment() {
     private fun EtOfficeGetUserStatusResult(result: UserStatusResult) {
         if (result.userstatuslist.size > 0) {
             binding.state.text = result.userstatuslist[0].statustext
-
-            when (result.userstatuslist[0].statustext) {
-                "勤務中" -> {
-                    binding.tvOnDuty.setTextColor(Color.BLACK)
-                }
-                "勤務外" -> {
-                    binding.tvOutsideDuty.setTextColor(Color.BLACK)
-
-                }
-                "休憩中" -> {
-                    binding.tvRest.setTextColor(Color.BLACK)
-
-                }
-                "移動中" -> {
-                    binding.tvMoving.setTextColor(Color.BLACK)
-
-                }
-                "会議中" -> {
-                    binding.tvMeeting.setTextColor(Color.BLACK)
-
-                }
-            }
 
         }
 
@@ -261,6 +250,17 @@ class HomeFragment : Fragment() {
                 dataPost()
             }
         })
+    }
+
+    /**
+     * すべてのボタンの色が標準の色に変わります。
+     */
+    private fun buttonColorReset() {
+        binding.tvOnDuty.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvOutsideDuty.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvRest.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvMoving.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvMeeting.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
     }
 
 }
