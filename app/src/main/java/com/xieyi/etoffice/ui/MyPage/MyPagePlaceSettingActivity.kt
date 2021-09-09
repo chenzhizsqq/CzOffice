@@ -5,12 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.InputType
 import android.util.Log
-import android.widget.EditText
+import androidx.fragment.app.FragmentManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
@@ -85,12 +83,12 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
 
-    private fun EtOfficeSetUserLocationPost(location: String) {
+    private fun EtOfficeSetUserLocationPost(location: String,longitude:String,latitude:String) {
         if (gpsTracker.canGetLocation()) {
             Api.EtOfficeSetUserLocation(
                 context = this@MyPagePlaceSettingActivity,
-                longitude = longitude.toString(),
-                latitude = latitude.toString(),
+                longitude = longitude,
+                latitude = latitude,
                 location = location,
                 onSuccess = { model ->
                     Handler(Looper.getMainLooper()).post {
@@ -143,26 +141,16 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         //locationAlertDialog
         binding.locationAlertDialog.setOnClickListener {
 
-            val textInputLayout = TextInputLayout(this@MyPagePlaceSettingActivity)
-            val input = EditText(this@MyPagePlaceSettingActivity)
-            input.maxLines = 1
-            input.inputType = InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
-            textInputLayout.addView(input)
+            val mMyPagePlaceDialog = MyPagePlaceDialog()
 
-            AlertDialog.Builder(this@MyPagePlaceSettingActivity)
-                .setTitle("Message")
-                .setMessage("Please enter an alias for the current location.")
-                .setView(textInputLayout)
-                .setPositiveButton("OK") { _, which ->
-                    //Log.e(TAG, "AlertDialog 确定:"+input.text.toString() )
+            val fm: FragmentManager = supportFragmentManager
+            fm.let { it1 -> mMyPagePlaceDialog.show(it1, "mMyPagePlaceDialog") }
 
-                    val location = input.text.toString()
-                    gpsCheck()
-                    EtOfficeSetUserLocationPost(location)
-
+            mMyPagePlaceDialog.setOnDialogListener(object : MyPagePlaceDialog.OnDialogListener {
+                override fun onClick(location: String,longitude:String,latitude:String) {
+                    EtOfficeSetUserLocationPost(location,longitude,latitude)
                 }
-                .show()
-
+            })
 
         }
 
