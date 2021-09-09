@@ -100,13 +100,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val username: String = binding.userName.text.toString()
         val password: String = binding.password.text.toString()
         if (username.isNullOrEmpty()) {
-            Snackbar.make(binding.userName, R.string.username_require, Snackbar.LENGTH_LONG)
-                .show()
+//            Snackbar.make(binding.userName, R.string.username_require, Snackbar.LENGTH_LONG)
+//                .show()
             return false
         }
         if (password.isNullOrEmpty()) {
-            Snackbar.make(binding.password, R.string.password_require, Snackbar.LENGTH_LONG)
-                .show()
+//            Snackbar.make(binding.password, R.string.password_require, Snackbar.LENGTH_LONG)
+//                .show()
             return false
         }
         return true
