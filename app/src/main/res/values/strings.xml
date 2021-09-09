@@ -105,6 +105,6 @@
     <string name="dialog_my_page_place_title">Message</string>
     <string name="dialog_my_page_place_message">Please enter an alias for the current location.</string>
     <string name="dialog_my_page_place_location_hint">This Location\'s Alias</string>
-
+    <string name="dateformat">%d%02d%02d</string>
 
 </resources>

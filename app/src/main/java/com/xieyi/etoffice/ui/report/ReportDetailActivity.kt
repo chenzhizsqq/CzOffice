@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.MainActivity
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
@@ -22,7 +24,7 @@ import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.*
 
 
-class ReportDetailActivity : BaseActivity() {
+class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     val TAG = "ReportDetailActivity"
 
@@ -210,6 +212,15 @@ class ReportDetailActivity : BaseActivity() {
 
             binding.messageEdit.text.clear()
         }
+
+        //record_date
+        binding.recordDate.setOnClickListener {
+            val year:Int = date.substring(0,4).toInt()
+            val month:Int = date.substring(4,6).toInt()
+            val day:Int = date.substring(6,8).toInt()
+            val newFragment = DatePick(year,month,day)
+            newFragment.show(supportFragmentManager, "datePicker")
+        }
     }
 
     private fun hideKeyboard(v: View) {
@@ -218,6 +229,12 @@ class ReportDetailActivity : BaseActivity() {
         if (imm.isActive) {
             imm.hideSoftInputFromWindow(v.applicationWindowToken, 0)
         }
+    }
+
+    override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        val selectDate = getString(R.string.dateformat, year, monthOfYear+1, dayOfMonth)
+        date = selectDate
+        EtOfficeGetReportInfoPost(date)
     }
 
 }
