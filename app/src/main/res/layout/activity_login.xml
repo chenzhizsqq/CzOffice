@@ -14,14 +14,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:padding="10dp"
+            android:padding="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="@string/login"
             android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/loginPic"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:padding="10dp"
             app:srcCompat="@mipmap/logo"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -33,12 +35,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="3dp"
+            android:textStyle="bold"
             android:text="@string/username"
             android:textColor="@color/black"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/loginPic"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+            android:layout_marginLeft="@dimen/login_horizontal_margin"
+            android:layout_marginRight="@dimen/login_horizontal_margin"/>
 
         <EditText
             android:id="@+id/user_name"
@@ -49,8 +54,8 @@
             android:inputType="text"
             android:background="@drawable/bg_edittext"
             app:layout_constraintTop_toBottomOf="@+id/label_userName"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/login_horizontal_margin"
+            android:layout_marginRight="@dimen/login_horizontal_margin"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <TextView
@@ -58,12 +63,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="bottom"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="3dp"
             android:text="@string/password"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_name"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+            android:layout_marginLeft="@dimen/login_horizontal_margin"
+            android:layout_marginRight="@dimen/login_horizontal_margin"/>
 
         <EditText
             android:id="@+id/password"
@@ -74,8 +82,8 @@
             android:textColor="@color/black"
             android:background="@drawable/bg_edittext"
             app:layout_constraintTop_toBottomOf="@+id/label_password"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/login_horizontal_margin"
+            android:layout_marginRight="@dimen/login_horizontal_margin"
             app:layout_constraintLeft_toLeftOf="parent"/>
 
         <Button
@@ -95,6 +103,7 @@
             android:layout_height="match_parent"
             android:gravity="center|bottom"
             android:text="@string/copyright_xieyi"
+            android:paddingBottom="10dp"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
