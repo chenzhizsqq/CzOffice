@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="OK"
+                android:text="@string/dialog_confirm_ok"
                 android:textColor="@color/md_blue_500"
                 android:textSize="20dp"
                 android:textStyle="bold" />
