@@ -30,6 +30,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/returnHome"
                     android:layout_width="1dp"
                     android:layout_weight="1"
                     android:layout_height="30dp"
@@ -38,7 +39,6 @@
                     >
 
                     <ImageView
-                        android:id="@+id/returnHome"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:gravity="center"
