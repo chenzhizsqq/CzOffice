@@ -14,6 +14,9 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
 import okhttp3.*
+import android.text.Editable
+import android.text.TextWatcher
+
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     val TAG: String = "LoginActivity"
@@ -27,11 +30,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             binding.userName.setText("demo1@xieyi.co.jp")
             binding.password.setText("pass")
         }
+        // 画面初期化
+        initView()
 
-        binding.btnLogin.setOnClickListener(this)
-
-        if (!isNetworkConnected()){
-            Tools.showMsg(binding.root,getString(R.string.network_no))
+        if (!isNetworkConnected()) {
+            Tools.showMsg(binding.root, getString(R.string.network_no))
         }
     }
 
@@ -44,6 +47,64 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     login()
                 }
             }
+        }
+    }
+
+    /**
+     * ビュー初期化
+     */
+    private fun initView() {
+        binding.btnLogin.setOnClickListener(this)
+
+        // 入力監視
+        binding.userName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                judgeLoginEnable()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+        binding.password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                judgeLoginEnable()
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
+
+        judgeLoginEnable()
+    }
+
+    /**
+     * ログイン可能かを判断
+     */
+    private fun judgeLoginEnable() {
+        if (binding.userName.text.toString().trim().isEmpty() || binding.password.text.toString()
+                .trim().isEmpty()
+        ) {
+            binding.btnLogin.isEnabled = false
+        } else {
+            binding.btnLogin.isEnabled = true
         }
     }
 
@@ -100,13 +161,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val username: String = binding.userName.text.toString()
         val password: String = binding.password.text.toString()
         if (username.isNullOrEmpty()) {
-//            Snackbar.make(binding.userName, R.string.username_require, Snackbar.LENGTH_LONG)
-//                .show()
             return false
         }
         if (password.isNullOrEmpty()) {
-//            Snackbar.make(binding.password, R.string.password_require, Snackbar.LENGTH_LONG)
-//                .show()
             return false
         }
         return true

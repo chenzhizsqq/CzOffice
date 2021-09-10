@@ -8,13 +8,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Config
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
+import com.xieyi.etoffice.ui.login.LoginActivity
 
 import kotlinx.coroutines.*
 
@@ -113,14 +116,40 @@ class MyPageFragment : Fragment() {
 
         //ログアウト
         binding.SYSTEMInfo.setOnClickListener(View.OnClickListener {
-
-            val mMyPageLogoutDialog = MyPageLogoutDialog()
-            val fragmentManager = this@MyPageFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mMyPageLogoutDialog.show(it1, "mMyPageLogoutDialog") }
-
+            activity?.let { it1 ->
+                Tools.showConfirmDialog(it1,
+                    getString(R.string.confirmation),
+                    getString(R.string.dialog_my_page_logout_confirm),
+                    yesListener = { _, _ ->
+                        // ログアウト
+                        logout()
+                    },
+                    noListener = { _, _ ->
+                        // 何もしない
+                    }
+                )
+            }
         })
     }
 
+    /**
+     * ログアウト処理
+     */
+    private fun logout() {
+        // 登録されたユーザ情報を削除
+        val userInfo = requireActivity().getSharedPreferences(
+            Config.EtOfficeUser,
+            AppCompatActivity.MODE_PRIVATE
+        )
+        userInfo?.edit()?.clear()?.commit()
+
+        //消除所有的Activity
+        val intent = Intent(activity, LoginActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        startActivity(intent)
+        activity?.finish()
+    }
 
     companion object {
         fun newInstance(): MyPageFragment {

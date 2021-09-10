@@ -2,7 +2,13 @@ package com.xieyi.etoffice
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
+import android.text.Layout
+import android.text.SpannableString
+import android.text.style.AlignmentSpan
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -259,5 +265,47 @@ object Tools {
         }
         //再将时间转换为对应格式字符串
         return SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(date)
+    }
+
+    /**
+     * 確認ダイアログ表示
+     *
+     * @param context
+     * @param message
+     * @param yesListener
+     * @param noListener
+     */
+    fun showConfirmDialog(
+        context: Context,
+        title: String,
+        message: String,
+        yesListener: DialogInterface.OnClickListener? = null,
+        noListener: DialogInterface.OnClickListener? = null
+    ) {
+        val alertBuilder = AlertDialog.Builder(context)
+        alertBuilder.setCancelable(false)
+
+        // タイトル
+        val title = SpannableString(context.getString(R.string.confirm))
+        title.setSpan(
+            AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
+            0,
+            title.length,
+            0
+        )
+        alertBuilder.setTitle(title)
+
+        // メッセージ
+        alertBuilder.setMessage(message)
+
+        // ボタン
+        alertBuilder.setPositiveButton(context.getString(R.string.yes), yesListener)
+        alertBuilder.setNeutralButton(context.getString(R.string.no), noListener)
+
+        // ダイアログ表示
+        val dialog = alertBuilder.create()
+        Handler(Looper.getMainLooper()).post {
+            dialog.show()
+        }
     }
 }
