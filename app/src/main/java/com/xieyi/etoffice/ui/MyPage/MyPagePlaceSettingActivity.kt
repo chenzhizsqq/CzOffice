@@ -29,15 +29,16 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     private lateinit var mAdapter: GetUserLocationAdapter
     private lateinit var binding: ActivityMyPagePlaceSettingBinding
 
-    private fun gpsCheck() {
+    private fun gpsCheck():Boolean {
 
-        gpsTracker = GpsTracker(applicationContext)
         if (gpsTracker.canGetLocation()) {
             latitude = gpsTracker.latitude
             longitude = gpsTracker.longitude
+            return true
         } else {
             gpsTracker.showSettingsAlert()
         }
+        return false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +46,12 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         binding = ActivityMyPagePlaceSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        EtOfficeGetUserLocationPost()
-
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
+
+        gpsTracker = GpsTracker(applicationContext)
+
+        EtOfficeGetUserLocationPost()
 
         gpsCheck()
 
@@ -141,16 +144,18 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         //locationAlertDialog
         binding.locationAlertDialog.setOnClickListener {
 
-            val mMyPagePlaceDialog = MyPagePlaceDialog()
+            if(gpsCheck()){
+                val mMyPagePlaceDialog = MyPagePlaceDialog()
 
-            val fm: FragmentManager = supportFragmentManager
-            fm.let { it1 -> mMyPagePlaceDialog.show(it1, "mMyPagePlaceDialog") }
+                val fm: FragmentManager = supportFragmentManager
+                fm.let { it1 -> mMyPagePlaceDialog.show(it1, "mMyPagePlaceDialog") }
 
-            mMyPagePlaceDialog.setOnDialogListener(object : MyPagePlaceDialog.OnDialogListener {
-                override fun onClick(location: String,longitude:String,latitude:String) {
-                    EtOfficeSetUserLocationPost(location,longitude,latitude)
-                }
-            })
+                mMyPagePlaceDialog.setOnDialogListener(object : MyPagePlaceDialog.OnDialogListener {
+                    override fun onClick(location: String,longitude:String,latitude:String) {
+                        EtOfficeSetUserLocationPost(location,longitude,latitude)
+                    }
+                })
+            }
 
         }
 
