@@ -2,13 +2,14 @@ package com.xieyi.etoffice.ui.member
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.StuffInfo
 import com.xieyi.etoffice.databinding.GetStuffStuffListBinding
 
@@ -51,12 +52,17 @@ class GetStuffStuffListAdapter(
         holder.tv_sectioncd.text = sectioncd
         holder.tv_sectionname.text = sectionname
 
-        holder.ll.setOnClickListener(View.OnClickListener {
-            val activity = context as FragmentActivity
-            val fm: FragmentManager = activity.supportFragmentManager
-            val mMemberTelDialog = MemberTelDialog(list[position].phone)
-            fm.let { it1 -> mMemberTelDialog.show(it1, "mMemberTelDialog") }
-        })
+        holder.ll.setOnClickListener {
+            //确定是否有电话号码
+            if (list[position].phone == "") {
+                Tools.showMsg(holder.ll, context.getString(R.string.no_telephone_number))
+            } else {
+                val activity = context as FragmentActivity
+                val fm: FragmentManager = activity.supportFragmentManager
+                val mMemberTelDialog = MemberTelDialog(list[position].phone)
+                fm.let { it1 -> mMemberTelDialog.show(it1, "mMemberTelDialog") }
+            }
+        }
 
     }
 }
