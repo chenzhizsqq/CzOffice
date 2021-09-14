@@ -198,6 +198,19 @@ class HomeFragment : Fragment() {
             mGetStatusListHomeAdapter.notifyDataChange(result.recordlist.subList(0, topTwo))
             binding.recyclerView.adapter = mGetStatusListHomeAdapter
         }
+
+        mGetStatusListHomeAdapter.setOnAdapterListener(object : GetStatusListHomeAdapter.OnAdapterListener {
+            override fun onClick() {
+                val mHomeReportDialog = HomeReportDialog()
+                val fragmentManager = this@HomeFragment.parentFragmentManager
+                fragmentManager.let { it1 ->
+                    mHomeReportDialog.show(
+                        it1,
+                        getString(R.string.HomeReportDialogTag)
+                    )
+                }
+            }
+        })
     }
 
     private fun EtOfficeGetMessagePost() {

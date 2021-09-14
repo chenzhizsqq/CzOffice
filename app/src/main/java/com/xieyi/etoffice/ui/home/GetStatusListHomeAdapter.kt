@@ -2,6 +2,7 @@ package com.xieyi.etoffice.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
@@ -23,6 +24,7 @@ class GetStatusListHomeAdapter(
         val statusTime: TextView = binding.statusTime
         val status: TextView = binding.status
         val memo: TextView = binding.memo
+        val ll: LinearLayout = binding.ll
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,5 +43,18 @@ class GetStatusListHomeAdapter(
         holder.statusTime.text = Tools.allDateTime(list[position].statustime)
         holder.status.text = list[position].statustext
         holder.memo.text = list[position].memo
+        holder.ll.setOnClickListener {
+            listener.onClick()
+        }
+    }
+
+    private lateinit var listener: OnAdapterListener
+
+    interface OnAdapterListener {
+        fun onClick()
+    }
+
+    fun setOnAdapterListener(adapterListener: OnAdapterListener) {
+        this.listener = adapterListener
     }
 }
