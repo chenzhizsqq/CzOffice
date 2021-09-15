@@ -100,6 +100,11 @@ class GetReportListGroupReportlistAdapter(
                 } else {
                     holder.checkbox.visibility = View.GONE
                 }
+
+                //编集页面行数据点击时，选中按钮可以切换选中状态，例如：默认状态未选中，点击行，切换到选中状态。
+                holder.ll.setOnClickListener {
+                    holder.checkbox.isChecked = !holder.checkbox.isChecked
+                }
             }else{
                 holder.checkbox_ll.minimumWidth = 0
                 holder.checkbox.visibility = View.GONE
