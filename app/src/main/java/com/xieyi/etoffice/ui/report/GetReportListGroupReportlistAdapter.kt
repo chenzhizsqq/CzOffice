@@ -38,6 +38,7 @@ class GetReportListGroupReportlistAdapter(
         val warning: TextView = binding.warning
         val checkbox: CheckBox = binding.checkbox
         val ll: LinearLayout = binding.ll
+        val checkbox_ll: LinearLayout = binding.checkboxLl
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -89,7 +90,20 @@ class GetReportListGroupReportlistAdapter(
         })
 
         viewModel.visibility.observe(lifecycleOwner, {
-            holder.checkbox.visibility = it
+            //holder.checkbox.visibility = it
+            if (it == View.VISIBLE)
+            {
+                holder.checkbox_ll.minimumWidth = 120
+                holder.checkbox.visibility = View.VISIBLE
+                if (holder.approval.text.isEmpty()) {
+                    holder.checkbox.visibility = View.VISIBLE
+                } else {
+                    holder.checkbox.visibility = View.GONE
+                }
+            }else{
+                holder.checkbox_ll.minimumWidth = 0
+                holder.checkbox.visibility = View.GONE
+            }
         })
 
         holder.checkbox.setOnCheckedChangeListener { _, isChecked ->

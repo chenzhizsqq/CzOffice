@@ -36,12 +36,20 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             >
-            <CheckBox
-                android:id="@+id/checkbox"
+            <LinearLayout
+                android:id="@+id/checkbox_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/ic_checkbox"
-                />
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <CheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/ic_checkbox"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
