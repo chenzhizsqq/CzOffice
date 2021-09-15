@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
@@ -199,6 +200,7 @@ class ReportFragment : Fragment(),
                 .setPositiveButton("确定") { _, which ->
                     if (viewModel.visibility.value == View.VISIBLE) {
                         EtOfficeSetApprovalJskPost(arrayListYmd)
+                        Tools.showMsg(binding.root, "承認しました")
                     }
                 }
                 .setNegativeButton("取消") { _, which ->
