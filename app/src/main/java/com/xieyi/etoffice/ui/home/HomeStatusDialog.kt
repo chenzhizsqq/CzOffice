@@ -1,13 +1,13 @@
 package com.xieyi.etoffice.ui.home
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
@@ -45,6 +45,19 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
         this.listener = dialogListener
     }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return object : Dialog(requireActivity(), theme) {
+            override fun dispatchTouchEvent(motionEvent: MotionEvent): Boolean {
+                // 点击屏幕空白区域，隐藏软键盘
+                if (currentFocus != null) {
+                    val inputMethodManager: InputMethodManager =
+                        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+                }
+                return super.dispatchTouchEvent(motionEvent)
+            }
+        }
+    }
 
     override fun onCreateView(
         @NonNull inflater: LayoutInflater,
