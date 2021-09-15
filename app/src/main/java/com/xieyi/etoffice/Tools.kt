@@ -11,10 +11,8 @@ import android.text.SpannableString
 import android.text.style.AlignmentSpan
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -167,18 +165,6 @@ object Tools {
             .show()
     }
 
-    fun changeList(arrayList:ArrayList<String>):String{
-        if(arrayList.size==0)return "[]"
-
-        var r = "["
-        for (a in arrayList){
-            r +="\"$a\","
-        }
-        r = r.substring(0,r.length-1)
-        r +="]"
-        return r
-    }
-
 
     fun msgAlertDialog(
         context:Context
@@ -189,26 +175,6 @@ object Tools {
         AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton(buttonMsg) { _, which ->
-            }
-            .show()
-    }
-
-    fun msgAlertDialog2(
-        context:Context
-        ,title:String
-        ,message:String
-        ,buttonMsg:String  ){
-
-        val textInputLayout = TextInputLayout(context)
-        val input = EditText(context)
-        textInputLayout.hint = "Email"
-        textInputLayout.addView(input)
-
-        AlertDialog.Builder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setView(textInputLayout)
             .setPositiveButton(buttonMsg) { _, which ->
             }
             .show()
