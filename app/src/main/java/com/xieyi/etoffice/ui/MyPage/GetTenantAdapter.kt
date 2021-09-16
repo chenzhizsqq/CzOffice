@@ -11,10 +11,15 @@ import com.xieyi.etoffice.common.model.TenantInfo
 import com.xieyi.etoffice.databinding.GetTenantListBinding
 
 
-class GetTenantAdapter(
-    val list: List<TenantInfo>,
-) : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
+class GetTenantAdapter() : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
     val TAG: String = "GetTenantAdapter"
+
+    lateinit var list: List<TenantInfo>
+
+    fun notifyDataSetChanged(list: List<TenantInfo>){
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     private lateinit var listener: OnAdapterListener
 

@@ -19,6 +19,7 @@ import com.xieyi.etoffice.common.model.TenantResult
 import com.xieyi.etoffice.databinding.ActivityMyPageChangeCompanyBinding
 import kotlinx.coroutines.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MyPageChangeCompanyActivity : BaseActivity(),
@@ -34,6 +35,22 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
         binding = ActivityMyPageChangeCompanyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        mAdapter = GetTenantAdapter()
+        mAdapter.notifyDataSetChanged(ArrayList())
+        binding.recyclerViewGetTenant.adapter = mAdapter
+
+
+        //returnHome
+        val returnHome = binding.returnHome
+        returnHome.setOnClickListener {
+
+            val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
 
         EtOfficeGetTenantPost()
 
@@ -124,24 +141,13 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         val hpid: String? = prefs.getString("hpid", "")
         recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
 
-        //returnHome
-        val returnHome = binding.returnHome
-        returnHome.setOnClickListener {
 
-            val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-
-        }
-
-
-        val recyclerView: RecyclerView = binding.recyclerViewGetTenant
 
         val sortedList = result.tenantlist.sortedWith(compareBy(
             { it.tenantid }, { it.tenantname }, { it.hpid }, { it.posturl }
         ))
         Collections.reverse(sortedList)
-        mAdapter = GetTenantAdapter(sortedList)
+        mAdapter.notifyDataSetChanged(sortedList)
 
 
         mAdapter.setOnAdapterListener(object : GetTenantAdapter.OnAdapterListener {
@@ -150,7 +156,6 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             }
         })
 
-        recyclerView.adapter = mAdapter
 
     }
 
