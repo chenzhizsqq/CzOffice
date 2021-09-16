@@ -93,6 +93,7 @@ class HomeFragment : Fragment() {
         binding.recyclerMessage.adapter = mGetMessageAdapter
 
         mGetStatusListHomeAdapter = GetStatusListHomeAdapter(ArrayList())
+        binding.recyclerView.adapter = mGetStatusListHomeAdapter
 
         //出勤記録を表示します
         binding.stateLayout.setOnClickListener {
@@ -199,7 +200,6 @@ class HomeFragment : Fragment() {
                 topTwo = result.recordlist.size
             }
             mGetStatusListHomeAdapter.notifyDataChange(result.recordlist.subList(0, topTwo))
-            binding.recyclerView.adapter = mGetStatusListHomeAdapter
         }
 
         mGetStatusListHomeAdapter.setOnAdapterListener(object : GetStatusListHomeAdapter.OnAdapterListener {
