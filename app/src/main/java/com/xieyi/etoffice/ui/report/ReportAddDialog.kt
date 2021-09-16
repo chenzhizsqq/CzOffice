@@ -36,6 +36,16 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
     private lateinit var viewModel: ReportAddViewModel
     private lateinit var pvOptions:OptionsPickerView<Any>
 
+    var listener: OnDialogListener? = null
+
+    interface OnDialogListener {
+        fun onClick()
+    }
+
+    fun setOnDialogListener(dialogListener: OnDialogListener) {
+        this.listener = dialogListener
+    }
+
     companion object {
         fun actionStart(fm: FragmentManager,reportDate:String){
             val bundle = Bundle()
@@ -245,6 +255,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             onSuccess = { data ->
                 Handler(Looper.getMainLooper()).post {
                     if (data.status == 0) {
+                        listener?.onClick()
                         dialog!!.dismiss()
                     } else {
                         Snackbar.make(binding.root, data.message,Snackbar.LENGTH_SHORT).show()

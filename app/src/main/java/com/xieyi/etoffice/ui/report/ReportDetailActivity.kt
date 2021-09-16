@@ -96,7 +96,17 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     //            val dialog: ReportAddDialog =
     //                ReportAddDialog.newInstance()
     //            dialog.show(fm, "ReportAddDialog")
-            ReportAddDialog.actionStart(fm, date)
+            //ReportAddDialog.actionStart(fm, date)
+            val bundle = Bundle()
+            bundle.putString("reportDate", date)
+            val reportAddDialog = ReportAddDialog()
+            reportAddDialog.arguments = bundle
+            reportAddDialog.show(fm, "ReportAddDialog")
+            reportAddDialog.setOnDialogListener(object : ReportAddDialog.OnDialogListener {
+                override fun onClick() {
+                    EtOfficeGetReportInfoPost(date)
+                }
+            })
         }
 
 
