@@ -10,7 +10,7 @@ import com.xieyi.etoffice.databinding.GetWorkStatusInfoBinding
 class WorkstatuslistAdapter : RecyclerView.Adapter<WorkstatuslistAdapter.ViewHolder>() {
     val TAG:String = "WorkstatuslistAdapter"
 
-    lateinit var list:  List<WorkStatusInfo>
+    private lateinit var list:  List<WorkStatusInfo>
 
     fun notifyDataSetChanged(list:  List<WorkStatusInfo>){
         this.list = list
