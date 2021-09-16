@@ -190,7 +190,7 @@ class HomeFragment : Fragment() {
     // GetStatusList UI更新
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
         if (result.recordlist.isNotEmpty()){
-            Collections.reverse(result.recordlist)
+            //Collections.reverse(result.recordlist)
             var topTwo = 2
             if (2 > result.recordlist.size) {
                 topTwo = result.recordlist.size
