@@ -88,8 +88,7 @@ class HomeFragment : Fragment() {
         }
 
 
-        mGetMessageAdapter = GetMessageAdapter()
-        mGetMessageAdapter.notifyDataChange(ArrayList())
+        mGetMessageAdapter = GetMessageAdapter(ArrayList())
         binding.recyclerMessage.adapter = mGetMessageAdapter
 
         mGetStatusListHomeAdapter = GetStatusListHomeAdapter(ArrayList())
@@ -193,7 +192,7 @@ class HomeFragment : Fragment() {
 
     // GetStatusList UI更新
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        if (result.recordlist.isNotEmpty()){
+        if (result.recordlist.isNotEmpty()) {
             //Collections.reverse(result.recordlist)
             var topTwo = 2
             if (2 > result.recordlist.size) {
@@ -202,7 +201,8 @@ class HomeFragment : Fragment() {
             mGetStatusListHomeAdapter.notifyDataChange(result.recordlist.subList(0, topTwo))
         }
 
-        mGetStatusListHomeAdapter.setOnAdapterListener(object : GetStatusListHomeAdapter.OnAdapterListener {
+        mGetStatusListHomeAdapter.setOnAdapterListener(object :
+            GetStatusListHomeAdapter.OnAdapterListener {
             override fun onClick() {
                 val mHomeReportDialog = HomeReportDialog()
                 val fragmentManager = this@HomeFragment.parentFragmentManager
@@ -269,11 +269,31 @@ class HomeFragment : Fragment() {
      * すべてのボタンの色が標準の色に変わります。
      */
     private fun buttonColorReset() {
-        binding.tvOnDuty.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
-        binding.tvOutsideDuty.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvOnDuty.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.md_blue_500
+            )
+        )
+        binding.tvOutsideDuty.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.md_blue_500
+            )
+        )
         binding.tvRest.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
-        binding.tvMoving.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
-        binding.tvMeeting.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvMoving.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.md_blue_500
+            )
+        )
+        binding.tvMeeting.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.md_blue_500
+            )
+        )
     }
 
 }
