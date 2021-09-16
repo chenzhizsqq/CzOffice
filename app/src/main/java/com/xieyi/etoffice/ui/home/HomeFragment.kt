@@ -88,7 +88,10 @@ class HomeFragment : Fragment() {
         }
 
 
-        mGetMessageAdapter = GetMessageAdapter(ArrayList())
+        mGetMessageAdapter = GetMessageAdapter()
+        mGetMessageAdapter.notifyDataChange(ArrayList())
+        binding.recyclerMessage.adapter = mGetMessageAdapter
+
         mGetStatusListHomeAdapter = GetStatusListHomeAdapter(ArrayList())
 
         //出勤記録を表示します
@@ -246,10 +249,7 @@ class HomeFragment : Fragment() {
 
     // Message UI更新
     private fun EtOfficeGetMessageResult(result: MessageResult) {
-
         mGetMessageAdapter.notifyDataChange(result.messagelist)
-        binding.recyclerMessage.adapter = mGetMessageAdapter
-
     }
 
     private fun showStatusDialog(statusvalue: String, statustext: String) {

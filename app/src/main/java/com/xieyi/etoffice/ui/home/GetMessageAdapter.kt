@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.GetMessageListBinding
+import java.util.ArrayList
 
 
-class GetMessageAdapter(
-    var list: List<MessageInfo>
-) : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
+class GetMessageAdapter : RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
     val TAG: String = "GetMessageAdapter"
 
+    private var list= ArrayList<MessageInfo>()
+
     fun notifyDataChange( list: List<MessageInfo>) {
-        this.list = list
+        this.list = list as ArrayList<MessageInfo>
         notifyDataSetChanged()
     }
 
