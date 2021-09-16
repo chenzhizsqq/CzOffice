@@ -44,15 +44,50 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         binding = ActivityMyPagePlaceSettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Listenerをセット
-        binding.swipeRefreshLayout.setOnRefreshListener(this)
-
-        gpsTracker = GpsTracker(this@MyPagePlaceSettingActivity)
+        init()
 
         EtOfficeGetUserLocationPost()
 
-        gpsCheck()
+    }
 
+    private fun init() {
+        // Listenerをセット
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
+
+        mAdapter = GetUserLocationAdapter(ArrayList())
+        binding.recyclerView.adapter = mAdapter
+
+        //record_title
+        binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGISTERED_title)
+
+        //returnpHome
+        binding.returnHome.setOnClickListener {
+            val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
+        //locationAlertDialog
+        binding.locationAlertDialog.setOnClickListener {
+
+            if (gpsCheck()) {
+                val mMyPagePlaceDialog = MyPagePlaceDialog()
+
+                val fm: FragmentManager = supportFragmentManager
+                fm.let { it1 -> mMyPagePlaceDialog.show(it1, "mMyPagePlaceDialog") }
+
+                mMyPagePlaceDialog.setOnDialogListener(object : MyPagePlaceDialog.OnDialogListener {
+                    override fun onClick(location: String, longitude: Double, latitude: Double) {
+                        EtOfficeSetUserLocationPost(location, longitude, latitude)
+                    }
+                })
+            }
+
+        }
+
+        gpsTracker = GpsTracker(this@MyPagePlaceSettingActivity)
+        gpsCheck()
     }
 
     private fun EtOfficeGetUserLocationPost() {
@@ -122,39 +157,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
     // EtOfficeGetUserLocationResult
     private fun EtOfficeGetUserLocationResult(result: UserLocationResult) {
-        //record_title
-        binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGISTERED_title)
-
-
-        mAdapter = GetUserLocationAdapter(result.locationlist)
-        binding.recyclerView.adapter = mAdapter
-
-        //returnpHome
-        binding.returnHome.setOnClickListener {
-            val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-
-        }
-
-        //locationAlertDialog
-        binding.locationAlertDialog.setOnClickListener {
-
-            if (gpsCheck()) {
-                val mMyPagePlaceDialog = MyPagePlaceDialog()
-
-                val fm: FragmentManager = supportFragmentManager
-                fm.let { it1 -> mMyPagePlaceDialog.show(it1, "mMyPagePlaceDialog") }
-
-                mMyPagePlaceDialog.setOnDialogListener(object : MyPagePlaceDialog.OnDialogListener {
-                    override fun onClick(location: String, longitude: Double, latitude: Double) {
-                        EtOfficeSetUserLocationPost(location, longitude, latitude)
-                    }
-                })
-            }
-
-        }
-
+        mAdapter.notifyDataSetChanged(result.locationlist)
     }
 
     override fun onRefresh() {

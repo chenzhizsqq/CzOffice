@@ -10,7 +10,7 @@ import com.xieyi.etoffice.databinding.GetUserLocationBinding
 
 
 class GetUserLocationAdapter(
-    val list: List<UserLocationInfo>,
+    var list: List<UserLocationInfo>,
 ) : RecyclerView.Adapter<GetUserLocationAdapter.ViewHolder>() {
     val TAG: String = "GetUserLocationAdapter"
 
@@ -34,5 +34,10 @@ class GetUserLocationAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.location.text = list[position].location
+    }
+
+    fun notifyDataSetChanged(list: List<UserLocationInfo>) {
+        this.list = list
+        notifyDataSetChanged()
     }
 }
