@@ -8,26 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.common.Api
-import com.xieyi.etoffice.common.model.StuffListResult
+import com.xieyi.etoffice.common.model.SectionInfo
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
 
 
-class MemberFragment : Fragment(),
-    SwipeRefreshLayout.OnRefreshListener {
+class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private val TAG = "MemberFragment"
-
-    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var mRecyclerView: RecyclerView
-
     private lateinit var mAdapter: GetStuffSectionListAdapter
-
     private lateinit var binding: FragmentMemberBinding
-
+    private var loading: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,29 +30,42 @@ class MemberFragment : Fragment(),
     ): View {
         binding = FragmentMemberBinding.inflate(inflater, container, false)
 
-        EtOfficeGetStuffListPost()
-
-        mSwipeRefreshLayout = binding.swipeRefreshLayout
-
         // Listenerをセット
-        mSwipeRefreshLayout.setOnRefreshListener(this)
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
 
-        mRecyclerView = binding.recyclerViewStuffList
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    if (!recyclerView.canScrollVertically(1)) {
-                    }
-                }
+        initRecyclerView()
 
-            }
-        })
+        EtOfficeGetStuffListPost()
 
         return binding.root
     }
 
+    private fun initRecyclerView() {
+        mAdapter = GetStuffSectionListAdapter(ArrayList<SectionInfo>(), requireActivity())
+        binding.recyclerViewStuffList.adapter = mAdapter
+
+        binding.recyclerViewStuffList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager =
+                    binding.recyclerViewStuffList.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition: Int = layoutManager.findLastVisibleItemPosition()
+
+                if (lastVisibleItemPosition + 1 == binding.recyclerViewStuffList.adapter?.itemCount && !loading) {
+                    loading = true
+                    Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
+                    EtOfficeGetStuffListPost()
+                }
+            }
+        })
+    }
+
     private fun EtOfficeGetStuffListPost() {
+        loading = true
         Api.EtOfficeGetStuffList(
             context = requireActivity(),
             onSuccess = { model ->
@@ -65,7 +73,7 @@ class MemberFragment : Fragment(),
 
                     when (model.status) {
                         0 -> {
-                            EtOfficeGetStuffListResult(model.result)
+                            mAdapter.notifyDataUpdateList(model.result.sectionlist)
                         }
                         else -> {
                             Snackbar.make(
@@ -75,27 +83,23 @@ class MemberFragment : Fragment(),
                             ).show()
                         }
                     }
+
+                    loading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data")
+                    loading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
             }
         )
     }
 
-
-    private fun EtOfficeGetStuffListResult(result: StuffListResult) {
-        val recyclerView: RecyclerView = binding.recyclerViewStuffList
-
-        mAdapter = GetStuffSectionListAdapter(result.sectionlist, requireActivity())
-        recyclerView.adapter = mAdapter
-
-    }
-
     override fun onRefresh() {
-        mSwipeRefreshLayout.isRefreshing = false
+        Log.d(TAG, "onRefresh calling ...")
         EtOfficeGetStuffListPost()
     }
 }

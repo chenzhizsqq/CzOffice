@@ -1,6 +1,5 @@
 package com.xieyi.etoffice.ui.MyPage
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -25,11 +24,10 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     private var latitude = 0.0
     private var longitude = 0.0
 
-
     private lateinit var mAdapter: GetUserLocationAdapter
     private lateinit var binding: ActivityMyPagePlaceSettingBinding
 
-    private fun gpsCheck():Boolean {
+    private fun gpsCheck(): Boolean {
 
         if (gpsTracker.canGetLocation()) {
             latitude = gpsTracker.latitude
@@ -49,7 +47,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
 
-        gpsTracker = GpsTracker(applicationContext)
+        gpsTracker = GpsTracker(this@MyPagePlaceSettingActivity)
 
         EtOfficeGetUserLocationPost()
 
@@ -85,8 +83,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         )
     }
 
-
-    private fun EtOfficeSetUserLocationPost(location: String,longitude:String,latitude:String) {
+    private fun EtOfficeSetUserLocationPost(location: String, longitude: Double, latitude: Double) {
         if (gpsTracker.canGetLocation()) {
             Api.EtOfficeSetUserLocation(
                 context = this@MyPagePlaceSettingActivity,
@@ -123,7 +120,6 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         }
     }
 
-
     // EtOfficeGetUserLocationResult
     private fun EtOfficeGetUserLocationResult(result: UserLocationResult) {
         //record_title
@@ -144,15 +140,15 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         //locationAlertDialog
         binding.locationAlertDialog.setOnClickListener {
 
-            if(gpsCheck()){
+            if (gpsCheck()) {
                 val mMyPagePlaceDialog = MyPagePlaceDialog()
 
                 val fm: FragmentManager = supportFragmentManager
                 fm.let { it1 -> mMyPagePlaceDialog.show(it1, "mMyPagePlaceDialog") }
 
                 mMyPagePlaceDialog.setOnDialogListener(object : MyPagePlaceDialog.OnDialogListener {
-                    override fun onClick(location: String,longitude:String,latitude:String) {
-                        EtOfficeSetUserLocationPost(location,longitude,latitude)
+                    override fun onClick(location: String, longitude: Double, latitude: Double) {
+                        EtOfficeSetUserLocationPost(location, longitude, latitude)
                     }
                 })
             }
@@ -160,7 +156,6 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         }
 
     }
-
 
     override fun onRefresh() {
         binding.swipeRefreshLayout.isRefreshing = false

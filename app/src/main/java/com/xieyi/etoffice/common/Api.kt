@@ -143,8 +143,8 @@ class Api {
             jsonObject.put("statusvalue", statusvalue)
             jsonObject.put("statustext", statustext)
             jsonObject.put("location", location)
-            jsonObject.put("longitude", longitude.toString())
-            jsonObject.put("latitude", latitude.toString())
+            jsonObject.put("longitude", String.format("%.6f", longitude))
+            jsonObject.put("latitude", String.format("%.6f", latitude))
             jsonObject.put("memo", memo)
 
             HttpUtil.callAsyncHttp(
@@ -215,8 +215,8 @@ class Api {
         @Suppress("UNCHECKED_CAST")
         fun EtOfficeSetUserLocation(
             context: Context,
-            longitude: String,
-            latitude: String,
+            longitude: Double,
+            latitude: Double,
             location: String,
             onSuccess: onSuccess<UserLocationModel>,
             onFailure: onFailure<ResultType, Any>
@@ -227,8 +227,8 @@ class Api {
             jsonObject.put("app", "EtOfficeSetUserLocation")
             setCommonParam(jsonObject)
 
-            jsonObject.put("longitude", longitude)
-            jsonObject.put("latitude", latitude)
+            jsonObject.put("longitude", String.format("%.6f", longitude))
+            jsonObject.put("latitude", String.format("%.6f", latitude))
             jsonObject.put("location", location)
 
             HttpUtil.callAsyncHttp(
@@ -345,8 +345,8 @@ class Api {
         fun EtOfficeGetMessage(
             context: Context,
             count: Int,
-            lasttime: String,
-            lastsubid: String,
+            lasttime: String? = null,
+            lastsubid: String? = null,
             onSuccess: onSuccess<MessageModel>,
             onFailure: onFailure<ResultType, Any>
         ) {
@@ -357,9 +357,11 @@ class Api {
             setCommonParam(jsonObject)
 
             jsonObject.put("count", count.toString())
-            jsonObject.put("lasttime", lasttime)
-            jsonObject.put("lastsubid", lastsubid)
 
+            if(lasttime != null) {
+                jsonObject.put("lasttime", lasttime!!)
+                jsonObject.put("lastsubid", lastsubid!!)
+            }
 
             HttpUtil.callAsyncHttp(
                 context = context,

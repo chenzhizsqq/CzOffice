@@ -2,8 +2,6 @@ package com.xieyi.etoffice.ui.MyPage
 
 import android.os.Bundle
 import android.view.*
-import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.databinding.DialogMyPagePlaceBinding
@@ -11,7 +9,7 @@ import com.xieyi.etoffice.databinding.DialogMyPagePlaceBinding
 /**
  * アドレスの追加
  */
-class MyPagePlaceDialog() : DialogFragment(){
+class MyPagePlaceDialog() : DialogFragment() {
     private val TAG: String = "MyPagePlaceDialog"
 
     private lateinit var binding: DialogMyPagePlaceBinding
@@ -22,7 +20,7 @@ class MyPagePlaceDialog() : DialogFragment(){
     var listener: OnDialogListener? = null
 
     interface OnDialogListener {
-        fun onClick(location: String,longitude:String,latitude:String)
+        fun onClick(location: String, longitude: Double, latitude: Double)
     }
 
     fun setOnDialogListener(dialogListener: OnDialogListener) {
@@ -30,9 +28,9 @@ class MyPagePlaceDialog() : DialogFragment(){
     }
 
     override fun onCreateView(
-        @NonNull inflater: LayoutInflater,
-        @Nullable container: ViewGroup?,
-        @Nullable savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = DialogMyPagePlaceBinding.inflate(inflater, container, false)
 
@@ -52,8 +50,8 @@ class MyPagePlaceDialog() : DialogFragment(){
             gpsCheck()
             listener?.onClick(
                 binding.location.text.toString(),
-                longitude.toString(),
-                latitude.toString()
+                longitude,
+                latitude
             )
             dialog!!.dismiss()
 

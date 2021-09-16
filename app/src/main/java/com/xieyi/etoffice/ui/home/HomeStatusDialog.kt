@@ -13,6 +13,7 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.GpsTracker
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
@@ -96,18 +97,27 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
             EtOfficeSetUserStatusPost(
                 longitude,
                 latitude,
-                binding.userLocation.toString(),
+                binding.userLocation.text.toString(),
                 mStatusvalue,
                 mStatustext,
-                binding.userStatusMemo.toString()
+                binding.userStatusMemo.text.toString()
             )
         }
 
         //set_user_location
         binding.setUserLocation.setOnClickListener {
+
+            if(binding.userLocation.text.toString().isEmpty()){
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.dialog_home_status_please_input_location),
+                    Snackbar.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
             EtOfficeSetUserLocationPost(binding.userLocation.text.toString())
         }
-
 
         return binding.root
     }
@@ -134,7 +144,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
 
                         when (model.status) {
                             0 -> {
-                                Tools.showMsg(binding.root, "登録します")
+                                //Tools.showMsg(binding.root, "更新しました。")
                             }
                             else -> {
                                 Snackbar.make(
@@ -162,14 +172,14 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
             Api.EtOfficeSetUserLocation(
                 context = requireActivity(),
                 location = location,
-                latitude = latitude.toString(),
-                longitude = longitude.toString(),
+                latitude = latitude,
+                longitude = longitude,
                 onSuccess = { model ->
                     Handler(Looper.getMainLooper()).post {
 
                         when (model.status) {
                             0 -> {
-                                Tools.showMsg(binding.root, "登録します")
+                                Tools.showMsg(binding.root, "地名を登録しました。")
                             }
                             else -> {
                                 Snackbar.make(

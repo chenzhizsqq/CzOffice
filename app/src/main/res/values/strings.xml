@@ -55,6 +55,7 @@
     <string name="dialog_home_report_close">close</string>
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
+    <string name="dialog_home_status_please_input_location">地名を入力してください。</string>
     <string name="dialog_home_status_btn_cancel_and_close">キャンセル</string>
     <string name="dialog_my_page_logout_title">Message</string>
     <string name="dialog_my_page_logout_content">Do you want to log out?</string>

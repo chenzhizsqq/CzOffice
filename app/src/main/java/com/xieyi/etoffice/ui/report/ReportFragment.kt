@@ -14,7 +14,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
@@ -172,9 +171,12 @@ class ReportFragment : Fragment(),
             binding.allSelect.visibility = it
             binding.commit.visibility = it
             if (it == View.GONE) {
-                binding.edit.text = EtOfficeApp.context.getString(R.string.Edit)
+                binding.edit.visibility = View.VISIBLE
+                binding.cancel.visibility = View.GONE
             } else if (it == View.VISIBLE) {
-                binding.edit.text = EtOfficeApp.context.getString(R.string.Cancel)
+                binding.cancel.visibility = View.VISIBLE
+                binding.edit.visibility = View.GONE
+                binding.cancel.text = EtOfficeApp.context.getString(R.string.Cancel)
             }
         })
 
@@ -182,6 +184,9 @@ class ReportFragment : Fragment(),
             viewModel.visibilityChange()
         })
 
+        binding.cancel.setOnClickListener(View.OnClickListener {
+            viewModel.visibilityChange()
+        })
 
         //commit click
         binding.commit.setOnClickListener {
@@ -200,7 +205,6 @@ class ReportFragment : Fragment(),
                 .setPositiveButton("确定") { _, which ->
                     if (viewModel.visibility.value == View.VISIBLE) {
                         EtOfficeSetApprovalJskPost(arrayListYmd)
-                        Tools.showMsg(binding.root, "承認しました")
                     }
                 }
                 .setNegativeButton("取消") { _, which ->

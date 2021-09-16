@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="tab_sel_color">#5558CD</color>
+    <color name="tab_normal_color">#949494</color>
+
     <color name="md_blue_200">#90CAF9</color>
     <color name="md_blue_500">#2196F3</color>
     <color name="md_blue_700">#1976D2</color>

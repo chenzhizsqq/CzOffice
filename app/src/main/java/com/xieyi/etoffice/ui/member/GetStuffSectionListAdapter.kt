@@ -47,4 +47,9 @@ class GetStuffSectionListAdapter(var list: ArrayList<SectionInfo>, val context: 
         this.list.addAll(sectionList)
         notifyDataSetChanged()
     }
+
+    fun notifyDataUpdateList(sectionList: ArrayList<SectionInfo>) {
+        this.list = sectionList
+        notifyDataSetChanged()
+    }
 }
