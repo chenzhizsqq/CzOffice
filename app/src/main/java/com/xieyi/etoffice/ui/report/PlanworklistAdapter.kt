@@ -7,11 +7,15 @@ import com.xieyi.etoffice.common.model.PlanWorkInfo
 import com.xieyi.etoffice.databinding.GetPlanWorkInfoBinding
 
 
-class PlanworklistAdapter(
-    val list:  List<PlanWorkInfo>,
-) : RecyclerView.Adapter<PlanworklistAdapter.ViewHolder>() {
+class PlanworklistAdapter : RecyclerView.Adapter<PlanworklistAdapter.ViewHolder>() {
     val TAG:String = "PlanworklistAdapter"
 
+    lateinit var  list:  List<PlanWorkInfo>
+
+    fun notifyDataSetChanged(list:  List<PlanWorkInfo>){
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: GetPlanWorkInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         val project: TextView = binding.project

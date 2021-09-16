@@ -21,26 +21,24 @@ import com.xieyi.etoffice.databinding.FragmentReportBinding
 import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ReportFragment : Fragment(),
     SwipeRefreshLayout.OnRefreshListener {
     private val TAG = "ReportFragment"
 
-
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
 
     private lateinit var mAdapter: GetReportListGroupAdapter
 
-
     private lateinit var binding: FragmentReportBinding
-
 
     private val arrayListYmd = ArrayList<String>()
 
-
     private lateinit var viewModel: ReportViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,6 +56,9 @@ class ReportFragment : Fragment(),
 
 
         mRecyclerView = binding.recyclerViewGetReport
+
+        mAdapter = GetReportListGroupAdapter()
+        mRecyclerView.adapter = mAdapter
 
         topMenu()
 
@@ -132,12 +133,11 @@ class ReportFragment : Fragment(),
 
     private fun EtOfficeGetReportListResult(result: ReportListResult) {
         viewModel.allSelectChangeFalse()
-        mAdapter = activity?.let {
-            GetReportListGroupAdapter(
+        activity?.let {
+            mAdapter.notifyDataSetChanged(
                 result.group, arrayListYmd, it, viewModel, viewLifecycleOwner
             )
-        }!!
-        mRecyclerView.adapter = mAdapter
+        }
 
 
         //allSelect click

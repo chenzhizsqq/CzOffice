@@ -10,11 +10,16 @@ import com.xieyi.etoffice.common.model.ReportInfo
 import com.xieyi.etoffice.databinding.GetReportListBinding
 
 
-class ReportListAdapter(
-    val list: List<ReportInfo>
-) : RecyclerView.Adapter<ReportListAdapter.ViewHolder>() {
+class ReportListAdapter : RecyclerView.Adapter<ReportListAdapter.ViewHolder>() {
     val TAG: String = "ReportListAdapter"
 
+
+    lateinit var list: List<ReportInfo>
+
+    fun notifyDataSetChanged(list: List<ReportInfo>){
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: GetReportListBinding) : RecyclerView.ViewHolder(binding.root) {
         val project: TextView = binding.project

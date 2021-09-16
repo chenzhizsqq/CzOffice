@@ -22,12 +22,12 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportResult
 import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
 import kotlinx.coroutines.*
+import java.util.*
 
 
 class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener {
 
     val TAG = "ReportDetailActivity"
-
 
     //検索の日付
     var date: String = ""
@@ -48,6 +48,29 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         binding = ActivityReportDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        init()
+
+        EtOfficeGetReportInfoPost(date)
+
+    }
+
+    private fun init() {
+        mPlanworklistAdapter = PlanworklistAdapter()
+        mPlanworklistAdapter.notifyDataSetChanged(ArrayList())
+        binding.recyclerViewPlanworklist.adapter = mPlanworklistAdapter
+
+        mWorkstatuslistAdapter = WorkstatuslistAdapter()
+        mWorkstatuslistAdapter.notifyDataSetChanged(ArrayList())
+        binding.recyclerViewWorkstatuslist.adapter = mWorkstatuslistAdapter
+
+        mReportListAdapter = ReportListAdapter()
+        mReportListAdapter.notifyDataSetChanged(ArrayList())
+        binding.recyclerViewReportlist.adapter = mReportListAdapter
+
+        mCommentListAdapter = CommentListAdapter()
+        mCommentListAdapter.notifyDataSetChanged(ArrayList())
+        binding.recyclerViewCommentlist.adapter = mCommentListAdapter
+
         val intent = intent
         date = intent.getStringExtra("ReportFragmentMessage").toString()
 
@@ -66,9 +89,50 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         )
 
 
-        EtOfficeGetReportInfoPost(date)
+        //ReportDetailFragment open
+        binding.addView.setOnClickListener {
+
+            val fm: FragmentManager = supportFragmentManager
+    //            val dialog: ReportAddDialog =
+    //                ReportAddDialog.newInstance()
+    //            dialog.show(fm, "ReportAddDialog")
+            ReportAddDialog.actionStart(fm, date)
+        }
 
 
+        //returnpHome
+        binding.returnHome.setOnClickListener {
+            val intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        }
+
+
+
+        binding.messageSend.setOnClickListener {
+
+            hideKeyboard(binding.messageEdit)
+
+            //EtOfficeSetComment
+            //データ更新
+            EtOfficeSetCommentPost(
+                date,
+                binding.messageEdit.text.toString()
+            )
+
+
+            binding.messageEdit.text.clear()
+        }
+
+        //record_date
+        binding.recordDate.setOnClickListener {
+            val year: Int = date.substring(0, 4).toInt()
+            val month: Int = date.substring(4, 6).toInt()
+            val day: Int = date.substring(6, 8).toInt()
+            val newFragment = DatePick(year, month, day)
+            newFragment.show(supportFragmentManager, "datePicker")
+        }
     }
 
 
@@ -108,27 +172,23 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
 
     private fun EtOfficePlanworklistResult(result: ReportResult) {
-        mPlanworklistAdapter = PlanworklistAdapter(result.planworklist)
-        binding.recyclerViewPlanworklist.adapter = mPlanworklistAdapter
+        mPlanworklistAdapter.notifyDataSetChanged(result.planworklist)
 
     }
 
 
     private fun EtOfficeGetStatusListResult(result: ReportResult) {
-        mWorkstatuslistAdapter = WorkstatuslistAdapter(result.workstatuslist)
-        binding.recyclerViewWorkstatuslist.adapter = mWorkstatuslistAdapter
+        mWorkstatuslistAdapter.notifyDataSetChanged(result.workstatuslist)
 
     }
 
     private fun EtOfficeGetReportlistResult(result: ReportResult) {
-        mReportListAdapter = ReportListAdapter(result.reportlist)
-        binding.recyclerViewReportlist.adapter = mReportListAdapter
+        mReportListAdapter.notifyDataSetChanged(result.reportlist)
 
     }
 
     private fun EtOfficeCommentlistResult(result: ReportResult) {
-        mCommentListAdapter = CommentListAdapter(result.commentlist)
-        binding.recyclerViewCommentlist.adapter = mCommentListAdapter
+        mCommentListAdapter.notifyDataSetChanged(result.commentlist)
 
     }
 
@@ -166,7 +226,6 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
     private fun EtOfficeGetReportInfoResult(result: ReportResult) {
 
-
         //検索の日付
         binding.recordDate.text = Tools.allDate(date)
 
@@ -176,51 +235,6 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         //実績：
         binding.worktime.text = result.worktime
 
-
-        //ReportDetailFragment open
-        binding.addView.setOnClickListener {
-
-            val fm: FragmentManager = supportFragmentManager
-//            val dialog: ReportAddDialog =
-//                ReportAddDialog.newInstance()
-//            dialog.show(fm, "ReportAddDialog")
-            ReportAddDialog.actionStart(fm, date)
-        }
-
-
-        //returnpHome
-        binding.returnHome.setOnClickListener {
-            val intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-
-        }
-
-
-
-        binding.messageSend.setOnClickListener {
-
-            hideKeyboard(binding.messageEdit)
-
-            //EtOfficeSetComment
-            //データ更新
-            EtOfficeSetCommentPost(
-                date,
-                binding.messageEdit.text.toString()
-            )
-
-
-            binding.messageEdit.text.clear()
-        }
-
-        //record_date
-        binding.recordDate.setOnClickListener {
-            val year:Int = date.substring(0,4).toInt()
-            val month:Int = date.substring(4,6).toInt()
-            val day:Int = date.substring(6,8).toInt()
-            val newFragment = DatePick(year,month,day)
-            newFragment.show(supportFragmentManager, "datePicker")
-        }
     }
 
     private fun hideKeyboard(v: View) {
@@ -232,7 +246,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     }
 
     override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        val selectDate = getString(R.string.dateformat, year, monthOfYear+1, dayOfMonth)
+        val selectDate = getString(R.string.dateformat, year, monthOfYear + 1, dayOfMonth)
         date = selectDate
         EtOfficeGetReportInfoPost(date)
     }

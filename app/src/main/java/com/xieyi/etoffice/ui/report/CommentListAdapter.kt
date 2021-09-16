@@ -9,11 +9,15 @@ import com.xieyi.etoffice.common.model.CommentInfo
 import com.xieyi.etoffice.databinding.GetCommentInfoBinding
 
 
-class CommentListAdapter(
-    val list: List<CommentInfo>,
-) : RecyclerView.Adapter<CommentListAdapter.ViewHolder>() {
+class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.ViewHolder>() {
     val TAG: String = "CommentListAdapter"
 
+    lateinit var list: List<CommentInfo>
+
+    fun notifyDataSetChanged(list: List<CommentInfo>){
+        this.list = list
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: GetCommentInfoBinding) : RecyclerView.ViewHolder(binding.root) {
         val username: TextView = binding.username
