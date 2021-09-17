@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/fragment_report_edit"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
 
             </LinearLayout>
