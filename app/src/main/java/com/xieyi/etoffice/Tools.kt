@@ -69,7 +69,12 @@ object Tools {
         return _data.substring(12, 14)
     }
 
-    //2021.07.15 16:56:56
+
+    /**
+     * 转换日期和时间的显示格式
+     *
+     * @param _data
+     */
     fun allDateTime(_data: String):String {
         var str = ""
         str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}" +
@@ -77,32 +82,21 @@ object Tools {
 
         return str
     }
+    //例子：输入：20210715165656     输出：2021.07.15 16:56:56
 
-    //2021.07.15
+
+    /**
+     * 转换日期的显示格式
+     *
+     * @param _data
+     */
     fun allDate(_data: String):String {
         var str = ""
         str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}"
 
         return str
     }
-
-
-
-    //array -> String Json
-    fun jsonArray2String(arrayString: Array<String>): String {
-        var r1:String = "["
-        for ((index, value) in arrayString.withIndex()) {
-            r1 += "\""
-            r1 += value
-            r1 += "\""
-            if (index<arrayString.size-1){
-                r1 += ","
-            }
-        }
-        r1+="],"
-        return r1
-    }
-
+    //例子：输入：20210715     输出：2021.07.15
 
 
     //long long log
@@ -134,19 +128,28 @@ object Tools {
 
     }
 
+    /**
+     * 获取现在的日期
+     *
+     * @param s:相隔字符
+     */
     fun getDate(s:String): String {
         if (android.os.Build.VERSION.SDK_INT >= 24){
             val pattern:String ="yyyy"+s+"MM"+s+"dd"
             return SimpleDateFormat(pattern).format(Date())
         }else{
             val tms = Calendar.getInstance()
-            return tms.get(Calendar.YEAR).toString() + "-" +
-                    tms.get(Calendar.MONTH).toString() + "-" +
+            return tms.get(Calendar.YEAR).toString() + s +
+                    tms.get(Calendar.MONTH).toString() + s +
                     tms.get(Calendar.DAY_OF_MONTH).toString()
         }
 
     }
 
+
+    /**
+     * 获取现在的日期
+     */
     fun getDate(): String {
         if (android.os.Build.VERSION.SDK_INT >= 24){
             return SimpleDateFormat("yyyyMMdd").format(Date())
@@ -159,6 +162,12 @@ object Tools {
 
     }
 
+    /**
+     * 显示消息
+     *
+     * @param view: View
+     * @param msg:String
+     */
     fun showMsg(view: View, msg:String){
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
             .setAction("Action", null)
@@ -180,6 +189,12 @@ object Tools {
             .show()
     }
 
+    /**
+     * 提交共享key的String
+     *
+     * @param key:String
+     * @param value:String
+     */
     fun sharedPrePut(key:String,value:String){
         val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, AppCompatActivity.MODE_PRIVATE)
 
@@ -189,12 +204,23 @@ object Tools {
         }.apply()
     }
 
+    /**
+     * 获取共享key的String
+     *
+     * @param key
+     */
     fun sharedPreGetString(key: String): String {
         val prefs =
             EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
         return prefs.getString(key, "")!!
     }
 
+    /**
+     * 提交共享key的int
+     *
+     * @param key
+     * @param value:Int
+     */
     fun sharedPrePut(key:String,value:Int){
         val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, AppCompatActivity.MODE_PRIVATE)
 
@@ -204,18 +230,29 @@ object Tools {
         }.apply()
     }
 
+    /**
+     * 获取共享key的int
+     *
+     * @param key
+     */
     fun sharedPreGetInt(key: String): Int {
         val prefs =
             EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
         return prefs.getInt(key, 0)
     }
 
+    /**
+     * 删除共享key
+     *
+     * @param key
+     */
     fun sharedPreRemove(key: String){
         val pref = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = pref.edit()
         editor.remove(key)
         editor.apply()
     }
+
     /**
      * 时间日期转换
      * @param strDate 字符串yyyyMMddHHmmss
