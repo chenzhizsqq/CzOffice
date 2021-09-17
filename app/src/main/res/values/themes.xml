@@ -40,4 +40,8 @@
         <item name="android:alpha">1.0</item>
     </style>
 
+    <style name="Button.iphone_button_color" parent="Theme.EtOffice">
+        <item name="colorAccent">@color/iphone_button_color</item>
+    </style>
+
 </resources>
