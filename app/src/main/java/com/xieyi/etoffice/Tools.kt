@@ -218,7 +218,7 @@ object Tools {
     /**
      * 提交共享key的int
      *
-     * @param key
+     * @param key:String
      * @param value:Int
      */
     fun sharedPrePut(key:String,value:Int){
@@ -233,7 +233,7 @@ object Tools {
     /**
      * 获取共享key的int
      *
-     * @param key
+     * @param key: String
      */
     fun sharedPreGetInt(key: String): Int {
         val prefs =
