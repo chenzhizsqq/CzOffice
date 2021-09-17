@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment"
     android:orientation="vertical"
-    android:background="@color/main_bg">
+    android:background="@color/iphone_main_bg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/top_menu_bg"
+            android:background="@color/iphone_top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <CheckBox
                 android:layout_width="wrap_content"

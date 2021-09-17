@@ -62,5 +62,5 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line_eeeeef"/>
+        android:background="@color/line_e7e7e7"/>
 </FrameLayout>

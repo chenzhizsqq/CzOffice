@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@color/main_bg">
+    android:background="@color/iphone_main_bg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/top_menu_bg"
+            android:background="@color/iphone_top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
             android:id="@+id/topLL"
@@ -169,7 +169,7 @@
                         android:gravity="center"
                         android:text="@string/fragment_home_on_duty"
                         android:textStyle="bold"
-                        android:textColor="@color/button_color" />
+                        android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
 
 
@@ -195,7 +195,7 @@
 
                         android:gravity="center"
                         android:text="@string/fragment_home_outside_duty"
-                        android:textColor="@color/button_color"
+                        android:textColor="@color/iphone_button_color"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -223,7 +223,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_rest"
-                        android:textColor="@color/button_color" />
+                        android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
 
 
@@ -250,7 +250,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_moving"
-                        android:textColor="@color/button_color" />
+                        android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
 
 
@@ -277,7 +277,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_meeting"
-                        android:textColor="@color/button_color" />
+                        android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
 
 

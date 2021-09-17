@@ -21,9 +21,10 @@
     <color name="system_green">#00FF00</color>
 
 <!--    iphone style-->
-    <color name="button_color">#5955CD</color>
-    <color name="top_menu_bg">#F7F7F7</color>
-    <color name="main_bg">#F2F2F6</color>
+    <color name="iphone_button_color">#5955CD</color>
+    <color name="iphone_top_menu_bg">#F7F7F7</color>
+    <color name="iphone_main_bg">#F2F2F6</color>
+    <color name="iphone_line_bg">#e7e7e7</color>
 
 
 
