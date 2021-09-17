@@ -76,11 +76,13 @@ class GetReportListGroupReportlistAdapter(
         holder.ll.setOnClickListener(View.OnClickListener {
             if (viewModel.visibility.value == View.GONE) {
                 Tools.sharedPrePut(Config.FragKey, 3)
-                //EtOfficeApp.selectUi = 3
                 val intent = Intent(activity, ReportDetailActivity::class.java)
                 intent.putExtra("ReportFragmentMessage", list[position].yyyymmdd)
                 activity.startActivity(intent)
                 activity.finish()
+            }else if(viewModel.visibility.value == View.VISIBLE){
+                //编集页面行数据点击时，选中按钮可以切换选中状态，例如：默认状态未选中，点击行，切换到选中状态。
+                holder.checkbox.isChecked = !holder.checkbox.isChecked
             }
 
         })
@@ -89,7 +91,7 @@ class GetReportListGroupReportlistAdapter(
             holder.checkbox.isChecked = it
         })
 
-        viewModel.visibility.observe(lifecycleOwner, {
+        viewModel.visibility.observe(lifecycleOwner, {it->
             //holder.checkbox.visibility = it
             if (it == View.VISIBLE)
             {
@@ -101,10 +103,6 @@ class GetReportListGroupReportlistAdapter(
                     holder.checkbox.visibility = View.GONE
                 }
 
-                //编集页面行数据点击时，选中按钮可以切换选中状态，例如：默认状态未选中，点击行，切换到选中状态。
-                holder.ll.setOnClickListener {
-                    holder.checkbox.isChecked = !holder.checkbox.isChecked
-                }
             }else{
                 holder.checkbox_ll.minimumWidth = 0
                 holder.checkbox.visibility = View.GONE
