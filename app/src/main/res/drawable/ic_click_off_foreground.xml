@@ -1,13 +1,13 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="40dp"
     android:height="40dp"
-    android:viewportWidth="80"
-    android:viewportHeight="80"
+    android:viewportWidth="100"
+    android:viewportHeight="100"
     android:tint="@color/iphone_button_color">
-  <group android:scaleX="2.3"
-      android:scaleY="2.3"
-      android:translateX="22.68"
-      android:translateY="22.68">
+  <group android:scaleX="3.0"
+      android:scaleY="3.0"
+      android:translateX="20"
+      android:translateY="20">
     <path
         android:fillColor="@android:color/white"
         android:pathData="M12,2C6.47,2 2,6.47 2,12s4.47,10 10,10 10,-4.47 10,-10S17.53,2 12,2zM12,20c-4.41,0 -8,-3.59 -8,-8s3.59,-8 8,-8 8,3.59 8,8 -3.59,8 -8,8z"/>
