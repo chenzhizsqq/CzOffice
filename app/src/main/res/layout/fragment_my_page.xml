@@ -74,11 +74,9 @@
 
                 <ImageView
                     android:id="@+id/imageView_MyPage_Logo"
-                    android:layout_width="99dp"
-                    android:layout_height="84dp"
-                    app:srcCompat="@drawable/ic_baseline_account_circle_24_blue"
-
-                    />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/mypage_sel"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
