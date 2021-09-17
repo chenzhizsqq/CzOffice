@@ -39,7 +39,7 @@
             android:paddingRight="10dp"
             android:id="@+id/recycler_view_get_report_reportlist"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layoutManager="LinearLayoutManager" />
     </LinearLayout>
 </FrameLayout>
