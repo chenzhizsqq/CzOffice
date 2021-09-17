@@ -48,7 +48,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/title_report"
                         android:textSize="15sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/iphone_button_color"
                         android:gravity="center|left"
                         />
 
@@ -116,7 +116,7 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/ic_round_edge_grey"
                     android:gravity="center"
-                    android:textColor="#000000"
+                    android:textColor="@color/iphone_button_color"
                     android:textSize="20sp" />
         <!--        予定：-->
                 <LinearLayout
@@ -198,7 +198,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:minHeight="100dp"
+                    android:minHeight="120dp"
                     android:gravity="center"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
@@ -231,7 +231,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_reportlist"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         app:layoutManager="LinearLayoutManager" />
                 </LinearLayout>

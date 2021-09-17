@@ -46,7 +46,7 @@
             />
         <TextView
             android:id="@+id/wbs"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="wbs"
@@ -54,7 +54,7 @@
             />
         <TextView
             android:id="@+id/time"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="time"
@@ -67,7 +67,7 @@
             android:inputType="textMultiLine"
             android:background="@null"
             android:gravity="left|center"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:text="memo"
             android:textColor="@color/black"
             tools:ignore="TextViewEdits" />
