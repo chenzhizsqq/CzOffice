@@ -23,8 +23,8 @@
     <color name="iphone_top_menu_bg">#F7F7F7</color>
     <color name="iphone_main_bg">#F2F2F6</color>
     <color name="iphone_line_bg">#E7E7E7</color>
-    <color name="iphone_view_bg">#E5E5E9</color>
     <color name="iphone_line_bg_dark">#DEDEDE</color>
+    <color name="iphone_view_bg">#E5E5E9</color>
     <!--    iphone style-->
 
 
