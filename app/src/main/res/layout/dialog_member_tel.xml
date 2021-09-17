@@ -32,6 +32,10 @@
             android:textStyle="bold"
             android:gravity="center"
             />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/iphone_line_bg_dark"/>
         <TextView
             android:id="@+id/call_tel"
             android:layout_width="match_parent"
