@@ -194,11 +194,13 @@ class HomeFragment : Fragment() {
     private fun EtOfficeGetStatusListResult(result: StatusResult) {
         if (result.recordlist.isNotEmpty()) {
             //Collections.reverse(result.recordlist)
-            var topTwo = 2
-            if (2 > result.recordlist.size) {
-                topTwo = result.recordlist.size
+            var fromIndex = result.recordlist.size - 2
+            if (fromIndex < 0) {
+                fromIndex = 0
             }
-            mGetStatusListHomeAdapter.notifyDataChange(result.recordlist.subList(0, topTwo))
+            mGetStatusListHomeAdapter.notifyDataChange(
+                result.recordlist.subList(fromIndex, result.recordlist.size)
+            )
         }
 
         mGetStatusListHomeAdapter.setOnAdapterListener(object :
