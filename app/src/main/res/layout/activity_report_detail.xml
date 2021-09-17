@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.report.ReportDetailActivity"
-    android:background="@color/line_eeeeef">
+    android:background="@color/main_bg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/button_color"
+            android:background="@color/top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
                 android:id="@+id/topLL"
@@ -48,7 +48,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/title_report"
                         android:textSize="15sp"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/black"
                         android:gravity="center|left"
                         />
 
@@ -66,7 +66,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/title_report"
                         android:textSize="20sp"
-                        android:textColor="#FFFFFF"
+                        android:textColor="@color/black"
                         android:gravity="center"
                         />
                 </LinearLayout>

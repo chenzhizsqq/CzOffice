@@ -20,7 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/button_color"
+            android:background="@color/top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
                 android:id="@+id/topLL"
@@ -41,7 +41,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/fragment_report_all_select"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="1dp"
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/fragment_report_commit"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="1dp"
@@ -72,7 +72,7 @@
                         android:textSize="20sp"
                         android:gravity="center"
                         android:text="@string/title_report"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="1dp"
@@ -100,7 +100,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        app:srcCompat="@drawable/edit_white" />
+                        app:srcCompat="@drawable/edit_black" />
                     <TextView
                         android:id="@+id/cancel"
                         android:visibility="gone"
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/fragment_report_edit"
-                        android:textColor="#FFFFFF" />
+                        android:textColor="@color/black" />
                 </LinearLayout>
 
             </LinearLayout>

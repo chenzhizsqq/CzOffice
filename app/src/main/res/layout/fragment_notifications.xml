@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment"
     android:orientation="vertical"
-    android:background="#EFEFF4">
+    android:background="@color/main_bg">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/button_color"
+            android:background="@color/top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <CheckBox
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="削除"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_gravity="left"
                 android:layout_marginRight="16dp"
                 android:textSize="18sp"
@@ -45,13 +45,13 @@
                 android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textSize="20sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/black"/>
             <TextView
                 android:id="@+id/edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/edit"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_gravity="right"
                 android:layout_marginRight="16dp"
                 android:textSize="18sp"

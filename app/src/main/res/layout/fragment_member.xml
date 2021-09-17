@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/button_color"
+            android:background="@color/top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
                 android:id="@+id/topLL"
@@ -34,7 +34,7 @@
                     android:textSize="20sp"
                     android:gravity="center"
                     android:text="@string/title_member_fragment"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
