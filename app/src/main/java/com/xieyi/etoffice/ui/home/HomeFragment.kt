@@ -274,26 +274,26 @@ class HomeFragment : Fragment() {
         binding.tvOnDuty.setTextColor(
             ContextCompat.getColor(
                 requireActivity(),
-                R.color.md_blue_500
+                R.color.button_color
             )
         )
         binding.tvOutsideDuty.setTextColor(
             ContextCompat.getColor(
                 requireActivity(),
-                R.color.md_blue_500
+                R.color.button_color
             )
         )
-        binding.tvRest.setTextColor(ContextCompat.getColor(requireActivity(), R.color.md_blue_500))
+        binding.tvRest.setTextColor(ContextCompat.getColor(requireActivity(), R.color.button_color))
         binding.tvMoving.setTextColor(
             ContextCompat.getColor(
                 requireActivity(),
-                R.color.md_blue_500
+                R.color.button_color
             )
         )
         binding.tvMeeting.setTextColor(
             ContextCompat.getColor(
                 requireActivity(),
-                R.color.md_blue_500
+                R.color.button_color
             )
         )
     }

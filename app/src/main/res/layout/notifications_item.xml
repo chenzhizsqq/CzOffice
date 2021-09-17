@@ -20,7 +20,7 @@
             app:hcb_is_check="false"
             app:hcb_style="hollow_out"
             app:hcb_line_width="1dp"
-            app:hcb_check_circle_color="@color/md_blue_500"
+            app:hcb_check_circle_color="@color/button_color"
             app:hcb_uncheck_circle_color="#818181"
             android:layout_marginRight="10dp"/>
 

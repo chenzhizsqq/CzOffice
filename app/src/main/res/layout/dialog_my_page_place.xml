@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/dialog_confirm_cancel"
-                android:textColor="@color/md_blue_500"
+                android:textColor="@color/button_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/dialog_confirm_ok"
-                android:textColor="@color/md_blue_500"
+                android:textColor="@color/button_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>

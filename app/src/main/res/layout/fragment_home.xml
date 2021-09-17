@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/md_blue_500"
+            android:background="@color/button_color"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
             android:id="@+id/topLL"
@@ -169,7 +169,7 @@
                         android:gravity="center"
                         android:text="@string/fragment_home_on_duty"
                         android:textStyle="bold"
-                        android:textColor="@color/md_blue_500" />
+                        android:textColor="@color/button_color" />
                 </LinearLayout>
 
 
@@ -180,6 +180,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/ic_round_edge_white"
                     android:gravity="center"
+                    android:layout_margin="4dp"
                     android:orientation="vertical">
 
                     <ImageView
@@ -194,7 +195,7 @@
 
                         android:gravity="center"
                         android:text="@string/fragment_home_outside_duty"
-                        android:textColor="@color/md_blue_500"
+                        android:textColor="@color/button_color"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -222,7 +223,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_rest"
-                        android:textColor="@color/md_blue_500" />
+                        android:textColor="@color/button_color" />
                 </LinearLayout>
 
 
@@ -249,7 +250,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_moving"
-                        android:textColor="@color/md_blue_500" />
+                        android:textColor="@color/button_color" />
                 </LinearLayout>
 
 
@@ -276,7 +277,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_meeting"
-                        android:textColor="@color/md_blue_500" />
+                        android:textColor="@color/button_color" />
                 </LinearLayout>
 
 
