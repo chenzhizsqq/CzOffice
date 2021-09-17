@@ -16,9 +16,15 @@
     <color name="md_blue_700">#1976D2</color>
     <color name="f0f0f0">#F0F0F0</color>
 
-    <color name="main_bg">#f2f2f7</color>
     <color name="line_eeeeef">#eeeeef</color>
     <color name="font_8e8e93">#8e8e93</color>
     <color name="system_green">#00FF00</color>
+
+<!--    iphone style-->
+    <color name="button_color">#5955CD</color>
+    <color name="top_menu_bg">#F7F7F7</color>
+    <color name="main_bg">#F2F2F6</color>
+
+
 
 </resources>
