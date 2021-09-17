@@ -102,6 +102,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                 mStatustext,
                 binding.userStatusMemo.text.toString()
             )
+            binding.userLocation.text.clear()
+            binding.userStatusMemo.text.clear()
         }
 
         //set_user_location
@@ -117,6 +119,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
             }
 
             EtOfficeSetUserLocationPost(binding.userLocation.text.toString())
+            binding.userLocation.text.clear()
+            binding.userStatusMemo.text.clear()
         }
 
         return binding.root
