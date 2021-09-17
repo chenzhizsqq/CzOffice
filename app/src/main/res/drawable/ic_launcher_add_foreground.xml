@@ -3,7 +3,7 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108"
-    android:tint="#FFFFFF">
+    android:tint="@color/iphone_button_color">
   <group android:scaleX="4.9068"
       android:scaleY="4.9068"
       android:translateX="-4.8816"
