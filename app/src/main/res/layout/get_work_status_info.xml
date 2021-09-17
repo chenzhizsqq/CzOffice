@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:height="30dp"
-            android:background="@color/f0f0f0"
+            android:background="@color/iphone_line_bg"
             android:text="time"
             android:textColor="@color/black"
             />
