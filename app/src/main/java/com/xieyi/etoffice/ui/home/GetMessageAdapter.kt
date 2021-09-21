@@ -9,7 +9,6 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.GetMessageListBinding
 import java.util.*
-//test
 
 class GetMessageAdapter(var list: List<MessageInfo>) :
     RecyclerView.Adapter<GetMessageAdapter.ViewHolder>() {
