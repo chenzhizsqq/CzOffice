@@ -17,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
-import com.xieyi.etoffice.common.model.StatusResult
 import com.xieyi.etoffice.common.model.UserStatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import kotlinx.coroutines.*
@@ -106,9 +105,21 @@ class HomeFragment : Fragment() {
                     getString(R.string.HomeReportDialogTag)
                 )
             }
-
-
         }
+
+        mGetStatusListHomeAdapter.setOnAdapterListener(object :
+            GetStatusListHomeAdapter.OnAdapterListener {
+            override fun onClick() {
+                val mHomeReportDialog = HomeReportDialog()
+                val fragmentManager = this@HomeFragment.parentFragmentManager
+                fragmentManager.let { it1 ->
+                    mHomeReportDialog.show(
+                        it1,
+                        getString(R.string.HomeReportDialogTag)
+                    )
+                }
+            }
+        })
 
 
         //ページを更新
@@ -121,7 +132,6 @@ class HomeFragment : Fragment() {
     //ページを更新
     private fun dataPost() {
         EtOfficeGetUserStatusPost()
-        EtOfficeGetStatusListPost()
         EtOfficeGetMessagePost()
     }
 
@@ -162,63 +172,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun EtOfficeGetStatusListPost() {
-        Api.EtOfficeGetStatusList(
-            context = requireActivity(),
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetStatusListResult(model.result)
-                        }
-                        else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
-                        }
-                    }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
-            }
-        )
-    }
-
-
-    // GetStatusList UI更新
-    private fun EtOfficeGetStatusListResult(result: StatusResult) {
-        if (result.recordlist.isNotEmpty()) {
-            //Collections.reverse(result.recordlist)
-            var fromIndex = result.recordlist.size - 2
-            if (fromIndex < 0) {
-                fromIndex = 0
-            }
-            mGetStatusListHomeAdapter.notifyDataChange(
-                result.recordlist.subList(fromIndex, result.recordlist.size)
-            )
-        }
-
-        mGetStatusListHomeAdapter.setOnAdapterListener(object :
-            GetStatusListHomeAdapter.OnAdapterListener {
-            override fun onClick() {
-                val mHomeReportDialog = HomeReportDialog()
-                val fragmentManager = this@HomeFragment.parentFragmentManager
-                fragmentManager.let { it1 ->
-                    mHomeReportDialog.show(
-                        it1,
-                        getString(R.string.HomeReportDialogTag)
-                    )
-                }
-            }
-        })
-    }
-
     private fun EtOfficeGetMessagePost() {
         Api.EtOfficeGetMessage(
             context = requireActivity(),
@@ -253,6 +206,9 @@ class HomeFragment : Fragment() {
     // Message UI更新
     private fun EtOfficeGetMessageResult(result: MessageResult) {
         mGetMessageAdapter.notifyDataChange(result.messagelist)
+
+        mGetStatusListHomeAdapter.notifyDataChange(result.recordlist)
+
     }
 
     private fun showStatusDialog(statusvalue: String, statustext: String) {
