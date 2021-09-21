@@ -90,6 +90,7 @@ class HomeFragment : Fragment() {
 
         mGetMessageAdapter = GetMessageAdapter(ArrayList())
         binding.recyclerMessage.adapter = mGetMessageAdapter
+        binding.recyclerMessage.isNestedScrollingEnabled = false
 
         mGetStatusListHomeAdapter = GetStatusListHomeAdapter(ArrayList())
         binding.recyclerView.adapter = mGetStatusListHomeAdapter
