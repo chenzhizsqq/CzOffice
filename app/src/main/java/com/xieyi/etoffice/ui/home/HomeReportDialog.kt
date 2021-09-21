@@ -44,7 +44,7 @@ class HomeReportDialog : DialogFragment(),
         window.attributes = attributes
 
         //类似iphone的，从下到上的动画效果
-        window.setWindowAnimations(R.style.BottomDialogAnimation);
+        window.setWindowAnimations(R.style.BottomDialogAnimation)
 
 
         //ボタン　保存後に閉じる
