@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
@@ -15,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.StatusInfo
 import com.xieyi.etoffice.databinding.DialogHomeReportBinding
@@ -41,9 +39,12 @@ class HomeReportDialog : DialogFragment(),
         val window = dialog!!.window
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
         val attributes = window.attributes
-        //attributes.gravity = Gravity.BOTTOM //下方
+        attributes.gravity = Gravity.BOTTOM //下方
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
         window.attributes = attributes
+
+        //类似iphone的，从下到上的动画效果
+        window.setWindowAnimations(R.style.BottomDialogAnimation);
 
 
         //ボタン　保存後に閉じる
