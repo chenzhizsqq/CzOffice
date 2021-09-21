@@ -70,6 +70,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         mCommentListAdapter = CommentListAdapter()
         mCommentListAdapter.notifyDataSetChanged(ArrayList())
         binding.recyclerViewCommentlist.adapter = mCommentListAdapter
+        binding.recyclerViewCommentlist.isNestedScrollingEnabled = false
 
         val intent = intent
         date = intent.getStringExtra("ReportFragmentMessage").toString()

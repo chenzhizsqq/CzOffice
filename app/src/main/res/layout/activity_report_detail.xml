@@ -85,10 +85,11 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollViewContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -105,7 +106,7 @@
             <LinearLayout
                 android:id="@+id/record_linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical">
         <!--        date-->
@@ -121,7 +122,7 @@
         <!--        予定：-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/iphone_view_bg"
                     android:padding="10dp"
                     android:orientation="horizontal">
@@ -236,7 +237,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_commentlist"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
 
@@ -249,7 +250,7 @@
             <!--内容-->
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
