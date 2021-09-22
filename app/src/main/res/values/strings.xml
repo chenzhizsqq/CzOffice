@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">EtOffice</string>
     <string name="title_activity_main">EtOffice</string>
+    <string name="error">エラー</string>
+    <string name="ok">ＯＫ</string>
     <string name="login">ログイン</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>

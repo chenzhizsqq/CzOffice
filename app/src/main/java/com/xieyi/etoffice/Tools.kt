@@ -311,4 +311,58 @@ object Tools {
             dialog.show()
         }
     }
+
+    /**
+     * エラーダイアログ表示
+     *
+     * @param context       コンテキスト
+     * @param message       メッセージ
+     * @param okListener    OKボタン押下時処理
+     */
+    fun showErrorDialog(
+        context: Context,
+        message: String,
+        okListener: DialogInterface.OnClickListener? = null
+    ) {
+
+        showAlertDialog(
+            context,
+            context.getString(R.string.error),
+            message,
+            okListener
+        )
+    }
+
+    /**
+     * アラートダイアログ表示
+     *
+     * @param context       コンテキスト
+     * @param title         タイトル
+     * @param message       メッセージ
+     * @param okListener    OKボタン押下時処理
+     */
+    fun showAlertDialog(
+        context: Context,
+        title: String,
+        message: String,
+        okListener: DialogInterface.OnClickListener? = null
+    ) {
+        val alertBuilder = AlertDialog.Builder(context)
+        alertBuilder.setCancelable(false)
+
+        // タイトル
+        alertBuilder.setTitle(title)
+
+        // メッセージ
+        alertBuilder.setMessage(message)
+
+        // ボタン
+        alertBuilder.setPositiveButton(context.getString(R.string.ok), okListener)
+
+        // ダイアログ表示
+        val alertDialog = alertBuilder.create()
+        Handler(Looper.getMainLooper()).post {
+            alertDialog.show()
+        }
+    }
 }
