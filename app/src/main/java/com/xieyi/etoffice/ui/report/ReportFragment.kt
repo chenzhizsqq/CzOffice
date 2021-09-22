@@ -60,6 +60,17 @@ class ReportFragment : Fragment(),
         mAdapter = GetReportListGroupAdapter()
         mRecyclerView.adapter = mAdapter
 
+
+        viewModel.liveDataLoading.observe(viewLifecycleOwner, {
+            if (it){
+                binding.swipeRefreshLayout.visibility = View.GONE
+                binding.llProgressbar.visibility = View.VISIBLE
+            }else{
+                binding.swipeRefreshLayout.visibility = View.VISIBLE
+                binding.llProgressbar.visibility = View.GONE
+            }
+        })
+
         topMenu()
 
         EtOfficeGetReportListPost("", "")
@@ -69,6 +80,7 @@ class ReportFragment : Fragment(),
 
 
     private fun EtOfficeGetReportListPost(startym: String, months: String) {
+        viewModel.mLoading.value = true
         Api.EtOfficeGetReportList(
             context = requireActivity(),
             startym = startym,
@@ -79,6 +91,12 @@ class ReportFragment : Fragment(),
                     when (model.status) {
                         0 -> {
                             EtOfficeGetReportListResult(model.result)
+                            try {
+                                Thread.sleep(1000)
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
+                            viewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {

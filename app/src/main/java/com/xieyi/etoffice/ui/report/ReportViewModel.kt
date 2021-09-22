@@ -37,4 +37,8 @@ class ReportViewModel : ViewModel() {
     fun isAllSelect(): Boolean? {
         return mAllSelect.value
     }
+
+    //绑定loading状态
+    val mLoading = MutableLiveData(false)
+    val liveDataLoading: LiveData<Boolean> = mLoading
 }
