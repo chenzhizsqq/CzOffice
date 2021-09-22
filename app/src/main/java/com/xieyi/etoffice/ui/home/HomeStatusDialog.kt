@@ -11,7 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -113,11 +112,11 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
         binding.setUserLocation.setOnClickListener {
 
             if(binding.userLocation.text.toString().isEmpty()){
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.dialog_home_status_please_input_location),
-                    Snackbar.LENGTH_LONG
-                ).show()
+                activity?.let { it1 ->
+                    Tools.showErrorDialog(
+                        it1,
+                        getString(R.string.dialog_home_status_please_input_location))
+                }
                 return@setOnClickListener
             }
 
@@ -154,11 +153,11 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                                 //Tools.showMsg(binding.root, "更新しました。")
                             }
                             else -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message)
+                                }
                             }
                         }
                     }
@@ -186,14 +185,20 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
 
                         when (model.status) {
                             0 -> {
-                                Tools.showMsg(binding.root, "地名を登録しました。")
+                                activity?.let {
+                                    Tools.showAlertDialog(
+                                        it,
+                                        "",
+                                        "地名を登録しました。"
+                                    )
+                                }
                             }
                             else -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message)
+                                }
                             }
                         }
                     }

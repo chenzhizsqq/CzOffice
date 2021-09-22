@@ -13,7 +13,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -164,11 +163,9 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                             EtOfficeCommentlistResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                model.message)
                         }
                     }
                 }
@@ -216,11 +213,9 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                             EtOfficeGetReportInfoPost(date)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                model.message)
                         }
                     }
                 }

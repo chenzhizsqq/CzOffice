@@ -127,18 +127,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                             finish()
                         }
                         1 -> {
-                            Snackbar.make(
-                                binding.userName,
-                                R.string.login_failed_msg1,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                getString(R.string.login_failed_msg1))
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.userName,
-                                R.string.login_failed_msg2,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                getString(R.string.login_failed_msg2))
                         }
                     }
                 }
@@ -146,11 +142,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data");
-                    Snackbar.make(
-                        binding.userName,
-                        R.string.login_failed_msg2,
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                    Tools.showErrorDialog(
+                        this,
+                        getString(R.string.login_failed_msg2))
                 }
             }
         )

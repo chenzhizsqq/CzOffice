@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
@@ -125,7 +124,9 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 }.show()
             }
         } else {
-            Snackbar.make(view, R.string.delete_message_require, Snackbar.LENGTH_SHORT).show()
+            activity?.let {
+                Tools.showErrorDialog(it, getString(R.string.delete_message_require))
+            }
             return
         }
     }
@@ -296,17 +297,18 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                                     }
                                 }
                             }
-                            Snackbar.make(
-                                binding.root,
-                                R.string.update_success,
-                                Snackbar.LENGTH_SHORT
-                            ).show()
+                            activity?.let {
+                                Tools.showAlertDialog(
+                                    it,
+                                    "",
+                                    getString(R.string.update_success)
+                                )
+                            }
                             activity?.runOnUiThread {
                                 adapter.notifyDataChange(viewModel.messageList, checkStatus)
                             }
                         } else {
-                            Snackbar.make(binding.delete, data.message, Snackbar.LENGTH_SHORT)
-                                .show()
+                            activity?.let { Tools.showErrorDialog(it, data.message) }
                         }
                     }
                 }

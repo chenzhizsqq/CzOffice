@@ -9,10 +9,10 @@ import android.os.Looper
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.MainActivity
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.TenantResult
@@ -82,11 +82,9 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                             EtOfficeGetTenantResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                model.message)
                         }
                     }
                 }
@@ -112,11 +110,9 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                             EtOfficeSetTenantResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                model.message)
                         }
                     }
                 }

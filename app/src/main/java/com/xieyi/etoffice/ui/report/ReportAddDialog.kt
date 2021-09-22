@@ -18,13 +18,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import com.bigkoo.pickerview.OptionsPickerView
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
-import com.xieyi.etoffice.common.model.ProjectModel
-import com.xieyi.etoffice.common.model.SetReportModel
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
 
 
@@ -161,7 +159,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             R.id.wbs_picker -> {
                 var projectcd = binding.projectCode.text.toString()
                 if (projectcd.isEmpty()) {
-                    Snackbar.make(view, R.string.project_require, Snackbar.LENGTH_SHORT).show()
+                    activity?.let { Tools.showErrorDialog(it, getString(R.string.project_require)) }
                     return
                 }
                 val dialog = OptionsPickerDialog()
@@ -186,17 +184,23 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             R.id.btn_save->{
                 var projectCd = binding.projectCode.text
                 if (projectCd.isEmpty()) {
-                    Snackbar.make(view,R.string.project_require,Snackbar.LENGTH_SHORT).show()
+                    activity?.let {
+                        Tools.showErrorDialog(it,getString(R.string.project_require))
+                    }
                     return
                 }
                 var wbsCode = binding.wbsCode.text
                 if (wbsCode.isEmpty()) {
-                    Snackbar.make(view,R.string.wbs_require,Snackbar.LENGTH_SHORT).show()
+                    activity?.let {
+                        Tools.showErrorDialog(it,getString(R.string.wbs_require))
+                    }
                     return
                 }
                 var worktime = binding.tvWorktime.text
                 if (worktime.isEmpty()) {
-                    Snackbar.make(view, R.string.workTime_require,Snackbar.LENGTH_SHORT).show()
+                    activity?.let {
+                        Tools.showErrorDialog(it, getString(R.string.workTime_require))
+                    }
                     return
                 }
                 sendSetReport()
@@ -258,7 +262,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                         listener?.onClick()
                         dialog!!.dismiss()
                     } else {
-                        Snackbar.make(binding.root, data.message,Snackbar.LENGTH_SHORT).show()
+                        activity?.let { Tools.showErrorDialog(it, data.message) }
                     }
                 }
             },

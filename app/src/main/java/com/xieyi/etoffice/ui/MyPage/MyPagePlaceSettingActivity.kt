@@ -7,7 +7,6 @@ import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
@@ -101,11 +100,9 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                             EtOfficeGetUserLocationResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            Tools.showErrorDialog(
+                                this,
+                                model.message)
                         }
                     }
                 }
@@ -130,16 +127,18 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
                         when (model.status) {
                             0 -> {
-                                Tools.showMsg(binding.root, "登録します")
+                                Tools.showAlertDialog(
+                                    this,
+                                    "",
+                                    "登録しました。"
+                                )
                                 EtOfficeGetUserLocationPost()
                             }
 
                             else -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    model.message,
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                                Tools.showErrorDialog(
+                                    this,
+                                    model.message)
                             }
                         }
                     }

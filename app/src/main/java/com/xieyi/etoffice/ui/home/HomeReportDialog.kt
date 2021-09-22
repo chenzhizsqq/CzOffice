@@ -11,8 +11,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.StatusInfo
 import com.xieyi.etoffice.databinding.DialogHomeReportBinding
@@ -107,11 +107,12 @@ class HomeReportDialog : DialogFragment(),
                             mAdapter.notifyDataSetChanged()
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            activity?.let {
+                                Tools.showErrorDialog(
+                                    it,
+                                    model.message,
+                                )
+                            }
                         }
                     }
                     loading = false

@@ -13,8 +13,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.R
+import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
 import com.xieyi.etoffice.common.model.UserStatusResult
@@ -146,11 +146,12 @@ class HomeFragment : Fragment() {
                             EtOfficeGetUserStatusResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            activity?.let {
+                                Tools.showErrorDialog(
+                                    it,
+                                    model.message
+                                )
+                            }
                         }
                     }
                 }
@@ -186,11 +187,12 @@ class HomeFragment : Fragment() {
                             EtOfficeGetMessageResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            activity?.let {
+                                Tools.showErrorDialog(
+                                    it,
+                                    model.message
+                                )
+                            }
                         }
                     }
                 }

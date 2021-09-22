@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -32,7 +31,6 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //Log.e(TAG, "onCreateView: begin")
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
 
         initView()
@@ -55,11 +53,12 @@ class MyPageFragment : Fragment() {
                             EtOfficeUserInfoResult(model.result)
                         }
                         else -> {
-                            Snackbar.make(
-                                binding.root,
-                                model.message,
-                                Snackbar.LENGTH_LONG
-                            ).show()
+                            activity?.let {
+                                Tools.showErrorDialog(
+                                    it,
+                                    model.message
+                                )
+                            }
                         }
                     }
                 }
