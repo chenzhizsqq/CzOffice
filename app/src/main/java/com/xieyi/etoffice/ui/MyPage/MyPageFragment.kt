@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -18,7 +19,6 @@ import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
 import com.xieyi.etoffice.ui.login.LoginActivity
 
-import kotlinx.coroutines.*
 
 
 class MyPageFragment : Fragment() {
@@ -26,12 +26,26 @@ class MyPageFragment : Fragment() {
     private val TAG: String = "MyPageFragment"
 
     private lateinit var binding: FragmentMyPageBinding
+    private lateinit var viewModel: MyPageViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
+
+        viewModel =
+            ViewModelProvider(this).get(MyPageViewModel::class.java)
+
+        viewModel.liveDataLoading.observe(viewLifecycleOwner, {
+            if (it){
+                binding.scrollViewContent.visibility = View.GONE
+                binding.llProgressbar.visibility = View.VISIBLE
+            }else{
+                binding.scrollViewContent.visibility = View.VISIBLE
+                binding.llProgressbar.visibility = View.GONE
+            }
+        })
 
         initView()
 
@@ -42,7 +56,7 @@ class MyPageFragment : Fragment() {
 
 
     private fun EtOfficeUserInfoPost() {
-
+        viewModel.mLoading.value = true
         Api.EtOfficeUserInfo(
             context = requireContext(),
             onSuccess = { model ->
@@ -51,6 +65,12 @@ class MyPageFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeUserInfoResult(model.result)
+                            try {
+                                Thread.sleep(1000)
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
+                            viewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {
