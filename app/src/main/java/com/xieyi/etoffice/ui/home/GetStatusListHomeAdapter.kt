@@ -6,16 +6,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.Tools
-import com.xieyi.etoffice.common.model.Recordlist
+import com.xieyi.etoffice.common.model.StatusInfo
 import com.xieyi.etoffice.databinding.GetStatusListHomeBinding
 
 
 class GetStatusListHomeAdapter(
-    var list: List<Recordlist>,
+    var list: List<StatusInfo>,
 ) : RecyclerView.Adapter<GetStatusListHomeAdapter.ViewHolder>() {
     val TAG: String = "GetStatusListHomeAdapter"
 
-    fun notifyDataChange(list: List<Recordlist>) {
+    fun notifyDataChange(list: List<StatusInfo>) {
         this.list = list
         notifyDataSetChanged()
     }
