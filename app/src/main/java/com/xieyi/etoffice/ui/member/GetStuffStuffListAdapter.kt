@@ -55,7 +55,7 @@ class GetStuffStuffListAdapter(
         holder.ll.setOnClickListener {
             //确定是否有电话号码
             if (list[position].phone == "") {
-                Tools.showMsg(holder.ll, context.getString(R.string.no_telephone_number))
+                Tools.showErrorDialog(context, context.getString(R.string.no_telephone_number))
             } else {
                 val activity = context as FragmentActivity
                 val fm: FragmentManager = activity.supportFragmentManager
