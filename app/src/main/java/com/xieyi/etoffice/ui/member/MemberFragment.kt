@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,12 +24,25 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var mAdapter: GetStuffSectionListAdapter
     private lateinit var binding: FragmentMemberBinding
     private var loading: Boolean = false
+    private lateinit var viewModel: MemberViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMemberBinding.inflate(inflater, container, false)
+
+        viewModel =
+            ViewModelProvider(this).get(MemberViewModel::class.java)
+        viewModel.liveDataLoading.observe(viewLifecycleOwner, {
+            if (it){
+                binding.swipeRefreshLayout.visibility = View.GONE
+                binding.llProgressbar.visibility = View.VISIBLE
+            }else{
+                binding.swipeRefreshLayout.visibility = View.VISIBLE
+                binding.llProgressbar.visibility = View.GONE
+            }
+        })
 
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
@@ -66,6 +80,7 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun EtOfficeGetStuffListPost() {
         loading = true
+        viewModel.mLoading.value = true
         Api.EtOfficeGetStuffList(
             context = requireActivity(),
             onSuccess = { model ->
@@ -74,6 +89,12 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                     when (model.status) {
                         0 -> {
                             mAdapter.notifyDataUpdateList(model.result.sectionlist)
+                            try {
+                                Thread.sleep(1000)
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
+                            viewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {
