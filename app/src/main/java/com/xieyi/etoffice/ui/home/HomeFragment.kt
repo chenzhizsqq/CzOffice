@@ -43,21 +43,21 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val textCompanyTitle: TextView = binding.textCompanyTitle
-        homeViewModel.companyTitle.observe(viewLifecycleOwner, Observer {
+        homeViewModel.companyTitle.observe(viewLifecycleOwner, {
             textCompanyTitle.text = it
         })
 
         val textDate: TextView = binding.textTime
-        homeViewModel.date.observe(viewLifecycleOwner, Observer {
+        homeViewModel.date.observe(viewLifecycleOwner, {
             textDate.text = it
         })
 
-        homeViewModel.liveDataLoading.observe(viewLifecycleOwner, Observer {
+        homeViewModel.liveDataLoading.observe(viewLifecycleOwner, {
             if (it){
-                binding.content.visibility = View.GONE
+                binding.scrollViewContent.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
             }else{
-                binding.content.visibility = View.VISIBLE
+                binding.scrollViewContent.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
         })
@@ -137,7 +137,6 @@ class HomeFragment : Fragment() {
 
     //ページを更新
     private fun dataPost() {
-        homeViewModel.mLoading.value = true
         EtOfficeGetUserStatusPost()
         EtOfficeGetMessagePost()
     }
@@ -181,6 +180,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun EtOfficeGetMessagePost() {
+        homeViewModel.mLoading.value = true
         Api.EtOfficeGetMessage(
             context = requireActivity(),
             count = 5,
