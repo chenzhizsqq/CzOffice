@@ -24,16 +24,12 @@ import java.util.*
 
 
 class HomeFragment : Fragment() {
-    private lateinit var homeViewModel: HomeViewModel
-
     private val TAG = "HomeFragment"
 
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var mGetMessageAdapter: GetMessageAdapter
     private lateinit var mGetStatusListHomeAdapter: GetStatusListHomeAdapter
-
-
     private lateinit var binding: FragmentHomeBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +50,14 @@ class HomeFragment : Fragment() {
         val textDate: TextView = binding.textTime
         homeViewModel.date.observe(viewLifecycleOwner, Observer {
             textDate.text = it
+        })
+
+        homeViewModel.liveDataLoading.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.progressbar.visibility = android.widget.ProgressBar.VISIBLE
+            }else{
+                binding.progressbar.visibility = android.widget.ProgressBar.GONE
+            }
         })
 
         binding.inWork.setOnClickListener {
@@ -131,6 +135,7 @@ class HomeFragment : Fragment() {
 
     //ページを更新
     private fun dataPost() {
+        homeViewModel.mLoading.value = true
         EtOfficeGetUserStatusPost()
         EtOfficeGetMessagePost()
     }
@@ -185,6 +190,7 @@ class HomeFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetMessageResult(model.result)
+                            homeViewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {
@@ -208,7 +214,6 @@ class HomeFragment : Fragment() {
     // Message UI更新
     private fun EtOfficeGetMessageResult(result: MessageResult) {
         mGetMessageAdapter.notifyDataChange(result.messagelist)
-
         mGetStatusListHomeAdapter.notifyDataChange(result.recordlist)
 
     }

@@ -17,4 +17,8 @@ class HomeViewModel : ViewModel() {
         value = Tools.getDate(".")
     }
     val date: LiveData<String> = _date
+
+    //绑定loading状态
+    val mLoading = MutableLiveData(false)
+    val liveDataLoading: LiveData<Boolean> = mLoading
 }
