@@ -63,6 +63,16 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
         initRecyclerView()
 
+        viewModel.liveDataLoading.observe(viewLifecycleOwner, {
+            if (it){
+                binding.swipeRefreshLayout.visibility = View.GONE
+                binding.llProgressbar.visibility = View.VISIBLE
+            }else{
+                binding.swipeRefreshLayout.visibility = View.VISIBLE
+                binding.llProgressbar.visibility = View.GONE
+            }
+        })
+
         getMessageRequest(false)
 
         return binding.root
@@ -148,6 +158,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             lastsubid = viewModel.lastsubid
         }
 
+        viewModel.mLoading.value = true
         Api.EtOfficeGetMessage(
             context = requireContext(),
             lasttime = lasttime,
@@ -167,6 +178,13 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
                     binding.swipeRefreshLayout.isRefreshing = false
                     loading = false
+
+                    try {
+                        Thread.sleep(1000)
+                    } catch (e: InterruptedException) {
+                        e.printStackTrace()
+                    }
+                    viewModel.mLoading.value = false
                 }
             },
             onFailure = { error, data ->
