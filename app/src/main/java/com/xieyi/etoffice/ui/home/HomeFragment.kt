@@ -54,9 +54,11 @@ class HomeFragment : Fragment() {
 
         homeViewModel.liveDataLoading.observe(viewLifecycleOwner, Observer {
             if (it){
-                binding.progressbar.visibility = android.widget.ProgressBar.VISIBLE
+                binding.content.visibility = View.GONE
+                binding.llProgressbar.visibility = View.VISIBLE
             }else{
-                binding.progressbar.visibility = android.widget.ProgressBar.GONE
+                binding.content.visibility = View.VISIBLE
+                binding.llProgressbar.visibility = View.GONE
             }
         })
 
@@ -190,6 +192,11 @@ class HomeFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetMessageResult(model.result)
+                            try {
+                                Thread.sleep(1000)
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
                             homeViewModel.mLoading.value = false
                         }
                         else -> {
