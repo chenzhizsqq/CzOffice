@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
 
         //Network検査
         if (!isNetworkConnected()){
-            Tools.showMsg(binding.root,getString(R.string.network_no))
+            Tools.showErrorDialog(this,getString(R.string.network_no))
         }
 
         val navView: BottomNavigationView = binding.navView
