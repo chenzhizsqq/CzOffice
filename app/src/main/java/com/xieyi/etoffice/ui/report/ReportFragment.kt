@@ -225,23 +225,22 @@ class ReportFragment : Fragment(),
 
         if (arrayListYmd.size > 0) {
             AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
-                .setTitle("消息")
-                .setMessage("現在選択されている情報を承認しますか？")
-                .setPositiveButton("确定") { _, which ->
+                .setTitle(R.string.CONFIRM)
+                .setMessage(R.string.MSG18)
+                .setPositiveButton(R.string.OK) { _, which ->
                     if (viewModel.visibility.value == View.VISIBLE) {
                         EtOfficeSetApprovalJskPost(arrayListYmd)
                     }
                 }
-                .setNegativeButton("取消") { _, which ->
+                .setNegativeButton(R.string.CANCEL) { _, which ->
                 }
                 .show()
         } else {
-            AlertDialog.Builder(activity) // FragmentではActivityを取得して生成
-                .setTitle("消息")
-                .setMessage("まだ選択していません。選択してください。")
-                .setPositiveButton("确定") { _, which ->
+            activity?.let {
+                activity?.let {
+                    Tools.showErrorDialog(it, getString(R.string.MSG19))
                 }
-                .show()
+            }
         }
     }
 
