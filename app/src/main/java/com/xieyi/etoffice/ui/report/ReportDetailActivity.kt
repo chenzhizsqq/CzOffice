@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.MainActivity
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -20,7 +21,6 @@ import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportResult
 import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
-import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -146,11 +146,19 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         }
 
         //出勤記録を表示します
-        binding.people.setOnClickListener {
-            val mHomeReportDialog = HomeReportDialog()
+//        binding.people.setOnClickListener {
+//            val mHomeReportDialog = HomeReportDialog()
+//
+//            val fragmentManager = this@ReportDetailActivity.supportFragmentManager
+//            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+//        }
 
-            val fragmentManager = this@ReportDetailActivity.supportFragmentManager
-            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+        //メンバーページに切り替えます
+        binding.people.setOnClickListener {
+            Tools.sharedPrePut(Config.FragKey, 2)
+            val intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

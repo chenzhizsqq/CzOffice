@@ -6,9 +6,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
-import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
@@ -179,11 +179,16 @@ class ReportFragment : Fragment(),
     private fun topMenu() {
 
         //出勤記録を表示します
-        binding.people.setOnClickListener {
-            val mHomeReportDialog = HomeReportDialog()
+//        binding.people.setOnClickListener {
+//            val mHomeReportDialog = HomeReportDialog()
+//
+//            val fragmentManager = this@ReportFragment.parentFragmentManager
+//            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+//        }
 
-            val fragmentManager = this@ReportFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
+        //メンバーページに切り替えます
+        binding.people.setOnClickListener { view ->
+            Navigation.findNavController(view).navigate(R.id.member_fragment)
         }
 
 
