@@ -10,7 +10,6 @@
     <string name="title_report">日報</string>
     <string name="title_my_page">マイページ</string>
     <string name="title_my_page_change_company">切り替え</string>
-    <string name="title_report_detail">日報詳しい</string>
     <string name="title_member_fragment">メンバー</string>
     <string name="change_company_title">切り替え</string>
     <string name="title_report_add">日報追加</string>
@@ -37,14 +36,12 @@
     <string name="dialog_home_report_close">close</string>
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
-    <string name="dialog_home_status_please_input_location">地名を入力してください。</string>
-    <string name="fragment_home_title">ホーム</string>
     <string name="fragment_home_common_function">共通機能</string>
     <string name="fragment_home_visit_record">出勤記録</string>
     <string name="fragment_my_page_name">氏名</string>
     <string name="fragment_my_page_change_company">会社切替</string>
     <string name="fragment_my_page_more"><![CDATA[＞]]></string>
-    <string name="fragment_report_all_select">全て選択</string>
+    <string name="all_select">全て選択</string>
     <string name="fragment_report_commit">承認</string>
     <string name="get_user_location_latitude">: latitude:</string>
     <string name="get_user_location_longitude">| longitude:</string>

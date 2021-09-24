@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/selectAll"
                 android:button="@null"
-                android:text="全て選択"
+                android:text="@string/all_select"
                 android:layout_gravity="left"
                 android:textSize="18sp"
                 android:visibility="gone"

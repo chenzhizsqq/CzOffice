@@ -115,7 +115,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                 activity?.let { it1 ->
                     Tools.showErrorDialog(
                         it1,
-                        getString(R.string.dialog_home_status_please_input_location))
+                        getString(R.string.MSG11))
                 }
                 return@setOnClickListener
             }
