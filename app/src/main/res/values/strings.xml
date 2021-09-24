@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">EtOffice</string>
     <string name="title_activity_main">EtOffice</string>
-    <string name="error">エラー</string>
     <string name="login">ログイン</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>
@@ -35,8 +34,6 @@
     <string name="activity_report_detail_実績">実績：</string>
     <string name="activity_report_detail_buttom_title">追加する</string>
     <string name="message_send">送信</string>
-    <string name="dialog_confirm_title">Confirm</string>
-    <string name="dialog_confirm_content">Confirm?</string>
     <string name="dialog_home_report_close">close</string>
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
@@ -76,19 +73,6 @@
 
 
 
-<!--    "PERSONALINFO" = "Personal Info";-->
-<!--    "SYSTEM" = "System";-->
-<!--    "NAME" = "Name";-->
-<!--    "MOBILE" = "Mobile";-->
-<!--    "MAIL" = "Mail";-->
-<!--    "PLACEMANAGE" = "Place Management";-->
-<!--    "SIGNOUT" = "Signout";-->
-<!--    "REGIESTERED" = "Registered";-->
-<!--    "ALIAS" = "This Location's Alias";-->
-<!--    "DELETE" = "Delete";-->
-<!--    "CHANGECOMPANY" = "Change Company";-->
-<!--    "ARCHIVE" = "Archive";-->
-
     <!--    MARK: - COMMON-->
     <string name="PERSONALINFO">個人情報</string>
     <string name="SYSTEM">システム</string>
@@ -103,34 +87,8 @@
     <string name="CHANGECOMPANY">会社を切り替え</string>
     <string name="ARCHIVE">アーカイブ</string>
 
-<!--    "ERROR" = "Error";-->
-<!--    "MESSAGE" = "Message";-->
-<!--    "OK" = "OK";-->
-<!--    "CONFIRM" = "Confirm";-->
-<!--    "CANCEL" = "Cancel";-->
-<!--    "EDIT" = "Edit";-->
-<!--    "MSG00" = "Do you want to log out?";-->
-<!--    "MSG01" = "Please enter the correct username and password.";-->
-<!--    "MSG02" = "Login sucessfully";-->
-<!--    "MSG03" = "The input information is incorrect, please re-enter.";-->
-<!--    "MSG04" = "Please enter an alias for the current location.";-->
-<!--    "MSG05" = "The current network is unavailable, please try again.";-->
-<!--    "MSG06" = "Do you want to change the current status?";-->
-<!--    "MSG07" = "Unregistered address";-->
-<!--    "MSG08" = "Failed to get location information, please give location permission and restart the program.";-->
-<!--    "MSG09" = "Please enter the correct alias.";-->
-<!--    "MSG10" = "Unknown Status";-->
-<!--    "MSG11" = "Please enter the area name.";-->
-<!--    "MSG12" = "Please select messages to delete.";-->
-<!--    "MSG13" = "Realy to delete the selected messages?";-->
-<!--    "MSG14" = "Please select a project name.";-->
-<!--    "MSG15" = "Please select a work code";-->
-<!--    "MSG16" = "Please input work time.";-->
-<!--    "MSG17" = "Message is too long.";-->
-<!--    "MSG18" = "Realy to confirm the selected reports?";-->
-<!--    "MSG19" = "Please select a report to delete.";-->
 
-    <!--    MARK: - COMMON-->
+    <!--    MARK: - MESSAGE-->
     <string name="ERROR">エラー</string>
     <string name="MESSAGE">メッセージ</string>
     <string name="OK">ＯＫ</string>

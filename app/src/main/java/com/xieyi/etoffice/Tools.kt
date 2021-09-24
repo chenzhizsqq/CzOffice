@@ -327,7 +327,7 @@ object Tools {
 
         showAlertDialog(
             context,
-            context.getString(R.string.error),
+            context.getString(R.string.ERROR),
             message,
             okListener
         )
