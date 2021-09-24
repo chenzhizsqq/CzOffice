@@ -10,12 +10,10 @@
     <string name="title_notifications">メッセージ</string>
     <string name="title_report">日報</string>
     <string name="title_my_page">マイページ</string>
-    <string name="title_my_page_place_setting">作業場所管理</string>
     <string name="title_my_page_change_company">切り替え</string>
     <string name="title_report_detail">日報詳しい</string>
     <string name="title_member_fragment">メンバー</string>
     <string name="change_company_title">切り替え</string>
-    <string name="project_require">プロジェクト名を選択する</string>
     <string name="wbs_require">作業コードを選択してください</string>
     <string name="workTime_require">工数を入力してください</string>
     <string name="title_report_add">日報追加</string>
@@ -30,17 +28,9 @@
     <string name="remind_message">メッセージ</string>
     <string name="remind_content">現在選択されている情報を削除しますか？</string>
     <string name="update_success">更新処理が成功しました。</string>
-    <string name="confirm">確定</string>
-    <string name="cancel">取消</string>
-    <string name="edit">編集</string>
-    <string name="confirmation">確認</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
-    <string name="dialog_my_page_logout_confirm">ログアウトします、よろしいでしょうか。</string>
-    <string name="delete_message_require">削除するメッセージが選択されていません。</string>
-    <string name="username_require">ユーザー名を入力してください</string>
     <string name="password_require">パスワードを入力してください</string>
-    <string name="login_failed_msg1">「アカウント」や「パスウード」が間違います。</string>
     <string name="login_failed_msg2">ログイン失敗しました。</string>
     <string name="workCd_option">工数を選択する</string>
     <string name="select_time">時間を選択する</string>
@@ -54,19 +44,11 @@
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
     <string name="dialog_home_status_please_input_location">地名を入力してください。</string>
-    <string name="dialog_my_page_logout_title">Message</string>
-    <string name="dialog_my_page_logout_content">Do you want to log out?</string>
-    <string name="dialog_my_page_logout_cancel">Cancel</string>
-    <string name="dialog_my_page_logout_ok">OK</string>
     <string name="fragment_home_title">ホーム</string>
     <string name="fragment_home_common_function">共通機能</string>
     <string name="fragment_home_visit_record">出勤記録</string>
     <string name="fragment_my_page_name">氏名</string>
-    <string name="fragment_my_page_mobile">電話番号</string>
-    <string name="fragment_my_page_mail">メール</string>
-    <string name="fragment_my_page_place_management">作業場所管理</string>
     <string name="fragment_my_page_change_company">会社切替</string>
-    <string name="fragment_my_page_signout">ログアウト</string>
     <string name="fragment_my_page_more"><![CDATA[＞]]></string>
     <string name="fragment_report_all_select">全て選択</string>
     <string name="fragment_report_commit">承認</string>
@@ -85,18 +67,13 @@
     <string name="HomeReportDialogTag">HomeReportDialog</string>
     <string name="unacknowledged">未承認</string>
     <string name="Approved">承認済み</string>
-    <string name="Edit">Edit</string>
-    <string name="Cancel">Cancel</string>
 
     <string name="project_title">プロジェクト：</string>
     <string name="wbs_title">作業コード：</string>
     <string name="time_title">工数：</string>
     <string name="memo_title">報告：</string>
-    <string name="REGISTERED_title">REGISTERED</string>
-    <string name="telephone_number">電話番号</string>
     <string name="telephone_call_question">へ電話してよろしいでしょうか</string>
     <string name="telephone_number_call">電話をかける</string>
-    <string name="telephone_number_Cancel">キャンセル</string>
     <string name="network_no">ネットワークがありません</string>
     <string name="dateformat">%d%02d%02d</string>
     <string name="no_telephone_number">電話番号はありません。</string>
@@ -130,8 +107,10 @@
     <string name="ARCHIVE">Archive</string>
 
     <!--    MARK: - COMMON-->
+    <string name="ERROR">エラー</string>
     <string name="MESSAGE">メッセージ</string>
-    <string name="OK">確認</string>
+    <string name="OK">ＯＫ</string>
+    <string name="CONFIRM">確認</string>
     <string name="CANCEL">キャンセル</string>
     <string name="EDIT">編集</string>
     <string name="MSG00">サインアウトしますか？</string>
@@ -146,4 +125,12 @@
     <string name="MSG09">正しいエイリアスを入力してください。</string>
     <string name="MSG10">不明な状態</string>
     <string name="MSG11">地名を入力してください。</string>
+    <string name="MSG12">削除するメッセージが選択されていません。</string>
+    <string name="MSG13">現在選択されている情報を削除しますか？</string>
+    <string name="MSG14">プロジェクト名を選択してください。</string>
+    <string name="MSG15">作業コードを選択してください。</string>
+    <string name="MSG16">工数を入力してください。</string>
+    <string name="MSG17">入力したメッセージが長すぎます。</string>
+    <string name="MSG18">現在選択されている情報を承認しますか？</string>
+    <string name="MSG19">削除する日報が選択されていません。</string>
 </resources>

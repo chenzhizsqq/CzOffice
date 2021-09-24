@@ -57,7 +57,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         binding.recyclerView.adapter = mAdapter
 
         //record_title
-        binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGISTERED_title)
+        binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGIESTERED)
 
         //returnpHome
         binding.returnHome.setOnClickListener {

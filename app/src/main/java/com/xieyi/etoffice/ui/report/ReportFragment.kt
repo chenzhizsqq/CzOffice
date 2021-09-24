@@ -201,7 +201,7 @@ class ReportFragment : Fragment(),
             } else if (it == View.VISIBLE) {
                 binding.cancel.visibility = View.VISIBLE
                 binding.edit.visibility = View.GONE
-                binding.cancel.text = EtOfficeApp.context.getString(R.string.Cancel)
+                binding.cancel.text = EtOfficeApp.context.getString(R.string.CANCEL)
             }
         })
 

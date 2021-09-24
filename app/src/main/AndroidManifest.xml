@@ -41,7 +41,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MyPage.MyPagePlaceSettingActivity"
-            android:label="@string/title_my_page_place_setting"
+            android:label="@string/PLACEMANAGE"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.report.ReportDetailActivity"

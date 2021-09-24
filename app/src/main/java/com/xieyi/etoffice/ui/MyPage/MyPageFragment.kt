@@ -140,8 +140,8 @@ class MyPageFragment : Fragment() {
         binding.SYSTEMInfo.setOnClickListener(View.OnClickListener {
             activity?.let { it1 ->
                 Tools.showConfirmDialog(it1,
-                    getString(R.string.confirmation),
-                    getString(R.string.dialog_my_page_logout_confirm),
+                    getString(R.string.CONFIRM),
+                    getString(R.string.MSG00),
                     yesListener = { _, _ ->
                         // ログアウト
                         logout()

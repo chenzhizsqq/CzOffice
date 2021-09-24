@@ -37,7 +37,7 @@ class OptionsPickerDialog:  DialogFragment() {
             dismiss()
         }
         if (flag == "10") {
-            binding.listTitle.text = getString(R.string.project_require)
+            binding.listTitle.text = getString(R.string.MSG14)
         } else {
             binding.listTitle.text = getString(R.string.workCd_option)
         }

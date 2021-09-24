@@ -126,15 +126,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                             startActivity(intent)
                             finish()
                         }
-                        1 -> {
-                            Tools.showErrorDialog(
-                                this,
-                                getString(R.string.login_failed_msg1))
-                        }
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                getString(R.string.login_failed_msg2))
+                                getString(R.string.MSG03))
                         }
                     }
                 }

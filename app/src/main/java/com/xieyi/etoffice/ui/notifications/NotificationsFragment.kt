@@ -126,18 +126,18 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                     setTitle(R.string.remind_message)
                     setMessage(R.string.remind_content)
                     setCancelable(false)
-                    setPositiveButton(R.string.confirm) { _, _ ->
+                    setPositiveButton(R.string.CONFIRM) { _, _ ->
                         deleteMessagesRequest(
                             "2",
                             updateArray
                         )
                     }
-                    setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+                    setNegativeButton(R.string.CANCEL) { dialog, _ -> dialog.dismiss() }
                 }.show()
             }
         } else {
             activity?.let {
-                Tools.showErrorDialog(it, getString(R.string.delete_message_require))
+                Tools.showErrorDialog(it, getString(R.string.MSG12))
             }
             return
         }
@@ -253,10 +253,10 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                                 setTitle(R.string.remind_message)
                                 setMessage(R.string.remind_content)
                                 setCancelable(false)
-                                setPositiveButton(R.string.confirm) { _, _ ->
+                                setPositiveButton(R.string.CONFIRM) { _, _ ->
                                     deleteMessagesRequest("2", itemArray)
                                 }
-                                setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+                                setNegativeButton(R.string.CANCEL) { dialog, _ -> dialog.dismiss() }
                             }.show()
 
                         }
@@ -271,10 +271,10 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                                 setTitle(R.string.remind_message)
                                 setMessage(R.string.remind_content)
                                 setCancelable(false)
-                                setPositiveButton(R.string.confirm) { _, _ ->
+                                setPositiveButton(R.string.CONFIRM) { _, _ ->
                                     deleteMessagesRequest("1", itemArray)
                                 }
-                                setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+                                setNegativeButton(R.string.CANCEL) { dialog, _ -> dialog.dismiss() }
                             }.show()
                         }
                     }

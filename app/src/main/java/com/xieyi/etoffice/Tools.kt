@@ -289,7 +289,7 @@ object Tools {
         alertBuilder.setCancelable(false)
 
         // タイトル
-        val title = SpannableString(context.getString(R.string.confirm))
+        val title = SpannableString(context.getString(R.string.CONFIRM))
         title.setSpan(
             AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
             0,

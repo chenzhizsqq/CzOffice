@@ -159,7 +159,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             R.id.wbs_picker -> {
                 var projectcd = binding.projectCode.text.toString()
                 if (projectcd.isEmpty()) {
-                    activity?.let { Tools.showErrorDialog(it, getString(R.string.project_require)) }
+                    activity?.let { Tools.showErrorDialog(it, getString(R.string.MSG14)) }
                     return
                 }
                 val dialog = OptionsPickerDialog()
@@ -185,7 +185,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                 var projectCd = binding.projectCode.text
                 if (projectCd.isEmpty()) {
                     activity?.let {
-                        Tools.showErrorDialog(it,getString(R.string.project_require))
+                        Tools.showErrorDialog(it,getString(R.string.MSG14))
                     }
                     return
                 }
