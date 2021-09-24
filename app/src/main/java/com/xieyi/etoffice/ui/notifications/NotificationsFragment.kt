@@ -180,12 +180,14 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                     binding.swipeRefreshLayout.isRefreshing = false
                     loading = false
 
-                    try {
-                        Thread.sleep(1000)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
+                    if(viewModel.mLoading.value == true){
+                        try {
+                            Thread.sleep(1000)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
+                        viewModel.mLoading.value = false
                     }
-                    viewModel.mLoading.value = false
                 }
             },
             onFailure = { error, data ->

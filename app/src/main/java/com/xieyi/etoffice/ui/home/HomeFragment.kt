@@ -192,12 +192,14 @@ class HomeFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetMessageResult(model.result)
-                            try {
-                                Thread.sleep(1000)
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
+                            if(homeViewModel.mLoading.value == true){
+                                try {
+                                    Thread.sleep(1000)
+                                } catch (e: InterruptedException) {
+                                    e.printStackTrace()
+                                }
+                                homeViewModel.mLoading.value = false
                             }
-                            homeViewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {

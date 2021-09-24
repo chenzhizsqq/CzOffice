@@ -66,12 +66,14 @@ class MyPageFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeUserInfoResult(model.result)
-                            try {
-                                Thread.sleep(1000)
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
+                            if(viewModel.mLoading.value == true){
+                                try {
+                                    Thread.sleep(1000)
+                                } catch (e: InterruptedException) {
+                                    e.printStackTrace()
+                                }
+                                viewModel.mLoading.value = false
                             }
-                            viewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {
