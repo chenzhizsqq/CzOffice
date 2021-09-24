@@ -43,6 +43,7 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 binding.llProgressbar.visibility = View.GONE
             }
         })
+        viewModel.mLoading.value = true
 
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
@@ -80,7 +81,6 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun EtOfficeGetStuffListPost() {
         loading = true
-        viewModel.mLoading.value = true
         Api.EtOfficeGetStuffList(
             context = requireActivity(),
             onSuccess = { model ->

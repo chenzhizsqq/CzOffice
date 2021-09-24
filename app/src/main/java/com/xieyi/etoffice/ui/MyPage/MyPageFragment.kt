@@ -46,8 +46,10 @@ class MyPageFragment : Fragment() {
                 binding.llProgressbar.visibility = View.GONE
             }
         })
+        viewModel.mLoading.value = true
 
         initView()
+
 
         EtOfficeUserInfoPost()
 
@@ -56,7 +58,6 @@ class MyPageFragment : Fragment() {
 
 
     private fun EtOfficeUserInfoPost() {
-        viewModel.mLoading.value = true
         Api.EtOfficeUserInfo(
             context = requireContext(),
             onSuccess = { model ->

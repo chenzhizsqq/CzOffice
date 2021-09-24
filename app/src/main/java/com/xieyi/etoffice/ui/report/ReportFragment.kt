@@ -70,6 +70,7 @@ class ReportFragment : Fragment(),
                 binding.llProgressbar.visibility = View.GONE
             }
         })
+        viewModel.mLoading.value = true
 
         topMenu()
 
@@ -80,7 +81,6 @@ class ReportFragment : Fragment(),
 
 
     private fun EtOfficeGetReportListPost(startym: String, months: String) {
-        viewModel.mLoading.value = true
         Api.EtOfficeGetReportList(
             context = requireActivity(),
             startym = startym,

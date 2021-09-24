@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
                 binding.llProgressbar.visibility = View.GONE
             }
         })
+        homeViewModel.mLoading.value = true
 
         binding.inWork.setOnClickListener {
             buttonColorReset()
@@ -180,7 +181,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun EtOfficeGetMessagePost() {
-        homeViewModel.mLoading.value = true
         Api.EtOfficeGetMessage(
             context = requireActivity(),
             count = 5,

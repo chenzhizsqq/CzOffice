@@ -53,15 +53,6 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
         viewModel.text.observe(viewLifecycleOwner, Observer {
             binding.titleNotifications.text = it
         })
-        // 监听按钮事件
-        binding.edit.setOnClickListener(this)
-        binding.selectAll.setOnCheckedChangeListener(this)
-        binding.delete.setOnClickListener(this)
-        binding.cancel.setOnClickListener(this)
-
-        binding.swipeRefreshLayout.setOnRefreshListener(this)
-
-        initRecyclerView()
 
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
             if (it){
@@ -72,6 +63,17 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 binding.llProgressbar.visibility = View.GONE
             }
         })
+        viewModel.mLoading.value = true
+
+        // 监听按钮事件
+        binding.edit.setOnClickListener(this)
+        binding.selectAll.setOnCheckedChangeListener(this)
+        binding.delete.setOnClickListener(this)
+        binding.cancel.setOnClickListener(this)
+
+        binding.swipeRefreshLayout.setOnRefreshListener(this)
+
+        initRecyclerView()
 
         getMessageRequest(false)
 
@@ -158,7 +160,6 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             lastsubid = viewModel.lastsubid
         }
 
-        viewModel.mLoading.value = true
         Api.EtOfficeGetMessage(
             context = requireContext(),
             lasttime = lasttime,
