@@ -109,7 +109,7 @@ class HomeFragment : Fragment() {
             fragmentManager.let { it1 ->
                 mHomeReportDialog.show(
                     it1,
-                    getString(R.string.HomeReportDialogTag)
+                    "HomeReportDialogTag"
                 )
             }
         }
@@ -122,7 +122,7 @@ class HomeFragment : Fragment() {
                 fragmentManager.let { it1 ->
                     mHomeReportDialog.show(
                         it1,
-                        getString(R.string.HomeReportDialogTag)
+                        "HomeReportDialogTag"
                     )
                 }
             }

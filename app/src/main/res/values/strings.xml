@@ -43,11 +43,9 @@
     <string name="fragment_my_page_more"><![CDATA[＞]]></string>
     <string name="all_select">全て選択</string>
     <string name="fragment_report_commit">承認</string>
-    <string name="get_user_location_latitude">: latitude:</string>
-    <string name="get_user_location_longitude">| longitude:</string>
     <string name="dialog_home_report_title">出勤記録</string>
     <string name="activity_login_user_name_hint">ユーザー名を入力してください</string>
-    <string name="copyright_xieyi">Copyright @ 2021 Xieyi</string>
+    <string name="copyright_xieyi">Copyright @ 2021 Xieyi v1.0.0</string>
     <string name="dialog_home_status_user_status_memo_hint">備考</string>
     <string name="dialog_home_status_user_location_hint">自宅、カフェ、事務所等</string>
     <string name="fragment_home_on_duty">勤務中</string>
@@ -55,7 +53,6 @@
     <string name="fragment_home_rest">休憩中</string>
     <string name="fragment_home_moving">移動中</string>
     <string name="fragment_home_meeting">会議中</string>
-    <string name="HomeReportDialogTag">HomeReportDialog</string>
     <string name="unacknowledged">未承認</string>
     <string name="Approved">承認済み</string>
 
@@ -64,7 +61,6 @@
     <string name="time_title">工数：</string>
     <string name="memo_title">報告：</string>
     <string name="telephone_call_question">へ電話してよろしいでしょうか</string>
-    <string name="telephone_number_call">電話をかける</string>
     <string name="dateformat">%d%02d%02d</string>
     <string name="no_telephone_number">電話番号はありません。</string>
 
