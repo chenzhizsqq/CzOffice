@@ -90,7 +90,7 @@
 <!--    "ARCHIVE" = "Archive";-->
 
     <!--    MARK: - COMMON-->
-    <string name="PERSONALINFO">情報"</string>
+    <string name="PERSONALINFO">個人情報</string>
     <string name="SYSTEM">システム</string>
     <string name="NAME">名前</string>
     <string name="MOBILE">電話番号</string>
