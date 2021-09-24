@@ -79,32 +79,60 @@
     <string name="no_telephone_number">電話番号はありません。</string>
 
 
-<!--    "PERSONALINFO" = "個人情報";-->
-<!--    "SYSTEM" = "システム";-->
-<!--    "NAME" = "名前";-->
-<!--    "MOBILE" = "電話番号";-->
-<!--    "MAIL" = "メール";-->
-<!--    "PLACEMANAGE" = "作業場所管理";-->
-<!--    "SIGNOUT" = "サインアウト";-->
-<!--    "REGIESTERED" = "登録済み";-->
-<!--    "ALIAS" = "この場所のエイリアス";-->
-<!--    "DELETE" = "削除";-->
-<!--    "CHANGECOMPANY" = "会社を切り替え";-->
-<!--    "ARCHIVE" = "アーカイブ";-->
+
+<!--    "PERSONALINFO" = "Personal Info";-->
+<!--    "SYSTEM" = "System";-->
+<!--    "NAME" = "Name";-->
+<!--    "MOBILE" = "Mobile";-->
+<!--    "MAIL" = "Mail";-->
+<!--    "PLACEMANAGE" = "Place Management";-->
+<!--    "SIGNOUT" = "Signout";-->
+<!--    "REGIESTERED" = "Registered";-->
+<!--    "ALIAS" = "This Location's Alias";-->
+<!--    "DELETE" = "Delete";-->
+<!--    "CHANGECOMPANY" = "Change Company";-->
+<!--    "ARCHIVE" = "Archive";-->
 
     <!--    MARK: - COMMON-->
-    <string name="PERSONALINFO">Personal Info</string>
-    <string name="SYSTEM">System</string>
-    <string name="NAME">Name</string>
-    <string name="MOBILE">Mobile</string>
-    <string name="MAIL">Mail</string>
-    <string name="PLACEMANAGE">Place Management</string>
-    <string name="SIGNOUT">Signout</string>
-    <string name="REGIESTERED">Registered</string>
-    <string name="ALIAS">This Location\'s Alias</string>
-    <string name="DELETE">Delete</string>
-    <string name="CHANGECOMPANY">Change Company</string>
-    <string name="ARCHIVE">Archive</string>
+    <string name="PERSONALINFO">情報"</string>
+    <string name="SYSTEM">システム</string>
+    <string name="NAME">名前</string>
+    <string name="MOBILE">電話番号</string>
+    <string name="MAIL">メール</string>
+    <string name="PLACEMANAGE">作業場所管理</string>
+    <string name="SIGNOUT">サインアウト</string>
+    <string name="REGIESTERED">登録済み</string>
+    <string name="ALIAS">この場所のエイリアス</string>
+    <string name="DELETE">削除</string>
+    <string name="CHANGECOMPANY">会社を切り替え</string>
+    <string name="ARCHIVE">アーカイブ</string>
+
+<!--    "ERROR" = "Error";-->
+<!--    "MESSAGE" = "Message";-->
+<!--    "OK" = "OK";-->
+<!--    "CONFIRM" = "Confirm";-->
+<!--    "CANCEL" = "Cancel";-->
+<!--    "EDIT" = "Edit";-->
+<!--    "MSG00" = "Do you want to log out?";-->
+<!--    "MSG01" = "Please enter the correct username and password.";-->
+<!--    "MSG02" = "Login sucessfully";-->
+<!--    "MSG03" = "The input information is incorrect, please re-enter.";-->
+<!--    "MSG04" = "Please enter an alias for the current location.";-->
+<!--    "MSG05" = "The current network is unavailable, please try again.";-->
+<!--    "MSG06" = "Do you want to change the current status?";-->
+<!--    "MSG07" = "Unregistered address";-->
+<!--    "MSG08" = "Failed to get location information, please give location permission and restart the program.";-->
+<!--    "MSG09" = "Please enter the correct alias.";-->
+<!--    "MSG10" = "Unknown Status";-->
+<!--    "MSG11" = "Please enter the area name.";-->
+<!--    "MSG12" = "Please select messages to delete.";-->
+<!--    "MSG13" = "Realy to delete the selected messages?";-->
+<!--    "MSG14" = "Please select a project name.";-->
+<!--    "MSG15" = "Please select a work code";-->
+<!--    "MSG16" = "Please input work time.";-->
+<!--    "MSG17" = "Message is too long.";-->
+<!--    "MSG18" = "Realy to confirm the selected reports?";-->
+<!--    "MSG19" = "Please select a report to delete.";-->
 
     <!--    MARK: - COMMON-->
     <string name="ERROR">エラー</string>

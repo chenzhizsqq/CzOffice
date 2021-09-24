@@ -189,7 +189,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                                     Tools.showAlertDialog(
                                         it,
                                         it.getString(R.string.MESSAGE),
-                                        "地名を登録しました。"
+                                        getString(R.string.MSG11)
                                     )
                                 }
                             }
