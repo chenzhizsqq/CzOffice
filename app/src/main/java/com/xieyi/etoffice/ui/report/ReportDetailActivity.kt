@@ -20,6 +20,7 @@ import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportResult
 import com.xieyi.etoffice.databinding.ActivityReportDetailBinding
+import com.xieyi.etoffice.ui.home.HomeReportDialog
 import kotlinx.coroutines.*
 import java.util.*
 
@@ -142,6 +143,14 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
             val day: Int = date.substring(6, 8).toInt()
             val newFragment = DatePick(year, month, day)
             newFragment.show(supportFragmentManager, "datePicker")
+        }
+
+        //出勤記録を表示します
+        binding.people.setOnClickListener {
+            val mHomeReportDialog = HomeReportDialog()
+
+            val fragmentManager = this@ReportDetailActivity.supportFragmentManager
+            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
         }
     }
 
