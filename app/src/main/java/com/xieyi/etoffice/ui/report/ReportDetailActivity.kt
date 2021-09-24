@@ -127,13 +127,15 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
             //EtOfficeSetComment
             //データ更新
-            EtOfficeSetCommentPost(
-                date,
-                binding.messageEdit.text.toString()
-            )
-
-
-            binding.messageEdit.text.clear()
+            if(binding.messageEdit.text.length > 150 ){
+                Tools.showErrorDialog(this, getString(R.string.MSG17))
+            }else{
+                EtOfficeSetCommentPost(
+                    date,
+                    binding.messageEdit.text.toString()
+                )
+                binding.messageEdit.text.clear()
+            }
         }
 
         //record_date
