@@ -71,7 +71,6 @@
     <string name="memo_title">報告：</string>
     <string name="telephone_call_question">へ電話してよろしいでしょうか</string>
     <string name="telephone_number_call">電話をかける</string>
-    <string name="network_no">ネットワークがありません</string>
     <string name="dateformat">%d%02d%02d</string>
     <string name="no_telephone_number">電話番号はありません。</string>
 
