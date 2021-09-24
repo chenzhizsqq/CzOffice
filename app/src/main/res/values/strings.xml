@@ -2,7 +2,6 @@
     <string name="app_name">EtOffice</string>
     <string name="title_activity_main">EtOffice</string>
     <string name="error">エラー</string>
-    <string name="ok">ＯＫ</string>
     <string name="login">ログイン</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>
@@ -49,16 +48,12 @@
     <string name="activity_report_detail_実績">実績：</string>
     <string name="activity_report_detail_buttom_title">追加する</string>
     <string name="message_send">送信</string>
-    <string name="button_cancel">取消</string>
     <string name="dialog_confirm_title">Confirm</string>
     <string name="dialog_confirm_content">Confirm?</string>
-    <string name="dialog_confirm_cancel">Cancel</string>
-    <string name="dialog_confirm_ok">OK</string>
     <string name="dialog_home_report_close">close</string>
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
     <string name="dialog_home_status_please_input_location">地名を入力してください。</string>
-    <string name="dialog_home_status_btn_cancel_and_close">キャンセル</string>
     <string name="dialog_my_page_logout_title">Message</string>
     <string name="dialog_my_page_logout_content">Do you want to log out?</string>
     <string name="dialog_my_page_logout_cancel">Cancel</string>
@@ -66,9 +61,6 @@
     <string name="fragment_home_title">ホーム</string>
     <string name="fragment_home_common_function">共通機能</string>
     <string name="fragment_home_visit_record">出勤記録</string>
-    <string name="fragment_home_message">Message</string>
-    <string name="fragment_my_page_personal_info">個人情報</string>
-    <string name="fragment_my_page_system">システム</string>
     <string name="fragment_my_page_name">氏名</string>
     <string name="fragment_my_page_mobile">電話番号</string>
     <string name="fragment_my_page_mail">メール</string>
@@ -78,7 +70,6 @@
     <string name="fragment_my_page_more"><![CDATA[＞]]></string>
     <string name="fragment_report_all_select">全て選択</string>
     <string name="fragment_report_commit">承認</string>
-    <string name="fragment_report_edit">Edit</string>
     <string name="get_user_location_latitude">: latitude:</string>
     <string name="get_user_location_longitude">| longitude:</string>
     <string name="dialog_home_report_title">出勤記録</string>
@@ -107,10 +98,52 @@
     <string name="telephone_number_call">電話をかける</string>
     <string name="telephone_number_Cancel">キャンセル</string>
     <string name="network_no">ネットワークがありません</string>
-    <string name="dialog_my_page_place_title">Message</string>
-    <string name="dialog_my_page_place_message">Please enter an alias for the current location.</string>
-    <string name="dialog_my_page_place_location_hint">This Location\'s Alias</string>
     <string name="dateformat">%d%02d%02d</string>
     <string name="no_telephone_number">電話番号はありません。</string>
 
+
+<!--    "PERSONALINFO" = "個人情報";-->
+<!--    "SYSTEM" = "システム";-->
+<!--    "NAME" = "名前";-->
+<!--    "MOBILE" = "電話番号";-->
+<!--    "MAIL" = "メール";-->
+<!--    "PLACEMANAGE" = "作業場所管理";-->
+<!--    "SIGNOUT" = "サインアウト";-->
+<!--    "REGIESTERED" = "登録済み";-->
+<!--    "ALIAS" = "この場所のエイリアス";-->
+<!--    "DELETE" = "削除";-->
+<!--    "CHANGECOMPANY" = "会社を切り替え";-->
+<!--    "ARCHIVE" = "アーカイブ";-->
+
+    <!--    MARK: - COMMON-->
+    <string name="PERSONALINFO">Personal Info</string>
+    <string name="SYSTEM">System</string>
+    <string name="NAME">Name</string>
+    <string name="MOBILE">Mobile</string>
+    <string name="MAIL">Mail</string>
+    <string name="PLACEMANAGE">Place Management</string>
+    <string name="SIGNOUT">Signout</string>
+    <string name="REGIESTERED">Registered</string>
+    <string name="ALIAS">This Location\'s Alias</string>
+    <string name="DELETE">Delete</string>
+    <string name="CHANGECOMPANY">Change Company</string>
+    <string name="ARCHIVE">Archive</string>
+
+    <!--    MARK: - COMMON-->
+    <string name="MESSAGE">メッセージ</string>
+    <string name="OK">確認</string>
+    <string name="CANCEL">キャンセル</string>
+    <string name="EDIT">編集</string>
+    <string name="MSG00">サインアウトしますか？</string>
+    <string name="MSG01">正しいユーザー名とパスワードを入力してください。</string>
+    <string name="MSG02">ログイン成功</string>
+    <string name="MSG03">データエラー、再試行してください。</string>
+    <string name="MSG04">現在地のエイリアスを入力してください。</string>
+    <string name="MSG05">現在のネットワークは利用できません。再接続してください。</string>
+    <string name="MSG06">現在のステータスを変更しますか？</string>
+    <string name="MSG07">未登録作業場所</string>
+    <string name="MSG08">位置情報の取得に失敗しました。必ず位置許可を有効にして、プログラムを再起動してください。</string>
+    <string name="MSG09">正しいエイリアスを入力してください。</string>
+    <string name="MSG10">不明な状態</string>
+    <string name="MSG11">地名を入力してください。</string>
 </resources>

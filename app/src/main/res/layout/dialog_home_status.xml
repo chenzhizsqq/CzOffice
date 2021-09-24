@@ -143,7 +143,7 @@
             android:id="@+id/btn_cancel_and_close"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
-            android:text="@string/dialog_home_status_btn_cancel_and_close"
+            android:text="@string/CANCEL"
             android:textSize="18sp"
             android:gravity="center"
             />

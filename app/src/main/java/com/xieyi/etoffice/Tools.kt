@@ -357,7 +357,7 @@ object Tools {
         alertBuilder.setMessage(message)
 
         // ボタン
-        alertBuilder.setPositiveButton(context.getString(R.string.ok), okListener)
+        alertBuilder.setPositiveButton(context.getString(R.string.OK), okListener)
 
         // ダイアログ表示
         val alertDialog = alertBuilder.create()

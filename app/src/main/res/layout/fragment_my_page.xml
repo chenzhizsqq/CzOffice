@@ -106,7 +106,7 @@
                 android:id="@+id/PERSONAL_INFO_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_my_page_personal_info"
+                android:text="@string/PERSONALINFO"
                 android:paddingTop="30dp"
                 android:paddingBottom="8dp"
                 />
@@ -279,7 +279,7 @@
                 android:id="@+id/SYSTEM_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_my_page_system"
+                android:text="@string/SYSTEM"
                 android:paddingTop="25dp"
                 android:paddingBottom="8dp"
                 />

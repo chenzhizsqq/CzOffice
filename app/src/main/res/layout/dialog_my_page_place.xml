@@ -26,7 +26,7 @@
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:text="@string/dialog_my_page_place_title"
+                    android:text="@string/MESSAGE"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
                     android:layout_marginRight="50dp"
                     android:textColor="@color/black"
                     android:gravity="center"
-                    android:text="@string/dialog_my_page_place_message"
+                    android:text="@string/MSG04"
                     android:textSize="15sp" />
 
                 <EditText
@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:hint="@string/dialog_my_page_place_location_hint"
+                    android:hint="@string/ALIAS"
                     android:singleLine="true"
                     android:inputType="text"
                     android:ems="10"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/dialog_confirm_cancel"
+                android:text="@string/CANCEL"
                 android:textColor="@color/iphone_button_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/dialog_confirm_ok"
+                android:text="@string/OK"
                 android:textColor="@color/iphone_button_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />

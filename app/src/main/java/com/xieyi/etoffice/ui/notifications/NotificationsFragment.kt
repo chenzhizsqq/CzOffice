@@ -321,7 +321,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                             activity?.let {
                                 Tools.showAlertDialog(
                                     it,
-                                    "",
+                                    it.getString(R.string.MESSAGE),
                                     getString(R.string.update_success)
                                 )
                             }

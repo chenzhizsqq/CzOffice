@@ -294,7 +294,7 @@
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
-                android:text="@string/fragment_home_message"
+                android:text="@string/MESSAGE"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
             <androidx.recyclerview.widget.RecyclerView
