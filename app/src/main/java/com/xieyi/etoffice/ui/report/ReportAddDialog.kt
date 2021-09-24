@@ -192,14 +192,14 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                 var wbsCode = binding.wbsCode.text
                 if (wbsCode.isEmpty()) {
                     activity?.let {
-                        Tools.showErrorDialog(it,getString(R.string.wbs_require))
+                        Tools.showErrorDialog(it,getString(R.string.MSG15))
                     }
                     return
                 }
                 var worktime = binding.tvWorktime.text
                 if (worktime.isEmpty()) {
                     activity?.let {
-                        Tools.showErrorDialog(it, getString(R.string.workTime_require))
+                        Tools.showErrorDialog(it, getString(R.string.MSG16))
                     }
                     return
                 }

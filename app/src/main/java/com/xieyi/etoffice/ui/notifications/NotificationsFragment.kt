@@ -124,7 +124,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             activity?.let {
                 AlertDialog.Builder(it).apply {
                     setTitle(R.string.remind_message)
-                    setMessage(R.string.remind_content)
+                    setMessage(R.string.MSG13)
                     setCancelable(false)
                     setPositiveButton(R.string.CONFIRM) { _, _ ->
                         deleteMessagesRequest(
@@ -251,7 +251,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                         activity?.let {
                             AlertDialog.Builder(it).apply {
                                 setTitle(R.string.remind_message)
-                                setMessage(R.string.remind_content)
+                                setMessage(R.string.MSG13)
                                 setCancelable(false)
                                 setPositiveButton(R.string.CONFIRM) { _, _ ->
                                     deleteMessagesRequest("2", itemArray)
@@ -269,7 +269,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                         activity?.let {
                             AlertDialog.Builder(it).apply {
                                 setTitle(R.string.remind_message)
-                                setMessage(R.string.remind_content)
+                                setMessage(R.string.MSG13)
                                 setCancelable(false)
                                 setPositiveButton(R.string.CONFIRM) { _, _ ->
                                     deleteMessagesRequest("1", itemArray)
