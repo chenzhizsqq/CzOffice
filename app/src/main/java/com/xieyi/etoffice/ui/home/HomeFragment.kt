@@ -138,46 +138,7 @@ class HomeFragment : Fragment() {
 
     //ページを更新
     private fun dataPost() {
-        EtOfficeGetUserStatusPost()
         EtOfficeGetMessagePost()
-    }
-
-    private fun EtOfficeGetUserStatusPost() {
-        Api.EtOfficeGetUserStatus(
-            context = requireActivity(),
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetUserStatusResult(model.result)
-                        }
-                        else -> {
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message
-                                )
-                            }
-                        }
-                    }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
-            }
-        )
-    }
-
-
-    private fun EtOfficeGetUserStatusResult(result: UserStatusResult) {
-        if (result.userstatuslist.size > 0) {
-            binding.state.text = result.userstatuslist[0].statustext
-
-        }
-
     }
 
     private fun EtOfficeGetMessagePost() {
@@ -225,6 +186,9 @@ class HomeFragment : Fragment() {
         mGetMessageAdapter.notifyDataChange(result.messagelist)
         mGetStatusListHomeAdapter.notifyDataChange(result.recordlist)
 
+        if (result.recordlist.isNotEmpty()) {
+            binding.state.text = result.recordlist[0].statustext
+        }
     }
 
     private fun showStatusDialog(statusvalue: String, statustext: String) {
