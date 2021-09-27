@@ -153,16 +153,11 @@ class HomeFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeGetMessageResult(model.result)
-                            if(homeViewModel.mLoading.value == true){
-                                try {
-                                    Thread.sleep(1000)
-                                } catch (e: InterruptedException) {
-                                    e.printStackTrace()
-                                }
-                                homeViewModel.mLoading.value = false
-                            }
+
+                            homeViewModel.mLoading.value = false
                         }
                         else -> {
+                            homeViewModel.mLoading.value = false
                             activity?.let {
                                 Tools.showErrorDialog(
                                     it,
@@ -175,6 +170,7 @@ class HomeFragment : Fragment() {
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
+                    homeViewModel.mLoading.value = false
                     Log.e(TAG, "onFailure:$data")
                 }
             }

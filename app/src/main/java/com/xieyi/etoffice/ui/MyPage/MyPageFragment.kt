@@ -66,16 +66,11 @@ class MyPageFragment : Fragment() {
                     when (model.status) {
                         0 -> {
                             EtOfficeUserInfoResult(model.result)
-                            if(viewModel.mLoading.value == true){
-                                try {
-                                    Thread.sleep(1000)
-                                } catch (e: InterruptedException) {
-                                    e.printStackTrace()
-                                }
-                                viewModel.mLoading.value = false
-                            }
+
+                            viewModel.mLoading.value = false
                         }
                         else -> {
+                            viewModel.mLoading.value = false
                             activity?.let {
                                 Tools.showErrorDialog(
                                     it,
@@ -88,6 +83,7 @@ class MyPageFragment : Fragment() {
             },
             onFailure = { error, data ->
                 Handler(Looper.getMainLooper()).post {
+                    viewModel.mLoading.value = false
                     Log.e(TAG, "onFailure:$data")
                 }
             }
