@@ -75,6 +75,11 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
         initRecyclerView()
 
+        //Network検査
+        if (!isNetworkConnected()){
+            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
+        }
+
         getMessageRequest(false)
 
         return binding.root

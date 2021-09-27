@@ -14,6 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
@@ -24,7 +25,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ReportFragment : Fragment(),
+class ReportFragment : BaseFragment(),
     SwipeRefreshLayout.OnRefreshListener {
     private val TAG = "ReportFragment"
 
@@ -73,6 +74,11 @@ class ReportFragment : Fragment(),
         viewModel.mLoading.value = true
 
         topMenu()
+
+        //Network検査
+        if (!isNetworkConnected()){
+            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
+        }
 
         EtOfficeGetReportListPost("", "")
 

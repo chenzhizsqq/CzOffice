@@ -15,15 +15,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageResult
-import com.xieyi.etoffice.common.model.UserStatusResult
 import com.xieyi.etoffice.databinding.FragmentHomeBinding
 import kotlinx.coroutines.*
 import java.util.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
     private val TAG = "HomeFragment"
 
     private lateinit var homeViewModel: HomeViewModel
@@ -128,6 +128,10 @@ class HomeFragment : Fragment() {
             }
         })
 
+        //Network検査
+        if (!isNetworkConnected()){
+            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
+        }
 
         //ページを更新
         dataPost()

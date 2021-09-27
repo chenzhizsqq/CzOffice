@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
@@ -21,7 +22,7 @@ import com.xieyi.etoffice.ui.login.LoginActivity
 
 
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : BaseFragment() {
 
     private val TAG: String = "MyPageFragment"
 
@@ -50,6 +51,10 @@ class MyPageFragment : Fragment() {
 
         initView()
 
+        //Network検査
+        if (!isNetworkConnected()){
+            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
+        }
 
         EtOfficeUserInfoPost()
 

@@ -7,21 +7,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
-import com.xieyi.etoffice.common.model.SectionInfo
 import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
 
 
-class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
+class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private val TAG = "MemberFragment"
     private lateinit var mAdapter: GetStuffSectionListAdapter
@@ -54,6 +54,11 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.swipeRefreshLayout.setOnRefreshListener(this)
 
         initRecyclerView()
+
+        //Network検査
+        if (!isNetworkConnected()){
+            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
+        }
 
         // ユーザー最新勤務状態の一覧取得
         EtOfficeGetUserStatusPost()

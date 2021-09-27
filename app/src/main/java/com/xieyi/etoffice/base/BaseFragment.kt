@@ -2,6 +2,7 @@ package com.xieyi.etoffice.base
 
 import android.content.BroadcastReceiver
 import androidx.fragment.app.Fragment
+import com.chepsi.callbackdemo.Variables
 
 /**
  * ベースフラグメント
@@ -9,4 +10,13 @@ import androidx.fragment.app.Fragment
  */
 open class BaseFragment  : Fragment() {
     lateinit var broadcastReceiver: BroadcastReceiver
+
+    /**
+     * Network判断
+     * @return
+     */
+    open fun isNetworkConnected(): Boolean {
+        return Variables.isNetworkConnected
+    }
+
 }
