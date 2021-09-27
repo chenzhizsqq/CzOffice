@@ -21,6 +21,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
             android:background="@color/iphone_top_menu_bg"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
             <LinearLayout
@@ -41,6 +43,7 @@
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_marginLeft="5dp"
                             android:gravity="center"
                             app:srcCompat="@drawable/ic_launcher_arrow_left_foreground"
                             />
@@ -49,7 +52,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/title_my_page"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/title_bar_return_font"
                             android:textColor="@color/iphone_button_color"
                             android:gravity="center|left"
                             />
@@ -67,7 +70,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="@string/PLACEMANAGE"
-                            android:textSize="15sp"
+                            android:textSize="@dimen/title_bar_size_sub"
                             android:textColor="@color/black"
                             android:gravity="center"
                             />
@@ -77,7 +80,7 @@
                     android:layout_weight="1"
                     android:layout_height="30dp"
                     android:orientation="vertical"
-                    android:paddingRight="20dp"
+                    android:paddingRight="10dp"
                     android:gravity="right"
                     >
                         <ImageView

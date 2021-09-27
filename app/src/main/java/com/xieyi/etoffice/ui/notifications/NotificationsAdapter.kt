@@ -70,15 +70,6 @@ class NotificationsAdapter(private var messagelist:List<MessageInfo>):
             holder.checkBox.setOnCheckChangeListener(null)
             holder.checkBox.isCheck = !checkStatus[position].isNullOrEmpty()
 
-            //再设置一次CheckBox的选中监听器，当CheckBox的选中状态发生改变时，把改变后的状态储存在Map中
-//            holder.checkBox.setOnCheckChangeListener { isChecked ->
-//                if (isChecked) {
-//                    checkStatus[position] = message.updatetime + message.subid
-//
-//                } else {
-//                    checkStatus[position] = ""
-//                }
-//            }
             holder.itemView.setOnClickListener {
                 if (holder.checkBox.isCheck){
                     holder.checkBox.isCheck = false

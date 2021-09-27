@@ -45,13 +45,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textSize="20sp"
+                android:textSize="@dimen/title_bar_size_sub"
                 android:textColor="@color/black"/>
             <ImageView
                 android:id="@+id/edit"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                app:srcCompat="@drawable/edit_black"
+                app:srcCompat="@drawable/edit"
                 android:layout_gravity="end"
                 android:layout_marginRight="16dp"
                 android:visibility="visible"/>

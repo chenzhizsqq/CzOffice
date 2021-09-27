@@ -69,7 +69,7 @@
                         android:layout_width="1dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/title_bar_size_sub"
                         android:gravity="center"
                         android:text="@string/title_report"
                         android:textColor="@color/black" />
@@ -100,7 +100,7 @@
                         android:layout_height="25dp"
                         android:layout_weight="1"
                         android:gravity="center"
-                        app:srcCompat="@drawable/edit_black" />
+                        app:srcCompat="@drawable/edit" />
                     <TextView
                         android:id="@+id/cancel"
                         android:visibility="gone"
