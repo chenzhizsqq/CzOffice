@@ -15,6 +15,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.SectionInfo
+import com.xieyi.etoffice.common.model.StuffListModel
+import com.xieyi.etoffice.common.model.StuffStatusDispInfo
+import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
 
 
@@ -25,6 +28,8 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: FragmentMemberBinding
     private var loading: Boolean = false
     private lateinit var viewModel: MemberViewModel
+    private lateinit var userStatusModel: UserStatusModel
+    private var dispInfoList : ArrayList<StuffStatusDispInfo> = ArrayList<StuffStatusDispInfo>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,13 +55,14 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
         initRecyclerView()
 
-        EtOfficeGetStuffListPost()
+        // ユーザー最新勤務状態の一覧取得
+        EtOfficeGetUserStatusPost()
 
         return binding.root
     }
 
     private fun initRecyclerView() {
-        mAdapter = GetStuffSectionListAdapter(ArrayList<SectionInfo>(), requireActivity())
+        mAdapter = GetStuffSectionListAdapter(dispInfoList, requireActivity())
         binding.recyclerViewStuffList.adapter = mAdapter
 
         binding.recyclerViewStuffList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -79,24 +85,21 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         })
     }
 
-    private fun EtOfficeGetStuffListPost() {
+    /**
+     * ユーザー最新勤務状態の一覧取得
+     */
+    private fun EtOfficeGetUserStatusPost() {
         loading = true
-        Api.EtOfficeGetStuffList(
+        Api.EtOfficeGetUserStatus(
             context = requireActivity(),
             onSuccess = { model ->
                 Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
-                            mAdapter.notifyDataUpdateList(model.result.sectionlist)
-                            if(viewModel.mLoading.value == true){
-                                try {
-                                    Thread.sleep(1000)
-                                } catch (e: InterruptedException) {
-                                    e.printStackTrace()
-                                }
-                                viewModel.mLoading.value = false
-                            }
+                            userStatusModel = model
+                            // 社員一覧取得
+                            EtOfficeGetStuffListPost()
                         }
                         else -> {
                             activity?.let {
@@ -121,8 +124,88 @@ class MemberFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
         )
     }
 
+    /**
+     * 社員一覧取得
+     */
+    private fun EtOfficeGetStuffListPost() {
+        loading = true
+        Api.EtOfficeGetStuffList(
+            context = requireActivity(),
+            onSuccess = { model ->
+                Handler(Looper.getMainLooper()).post {
+
+                    when (model.status) {
+                        0 -> {
+                            makeDispInfo(model, userStatusModel)
+                            mAdapter.notifyDataUpdateList(dispInfoList)
+
+                            viewModel.mLoading.value = false
+                        }
+                        else -> {
+                            viewModel.mLoading.value = false
+
+                            activity?.let {
+                                Tools.showErrorDialog(
+                                    it,
+                                    model.message)
+                            }
+                        }
+                    }
+
+                    loading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            },
+            onFailure = { error, data ->
+                Handler(Looper.getMainLooper()).post {
+                    viewModel.mLoading.value = false
+                    Log.e(TAG, "onFailure:$data")
+                    loading = false
+                    binding.swipeRefreshLayout.isRefreshing = false
+                }
+            }
+        )
+    }
+
+    /**
+     * 表示用社員出勤情報作成
+     *
+     * @param stuffListMode: 社員一覧情報
+     * @param userStatusModel: 社員最新出勤情報
+     */
+    private fun makeDispInfo(stuffListMode: StuffListModel, userStatusModel: UserStatusModel) {
+        dispInfoList.clear()
+        for(section in stuffListMode.result.sectionlist){
+            // 部門名
+            var info = StuffStatusDispInfo(
+                section.sectioncd,
+                section.sectionname,
+                null,
+                null
+            )
+            dispInfoList.add(info)
+
+            // 社員リスト
+            for(stuffInfo in section.stufflist){
+                for(userStatusInfo in userStatusModel.result.userstatuslist){
+                    if(stuffInfo.userid == userStatusInfo.userid){
+                        var info = StuffStatusDispInfo(
+                            section.sectioncd,
+                            section.sectionname,
+                            stuffInfo,
+                            userStatusInfo
+                        )
+                        dispInfoList.add(info)
+                        break
+                    }
+                }
+            }
+        }
+    }
+
     override fun onRefresh() {
         Log.d(TAG, "onRefresh calling ...")
-        EtOfficeGetStuffListPost()
+        // ユーザー最新勤務状態の一覧取得
+        EtOfficeGetUserStatusPost()
     }
 }

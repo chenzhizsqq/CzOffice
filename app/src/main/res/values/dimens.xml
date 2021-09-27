@@ -12,4 +12,12 @@
     <dimen name="title_bar_size_sub">18sp</dimen>
     <dimen name="title_bar_return_font">16sp</dimen>
     <dimen name="notification_dialog_font">16sp</dimen>
+    <dimen name="section_header_font">16sp</dimen>
+    <dimen name="stuff_list_userkara_font">12sp</dimen>
+    <dimen name="stuff_list_username_font">16sp</dimen>
+    <dimen name="stuff_list_phone_font">12sp</dimen>
+    <dimen name="stuff_list_mail_font">12sp</dimen>
+    <dimen name="stuff_list_status_font">12sp</dimen>
+    <dimen name="stuff_list_status_icon_font">15sp</dimen>
+    <dimen name="stuff_list_place_font">12sp</dimen>
 </resources>

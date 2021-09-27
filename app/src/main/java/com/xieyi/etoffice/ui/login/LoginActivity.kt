@@ -26,10 +26,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        if (Config.isCode) {
-//            binding.userName.setText("demo1@xieyi.co.jp")
-//            binding.password.setText("pass")
-//        }
+        if (Config.isCode) {
+            binding.userName.setText("demo1@xieyi.co.jp")
+            binding.password.setText("pass")
+        }
         // 画面初期化
         initView()
 
