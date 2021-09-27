@@ -78,6 +78,11 @@ class GetReportListGroupReportlistAdapter(
                 Tools.sharedPrePut(Config.FragKey, 3)
                 val intent = Intent(activity, ReportDetailActivity::class.java)
                 intent.putExtra("ReportFragmentMessage", list[position].yyyymmdd)
+                if(holder.approval.text.isEmpty()){
+                    intent.putExtra("isApproved", false)
+                }else{
+                    intent.putExtra("isApproved", true)
+                }
                 activity.startActivity(intent)
                 activity.finish()
             }else if(viewModel.visibility.value == View.VISIBLE){

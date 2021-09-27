@@ -32,6 +32,9 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     //検索の日付
     var date: String = ""
 
+    //”承認”の状態
+    var isApproved:Boolean = false
+
     private lateinit var mPlanworklistAdapter: PlanworklistAdapter
 
     private lateinit var mWorkstatuslistAdapter: WorkstatuslistAdapter
@@ -74,6 +77,13 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
         val intent = intent
         date = intent.getStringExtra("ReportFragmentMessage").toString()
+
+        //”承認”の状態を確認
+        isApproved = intent.getBooleanExtra("isApproved",false)
+        if (isApproved){
+            binding.isApproved.visibility = View.GONE
+        }
+        intent.removeExtra("isApproved")
 
 
 
