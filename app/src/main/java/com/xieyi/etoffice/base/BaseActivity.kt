@@ -48,6 +48,11 @@ open class BaseActivity : AppCompatActivity() {
             if (isShouldHideKeyboard(v, ev)) {
                 hideKeyboard(v?.getWindowToken())
             }
+
+            //連打判断
+            if (isFastDoubleClick()) {
+                return true
+            }
         }
         return super.dispatchTouchEvent(ev)
     }

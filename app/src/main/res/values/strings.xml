@@ -105,7 +105,8 @@
     <string name="dateformat">%d%02d%02d</string>
     <string name="no_telephone_number">電話番号はありません。</string>
 
-
+    <string name="no_data">記録がない</string>
+    <string name="no_memo">備考を入力してください。</string>
 
     <!--    MARK: - COMMON-->
     <string name="PERSONALINFO">個人情報</string>
