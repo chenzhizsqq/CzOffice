@@ -93,10 +93,15 @@ class HomeFragment : BaseFragment() {
             showStatusDialog("5", getString(R.string.fragment_home_meeting))
         }
 
+        //データ存在の確認表示
+        binding.recyclerMessage.setEmptyView(binding.listMessageEmpty)
 
         mGetMessageAdapter = GetMessageAdapter(ArrayList())
         binding.recyclerMessage.adapter = mGetMessageAdapter
         binding.recyclerMessage.isNestedScrollingEnabled = false
+
+        //データ存在の確認表示
+        binding.recyclerView.setEmptyView(binding.listEmpty)
 
         mGetStatusListHomeAdapter = GetStatusListHomeAdapter(ArrayList())
         binding.recyclerView.adapter = mGetStatusListHomeAdapter
