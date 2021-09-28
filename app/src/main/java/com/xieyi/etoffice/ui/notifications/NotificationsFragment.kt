@@ -48,6 +48,10 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
     ): View? {
         // ViewBinding
         binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+
+        //データ存在の確認表示
+        binding.recycleView.setEmptyView(binding.listEmpty)
+
         viewModel =
             ViewModelProvider(this).get(NotificationsViewModel::class.java)
         viewModel.text.observe(viewLifecycleOwner, Observer {

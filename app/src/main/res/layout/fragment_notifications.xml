@@ -70,6 +70,13 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView android:id="@+id/list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_data"
+        />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -78,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.xieyi.etoffice.base.BaseRecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
