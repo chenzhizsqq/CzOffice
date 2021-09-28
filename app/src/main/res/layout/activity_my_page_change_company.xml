@@ -108,14 +108,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="120dp"
-        android:layout_marginBottom="60dp"
         >
-        <androidx.recyclerview.widget.RecyclerView
+        <com.xieyi.etoffice.base.BaseRecyclerView
             android:id="@+id/recycler_view_get_tenant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="LinearLayoutManager" />
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <TextView android:id="@+id/list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_data"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

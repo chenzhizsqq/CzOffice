@@ -36,6 +36,9 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         binding = ActivityMyPageChangeCompanyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //データ存在の確認表示
+        binding.recyclerViewGetTenant.setEmptyView(binding.listEmpty)
+
         mAdapter = GetTenantAdapter()
         mAdapter.notifyDataSetChanged(ArrayList())
         binding.recyclerViewGetTenant.adapter = mAdapter
