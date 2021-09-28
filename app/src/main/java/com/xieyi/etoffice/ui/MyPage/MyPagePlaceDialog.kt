@@ -50,7 +50,6 @@ class MyPagePlaceDialog() : DialogFragment() {
 
         binding.btnSave.setOnClickListener {
             if (binding.location.text.isNotEmpty()){
-                gpsCheck()
                 listener?.onClick(
                     binding.location.text.toString(),
                     longitude,
