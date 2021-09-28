@@ -53,6 +53,9 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
 
+        //データ存在の確認表示
+        binding.recyclerViewStuffList.setEmptyView(binding.listEmpty)
+
         initRecyclerView()
 
         //Network検査
@@ -105,12 +108,14 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                             userStatusModel = model
                             // 社員一覧取得
                             EtOfficeGetStuffListPost()
+                            viewModel.mLoading.value = false
                         }
                         else -> {
                             activity?.let {
                                 Tools.showErrorDialog(
                                     it,
                                     model.message)
+                                viewModel.mLoading.value = false
                             }
                         }
                     }
@@ -124,6 +129,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     Log.e(TAG, "onFailure:$data")
                     loading = false
                     binding.swipeRefreshLayout.isRefreshing = false
+                    viewModel.mLoading.value = false
                 }
             }
         )
