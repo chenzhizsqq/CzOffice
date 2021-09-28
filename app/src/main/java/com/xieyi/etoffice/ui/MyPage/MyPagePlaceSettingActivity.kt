@@ -59,8 +59,6 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         mAdapter = GetUserLocationAdapter(ArrayList())
         binding.recyclerView.adapter = mAdapter
 
-        //record_title
-        binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGIESTERED)
 
         //returnpHome
         binding.returnHome.setOnClickListener {
@@ -160,6 +158,10 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     // EtOfficeGetUserLocationResult
     private fun EtOfficeGetUserLocationResult(result: UserLocationResult) {
         mAdapter.notifyDataSetChanged(result.locationlist)
+        if (result.locationlist.isNotEmpty()){
+            //record_title
+            binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGIESTERED)
+        }
     }
 
     override fun onRefresh() {
