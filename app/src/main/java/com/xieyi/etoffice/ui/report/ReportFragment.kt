@@ -78,10 +78,6 @@ class ReportFragment : BaseFragment(),
 
         topMenu()
 
-        //Network検査
-        if (!isNetworkConnected()){
-            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
-        }
 
         EtOfficeGetReportListPost("", "")
 

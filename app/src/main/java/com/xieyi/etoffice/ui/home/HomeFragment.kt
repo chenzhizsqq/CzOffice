@@ -133,10 +133,6 @@ class HomeFragment : BaseFragment() {
             }
         })
 
-        //Network検査
-        if (!isNetworkConnected()){
-            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
-        }
 
         //ページを更新
         dataPost()

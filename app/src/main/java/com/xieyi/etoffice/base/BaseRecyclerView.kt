@@ -21,6 +21,17 @@ open class BaseRecyclerView : RecyclerView {
      */
     fun setEmptyView(emptyView: View?) {
         this.emptyView = emptyView
+
+        val adapter = adapter
+        if (adapter != null && emptyView != null) {
+            if (adapter.itemCount == 0) {
+                emptyView!!.visibility = VISIBLE
+                this@BaseRecyclerView.visibility = GONE
+            } else {
+                emptyView!!.visibility = GONE
+                this@BaseRecyclerView.visibility = VISIBLE
+            }
+        }
     }
 
     private val emptyObserver: AdapterDataObserver = object : AdapterDataObserver() {

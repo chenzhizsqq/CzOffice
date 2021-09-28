@@ -31,11 +31,6 @@ class MainActivity : BaseActivity() {
         //gps検査する
         gpsCheck()
 
-        //Network検査
-        if (!isNetworkConnected()){
-            Tools.showErrorDialog(this,getString(R.string.MSG05))
-        }
-
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment)
