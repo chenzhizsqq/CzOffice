@@ -308,13 +308,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="LinearLayoutManager" />
-            <TextView android:id="@+id/list_message_empty"
+
+            <LinearLayout
+                android:id="@+id/list_message_empty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:background="@drawable/ic_round_edge_white"
+                android:layout_margin="4dp"
+                android:padding="5dp"
                 android:visibility="gone"
-                android:text="@string/no_data"
-                />
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/no_data"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
