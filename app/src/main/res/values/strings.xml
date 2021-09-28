@@ -107,6 +107,7 @@
 
     <string name="no_data">記録がない</string>
     <string name="no_memo">備考を入力してください。</string>
+    <string name="no_text">入力してください。</string>
 
     <!--    MARK: - COMMON-->
     <string name="PERSONALINFO">個人情報</string>
