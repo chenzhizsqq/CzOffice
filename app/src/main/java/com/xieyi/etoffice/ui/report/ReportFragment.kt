@@ -55,6 +55,9 @@ class ReportFragment : BaseFragment(),
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this)
 
+        //データ存在の確認表示
+        binding.recyclerViewGetReport.setEmptyView(binding.listEmpty)
+
 
         mRecyclerView = binding.recyclerViewGetReport
 

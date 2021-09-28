@@ -124,13 +124,21 @@
         android:layout_marginTop="60dp"
         android:layout_marginBottom="60dp"
         >
-        <androidx.recyclerview.widget.RecyclerView
+        <com.xieyi.etoffice.base.BaseRecyclerView
             android:id="@+id/recycler_view_get_report"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+    <TextView android:id="@+id/list_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_data"
+        />
     <LinearLayout
         android:id="@+id/ll_progressbar"
         android:layout_width="match_parent"
