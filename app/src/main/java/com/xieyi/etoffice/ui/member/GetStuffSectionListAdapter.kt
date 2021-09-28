@@ -86,17 +86,18 @@ class GetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val c
                 location = context.getString(R.string.MSG07)
             }
             holder.tv_place?.text = location
-Log.d(TAG, "Loaction:" + location)
             holder.ll?.setOnClickListener {
                 //确定是否有电话号码
-                if (list[position].stuffInfo?.phone == "") {
-                    Tools.showErrorDialog(context, context.getString(R.string.no_telephone_number))
-                } else {
-                    val activity = context as FragmentActivity
-                    val fm: FragmentManager = activity.supportFragmentManager
-                    val mMemberTelDialog = MemberTelDialog(list[position].stuffInfo!!.phone)
-                    fm.let { it1 -> mMemberTelDialog.show(it1, "mMemberTelDialog") }
-                }
+//                if (list[position].stuffInfo?.phone == "") {
+//                    Tools.showErrorDialog(context, context.getString(R.string.no_telephone_number))
+//                } else {
+//                    val activity = context as FragmentActivity
+//                    val fm: FragmentManager = activity.supportFragmentManager
+//                    val mMemberTelDialog = MemberTelDialog(list[position].stuffInfo!!.phone)
+//                    fm.let { it1 -> mMemberTelDialog.show(it1, "mMemberTelDialog") }
+//                }
+
+                list[position].stuffInfo?.phone?.let { it1 -> listener.onClick(it1) }
             }
         }
     }
@@ -108,5 +109,15 @@ Log.d(TAG, "Loaction:" + location)
     fun notifyDataUpdateList(sectionList: ArrayList<StuffStatusDispInfo>) {
         this.list = sectionList
         notifyDataSetChanged()
+    }
+
+    private lateinit var listener: OnAdapterListener
+
+    interface OnAdapterListener {
+        fun onClick(phoneNumber:String)
+    }
+
+    fun setOnAdapterListener(adapterListener: OnAdapterListener) {
+        this.listener = adapterListener
     }
 }

@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,7 @@ import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
+import com.xieyi.etoffice.ui.MyPage.GetTenantAdapter
 
 
 class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -84,6 +87,20 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                     loading = true
                     Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
                     EtOfficeGetStuffListPost()
+                }
+            }
+        })
+
+        mAdapter.setOnAdapterListener(object : GetStuffSectionListAdapter.OnAdapterListener {
+            override fun onClick(phoneNumber: String) {
+                //确定是否有电话号码
+                if (phoneNumber == "") {
+                    Tools.showErrorDialog(requireActivity(), getString(R.string.no_telephone_number))
+                } else {
+                    val activity = context as FragmentActivity
+                    val fm: FragmentManager = activity.supportFragmentManager
+                    val mMemberTelDialog = MemberTelDialog(phoneNumber)
+                    fm.let { it1 -> mMemberTelDialog.show(it1, "mMemberTelDialog") }
                 }
             }
         })
