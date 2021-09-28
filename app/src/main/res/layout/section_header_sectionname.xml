@@ -13,7 +13,7 @@
         android:layout_gravity="left|center"
         android:background="@android:color/transparent"
         android:gravity="left|center"
-        android:paddingLeft="10dp"
+        android:paddingStart="20dp"
         android:textSize="@dimen/section_header_font"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
