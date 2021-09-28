@@ -89,9 +89,9 @@
                         android:id="@+id/text_time"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:textSize="20sp"
+                        android:textSize="25sp"
                         android:textColor="@color/white"
-
+                        android:textStyle="bold"
                         android:text="2021.06.28"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
@@ -99,9 +99,8 @@
                     <TextView
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:textSize="20sp"
                         android:textColor="@color/white"
-
+                        android:textSize="18sp"
                         android:text="お疲れ様です"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
