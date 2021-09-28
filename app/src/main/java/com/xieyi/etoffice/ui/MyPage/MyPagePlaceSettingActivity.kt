@@ -53,6 +53,9 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
 
+        //データ存在の確認表示
+        binding.recyclerView.setEmptyView(binding.listEmpty)
+
         mAdapter = GetUserLocationAdapter(ArrayList())
         binding.recyclerView.adapter = mAdapter
 
