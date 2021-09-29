@@ -7,9 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.Config
@@ -33,7 +33,7 @@ class ReportFragment : BaseFragment(),
 
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mRecyclerView: RecyclerView
-
+    private var loading: Boolean = false
     private lateinit var mAdapter: GetReportListGroupAdapter
 
     private lateinit var binding: FragmentReportBinding
@@ -65,12 +65,34 @@ class ReportFragment : BaseFragment(),
 
         mAdapter = GetReportListGroupAdapter()
         mRecyclerView.adapter = mAdapter
+
+
+
+        binding.recyclerViewGetReport.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager =
+                    binding.recyclerViewGetReport.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition: Int = layoutManager.findLastVisibleItemPosition()
+
+                if (lastVisibleItemPosition + 1 == binding.recyclerViewGetReport.adapter?.itemCount && !loading) {
+                    loading = true
+                    Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
+                    EtOfficeGetReportListPost("", "")
+                }
+            }
+        })
+
         mAdapter.setOnAdapterListener(object :GetReportListGroupAdapter.OnAdapterListener{
             override fun onClick(yyyymmdd: String,isApproved:Boolean) {
                 if (viewModel.visibility.value == View.GONE) {
                     Tools.sharedPrePut(Config.FragKey, 3)
                     val intent = Intent(activity, ReportDetailActivity::class.java)
-                    intent.putExtra("ReportFragmentMessage", yyyymmdd)
+                    intent.putExtra("ReportFragmentYMD", yyyymmdd)
                     intent.putExtra("isApproved", isApproved)
                     activity?.startActivity(intent)
                     activity?.finish()
@@ -135,6 +157,7 @@ class ReportFragment : BaseFragment(),
 
     private fun EtOfficeSetApprovalJskPost(arrayListYmd: ArrayList<String>) {
         //指定された　発信
+        loading = true
         if (arrayListYmd.size > 0) {
 
             Api.EtOfficeSetApprovalJsk(
@@ -155,11 +178,15 @@ class ReportFragment : BaseFragment(),
                                 }
                             }
                         }
+                        loading = false
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
                 },
                 onFailure = { error, data ->
                     Handler(Looper.getMainLooper()).post {
                         Log.e(TAG, "onFailure:$data")
+                        loading = false
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
                 }
             )

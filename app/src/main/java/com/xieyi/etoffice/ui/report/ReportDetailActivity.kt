@@ -76,7 +76,8 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         binding.recyclerViewCommentlist.isNestedScrollingEnabled = false
 
         val intent = intent
-        date = intent.getStringExtra("ReportFragmentMessage").toString()
+        date = intent.getStringExtra("ReportFragmentYMD").toString()
+        intent.removeExtra("ReportFragmentMessageYMD")
 
         //”承認”の状態を確認
         isApproved = intent.getBooleanExtra("isApproved",false)
