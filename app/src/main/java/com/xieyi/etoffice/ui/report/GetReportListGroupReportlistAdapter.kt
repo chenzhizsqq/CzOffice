@@ -55,6 +55,16 @@ class GetReportListGroupReportlistAdapter(
         return list.size
     }
 
+    private lateinit var listener: OnAdapterListener
+
+    interface OnAdapterListener {
+        fun onClick( yyyymmdd : String,isApproved:Boolean )
+    }
+
+    fun setOnAdapterListener(adapterListener: OnAdapterListener) {
+        this.listener = adapterListener
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.yyyymmdd.text = Tools.allDate(list[position].yyyymmdd)
@@ -75,18 +85,12 @@ class GetReportListGroupReportlistAdapter(
 
         holder.ll.setOnClickListener(View.OnClickListener {
             if (viewModel.visibility.value == View.GONE) {
-                Tools.sharedPrePut(Config.FragKey, 3)
-                val intent = Intent(activity, ReportDetailActivity::class.java)
-                intent.putExtra("ReportFragmentMessage", list[position].yyyymmdd)
                 if(holder.approval.text.isEmpty()){
-                    intent.putExtra("isApproved", false)
+                    listener.onClick(list[position].yyyymmdd,false)
                 }else{
-                    intent.putExtra("isApproved", true)
+                    listener.onClick(list[position].yyyymmdd,true)
                 }
-                activity.startActivity(intent)
-                activity.finish()
             }else if(viewModel.visibility.value == View.VISIBLE){
-                //编集页面行数据点击时，选中按钮可以切换选中状态，例如：默认状态未选中，点击行，切换到选中状态。
                 holder.checkbox.isChecked = !holder.checkbox.isChecked
             }
 

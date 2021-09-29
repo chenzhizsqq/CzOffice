@@ -40,7 +40,7 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
     }
 
     interface OnAdapterListener {
-        fun onClick(tenantid: String)
+        fun onClick(yyyymmdd: String,isApproved:Boolean)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {
@@ -67,12 +67,20 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
 
         holder.month.text =
             Tools.dateGetYear(list[position].month) + "." + Tools.dateGetMonth(list[position].month)
-        binding.recyclerViewGetReportReportlist.adapter = GetReportListGroupReportlistAdapter(
+
+        val mAdapter = GetReportListGroupReportlistAdapter(
             list[position].reportlist,
             arrayListYmd,
             activity,
             viewModel,
             lifecycleOwner
         )
+
+        binding.recyclerViewGetReportReportlist.adapter = mAdapter
+        mAdapter.setOnAdapterListener(object :GetReportListGroupReportlistAdapter.OnAdapterListener{
+            override fun onClick(yyyymmdd: String,isApproved:Boolean) {
+                listener.onClick(yyyymmdd,isApproved)
+            }
+        })
     }
 }

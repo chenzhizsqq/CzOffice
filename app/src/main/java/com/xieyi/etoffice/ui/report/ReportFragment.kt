@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -63,6 +65,18 @@ class ReportFragment : BaseFragment(),
 
         mAdapter = GetReportListGroupAdapter()
         mRecyclerView.adapter = mAdapter
+        mAdapter.setOnAdapterListener(object :GetReportListGroupAdapter.OnAdapterListener{
+            override fun onClick(yyyymmdd: String,isApproved:Boolean) {
+                if (viewModel.visibility.value == View.GONE) {
+                    Tools.sharedPrePut(Config.FragKey, 3)
+                    val intent = Intent(activity, ReportDetailActivity::class.java)
+                    intent.putExtra("ReportFragmentMessage", yyyymmdd)
+                    intent.putExtra("isApproved", isApproved)
+                    activity?.startActivity(intent)
+                    activity?.finish()
+                }
+            }
+        })
 
 
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
