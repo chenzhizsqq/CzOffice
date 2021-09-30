@@ -87,7 +87,8 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                model.message)
+                                model.message
+                            )
                         }
                     }
                 }
@@ -115,7 +116,8 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                model.message)
+                                model.message
+                            )
                         }
                     }
                 }
@@ -135,11 +137,11 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         //record_title
         val recordTitle = binding.recordTitle
 
-        val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+        val prefs =
+            EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
         val tenantid: String? = prefs.getString("tenantid", "")
         val hpid: String? = prefs.getString("hpid", "")
         recordTitle.text = "TENANTID = $tenantid HPID = $hpid"
-
 
 
         val sortedList = result.tenantlist.sortedWith(compareBy(
@@ -174,7 +176,8 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                 }.apply()
 
                 //会社选中之后直接跳转到【我的】页面
-                val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
+                val intent: Intent =
+                    Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

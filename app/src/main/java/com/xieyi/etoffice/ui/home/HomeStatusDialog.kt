@@ -96,11 +96,12 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
         //set_user_Status
 
         binding.setUserStatus.setOnClickListener {
-            if(binding.userStatusMemo.text.toString().isEmpty()){
+            if (binding.userStatusMemo.text.toString().isEmpty()) {
                 activity?.let { it1 ->
                     Tools.showErrorDialog(
                         it1,
-                        getString(R.string.no_memo))
+                        getString(R.string.no_memo)
+                    )
                 }
                 return@setOnClickListener
             }
@@ -120,11 +121,12 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
         //set_user_location
         binding.setUserLocation.setOnClickListener {
 
-            if(binding.userLocation.text.toString().isEmpty()){
+            if (binding.userLocation.text.toString().isEmpty()) {
                 activity?.let { it1 ->
                     Tools.showErrorDialog(
                         it1,
-                        getString(R.string.MSG11))
+                        getString(R.string.MSG11)
+                    )
                 }
                 return@setOnClickListener
             }
@@ -165,7 +167,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                                 activity?.let {
                                     Tools.showErrorDialog(
                                         it,
-                                        model.message)
+                                        model.message
+                                    )
                                 }
                             }
                         }
@@ -206,7 +209,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                                 activity?.let {
                                     Tools.showErrorDialog(
                                         it,
-                                        model.message)
+                                        model.message
+                                    )
                                 }
                             }
                         }

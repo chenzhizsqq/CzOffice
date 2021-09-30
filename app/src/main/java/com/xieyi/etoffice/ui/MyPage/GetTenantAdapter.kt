@@ -16,7 +16,7 @@ class GetTenantAdapter() : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
 
     lateinit var list: List<TenantInfo>
 
-    fun notifyDataSetChanged(list: List<TenantInfo>){
+    fun notifyDataSetChanged(list: List<TenantInfo>) {
         this.list = list
         notifyDataSetChanged()
     }

@@ -1,17 +1,13 @@
 package com.xieyi.etoffice.ui.member
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
-import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 
 
@@ -114,7 +110,7 @@ class GetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val c
     private lateinit var listener: OnAdapterListener
 
     interface OnAdapterListener {
-        fun onClick(phoneNumber:String)
+        fun onClick(phoneNumber: String)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {

@@ -6,7 +6,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.core.app.ActivityCompat
@@ -18,7 +21,7 @@ import com.xieyi.etoffice.databinding.DialogMemberTelBinding
  * 電話をかける。
  * telNumber：テレフォン番号
  */
-class MemberTelDialog(val telNumber: String) : DialogFragment(){
+class MemberTelDialog(val telNumber: String) : DialogFragment() {
     private val TAG: String = "MemberTelDialog"
 
     private lateinit var binding: DialogMemberTelBinding

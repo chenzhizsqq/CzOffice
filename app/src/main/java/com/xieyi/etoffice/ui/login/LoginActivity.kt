@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
@@ -14,8 +16,6 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
 import okhttp3.*
-import android.text.Editable
-import android.text.TextWatcher
 
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -129,7 +129,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                getString(R.string.MSG03))
+                                getString(R.string.MSG03)
+                            )
                         }
                     }
                 }
@@ -139,7 +140,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     Log.e(TAG, "onFailure:$data");
                     Tools.showErrorDialog(
                         this,
-                        getString(R.string.login_failed_msg2))
+                        getString(R.string.login_failed_msg2)
+                    )
                 }
             }
         )

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,11 +22,6 @@ import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
-
-import com.xieyi.etoffice.ui.home.HomeReportDialog
-import kotlinx.coroutines.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class ReportFragment : BaseFragment(),
@@ -87,8 +84,8 @@ class ReportFragment : BaseFragment(),
             }
         })
 
-        mAdapter.setOnAdapterListener(object :GetReportListGroupAdapter.OnAdapterListener{
-            override fun onClick(yyyymmdd: String,isApproved:Boolean) {
+        mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener {
+            override fun onClick(yyyymmdd: String, isApproved: Boolean) {
                 if (viewModel.visibility.value == View.GONE) {
                     Tools.sharedPrePut(Config.FragKey, 3)
                     val intent = Intent(activity, ReportDetailActivity::class.java)
@@ -102,10 +99,10 @@ class ReportFragment : BaseFragment(),
 
 
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 binding.swipeRefreshLayout.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.swipeRefreshLayout.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
@@ -140,7 +137,8 @@ class ReportFragment : BaseFragment(),
                             activity?.let {
                                 Tools.showErrorDialog(
                                     it,
-                                    model.message)
+                                    model.message
+                                )
                             }
                         }
                     }
@@ -174,7 +172,8 @@ class ReportFragment : BaseFragment(),
                                 activity?.let {
                                     Tools.showErrorDialog(
                                         it,
-                                        model.message)
+                                        model.message
+                                    )
                                 }
                             }
                         }

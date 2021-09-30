@@ -21,7 +21,6 @@ import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
-import com.xieyi.etoffice.ui.MyPage.GetTenantAdapter
 
 
 class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -32,7 +31,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     private var loading: Boolean = false
     private lateinit var viewModel: MemberViewModel
     private lateinit var userStatusModel: UserStatusModel
-    private var dispInfoList : ArrayList<StuffStatusDispInfo> = ArrayList<StuffStatusDispInfo>()
+    private var dispInfoList: ArrayList<StuffStatusDispInfo> = ArrayList<StuffStatusDispInfo>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +42,10 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         viewModel =
             ViewModelProvider(this).get(MemberViewModel::class.java)
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 binding.swipeRefreshLayout.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.swipeRefreshLayout.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
@@ -95,7 +94,10 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             override fun onClick(phoneNumber: String) {
                 //确定是否有电话号码
                 if (phoneNumber == "") {
-                    Tools.showErrorDialog(requireActivity(), getString(R.string.no_telephone_number))
+                    Tools.showErrorDialog(
+                        requireActivity(),
+                        getString(R.string.no_telephone_number)
+                    )
                 } else {
                     val activity = context as FragmentActivity
                     val fm: FragmentManager = activity.supportFragmentManager
@@ -127,7 +129,8 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                             activity?.let {
                                 Tools.showErrorDialog(
                                     it,
-                                    model.message)
+                                    model.message
+                                )
                                 viewModel.mLoading.value = false
                             }
                         }
@@ -171,7 +174,8 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                             activity?.let {
                                 Tools.showErrorDialog(
                                     it,
-                                    model.message)
+                                    model.message
+                                )
                             }
                         }
                     }
@@ -199,7 +203,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      */
     private fun makeDispInfo(stuffListMode: StuffListModel, userStatusModel: UserStatusModel) {
         dispInfoList.clear()
-        for(section in stuffListMode.result.sectionlist){
+        for (section in stuffListMode.result.sectionlist) {
             // 部門名
             var info = StuffStatusDispInfo(
                 section.sectioncd,
@@ -210,9 +214,9 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             dispInfoList.add(info)
 
             // 社員リスト
-            for(stuffInfo in section.stufflist){
-                for(userStatusInfo in userStatusModel.result.userstatuslist){
-                    if(stuffInfo.userid == userStatusInfo.userid){
+            for (stuffInfo in section.stufflist) {
+                for (userStatusInfo in userStatusModel.result.userstatuslist) {
+                    if (stuffInfo.userid == userStatusInfo.userid) {
                         var info = StuffStatusDispInfo(
                             section.sectioncd,
                             section.sectionname,

@@ -1,7 +1,9 @@
 package com.xieyi.etoffice.ui.MyPage
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
@@ -49,14 +51,14 @@ class MyPagePlaceDialog() : DialogFragment() {
         gpsCheck()
 
         binding.btnSave.setOnClickListener {
-            if (binding.location.text.isNotEmpty()){
+            if (binding.location.text.isNotEmpty()) {
                 listener?.onClick(
                     binding.location.text.toString(),
                     longitude,
                     latitude
                 )
                 dialog!!.dismiss()
-            }else{
+            } else {
                 activity?.let { Tools.showErrorDialog(it, getString(R.string.MSG09)) }
             }
 

@@ -14,8 +14,8 @@ import com.xieyi.etoffice.databinding.GetReportListGroupBinding
 class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter.ViewHolder>() {
     val TAG: String = "GetReportListGroupAdapter"
 
-    var list= ArrayList<GroupInfo>()
-    var arrayListYmd= ArrayList<String>()
+    var list = ArrayList<GroupInfo>()
+    var arrayListYmd = ArrayList<String>()
     lateinit var activity: Activity
     lateinit var viewModel: ReportViewModel
     lateinit var lifecycleOwner: LifecycleOwner
@@ -40,7 +40,7 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
     }
 
     interface OnAdapterListener {
-        fun onClick(yyyymmdd: String,isApproved:Boolean)
+        fun onClick(yyyymmdd: String, isApproved: Boolean)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {
@@ -77,9 +77,10 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
         )
 
         binding.recyclerViewGetReportReportlist.adapter = mAdapter
-        mAdapter.setOnAdapterListener(object :GetReportListGroupReportlistAdapter.OnAdapterListener{
-            override fun onClick(yyyymmdd: String,isApproved:Boolean) {
-                listener.onClick(yyyymmdd,isApproved)
+        mAdapter.setOnAdapterListener(object :
+            GetReportListGroupReportlistAdapter.OnAdapterListener {
+            override fun onClick(yyyymmdd: String, isApproved: Boolean) {
+                listener.onClick(yyyymmdd, isApproved)
             }
         })
     }

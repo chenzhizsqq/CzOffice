@@ -26,13 +26,13 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
 
 
-class ReportAddDialog : DialogFragment(),View.OnClickListener{
+class ReportAddDialog : DialogFragment(), View.OnClickListener {
     private val TAG = "ReportAddDialog"
     private var _binding: DialogReportAddBinding? = null
     private val binding get() = _binding!!
-    private lateinit var prefs:SharedPreferences
+    private lateinit var prefs: SharedPreferences
     private lateinit var viewModel: ReportAddViewModel
-    private lateinit var pvOptions:OptionsPickerView<Any>
+    private lateinit var pvOptions: OptionsPickerView<Any>
 
     var listener: OnDialogListener? = null
 
@@ -45,7 +45,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
     }
 
     companion object {
-        fun actionStart(fm: FragmentManager,reportDate:String){
+        fun actionStart(fm: FragmentManager, reportDate: String) {
             val bundle = Bundle()
             bundle.putString("reportDate", reportDate)
             val reportAddDialog = ReportAddDialog()
@@ -132,11 +132,11 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
      * 监听事件
      **/
     override fun onClick(view: View?) {
-        when(view?.id){
+        when (view?.id) {
             R.id.btn_starttime -> {
                 initTimePicker(binding.btnStarttime, binding.tvStarttime)
             }
-            R.id.btn_endtime ->{
+            R.id.btn_endtime -> {
                 initTimePicker(binding.btnEndtime, binding.tvEndtime)
             }
             // 工程选择
@@ -144,10 +144,10 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                 val dialog = OptionsPickerDialog()
                 val bundle = Bundle()
                 bundle.putString("flag", "10")
-                bundle.putSerializable("data",viewModel.projectPickerData)
+                bundle.putSerializable("data", viewModel.projectPickerData)
                 dialog.arguments = bundle
                 parentFragmentManager?.let { dialog.show(it, "bottomDialog") }
-                dialog.setOnDialogListener(object : OptionsPickerDialog.OnDialogListener{
+                dialog.setOnDialogListener(object : OptionsPickerDialog.OnDialogListener {
                     override fun onDialogClick(code: String, name: String) {
                         binding.projectPicker.text = "$code - $name"
                         binding.projectCode.text = code
@@ -165,34 +165,34 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                 val dialog = OptionsPickerDialog()
                 val bundle = Bundle()
                 bundle.putString("flag", "11")
-                bundle.putSerializable("data",viewModel.wbsPickerData)
+                bundle.putSerializable("data", viewModel.wbsPickerData)
                 dialog.arguments = bundle
                 parentFragmentManager?.let { dialog.show(it, "bottomDialog") }
-                dialog.setOnDialogListener(object : OptionsPickerDialog.OnDialogListener{
+                dialog.setOnDialogListener(object : OptionsPickerDialog.OnDialogListener {
                     override fun onDialogClick(code: String, name: String) {
                         binding.wbsPicker.text = "$code - $name"
                         binding.wbsCode.text = code
                     }
                 })
             }
-            R.id.btn_worktime->{
-                initTimePicker(binding.btnWorktime,binding.tvWorktime)
+            R.id.btn_worktime -> {
+                initTimePicker(binding.btnWorktime, binding.tvWorktime)
             }
-            R.id.btn_cancel->{
+            R.id.btn_cancel -> {
                 dialog!!.dismiss()
             }
-            R.id.btn_save->{
+            R.id.btn_save -> {
                 var projectCd = binding.projectCode.text
                 if (projectCd.isEmpty()) {
                     activity?.let {
-                        Tools.showErrorDialog(it,getString(R.string.MSG14))
+                        Tools.showErrorDialog(it, getString(R.string.MSG14))
                     }
                     return
                 }
                 var wbsCode = binding.wbsCode.text
                 if (wbsCode.isEmpty()) {
                     activity?.let {
-                        Tools.showErrorDialog(it,getString(R.string.MSG15))
+                        Tools.showErrorDialog(it, getString(R.string.MSG15))
                     }
                     return
                 }
@@ -224,21 +224,25 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
         window.attributes = attributes
     }
 
-    private fun initTimePicker(clickView: Button, valueView:TextView) {
+    private fun initTimePicker(clickView: Button, valueView: TextView) {
         OptionsPickerView.Builder(context,
             OptionsPickerView.OnOptionsSelectListener { options1, options2, options3, v ->
                 clickView.text = viewModel.hourList[options1] + ":" + viewModel.minuteList[options2]
-                valueView.text = viewModel.hourList[options1] +  viewModel.minuteList[options2]
+                valueView.text = viewModel.hourList[options1] + viewModel.minuteList[options2]
             })
             .setDividerColor(Color.LTGRAY)//设置分割线的颜色
             .setSelectOptions(8, 0, 0)//默认选中项
             .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
             .setContentTextSize(20)
-            .setCyclic(false,false,false)
+            .setCyclic(false, false, false)
             .setTitleText(getString(R.string.select_time))
             .setDecorView(dialog!!.window!!.decorView as ViewGroup)
             .build().also { pvOptions = it }
-        pvOptions.setNPicker(viewModel.hourList as List<Any>?, viewModel.minuteList as List<Any>?, null)
+        pvOptions.setNPicker(
+            viewModel.hourList as List<Any>?,
+            viewModel.minuteList as List<Any>?,
+            null
+        )
         pvOptions.show()
     }
 
@@ -250,9 +254,9 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
             context = requireContext(),
             ymd = viewModel.reportAddDate,
             projectcd = binding.projectCode.text.toString(),
-            wbscd= binding.wbsCode.text.toString(),
+            wbscd = binding.wbsCode.text.toString(),
             totaltime = binding.tvWorktime.text.toString(),
-            starttime= binding.tvStarttime.text.toString(),
+            starttime = binding.tvStarttime.text.toString(),
             endtime = binding.tvEndtime.text.toString(),
             place = binding.etPlace.text.toString(),
             memo = binding.etWorkDetail.text.toString(),
@@ -287,7 +291,7 @@ class ReportAddDialog : DialogFragment(),View.OnClickListener{
                 Handler(Looper.getMainLooper()).post {
                     if (data.status == 0) {
                         viewModel.projectList.clear()
-                        for(project in data.result.projectlist){
+                        for (project in data.result.projectlist) {
                             viewModel.projectList.add(project)
                             viewModel.initProjectOption()
                         }

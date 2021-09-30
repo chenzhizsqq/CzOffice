@@ -7,17 +7,17 @@ import com.xieyi.etoffice.common.model.ProjectInfo
 class ReportAddViewModel : ViewModel() {
     val projectList = ArrayList<ProjectInfo>()
     var minuteList = ArrayList<String>()
-    var hourList= ArrayList<String>()
+    var hourList = ArrayList<String>()
 
     val projectCd = MutableLiveData<String>()
     var reportAddDate = ""
     var wbsPickerData = ArrayList<OptionItemModel>()
-    fun getProjectWbsOption(){
+    fun getProjectWbsOption() {
         if (projectList != null) {
-            for(i in 0 until projectList!!.size){
+            for (i in 0 until projectList!!.size) {
                 var itemCd = projectList[i].projectcd
-                if(itemCd == projectCd.value){
-                    for(wbs in projectList[i].wbslist) {
+                if (itemCd == projectCd.value) {
+                    for (wbs in projectList[i].wbslist) {
                         wbsPickerData.add(OptionItemModel(wbs.wbscd, wbs.wbsname))
                     }
                     break
@@ -27,8 +27,8 @@ class ReportAddViewModel : ViewModel() {
     }
 
     val projectPickerData = ArrayList<OptionItemModel>()
-    fun initProjectOption(){
-        for(i in 0 until projectList!!.size){
+    fun initProjectOption() {
+        for (i in 0 until projectList!!.size) {
             var code = projectList[i].projectcd
             val name = projectList[i].projectname
             projectPickerData.add(OptionItemModel(code, name))
@@ -45,7 +45,7 @@ class ReportAddViewModel : ViewModel() {
         }
         for (i in 0..11) {
             var temp = (i * 5).toString()
-            if (i * 5 < 10){
+            if (i * 5 < 10) {
                 temp = "0$temp"
             }
             minuteList.add(temp)

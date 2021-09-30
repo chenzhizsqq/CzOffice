@@ -15,7 +15,8 @@ class GetUserLocationAdapter(
     val TAG: String = "GetUserLocationAdapter"
 
 
-    inner class ViewHolder(binding: GetUserLocationBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: GetUserLocationBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val location: TextView = binding.location
         val ll: LinearLayout = binding.ll
     }

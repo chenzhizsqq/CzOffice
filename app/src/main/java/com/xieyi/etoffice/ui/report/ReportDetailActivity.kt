@@ -33,7 +33,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     var date: String = ""
 
     //”承認”の状態
-    var isApproved:Boolean = false
+    var isApproved: Boolean = false
 
     private lateinit var mPlanworklistAdapter: PlanworklistAdapter
 
@@ -80,8 +80,8 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         intent.removeExtra("ReportFragmentMessageYMD")
 
         //”承認”の状態を確認
-        isApproved = intent.getBooleanExtra("isApproved",false)
-        if (isApproved){
+        isApproved = intent.getBooleanExtra("isApproved", false)
+        if (isApproved) {
             binding.isApproved.visibility = View.GONE
         }
         intent.removeExtra("isApproved")
@@ -105,9 +105,9 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         binding.addView.setOnClickListener {
 
             val fm: FragmentManager = supportFragmentManager
-    //            val dialog: ReportAddDialog =
-    //                ReportAddDialog.newInstance()
-    //            dialog.show(fm, "ReportAddDialog")
+            //            val dialog: ReportAddDialog =
+            //                ReportAddDialog.newInstance()
+            //            dialog.show(fm, "ReportAddDialog")
             //ReportAddDialog.actionStart(fm, date)
             val bundle = Bundle()
             bundle.putString("reportDate", date)
@@ -201,7 +201,8 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                model.message)
+                                model.message
+                            )
                         }
                     }
                 }
@@ -251,7 +252,8 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                model.message)
+                                model.message
+                            )
                         }
                     }
                 }

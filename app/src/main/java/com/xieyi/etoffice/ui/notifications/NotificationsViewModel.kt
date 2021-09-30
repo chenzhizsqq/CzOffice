@@ -15,11 +15,12 @@ class NotificationsViewModel : ViewModel() {
     var messageList = ArrayList<MessageInfo>()
     var lasttime = ""
     var lastsubid = ""
-    fun appendMessage(messageListNew: List<MessageInfo>){
+    fun appendMessage(messageListNew: List<MessageInfo>) {
         messageList.addAll(messageListNew)
     }
-    var selectFlag:Boolean = false
-    var checkedPosition:Int = -1
+
+    var selectFlag: Boolean = false
+    var checkedPosition: Int = -1
 
     //绑定loading状态
     val mLoading = MutableLiveData(false)

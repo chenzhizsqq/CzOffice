@@ -9,7 +9,7 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.databinding.NotificationsCustomDialogBinding
 
-class NotificationsAlertDialog:  DialogFragment(),View.OnClickListener{
+class NotificationsAlertDialog : DialogFragment(), View.OnClickListener {
     private var _binding: NotificationsCustomDialogBinding? = null
     private val binding get() = _binding!!
     private var mDeleteListener: OnDeleteListener? = null
@@ -80,11 +80,11 @@ class NotificationsAlertDialog:  DialogFragment(),View.OnClickListener{
     }
 
     // 回调接口，用于传递数据给Activity
-    interface OnDeleteListener  {
+    interface OnDeleteListener {
         fun onDeleteClick(message: MessageInfo)
     }
 
-    interface OnArchiveListener  {
+    interface OnArchiveListener {
         fun onArchiveClick(message: MessageInfo)
     }
 

@@ -103,7 +103,8 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                         else -> {
                             Tools.showErrorDialog(
                                 this,
-                                model.message)
+                                model.message
+                            )
                         }
                     }
                 }
@@ -139,7 +140,8 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                             else -> {
                                 Tools.showErrorDialog(
                                     this,
-                                    model.message)
+                                    model.message
+                                )
                             }
                         }
                     }
@@ -158,7 +160,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     // EtOfficeGetUserLocationResult
     private fun EtOfficeGetUserLocationResult(result: UserLocationResult) {
         mAdapter.notifyDataSetChanged(result.locationlist)
-        if (result.locationlist.isNotEmpty()){
+        if (result.locationlist.isNotEmpty()) {
             //record_title
             binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGIESTERED)
         }

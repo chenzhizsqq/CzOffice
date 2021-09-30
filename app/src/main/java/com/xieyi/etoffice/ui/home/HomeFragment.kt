@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -53,10 +51,10 @@ class HomeFragment : BaseFragment() {
         })
 
         homeViewModel.liveDataLoading.observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 binding.scrollViewContent.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.scrollViewContent.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
@@ -221,7 +219,12 @@ class HomeFragment : BaseFragment() {
                 R.color.iphone_button_color
             )
         )
-        binding.tvRest.setTextColor(ContextCompat.getColor(requireActivity(), R.color.iphone_button_color))
+        binding.tvRest.setTextColor(
+            ContextCompat.getColor(
+                requireActivity(),
+                R.color.iphone_button_color
+            )
+        )
         binding.tvMoving.setTextColor(
             ContextCompat.getColor(
                 requireActivity(),

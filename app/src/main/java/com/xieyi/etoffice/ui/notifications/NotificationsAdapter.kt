@@ -12,26 +12,27 @@ import com.xieyi.etoffice.widget.CustomCheckBox
 import java.util.*
 
 
-class NotificationsAdapter(private var messagelist:List<MessageInfo>):
-    RecyclerView.Adapter<NotificationsAdapter.ViewHolder>(){
+class NotificationsAdapter(private var messagelist: List<MessageInfo>) :
+    RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
     //用来记录所有checkbox的状态
     private var checkStatus = hashMapOf<Int, String>()
     var isEdit = false
 
-    interface OnItemClickListener{
-        fun onItemClick(position:Int)
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
     }
 
     private lateinit var onItemClickListener: OnItemClickListener
-    fun setOnItemClickListener(onItemClickListener:OnItemClickListener){
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
     }
 
-    inner class ViewHolder(binding : NotificationsItemBinding):RecyclerView.ViewHolder(binding.root){
-        val msgTitle:TextView = binding.msgTitle
-        val msgUpdateTime:TextView = binding.msgUpdateTime
-        val msgContent:TextView = binding.msgContent
-        val checkBox:CustomCheckBox = binding.checkBox
+    inner class ViewHolder(binding: NotificationsItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val msgTitle: TextView = binding.msgTitle
+        val msgUpdateTime: TextView = binding.msgUpdateTime
+        val msgContent: TextView = binding.msgContent
+        val checkBox: CustomCheckBox = binding.checkBox
     }
 
     //更新适配器数据
@@ -48,7 +49,8 @@ class NotificationsAdapter(private var messagelist:List<MessageInfo>):
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = NotificationsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            NotificationsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
         viewHolder.itemView.setOnClickListener(View.OnClickListener {
             if (onItemClickListener != null) {
@@ -71,7 +73,7 @@ class NotificationsAdapter(private var messagelist:List<MessageInfo>):
             holder.checkBox.isCheck = !checkStatus[position].isNullOrEmpty()
 
             holder.itemView.setOnClickListener {
-                if (holder.checkBox.isCheck){
+                if (holder.checkBox.isCheck) {
                     holder.checkBox.isCheck = false
                     checkStatus[position] = ""
                 } else {
@@ -114,7 +116,7 @@ class NotificationsAdapter(private var messagelist:List<MessageInfo>):
     fun initCheck(flag: Boolean) {
         for (i in messagelist.indices) {
             //更改指定位置的数据
-            if (flag){
+            if (flag) {
                 checkStatus[i] = messagelist[i].updatetime + messagelist[i].subid
             } else {
                 checkStatus[i] = ""

@@ -24,10 +24,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.component1
 import kotlin.collections.component2
-import kotlin.collections.forEach
-import kotlin.collections.isNotEmpty
-import kotlin.collections.iterator
-import kotlin.collections.last
 
 
 class NotificationsFragment : BaseFragment(), View.OnClickListener,
@@ -59,10 +55,10 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
         })
 
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 binding.swipeRefreshLayout.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.swipeRefreshLayout.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }

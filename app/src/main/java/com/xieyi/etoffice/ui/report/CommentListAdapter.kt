@@ -14,7 +14,7 @@ class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.ViewHolder>()
 
     lateinit var list: List<CommentInfo>
 
-    fun notifyDataSetChanged(list: List<CommentInfo>){
+    fun notifyDataSetChanged(list: List<CommentInfo>) {
         this.list = list
         notifyDataSetChanged()
     }

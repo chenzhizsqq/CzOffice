@@ -1,4 +1,5 @@
 package com.xieyi.etoffice.ui.report
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -8,22 +9,24 @@ import com.xieyi.etoffice.databinding.GetWorkStatusInfoBinding
 
 
 class WorkstatuslistAdapter : RecyclerView.Adapter<WorkstatuslistAdapter.ViewHolder>() {
-    val TAG:String = "WorkstatuslistAdapter"
+    val TAG: String = "WorkstatuslistAdapter"
 
-    private lateinit var list:  List<WorkStatusInfo>
+    private lateinit var list: List<WorkStatusInfo>
 
-    fun notifyDataSetChanged(list:  List<WorkStatusInfo>){
+    fun notifyDataSetChanged(list: List<WorkStatusInfo>) {
         this.list = list
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(binding: GetWorkStatusInfoBinding) : RecyclerView.ViewHolder(binding.root) {
-         val location: TextView = binding.location
-         val time: TextView = binding.time
+    inner class ViewHolder(binding: GetWorkStatusInfoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val location: TextView = binding.location
+        val time: TextView = binding.time
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = GetWorkStatusInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            GetWorkStatusInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
 
         return viewHolder

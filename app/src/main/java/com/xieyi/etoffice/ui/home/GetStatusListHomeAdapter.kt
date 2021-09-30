@@ -20,7 +20,8 @@ class GetStatusListHomeAdapter(
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(binding: GetStatusListHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: GetStatusListHomeBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         val statusTime: TextView = binding.statusTime
         val status: TextView = binding.status
         val memo: TextView = binding.memo

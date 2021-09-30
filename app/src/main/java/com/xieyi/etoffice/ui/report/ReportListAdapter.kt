@@ -16,7 +16,7 @@ class ReportListAdapter : RecyclerView.Adapter<ReportListAdapter.ViewHolder>() {
 
     lateinit var list: List<ReportInfo>
 
-    fun notifyDataSetChanged(list: List<ReportInfo>){
+    fun notifyDataSetChanged(list: List<ReportInfo>) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -41,7 +41,8 @@ class ReportListAdapter : RecyclerView.Adapter<ReportListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.project.text = EtOfficeApp.context.getString(R.string.project_title) + list[position].project
+        holder.project.text =
+            EtOfficeApp.context.getString(R.string.project_title) + list[position].project
         holder.wbs.text = EtOfficeApp.context.getString(R.string.wbs_title) + list[position].wbs
         holder.time.text = EtOfficeApp.context.getString(R.string.time_title) + list[position].time
         holder.memo.text = EtOfficeApp.context.getString(R.string.memo_title) + list[position].memo

@@ -1,7 +1,6 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp.Companion.context
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -58,7 +56,7 @@ class GetReportListGroupReportlistAdapter(
     private lateinit var listener: OnAdapterListener
 
     interface OnAdapterListener {
-        fun onClick( yyyymmdd : String,isApproved:Boolean )
+        fun onClick(yyyymmdd: String, isApproved: Boolean)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {
@@ -85,12 +83,12 @@ class GetReportListGroupReportlistAdapter(
 
         holder.ll.setOnClickListener(View.OnClickListener {
             if (viewModel.visibility.value == View.GONE) {
-                if(holder.approval.text.isEmpty()){
-                    listener.onClick(list[position].yyyymmdd,false)
-                }else{
-                    listener.onClick(list[position].yyyymmdd,true)
+                if (holder.approval.text.isEmpty()) {
+                    listener.onClick(list[position].yyyymmdd, false)
+                } else {
+                    listener.onClick(list[position].yyyymmdd, true)
                 }
-            }else if(viewModel.visibility.value == View.VISIBLE){
+            } else if (viewModel.visibility.value == View.VISIBLE) {
                 holder.checkbox.isChecked = !holder.checkbox.isChecked
             }
 
@@ -100,10 +98,9 @@ class GetReportListGroupReportlistAdapter(
             holder.checkbox.isChecked = it
         })
 
-        viewModel.visibility.observe(lifecycleOwner, {it->
+        viewModel.visibility.observe(lifecycleOwner, { it ->
             //holder.checkbox.visibility = it
-            if (it == View.VISIBLE)
-            {
+            if (it == View.VISIBLE) {
                 holder.checkbox_ll.minimumWidth = 120
                 holder.checkbox.visibility = View.VISIBLE
                 if (holder.approval.text.isEmpty()) {
@@ -112,7 +109,7 @@ class GetReportListGroupReportlistAdapter(
                     holder.checkbox.visibility = View.GONE
                 }
 
-            }else{
+            } else {
                 holder.checkbox_ll.minimumWidth = 0
                 holder.checkbox.visibility = View.GONE
             }

@@ -7,15 +7,15 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.databinding.DialogBottomPickerBinding
 
 
-class OptionsPickerDialog:  DialogFragment() {
+class OptionsPickerDialog : DialogFragment() {
     private val TAG = "OptionsPickerDialog"
     private lateinit var optionsData: ArrayList<OptionItemModel>
     private lateinit var adapter: OptionsPickerAdapter
-    private lateinit var flag:String
-    private var _binding:DialogBottomPickerBinding? = null
+    private lateinit var flag: String
+    private var _binding: DialogBottomPickerBinding? = null
     private val binding get() = _binding!!
 
-    private var mlistener: OnDialogListener ? = null
+    private var mlistener: OnDialogListener? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,12 +24,12 @@ class OptionsPickerDialog:  DialogFragment() {
         _binding = DialogBottomPickerBinding.inflate(inflater, container, false)
 
         val bundle = arguments
-        flag = bundle?.getString("flag")?:"10"
+        flag = bundle?.getString("flag") ?: "10"
         optionsData = bundle?.get("data") as ArrayList<OptionItemModel>
 
         adapter = OptionsPickerAdapter(this.requireContext(), R.layout.option_item, optionsData)
         binding.optionList.adapter = adapter
-        binding.optionList.setOnItemClickListener{parent,view,position,id->
+        binding.optionList.setOnItemClickListener { parent, view, position, id ->
             val itemName = optionsData[position].name
             val itemCode = optionsData[position].code
             // 通过接口回传数据给activity
@@ -64,8 +64,8 @@ class OptionsPickerDialog:  DialogFragment() {
     }
 
     // 回调接口，用于传递数据给Activity
-    interface OnDialogListener  {
-        fun onDialogClick(code:String, name:String)
+    interface OnDialogListener {
+        fun onDialogClick(code: String, name: String)
     }
 
     fun setOnDialogListener(dialogListener: OnDialogListener) {

@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
@@ -19,7 +18,6 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
 import com.xieyi.etoffice.ui.login.LoginActivity
-
 
 
 class MyPageFragment : BaseFragment() {
@@ -39,10 +37,10 @@ class MyPageFragment : BaseFragment() {
             ViewModelProvider(this).get(MyPageViewModel::class.java)
 
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
-            if (it){
+            if (it) {
                 binding.scrollViewContent.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.scrollViewContent.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }

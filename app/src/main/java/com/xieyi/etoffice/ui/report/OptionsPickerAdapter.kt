@@ -7,36 +7,36 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.xieyi.etoffice.R
 
-class OptionsPickerAdapter(context: Context, resourceId:Int, data:List<OptionItemModel>)
-    : ArrayAdapter<OptionItemModel>(context,resourceId, data) {
+class OptionsPickerAdapter(context: Context, resourceId: Int, data: List<OptionItemModel>) :
+    ArrayAdapter<OptionItemModel>(context, resourceId, data) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var viewHolder:ViewHolder?
-        var view:View
+        var viewHolder: ViewHolder?
+        var view: View
 
-        if(convertView==null){
-            view = View.inflate(context, R.layout.option_item,null);
+        if (convertView == null) {
+            view = View.inflate(context, R.layout.option_item, null);
             viewHolder = ViewHolder()
-            viewHolder.code=view.findViewById(R.id.option_cd)
-            viewHolder.name=view.findViewById(R.id.option_name)
+            viewHolder.code = view.findViewById(R.id.option_cd)
+            viewHolder.name = view.findViewById(R.id.option_name)
 
-            view.tag=viewHolder
+            view.tag = viewHolder
 
-        }else{
-            view=convertView
-            viewHolder=view!!.tag as ViewHolder
+        } else {
+            view = convertView
+            viewHolder = view!!.tag as ViewHolder
         }
         val option = getItem(position)
-        if (option != null){
+        if (option != null) {
             viewHolder.name?.text = option.name
             viewHolder.code?.text = option.code
         }
         return view
     }
 
-    inner class ViewHolder{
-        var code: TextView?=null
-        var name:TextView?=null
+    inner class ViewHolder {
+        var code: TextView? = null
+        var name: TextView? = null
     }
 
 }
