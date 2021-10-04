@@ -41,7 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2021.06.28 02:24:17"
-                android:textSize="14dp"
+                android:paddingEnd="10dp"
+                android:textSize="16sp"
                 android:textColor="#000000"
                 android:gravity="center|left"
                 />
@@ -56,9 +57,9 @@
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="50dp"
+                    android:paddingEnd="10dp"
                     android:text="勤務中"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
                     android:gravity="center|right"
                     />
                 <TextView
@@ -66,7 +67,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="自宅"
-                    android:textSize="14dp"
+                    android:textSize="16sp"
+                    android:singleLine="true"
+                    android:maxEms="10"
+                    android:ellipsize="end"
                     android:gravity="center|right"
                     />
             </LinearLayout>

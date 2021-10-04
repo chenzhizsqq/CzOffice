@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    android:padding="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
@@ -26,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@string/dialog_home_report_title"
-            android:textSize="20dp"
+            android:textSize="16sp"
             android:textColor="#222"
             android:textStyle="bold"
             android:gravity="center"
