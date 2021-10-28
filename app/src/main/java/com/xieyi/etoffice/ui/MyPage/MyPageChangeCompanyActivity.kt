@@ -78,7 +78,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         Api.EtOfficeGetTenant(
             context = this@MyPageChangeCompanyActivity,
             onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
 
                     when (model.status) {
                         0 -> {
@@ -94,7 +94,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
                     Log.e(TAG, "onFailure:$data")
                 }
             }
@@ -107,7 +107,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
             context = this@MyPageChangeCompanyActivity,
             tenant = tenantid,
             onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
 
                     when (model.status) {
                         0 -> {
@@ -123,7 +123,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
                     Log.e(TAG, "onFailure:$data")
                 }
             }

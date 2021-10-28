@@ -116,7 +116,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             password = binding.password.text.toString(),
             registrationid = "6",
             onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
 
                     when (model.status) {
                         0 -> {
@@ -136,7 +136,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
                     Log.e(TAG, "onFailure:$data");
                     Tools.showErrorDialog(
                         this,

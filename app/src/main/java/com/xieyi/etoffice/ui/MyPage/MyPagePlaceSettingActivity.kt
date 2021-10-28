@@ -94,7 +94,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         Api.EtOfficeGetUserLocation(
             context = this@MyPagePlaceSettingActivity,
             onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
 
                     when (model.status) {
                         0 -> {
@@ -110,7 +110,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                this.runOnUiThread {
                     Log.e(TAG, "onFailure:$data")
                 }
             }
@@ -125,7 +125,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                 latitude = latitude,
                 location = location,
                 onSuccess = { model ->
-                    Handler(Looper.getMainLooper()).post {
+                    this?.runOnUiThread {
 
                         when (model.status) {
                             0 -> {
@@ -147,7 +147,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                     }
                 },
                 onFailure = { error, data ->
-                    Handler(Looper.getMainLooper()).post {
+                    this.runOnUiThread {
                         Log.e(TAG, "onFailure:$data")
                     }
                 }

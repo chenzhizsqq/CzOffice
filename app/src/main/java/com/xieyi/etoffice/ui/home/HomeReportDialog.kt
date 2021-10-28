@@ -100,7 +100,7 @@ class HomeReportDialog : DialogFragment(),
         Api.EtOfficeGetStatusList(
             context = requireActivity(),
             onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     when (model.status) {
                         0 -> {
                             mAdapter.updateData(model.result.recordlist)
@@ -120,7 +120,7 @@ class HomeReportDialog : DialogFragment(),
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     loading = false
                     binding.swipeRefreshLayout.isRefreshing = false
                     Log.e(TAG, "onFailure:$data")

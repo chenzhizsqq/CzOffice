@@ -167,7 +167,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             lastsubid = lastsubid,
             count = viewModel.searchCount,
             onSuccess = { data ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     if (data.status == 0 && data.result.messagelist.isNotEmpty()) {
                         viewModel.appendMessage(data.result.messagelist)
 
@@ -185,7 +185,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     viewModel.mLoading.value = false
                     binding.swipeRefreshLayout.isRefreshing = false
                     loading = false
@@ -289,7 +289,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             updateid = updateArray,
             readflg = readflg,
             onSuccess = { data ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     // 成功結果処理
                     var checkStatus = adapter.getCheckStatus()
                     var statusMap = adapter.getCheckStatus().clone() as HashMap<Int, String>
@@ -330,7 +330,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     Log.e(TAG, "onFailure:$data")
                 }
             }

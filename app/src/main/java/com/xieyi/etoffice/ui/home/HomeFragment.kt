@@ -151,7 +151,7 @@ class HomeFragment : BaseFragment() {
             lasttime = "",
             lastsubid = "",
             onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
 
                     when (model.status) {
                         0 -> {
@@ -172,7 +172,7 @@ class HomeFragment : BaseFragment() {
                 }
             },
             onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
+                activity?.runOnUiThread {
                     homeViewModel.mLoading.value = false
                     Log.e(TAG, "onFailure:$data")
                 }
