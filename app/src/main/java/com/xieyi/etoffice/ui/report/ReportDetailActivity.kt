@@ -187,7 +187,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
             context = this@ReportDetailActivity,
             ymd = ymd,
             onSuccess = { model ->
-                this.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
@@ -208,7 +208,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                 }
             },
             onFailure = { error, data ->
-                this.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data")
                 }
             }
@@ -243,7 +243,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
             ymd = ymd,
             comment = comment,
             onSuccess = { model ->
-                this.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
@@ -259,7 +259,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                 }
             },
             onFailure = { error, data ->
-                this.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data")
                 }
             }

@@ -60,7 +60,7 @@ class MyPageFragment : BaseFragment() {
         Api.EtOfficeUserInfo(
             context = requireContext(),
             onSuccess = { model ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
@@ -81,7 +81,7 @@ class MyPageFragment : BaseFragment() {
                 }
             },
             onFailure = { error, data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     viewModel.mLoading.value = false
                     Log.e(TAG, "onFailure:$data")
                 }

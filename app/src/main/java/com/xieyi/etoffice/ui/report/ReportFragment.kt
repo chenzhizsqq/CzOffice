@@ -124,7 +124,7 @@ class ReportFragment : BaseFragment(),
             startym = startym,
             months = months,
             onSuccess = { model ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
@@ -145,7 +145,7 @@ class ReportFragment : BaseFragment(),
                 }
             },
             onFailure = { error, data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     viewModel.mLoading.value = false
                     Log.e(TAG, "onFailure:$data")
                 }
@@ -162,7 +162,7 @@ class ReportFragment : BaseFragment(),
                 context = requireActivity(),
                 ymdArray = arrayListYmd,
                 onSuccess = { model ->
-                    activity?.runOnUiThread {
+                    Handler(Looper.getMainLooper()).post {
 
                         when (model.status) {
                             0 -> {
@@ -182,7 +182,7 @@ class ReportFragment : BaseFragment(),
                     }
                 },
                 onFailure = { error, data ->
-                    activity?.runOnUiThread {
+                    Handler(Looper.getMainLooper()).post {
                         Log.e(TAG, "onFailure:$data")
                         loading = false
                         binding.swipeRefreshLayout.isRefreshing = false

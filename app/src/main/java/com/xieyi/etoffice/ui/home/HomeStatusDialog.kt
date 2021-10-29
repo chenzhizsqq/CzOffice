@@ -157,7 +157,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                 statustext = statustext,
                 memo = memo,
                 onSuccess = { model ->
-                    activity?.runOnUiThread {
+                    Handler(Looper.getMainLooper()).post {
 
                         when (model.status) {
                             0 -> {
@@ -175,7 +175,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                     }
                 },
                 onFailure = { error, data ->
-                    activity?.runOnUiThread {
+                    Handler(Looper.getMainLooper()).post {
                         Log.e(TAG, "onFailure:$data")
                     }
                 }
@@ -193,7 +193,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                 latitude = latitude,
                 longitude = longitude,
                 onSuccess = { model ->
-                    activity?.runOnUiThread {
+                    Handler(Looper.getMainLooper()).post {
 
                         when (model.status) {
                             0 -> {
@@ -217,7 +217,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                     }
                 },
                 onFailure = { error, data ->
-                    activity?.runOnUiThread {
+                    Handler(Looper.getMainLooper()).post {
                         Log.e(TAG, "onFailure:$data")
                     }
                 }

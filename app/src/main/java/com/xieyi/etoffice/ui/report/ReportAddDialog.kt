@@ -261,7 +261,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
             place = binding.etPlace.text.toString(),
             memo = binding.etWorkDetail.text.toString(),
             onSuccess = { data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     if (data.status == 0) {
                         listener?.onClick()
                         dialog!!.dismiss()
@@ -271,7 +271,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
                 }
             },
             onFailure = { error, data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data");
                     //CommonUtil.handleError(it, error, data)
                 }
@@ -288,7 +288,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
             context = requireContext(),
             ymd = viewModel.reportAddDate,
             onSuccess = { data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     if (data.status == 0) {
                         viewModel.projectList.clear()
                         for (project in data.result.projectlist) {
@@ -299,7 +299,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
                 }
             },
             onFailure = { error, data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data");
                     //CommonUtil.handleError(it, error, data)
                 }

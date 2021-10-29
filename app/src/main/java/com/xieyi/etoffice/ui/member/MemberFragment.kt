@@ -116,7 +116,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         Api.EtOfficeGetUserStatus(
             context = requireActivity(),
             onSuccess = { model ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
@@ -141,7 +141,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                 }
             },
             onFailure = { error, data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     Log.e(TAG, "onFailure:$data")
                     loading = false
                     binding.swipeRefreshLayout.isRefreshing = false
@@ -159,7 +159,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         Api.EtOfficeGetStuffList(
             context = requireActivity(),
             onSuccess = { model ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
 
                     when (model.status) {
                         0 -> {
@@ -185,7 +185,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                 }
             },
             onFailure = { error, data ->
-                activity?.runOnUiThread {
+                Handler(Looper.getMainLooper()).post {
                     viewModel.mLoading.value = false
                     Log.e(TAG, "onFailure:$data")
                     loading = false
