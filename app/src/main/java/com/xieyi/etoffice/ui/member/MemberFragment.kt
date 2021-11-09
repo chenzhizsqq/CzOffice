@@ -21,6 +21,10 @@ import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -112,87 +116,99 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      * ユーザー最新勤務状態の一覧取得
      */
     private fun EtOfficeGetUserStatusPost() {
-        loading = true
-        Api.EtOfficeGetUserStatus(
-            context = requireActivity(),
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                loading = true
+                Api.EtOfficeGetUserStatus(
+                    context = requireActivity(),
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
 
-                    when (model.status) {
-                        0 -> {
-                            userStatusModel = model
-                            // 社員一覧取得
-                            EtOfficeGetStuffListPost()
-                            viewModel.mLoading.value = false
-                        }
-                        else -> {
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message
-                                )
-                                viewModel.mLoading.value = false
+                                when (model.status) {
+                                    0 -> {
+                                        userStatusModel = model
+                                        // 社員一覧取得
+                                        EtOfficeGetStuffListPost()
+                                        viewModel.mLoading.value = false
+                                    }
+                                    else -> {
+                                        activity?.let {
+                                            Tools.showErrorDialog(
+                                                it,
+                                                model.message
+                                            )
+                                            viewModel.mLoading.value = false
+                                        }
+                                    }
+                                }
+
+                                loading = false
+                                binding.swipeRefreshLayout.isRefreshing = false
                             }
                         }
+                    },
+                    onFailure = { error, data ->
+                        Handler(Looper.getMainLooper()).post {
+                            Log.e(TAG, "onFailure:$data")
+                            loading = false
+                            binding.swipeRefreshLayout.isRefreshing = false
+                            viewModel.mLoading.value = false
+                        }
                     }
-
-                    loading = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                    loading = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    viewModel.mLoading.value = false
-                }
+                )
             }
-        )
+        }
     }
 
     /**
      * 社員一覧取得
      */
     private fun EtOfficeGetStuffListPost() {
-        loading = true
-        Api.EtOfficeGetStuffList(
-            context = requireActivity(),
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                loading = true
+                Api.EtOfficeGetStuffList(
+                    context = requireActivity(),
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
 
-                    when (model.status) {
-                        0 -> {
-                            makeDispInfo(model, userStatusModel)
-                            mAdapter.notifyDataUpdateList(dispInfoList)
+                                when (model.status) {
+                                    0 -> {
+                                        makeDispInfo(model, userStatusModel)
+                                        mAdapter.notifyDataUpdateList(dispInfoList)
 
-                            viewModel.mLoading.value = false
-                        }
-                        else -> {
-                            viewModel.mLoading.value = false
+                                        viewModel.mLoading.value = false
+                                    }
+                                    else -> {
+                                        viewModel.mLoading.value = false
 
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message
-                                )
+                                        activity?.let {
+                                            Tools.showErrorDialog(
+                                                it,
+                                                model.message
+                                            )
+                                        }
+                                    }
+                                }
+
+                                loading = false
+                                binding.swipeRefreshLayout.isRefreshing = false
                             }
                         }
+                    },
+                    onFailure = { error, data ->
+                        Handler(Looper.getMainLooper()).post {
+                            viewModel.mLoading.value = false
+                            Log.e(TAG, "onFailure:$data")
+                            loading = false
+                            binding.swipeRefreshLayout.isRefreshing = false
+                        }
                     }
-
-                    loading = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    viewModel.mLoading.value = false
-                    Log.e(TAG, "onFailure:$data")
-                    loading = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                }
+                )
             }
-        )
+        }
     }
 
     /**

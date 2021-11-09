@@ -75,30 +75,38 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
 
     private fun EtOfficeGetTenantPost() {
-        Api.EtOfficeGetTenant(
-            context = this@MyPageChangeCompanyActivity,
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetTenant(
+                    context = this@MyPageChangeCompanyActivity,
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
 
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetTenantResult(model.result)
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeGetTenantResult(model.result)
+                                    }
+                                    else -> {
+                                        Tools.showErrorDialog(
+                                            this@MyPageChangeCompanyActivity,
+                                            model.message
+                                        )
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            Tools.showErrorDialog(
-                                this,
-                                model.message
-                            )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                            }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
 
     }
 

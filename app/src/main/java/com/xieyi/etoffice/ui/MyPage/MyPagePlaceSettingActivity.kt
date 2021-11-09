@@ -91,30 +91,36 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
     private fun EtOfficeGetUserLocationPost() {
-        Api.EtOfficeGetUserLocation(
-            context = this@MyPagePlaceSettingActivity,
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetUserLocation(
+                    context = this@MyPagePlaceSettingActivity,
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
 
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetUserLocationResult(model.result)
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeGetUserLocationResult(model.result)
+                                    }
+                                    else -> {
+                                    Tools.showErrorDialog(
+                                        this@MyPagePlaceSettingActivity,
+                                        model.message
+                                    )
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            Tools.showErrorDialog(
-                                this,
-                                model.message
-                            )
+                    },
+                    onFailure = { error, data ->
+                        Handler(Looper.getMainLooper()).post {
+                            Log.e(TAG, "onFailure:$data")
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
     private fun EtOfficeSetUserLocationPost(location: String, longitude: Double, latitude: Double) {
