@@ -145,39 +145,44 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun EtOfficeGetMessagePost() {
-        Api.EtOfficeGetMessage(
-            context = requireActivity(),
-            count = 5,
-            lasttime = "",
-            lastsubid = "",
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetMessage(
+                    context = requireActivity(),
+                    count = 5,
+                    lasttime = "",
+                    lastsubid = "",
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeGetMessageResult(model.result)
 
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetMessageResult(model.result)
-
-                            homeViewModel.mLoading.value = false
-                        }
-                        else -> {
-                            homeViewModel.mLoading.value = false
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message
-                                )
+                                        homeViewModel.mLoading.value = false
+                                    }
+                                    else -> {
+                                        homeViewModel.mLoading.value = false
+                                        activity?.let {
+                                            Tools.showErrorDialog(
+                                                it,
+                                                model.message
+                                            )
+                                        }
+                                    }
+                                }
                             }
                         }
+                    },
+                    onFailure = { error, data ->
+                        Handler(Looper.getMainLooper()).post {
+                            homeViewModel.mLoading.value = false
+                            Log.e(TAG, "onFailure:$data")
+                        }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    homeViewModel.mLoading.value = false
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
     // Message UI更新
