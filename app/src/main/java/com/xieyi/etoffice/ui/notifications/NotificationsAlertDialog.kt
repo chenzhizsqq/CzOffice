@@ -26,7 +26,7 @@ class NotificationsAlertDialog : DialogFragment(), View.OnClickListener {
         messageItem = bundle?.get("messageItem") as MessageInfo
         binding.title.text = messageItem.title
         binding.message.text = messageItem.content
-        setStyle(STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+        setStyle(STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen)
 
         // 监听事件
         binding.btnDelete.setOnClickListener(this)
@@ -51,14 +51,14 @@ class NotificationsAlertDialog : DialogFragment(), View.OnClickListener {
         val window = dialog!!.window
         // 设备背景为透明（默认白色）
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        window.decorView.setPadding(16, 16, 16, 0);
+        window.decorView.setPadding(16, 16, 16, 0)
         val attributes = window.attributes
 
         // 设置window宽高(单位px)
         attributes.width = WindowManager.LayoutParams.WRAP_CONTENT //满屏
         attributes.height = WindowManager.LayoutParams.WRAP_CONTENT
         //设置window位置
-        window?.attributes?.gravity = Gravity.CENTER//居中
+        window.attributes?.gravity = Gravity.CENTER//居中
         window.attributes = attributes
     }
 

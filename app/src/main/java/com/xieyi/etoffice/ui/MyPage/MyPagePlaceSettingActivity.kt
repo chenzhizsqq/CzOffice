@@ -2,8 +2,6 @@ package com.xieyi.etoffice.ui.MyPage
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -104,18 +102,20 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                                         EtOfficeGetUserLocationResult(model.result)
                                     }
                                     else -> {
-                                    Tools.showErrorDialog(
-                                        this@MyPagePlaceSettingActivity,
-                                        model.message
-                                    )
+                                        Tools.showErrorDialog(
+                                            this@MyPagePlaceSettingActivity,
+                                            model.message
+                                        )
                                     }
                                 }
                             }
                         }
                     },
                     onFailure = { error, data ->
-                        Handler(Looper.getMainLooper()).post {
-                            Log.e(TAG, "onFailure:$data")
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                            }
                         }
                     }
                 )
@@ -125,39 +125,46 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
     private fun EtOfficeSetUserLocationPost(location: String, longitude: Double, latitude: Double) {
         if (gpsTracker.canGetLocation()) {
-            Api.EtOfficeSetUserLocation(
-                context = this@MyPagePlaceSettingActivity,
-                longitude = longitude,
-                latitude = latitude,
-                location = location,
-                onSuccess = { model ->
-                    Handler(Looper.getMainLooper()).post {
+            GlobalScope.launch {
+                withContext(Dispatchers.IO) {
+                    Api.EtOfficeSetUserLocation(
+                        context = this@MyPagePlaceSettingActivity,
+                        longitude = longitude,
+                        latitude = latitude,
+                        location = location,
+                        onSuccess = { model ->
+                            GlobalScope.launch {
+                                withContext(Dispatchers.Main) {
+                                    when (model.status) {
+                                        0 -> {
+                                            Tools.showAlertDialog(
+                                                this@MyPagePlaceSettingActivity,
+                                                getString(R.string.MESSAGE),
+                                                "登録しました。"
+                                            )
+                                            EtOfficeGetUserLocationPost()
+                                        }
 
-                        when (model.status) {
-                            0 -> {
-                                Tools.showAlertDialog(
-                                    this,
-                                    getString(R.string.MESSAGE),
-                                    "登録しました。"
-                                )
-                                EtOfficeGetUserLocationPost()
+                                        else -> {
+                                            Tools.showErrorDialog(
+                                                this@MyPagePlaceSettingActivity,
+                                                model.message
+                                            )
+                                        }
+                                    }
+                                }
                             }
-
-                            else -> {
-                                Tools.showErrorDialog(
-                                    this,
-                                    model.message
-                                )
+                        },
+                        onFailure = { error, data ->
+                            GlobalScope.launch {
+                                withContext(Dispatchers.Main) {
+                                    Log.e(TAG, "onFailure:$data")
+                                }
                             }
                         }
-                    }
-                },
-                onFailure = { error, data ->
-                    Handler(Looper.getMainLooper()).post {
-                        Log.e(TAG, "onFailure:$data")
-                    }
+                    )
                 }
-            )
+            }
         } else {
             gpsTracker.showSettingsAlert()
         }

@@ -15,7 +15,7 @@ class OptionsPickerAdapter(context: Context, resourceId: Int, data: List<OptionI
         var view: View
 
         if (convertView == null) {
-            view = View.inflate(context, R.layout.option_item, null);
+            view = View.inflate(context, R.layout.option_item, null)
             viewHolder = ViewHolder()
             viewHolder.code = view.findViewById(R.id.option_cd)
             viewHolder.name = view.findViewById(R.id.option_name)
@@ -24,7 +24,7 @@ class OptionsPickerAdapter(context: Context, resourceId: Int, data: List<OptionI
 
         } else {
             view = convertView
-            viewHolder = view!!.tag as ViewHolder
+            viewHolder = view.tag as ViewHolder
         }
         val option = getItem(position)
         if (option != null) {

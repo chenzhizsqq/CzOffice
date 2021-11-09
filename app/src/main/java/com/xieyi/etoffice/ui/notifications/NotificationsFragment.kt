@@ -1,8 +1,6 @@
 package com.xieyi.etoffice.ui.notifications
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.CompoundButton
@@ -19,6 +17,10 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.common.model.SetMessageModel
 import com.xieyi.etoffice.databinding.FragmentNotificationsBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.util.*
 import kotlin.collections.ArrayList
@@ -161,38 +163,46 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             lastsubid = viewModel.lastsubid
         }
 
-        Api.EtOfficeGetMessage(
-            context = requireContext(),
-            lasttime = lasttime,
-            lastsubid = lastsubid,
-            count = viewModel.searchCount,
-            onSuccess = { data ->
-                Handler(Looper.getMainLooper()).post {
-                    if (data.status == 0 && data.result.messagelist.isNotEmpty()) {
-                        viewModel.appendMessage(data.result.messagelist)
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetMessage(
+                    context = requireContext(),
+                    lasttime = lasttime,
+                    lastsubid = lastsubid,
+                    count = viewModel.searchCount,
+                    onSuccess = { data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                if (data.status == 0 && data.result.messagelist.isNotEmpty()) {
+                                    viewModel.appendMessage(data.result.messagelist)
 
-                        var lastMessage = data.result.messagelist.last()
-                        viewModel.lastsubid = lastMessage.subid
-                        viewModel.lasttime = lastMessage.updatetime
+                                    var lastMessage = data.result.messagelist.last()
+                                    viewModel.lastsubid = lastMessage.subid
+                                    viewModel.lasttime = lastMessage.updatetime
 
-                        adapter.notifyDataChange(viewModel.messageList)
+                                    adapter.notifyDataChange(viewModel.messageList)
+                                }
+
+                                binding.swipeRefreshLayout.isRefreshing = false
+                                loading = false
+
+                                viewModel.mLoading.value = false
+                            }
+                        }
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                viewModel.mLoading.value = false
+                                binding.swipeRefreshLayout.isRefreshing = false
+                                loading = false
+                                Log.e(TAG, "onFailure:$data")
+                            }
+                        }
                     }
-
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    loading = false
-
-                    viewModel.mLoading.value = false
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    viewModel.mLoading.value = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    loading = false
-                    Log.e(TAG, "onFailure:$data");
-                }
+                )
             }
-        )
+        }
     }
 
     /**
@@ -209,17 +219,13 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
         // スクロールリスナー
         binding.recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = binding.recycleView.layoutManager as LinearLayoutManager
                 val lastVisibleItemPosition: Int = layoutManager.findLastVisibleItemPosition()
 
                 if (lastVisibleItemPosition + 1 == binding.recycleView.adapter?.itemCount && !loading) {
-                    Log.d(TAG, "loading more...");
+                    Log.d(TAG, "loading more...")
                     loading = true
                     getMessageRequest(true)
                 }
@@ -284,57 +290,70 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
      * 消息状态更新
      */
     private fun deleteMessagesRequest(readflg: String, updateArray: JSONArray) {
-        Api.EtOfficeSetMessage(
-            context = requireContext(),
-            updateid = updateArray,
-            readflg = readflg,
-            onSuccess = { data ->
-                Handler(Looper.getMainLooper()).post {
-                    // 成功結果処理
-                    var checkStatus = adapter.getCheckStatus()
-                    var statusMap = adapter.getCheckStatus().clone() as HashMap<Int, String>
-                    val msgListTmp = viewModel.messageList.clone() as ArrayList<MessageInfo>
-                    val msgIterator = msgListTmp.iterator()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeSetMessage(
+                    context = requireContext(),
+                    updateid = updateArray,
+                    readflg = readflg,
+                    onSuccess = { data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                // 成功結果処理
+                                var checkStatus = adapter.getCheckStatus()
+                                var statusMap =
+                                    adapter.getCheckStatus().clone() as HashMap<Int, String>
+                                val msgListTmp =
+                                    viewModel.messageList.clone() as ArrayList<MessageInfo>
+                                val msgIterator = msgListTmp.iterator()
 
-                    if (data is SetMessageModel) {
-                        if (data.status == 0) {
-                            if (viewModel.checkedPosition >= 0) {
-                                viewModel.messageList.removeAt(viewModel.checkedPosition)
-                            } else {
-                                statusMap.forEach { (key, value) ->
-                                    while (msgIterator.hasNext()) {
-                                        val msgItem = msgIterator.next()
-                                        val value2 = msgItem.updatetime + msgItem.subid
-                                        if (value == value2) {
-                                            viewModel.messageList.remove(msgItem)
-                                            checkStatus.remove(key)
-                                            break
+                                if (data is SetMessageModel) {
+                                    if (data.status == 0) {
+                                        if (viewModel.checkedPosition >= 0) {
+                                            viewModel.messageList.removeAt(viewModel.checkedPosition)
+                                        } else {
+                                            statusMap.forEach { (key, value) ->
+                                                while (msgIterator.hasNext()) {
+                                                    val msgItem = msgIterator.next()
+                                                    val value2 = msgItem.updatetime + msgItem.subid
+                                                    if (value == value2) {
+                                                        viewModel.messageList.remove(msgItem)
+                                                        checkStatus.remove(key)
+                                                        break
+                                                    }
+                                                }
+                                            }
                                         }
+                                        activity?.let {
+                                            Tools.showAlertDialog(
+                                                it,
+                                                it.getString(R.string.MESSAGE),
+                                                getString(R.string.update_success)
+                                            )
+                                        }
+                                        activity?.runOnUiThread {
+                                            adapter.notifyDataChange(
+                                                viewModel.messageList,
+                                                checkStatus
+                                            )
+                                        }
+                                    } else {
+                                        activity?.let { Tools.showErrorDialog(it, data.message) }
                                     }
                                 }
                             }
-                            activity?.let {
-                                Tools.showAlertDialog(
-                                    it,
-                                    it.getString(R.string.MESSAGE),
-                                    getString(R.string.update_success)
-                                )
+                        }
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
                             }
-                            activity?.runOnUiThread {
-                                adapter.notifyDataChange(viewModel.messageList, checkStatus)
-                            }
-                        } else {
-                            activity?.let { Tools.showErrorDialog(it, data.message) }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
     override fun onCheckedChanged(p0: CompoundButton?, p1: Boolean) {

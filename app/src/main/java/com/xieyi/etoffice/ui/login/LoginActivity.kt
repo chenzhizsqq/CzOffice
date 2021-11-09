@@ -3,8 +3,6 @@ package com.xieyi.etoffice.ui.login
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -15,6 +13,10 @@ import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 
 
@@ -99,52 +101,54 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
      * ログイン可能かを判断
      */
     private fun judgeLoginEnable() {
-        if (binding.userName.text.toString().trim().isEmpty() || binding.password.text.toString()
-                .trim().isEmpty()
-        ) {
-            binding.btnLogin.isEnabled = false
-        } else {
-            binding.btnLogin.isEnabled = true
-        }
+        binding.btnLogin.isEnabled = !(binding.userName.text.toString().trim().isEmpty() || binding.password.text.toString()
+            .trim().isEmpty())
     }
 
     // ログイン処理
     private fun login() {
-        Api.EtOfficeLogin(
-            context = this@LoginActivity,
-            uid = binding.userName.text.toString(),
-            password = binding.password.text.toString(),
-            registrationid = "6",
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-
-                            saveUserInfo(model.result)
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeLogin(
+                    context = this@LoginActivity,
+                    uid = binding.userName.text.toString(),
+                    password = binding.password.text.toString(),
+                    registrationid = "6",
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        saveUserInfo(model.result)
+                                        val intent =
+                                            Intent(this@LoginActivity, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    else -> {
+                                        Tools.showErrorDialog(
+                                            this@LoginActivity,
+                                            getString(R.string.MSG03)
+                                        )
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            Tools.showErrorDialog(
-                                this,
-                                getString(R.string.MSG03)
-                            )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                                Tools.showErrorDialog(
+                                    this@LoginActivity,
+                                    getString(R.string.login_failed_msg2)
+                                )
+                            }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
-                    Tools.showErrorDialog(
-                        this,
-                        getString(R.string.login_failed_msg2)
-                    )
-                }
+                )
             }
-        )
+        }
 
     }
 
@@ -171,7 +175,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         userInfo.registerOnSharedPreferenceChangeListener(changeListener)
 
         val editor = userInfo.edit()
-        editor.apply() {
+        editor.apply {
             putString("tenantid", user.tenantid)
             putString("hpid", user.hpid)
             putString("token", user.token)

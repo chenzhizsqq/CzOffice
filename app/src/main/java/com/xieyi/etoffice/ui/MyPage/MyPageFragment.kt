@@ -2,8 +2,6 @@ package com.xieyi.etoffice.ui.MyPage
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +16,10 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
 import com.xieyi.etoffice.ui.login.LoginActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MyPageFragment : BaseFragment() {
@@ -57,36 +59,43 @@ class MyPageFragment : BaseFragment() {
 
 
     private fun EtOfficeUserInfoPost() {
-        Api.EtOfficeUserInfo(
-            context = requireContext(),
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeUserInfo(
+                    context = requireContext(),
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeUserInfoResult(model.result)
 
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeUserInfoResult(model.result)
-
-                            viewModel.mLoading.value = false
+                                        viewModel.mLoading.value = false
+                                    }
+                                    else -> {
+                                        viewModel.mLoading.value = false
+                                        activity?.let {
+                                            Tools.showErrorDialog(
+                                                it,
+                                                model.message
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            viewModel.mLoading.value = false
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message
-                                )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                viewModel.mLoading.value = false
+                                Log.e(TAG, "onFailure:$data")
                             }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    viewModel.mLoading.value = false
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
 

@@ -1,8 +1,6 @@
 package com.xieyi.etoffice.ui.home
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.*
 import androidx.annotation.NonNull
@@ -16,6 +14,10 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.StatusInfo
 import com.xieyi.etoffice.databinding.DialogHomeReportBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class HomeReportDialog : DialogFragment(),
@@ -76,10 +78,6 @@ class HomeReportDialog : DialogFragment(),
 
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
@@ -95,38 +93,46 @@ class HomeReportDialog : DialogFragment(),
     }
 
     private fun EtOfficeGetStatusListPost() {
-        loading = true
-        Log.e(TAG, "EtOfficeGetStatusListPost calling...")
-        Api.EtOfficeGetStatusList(
-            context = requireActivity(),
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-                    when (model.status) {
-                        0 -> {
-                            mAdapter.updateData(model.result.recordlist)
-                            mAdapter.notifyDataSetChanged()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                loading = true
+                Log.e(TAG, "EtOfficeGetStatusListPost calling...")
+                Api.EtOfficeGetStatusList(
+                    context = requireActivity(),
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        mAdapter.updateData(model.result.recordlist)
+                                        mAdapter.notifyDataSetChanged()
+                                    }
+                                    else -> {
+                                        activity?.let {
+                                            Tools.showErrorDialog(
+                                                it,
+                                                model.message,
+                                            )
+                                        }
+                                    }
+                                }
+                                loading = false
+                                binding.swipeRefreshLayout.isRefreshing = false
+                            }
                         }
-                        else -> {
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message,
-                                )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                loading = false
+                                binding.swipeRefreshLayout.isRefreshing = false
+                                Log.e(TAG, "onFailure:$data")
                             }
                         }
                     }
-                    loading = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    loading = false
-                    binding.swipeRefreshLayout.isRefreshing = false
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
     override fun onRefresh() {

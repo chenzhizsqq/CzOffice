@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -24,6 +22,10 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class ReportAddDialog : DialogFragment(), View.OnClickListener {
@@ -86,7 +88,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
         viewModel.initTime()
 
         prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
-        setStyle(STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+        setStyle(STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen)
 
         // 开始时间监听事件
         binding.btnStarttime.setOnClickListener(this)
@@ -146,7 +148,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
                 bundle.putString("flag", "10")
                 bundle.putSerializable("data", viewModel.projectPickerData)
                 dialog.arguments = bundle
-                parentFragmentManager?.let { dialog.show(it, "bottomDialog") }
+                parentFragmentManager.let { dialog.show(it, "bottomDialog") }
                 dialog.setOnDialogListener(object : OptionsPickerDialog.OnDialogListener {
                     override fun onDialogClick(code: String, name: String) {
                         binding.projectPicker.text = "$code - $name"
@@ -167,7 +169,7 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
                 bundle.putString("flag", "11")
                 bundle.putSerializable("data", viewModel.wbsPickerData)
                 dialog.arguments = bundle
-                parentFragmentManager?.let { dialog.show(it, "bottomDialog") }
+                parentFragmentManager.let { dialog.show(it, "bottomDialog") }
                 dialog.setOnDialogListener(object : OptionsPickerDialog.OnDialogListener {
                     override fun onDialogClick(code: String, name: String) {
                         binding.wbsPicker.text = "$code - $name"
@@ -213,14 +215,14 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
         val window = dialog!!.window
         // 设备背景为透明（默认白色）
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        window.decorView.setPadding(0, 16, 0, 0);
+        window.decorView.setPadding(0, 16, 0, 0)
         val attributes = window.attributes
 
         // 设置window宽高(单位px)
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
         attributes.height = WindowManager.LayoutParams.MATCH_PARENT
         //设置window位置
-        window?.attributes?.gravity = Gravity.CENTER//居中
+        window.attributes?.gravity = Gravity.CENTER//居中
         window.attributes = attributes
     }
 
@@ -250,33 +252,41 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
      * 日報登録
      **/
     private fun sendSetReport() {
-        Api.EtOfficeSetReport(
-            context = requireContext(),
-            ymd = viewModel.reportAddDate,
-            projectcd = binding.projectCode.text.toString(),
-            wbscd = binding.wbsCode.text.toString(),
-            totaltime = binding.tvWorktime.text.toString(),
-            starttime = binding.tvStarttime.text.toString(),
-            endtime = binding.tvEndtime.text.toString(),
-            place = binding.etPlace.text.toString(),
-            memo = binding.etWorkDetail.text.toString(),
-            onSuccess = { data ->
-                Handler(Looper.getMainLooper()).post {
-                    if (data.status == 0) {
-                        listener?.onClick()
-                        dialog!!.dismiss()
-                    } else {
-                        activity?.let { Tools.showErrorDialog(it, data.message) }
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeSetReport(
+                    context = requireContext(),
+                    ymd = viewModel.reportAddDate,
+                    projectcd = binding.projectCode.text.toString(),
+                    wbscd = binding.wbsCode.text.toString(),
+                    totaltime = binding.tvWorktime.text.toString(),
+                    starttime = binding.tvStarttime.text.toString(),
+                    endtime = binding.tvEndtime.text.toString(),
+                    place = binding.etPlace.text.toString(),
+                    memo = binding.etWorkDetail.text.toString(),
+                    onSuccess = { data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                if (data.status == 0) {
+                                    listener?.onClick()
+                                    dialog!!.dismiss()
+                                } else {
+                                    activity?.let { Tools.showErrorDialog(it, data.message) }
+                                }
+                            }
+                        }
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                                //CommonUtil.handleError(it, error, data)
+                            }
+                        }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
-                    //CommonUtil.handleError(it, error, data)
-                }
+                )
             }
-        )
+        }
     }
 
 
@@ -284,26 +294,34 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
      * プロジェクト一覧
      * */
     private fun searchProject() {
-        Api.EtOfficeGetProject(
-            context = requireContext(),
-            ymd = viewModel.reportAddDate,
-            onSuccess = { data ->
-                Handler(Looper.getMainLooper()).post {
-                    if (data.status == 0) {
-                        viewModel.projectList.clear()
-                        for (project in data.result.projectlist) {
-                            viewModel.projectList.add(project)
-                            viewModel.initProjectOption()
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetProject(
+                    context = requireContext(),
+                    ymd = viewModel.reportAddDate,
+                    onSuccess = { data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                if (data.status == 0) {
+                                    viewModel.projectList.clear()
+                                    for (project in data.result.projectlist) {
+                                        viewModel.projectList.add(project)
+                                        viewModel.initProjectOption()
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                                //CommonUtil.handleError(it, error, data)
+                            }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data");
-                    //CommonUtil.handleError(it, error, data)
-                }
+                )
             }
-        )
+        }
     }
 }

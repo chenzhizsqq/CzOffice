@@ -13,7 +13,7 @@ import com.xieyi.etoffice.databinding.DialogMyPagePlaceBinding
 /**
  * アドレスの追加
  */
-class MyPagePlaceDialog() : DialogFragment() {
+class MyPagePlaceDialog : DialogFragment() {
     private val TAG: String = "MyPagePlaceDialog"
 
     private lateinit var binding: DialogMyPagePlaceBinding

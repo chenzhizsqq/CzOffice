@@ -2,8 +2,6 @@ package com.xieyi.etoffice.ui.home
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -175,9 +173,11 @@ class HomeFragment : BaseFragment() {
                         }
                     },
                     onFailure = { error, data ->
-                        Handler(Looper.getMainLooper()).post {
-                            homeViewModel.mLoading.value = false
-                            Log.e(TAG, "onFailure:$data")
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                homeViewModel.mLoading.value = false
+                                Log.e(TAG, "onFailure:$data")
+                            }
                         }
                     }
                 )

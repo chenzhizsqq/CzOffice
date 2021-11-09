@@ -1,8 +1,6 @@
 package com.xieyi.etoffice.ui.member
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -76,9 +74,6 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         binding.recyclerViewStuffList.adapter = mAdapter
 
         binding.recyclerViewStuffList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -149,11 +144,13 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                         }
                     },
                     onFailure = { error, data ->
-                        Handler(Looper.getMainLooper()).post {
-                            Log.e(TAG, "onFailure:$data")
-                            loading = false
-                            binding.swipeRefreshLayout.isRefreshing = false
-                            viewModel.mLoading.value = false
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                                loading = false
+                                binding.swipeRefreshLayout.isRefreshing = false
+                                viewModel.mLoading.value = false
+                            }
                         }
                     }
                 )
@@ -165,6 +162,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      * 社員一覧取得
      */
     private fun EtOfficeGetStuffListPost() {
+        if (!isAdded) return
         GlobalScope.launch {
             withContext(Dispatchers.IO) {
                 loading = true
@@ -199,11 +197,13 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                         }
                     },
                     onFailure = { error, data ->
-                        Handler(Looper.getMainLooper()).post {
-                            viewModel.mLoading.value = false
-                            Log.e(TAG, "onFailure:$data")
-                            loading = false
-                            binding.swipeRefreshLayout.isRefreshing = false
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                viewModel.mLoading.value = false
+                                Log.e(TAG, "onFailure:$data")
+                                loading = false
+                                binding.swipeRefreshLayout.isRefreshing = false
+                            }
                         }
                     }
                 )

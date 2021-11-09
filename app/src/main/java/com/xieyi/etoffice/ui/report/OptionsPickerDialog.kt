@@ -52,14 +52,14 @@ class OptionsPickerDialog : DialogFragment() {
         val window = dialog!!.window
         // 设备背景为透明（默认白色）
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        window.decorView.setPadding(0, 16, 0, 0);
+        window.decorView.setPadding(0, 16, 0, 0)
         val attributes = window.attributes
 
         // 设置window宽高(单位px)
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
         attributes.height = WindowManager.LayoutParams.WRAP_CONTENT
         //设置window位置
-        window?.attributes?.gravity = Gravity.BOTTOM//居中
+        window.attributes?.gravity = Gravity.BOTTOM//居中
         window.attributes = attributes
     }
 

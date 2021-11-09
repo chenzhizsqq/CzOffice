@@ -3,8 +3,6 @@ package com.xieyi.etoffice.ui.report
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +20,10 @@ import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class ReportFragment : BaseFragment(),
@@ -66,9 +68,6 @@ class ReportFragment : BaseFragment(),
 
 
         binding.recyclerViewGetReport.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -119,76 +118,89 @@ class ReportFragment : BaseFragment(),
 
 
     private fun EtOfficeGetReportListPost(startym: String, months: String) {
-        Api.EtOfficeGetReportList(
-            context = requireActivity(),
-            startym = startym,
-            months = months,
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetReportList(
+                    context = requireActivity(),
+                    startym = startym,
+                    months = months,
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeGetReportListResult(model.result)
 
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetReportListResult(model.result)
-
-                            viewModel.mLoading.value = false
+                                        viewModel.mLoading.value = false
+                                    }
+                                    else -> {
+                                        viewModel.mLoading.value = false
+                                        activity?.let {
+                                            Tools.showErrorDialog(
+                                                it,
+                                                model.message
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            viewModel.mLoading.value = false
-                            activity?.let {
-                                Tools.showErrorDialog(
-                                    it,
-                                    model.message
-                                )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                viewModel.mLoading.value = false
+                                Log.e(TAG, "onFailure:$data")
                             }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    viewModel.mLoading.value = false
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
     private fun EtOfficeSetApprovalJskPost(arrayListYmd: ArrayList<String>) {
         //指定された　発信
         loading = true
         if (arrayListYmd.size > 0) {
-
-            Api.EtOfficeSetApprovalJsk(
-                context = requireActivity(),
-                ymdArray = arrayListYmd,
-                onSuccess = { model ->
-                    Handler(Looper.getMainLooper()).post {
-
-                        when (model.status) {
-                            0 -> {
-                                EtOfficeGetReportListPost("", "")
+            GlobalScope.launch {
+                withContext(Dispatchers.IO) {
+                    Api.EtOfficeSetApprovalJsk(
+                        context = requireActivity(),
+                        ymdArray = arrayListYmd,
+                        onSuccess = { model ->
+                            GlobalScope.launch {
+                                withContext(Dispatchers.Main) {
+                                    when (model.status) {
+                                        0 -> {
+                                            EtOfficeGetReportListPost("", "")
+                                        }
+                                        else -> {
+                                            activity?.let {
+                                                Tools.showErrorDialog(
+                                                    it,
+                                                    model.message
+                                                )
+                                            }
+                                        }
+                                    }
+                                    loading = false
+                                    binding.swipeRefreshLayout.isRefreshing = false
+                                }
                             }
-                            else -> {
-                                activity?.let {
-                                    Tools.showErrorDialog(
-                                        it,
-                                        model.message
-                                    )
+                        },
+                        onFailure = { error, data ->
+                            GlobalScope.launch {
+                                withContext(Dispatchers.Main) {
+                                    Log.e(TAG, "onFailure:$data")
+                                    loading = false
+                                    binding.swipeRefreshLayout.isRefreshing = false
                                 }
                             }
                         }
-                        loading = false
-                        binding.swipeRefreshLayout.isRefreshing = false
-                    }
-                },
-                onFailure = { error, data ->
-                    Handler(Looper.getMainLooper()).post {
-                        Log.e(TAG, "onFailure:$data")
-                        loading = false
-                        binding.swipeRefreshLayout.isRefreshing = false
-                    }
+                    )
                 }
-            )
+            }
         }
     }
 

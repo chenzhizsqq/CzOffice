@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -111,32 +109,38 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     private fun EtOfficeSetTenantPost(tenantid: String) {
-        Api.EtOfficeSetTenant(
-            context = this@MyPageChangeCompanyActivity,
-            tenant = tenantid,
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeSetTenantResult(model.result)
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeSetTenant(
+                    context = this@MyPageChangeCompanyActivity,
+                    tenant = tenantid,
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeSetTenantResult(model.result)
+                                    }
+                                    else -> {
+                                        Tools.showErrorDialog(
+                                            this@MyPageChangeCompanyActivity,
+                                            model.message
+                                        )
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            Tools.showErrorDialog(
-                                this,
-                                model.message
-                            )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                            }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
-
+        }
     }
 
     // UI更新

@@ -5,8 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -183,36 +181,44 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
 
     private fun EtOfficeGetReportInfoPost(ymd: String) {
-        Api.EtOfficeGetReportInfo(
-            context = this@ReportDetailActivity,
-            ymd = ymd,
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeGetReportInfo(
+                    context = this@ReportDetailActivity,
+                    ymd = ymd,
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
 
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetReportInfoResult(model.result)
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeGetReportInfoResult(model.result)
 
-                            EtOfficePlanworklistResult(model.result)
-                            EtOfficeGetStatusListResult(model.result)
-                            EtOfficeGetReportlistResult(model.result)
-                            EtOfficeCommentlistResult(model.result)
+                                        EtOfficePlanworklistResult(model.result)
+                                        EtOfficeGetStatusListResult(model.result)
+                                        EtOfficeGetReportlistResult(model.result)
+                                        EtOfficeCommentlistResult(model.result)
+                                    }
+                                    else -> {
+                                        Tools.showErrorDialog(
+                                            this@ReportDetailActivity,
+                                            model.message
+                                        )
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            Tools.showErrorDialog(
-                                this,
-                                model.message
-                            )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                            }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
 
@@ -237,33 +243,39 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     }
 
     private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
-
-        Api.EtOfficeSetComment(
-            context = this@ReportDetailActivity,
-            ymd = ymd,
-            comment = comment,
-            onSuccess = { model ->
-                Handler(Looper.getMainLooper()).post {
-
-                    when (model.status) {
-                        0 -> {
-                            EtOfficeGetReportInfoPost(date)
+        GlobalScope.launch {
+            withContext(Dispatchers.IO) {
+                Api.EtOfficeSetComment(
+                    context = this@ReportDetailActivity,
+                    ymd = ymd,
+                    comment = comment,
+                    onSuccess = { model ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                when (model.status) {
+                                    0 -> {
+                                        EtOfficeGetReportInfoPost(date)
+                                    }
+                                    else -> {
+                                        Tools.showErrorDialog(
+                                            this@ReportDetailActivity,
+                                            model.message
+                                        )
+                                    }
+                                }
+                            }
                         }
-                        else -> {
-                            Tools.showErrorDialog(
-                                this,
-                                model.message
-                            )
+                    },
+                    onFailure = { error, data ->
+                        GlobalScope.launch {
+                            withContext(Dispatchers.Main) {
+                                Log.e(TAG, "onFailure:$data")
+                            }
                         }
                     }
-                }
-            },
-            onFailure = { error, data ->
-                Handler(Looper.getMainLooper()).post {
-                    Log.e(TAG, "onFailure:$data")
-                }
+                )
             }
-        )
+        }
     }
 
 
