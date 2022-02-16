@@ -22,10 +22,9 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class ReportAddDialog : DialogFragment(), View.OnClickListener {
@@ -252,40 +251,36 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
      * 日報登録
      **/
     private fun sendSetReport() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeSetReport(
-                    context = requireContext(),
-                    ymd = viewModel.reportAddDate,
-                    projectcd = binding.projectCode.text.toString(),
-                    wbscd = binding.wbsCode.text.toString(),
-                    totaltime = binding.tvWorktime.text.toString(),
-                    starttime = binding.tvStarttime.text.toString(),
-                    endtime = binding.tvEndtime.text.toString(),
-                    place = binding.etPlace.text.toString(),
-                    memo = binding.etWorkDetail.text.toString(),
-                    onSuccess = { data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                if (data.status == 0) {
-                                    listener?.onClick()
-                                    dialog!!.dismiss()
-                                } else {
-                                    activity?.let { Tools.showErrorDialog(it, data.message) }
-                                }
-                            }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
-                                //CommonUtil.handleError(it, error, data)
-                            }
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeSetReport(
+                context = requireContext(),
+                ymd = viewModel.reportAddDate,
+                projectcd = binding.projectCode.text.toString(),
+                wbscd = binding.wbsCode.text.toString(),
+                totaltime = binding.tvWorktime.text.toString(),
+                starttime = binding.tvStarttime.text.toString(),
+                endtime = binding.tvEndtime.text.toString(),
+                place = binding.etPlace.text.toString(),
+                memo = binding.etWorkDetail.text.toString(),
+                onSuccess = { data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        if (data.status == 0) {
+                            listener?.onClick()
+                            dialog!!.dismiss()
+                        } else {
+                            activity?.let { Tools.showErrorDialog(it, data.message) }
                         }
                     }
-                )
-            }
+
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+                        //CommonUtil.handleError(it, error, data)
+                    }
+                }
+
+            )
         }
     }
 
@@ -294,34 +289,28 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
      * プロジェクト一覧
      * */
     private fun searchProject() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeGetProject(
-                    context = requireContext(),
-                    ymd = viewModel.reportAddDate,
-                    onSuccess = { data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                if (data.status == 0) {
-                                    viewModel.projectList.clear()
-                                    for (project in data.result.projectlist) {
-                                        viewModel.projectList.add(project)
-                                        viewModel.initProjectOption()
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
-                                //CommonUtil.handleError(it, error, data)
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeGetProject(
+                context = requireContext(),
+                ymd = viewModel.reportAddDate,
+                onSuccess = { data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        if (data.status == 0) {
+                            viewModel.projectList.clear()
+                            for (project in data.result.projectlist) {
+                                viewModel.projectList.add(project)
+                                viewModel.initProjectOption()
                             }
                         }
                     }
-                )
-            }
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+                        //CommonUtil.handleError(it, error, data)
+                    }
+                }
+            )
         }
     }
 }

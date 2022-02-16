@@ -13,10 +13,7 @@ import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.*
 
 
@@ -101,54 +98,52 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
      * ログイン可能かを判断
      */
     private fun judgeLoginEnable() {
-        binding.btnLogin.isEnabled = !(binding.userName.text.toString().trim().isEmpty() || binding.password.text.toString()
-            .trim().isEmpty())
+        binding.btnLogin.isEnabled =
+            !(binding.userName.text.toString().trim().isEmpty() || binding.password.text.toString()
+                .trim().isEmpty())
     }
 
     // ログイン処理
     private fun login() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeLogin(
-                    context = this@LoginActivity,
-                    uid = binding.userName.text.toString(),
-                    password = binding.password.text.toString(),
-                    registrationid = "6",
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                when (model.status) {
-                                    0 -> {
-                                        saveUserInfo(model.result)
-                                        val intent =
-                                            Intent(this@LoginActivity, MainActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    }
-                                    else -> {
-                                        Tools.showErrorDialog(
-                                            this@LoginActivity,
-                                            getString(R.string.MSG03)
-                                        )
-                                    }
-                                }
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeLogin(
+                context = this@LoginActivity,
+                uid = binding.userName.text.toString(),
+                password = binding.password.text.toString(),
+                registrationid = "6",
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        when (model.status) {
+                            0 -> {
+                                saveUserInfo(model.result)
+                                val intent =
+                                    Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
                             }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
+                            else -> {
                                 Tools.showErrorDialog(
                                     this@LoginActivity,
-                                    getString(R.string.login_failed_msg2)
+                                    getString(R.string.MSG03)
                                 )
                             }
                         }
                     }
-                )
-            }
+
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+                        Tools.showErrorDialog(
+                            this@LoginActivity,
+                            getString(R.string.login_failed_msg2)
+                        )
+                    }
+
+                }
+            )
         }
+
 
     }
 

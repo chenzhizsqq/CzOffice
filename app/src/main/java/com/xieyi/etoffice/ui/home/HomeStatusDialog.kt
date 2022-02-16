@@ -14,10 +14,7 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 
 class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment() {
@@ -150,44 +147,41 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
         memo: String
     ) {
         if (gpsTracker.canGetLocation()) {
-            GlobalScope.launch {
-                withContext(Dispatchers.IO) {
-                    Api.EtOfficeSetUserStatus(
-                        context = requireActivity(),
-                        location = location,
-                        longitude = longitude,
-                        latitude = latitude,
-                        statusvalue = statusvalue,
-                        statustext = statustext,
-                        memo = memo,
-                        onSuccess = { model ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    when (model.status) {
-                                        0 -> {
-                                            //Tools.showMsg(binding.root, "更新しました。")
-                                        }
-                                        else -> {
-                                            activity?.let {
-                                                Tools.showErrorDialog(
-                                                    it,
-                                                    model.message
-                                                )
-                                            }
-                                        }
+            CoroutineScope(Dispatchers.IO).launch {
+                Api.EtOfficeSetUserStatus(
+                    context = requireActivity(),
+                    location = location,
+                    longitude = longitude,
+                    latitude = latitude,
+                    statusvalue = statusvalue,
+                    statustext = statustext,
+                    memo = memo,
+                    onSuccess = { model ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            when (model.status) {
+                                0 -> {
+                                    //Tools.showMsg(binding.root, "更新しました。")
+                                }
+                                else -> {
+                                    activity?.let {
+                                        Tools.showErrorDialog(
+                                            it,
+                                            model.message
+                                        )
                                     }
                                 }
                             }
-                        },
-                        onFailure = { error, data ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    Log.e(TAG, "onFailure:$data")
-                                }
-                            }
+
                         }
-                    )
-                }
+                    },
+                    onFailure = { error, data ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Log.e(TAG, "onFailure:$data")
+
+                        }
+                    }
+                )
+
             }
         } else {
             gpsTracker.showSettingsAlert()
@@ -196,49 +190,46 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
 
     private fun EtOfficeSetUserLocationPost(location: String) {
         if (gpsTracker.canGetLocation()) {
-            GlobalScope.launch {
-                withContext(Dispatchers.IO) {
-                    Api.EtOfficeSetUserLocation(
-                        context = requireActivity(),
-                        location = location,
-                        latitude = latitude,
-                        longitude = longitude,
-                        onSuccess = { model ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
+            CoroutineScope(Dispatchers.IO).launch {
+                Api.EtOfficeSetUserLocation(
+                    context = requireActivity(),
+                    location = location,
+                    latitude = latitude,
+                    longitude = longitude,
+                    onSuccess = { model ->
+                        CoroutineScope(Dispatchers.Main).launch {
 
-                                    when (model.status) {
-                                        0 -> {
-                                            activity?.let {
-                                                Tools.showAlertDialog(
-                                                    it,
-                                                    it.getString(R.string.MESSAGE),
-                                                    getString(R.string.MSG11)
-                                                )
-                                            }
-                                        }
-                                        else -> {
-                                            activity?.let {
-                                                Tools.showErrorDialog(
-                                                    it,
-                                                    model.message
-                                                )
-                                            }
-                                        }
+                            when (model.status) {
+                                0 -> {
+                                    activity?.let {
+                                        Tools.showAlertDialog(
+                                            it,
+                                            it.getString(R.string.MESSAGE),
+                                            getString(R.string.MSG11)
+                                        )
+                                    }
+                                }
+                                else -> {
+                                    activity?.let {
+                                        Tools.showErrorDialog(
+                                            it,
+                                            model.message
+                                        )
                                     }
                                 }
                             }
-                        },
-                        onFailure = { error, data ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    Log.e(TAG, "onFailure:$data")
-                                }
-                            }
                         }
-                    )
-                }
+
+                    },
+                    onFailure = { error, data ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Log.e(TAG, "onFailure:$data")
+
+                        }
+                    }
+                )
             }
+
         } else {
             gpsTracker.showSettingsAlert()
         }

@@ -181,43 +181,40 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
 
     private fun EtOfficeGetReportInfoPost(ymd: String) {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeGetReportInfo(
-                    context = this@ReportDetailActivity,
-                    ymd = ymd,
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeGetReportInfo(
+                context = this@ReportDetailActivity,
+                ymd = ymd,
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
 
-                                when (model.status) {
-                                    0 -> {
-                                        EtOfficeGetReportInfoResult(model.result)
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeGetReportInfoResult(model.result)
 
-                                        EtOfficePlanworklistResult(model.result)
-                                        EtOfficeGetStatusListResult(model.result)
-                                        EtOfficeGetReportlistResult(model.result)
-                                        EtOfficeCommentlistResult(model.result)
-                                    }
-                                    else -> {
-                                        Tools.showErrorDialog(
-                                            this@ReportDetailActivity,
-                                            model.message
-                                        )
-                                    }
-                                }
+                                EtOfficePlanworklistResult(model.result)
+                                EtOfficeGetStatusListResult(model.result)
+                                EtOfficeGetReportlistResult(model.result)
+                                EtOfficeCommentlistResult(model.result)
+                            }
+                            else -> {
+                                Tools.showErrorDialog(
+                                    this@ReportDetailActivity,
+                                    model.message
+                                )
                             }
                         }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
-                            }
-                        }
+
                     }
-                )
-            }
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+
+                    }
+                }
+            )
+
         }
     }
 
@@ -243,38 +240,35 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     }
 
     private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeSetComment(
-                    context = this@ReportDetailActivity,
-                    ymd = ymd,
-                    comment = comment,
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                when (model.status) {
-                                    0 -> {
-                                        EtOfficeGetReportInfoPost(date)
-                                    }
-                                    else -> {
-                                        Tools.showErrorDialog(
-                                            this@ReportDetailActivity,
-                                            model.message
-                                        )
-                                    }
-                                }
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeSetComment(
+                context = this@ReportDetailActivity,
+                ymd = ymd,
+                comment = comment,
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeGetReportInfoPost(date)
+                            }
+                            else -> {
+                                Tools.showErrorDialog(
+                                    this@ReportDetailActivity,
+                                    model.message
+                                )
                             }
                         }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
-                            }
-                        }
+
                     }
-                )
-            }
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+
+                    }
+                }
+            )
+
         }
     }
 

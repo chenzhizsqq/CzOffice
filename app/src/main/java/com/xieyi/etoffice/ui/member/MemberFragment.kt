@@ -19,10 +19,9 @@ import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
@@ -111,51 +110,48 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      * ユーザー最新勤務状態の一覧取得
      */
     private fun EtOfficeGetUserStatusPost() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                loading = true
-                Api.EtOfficeGetUserStatus(
-                    context = requireActivity(),
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.IO).launch {
+            loading = true
+            Api.EtOfficeGetUserStatus(
+                context = requireActivity(),
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
 
-                                when (model.status) {
-                                    0 -> {
-                                        userStatusModel = model
-                                        // 社員一覧取得
-                                        EtOfficeGetStuffListPost()
-                                        viewModel.mLoading.value = false
-                                    }
-                                    else -> {
-                                        activity?.let {
-                                            Tools.showErrorDialog(
-                                                it,
-                                                model.message
-                                            )
-                                            viewModel.mLoading.value = false
-                                        }
-                                    }
-                                }
-
-                                loading = false
-                                binding.swipeRefreshLayout.isRefreshing = false
-                            }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
-                                loading = false
-                                binding.swipeRefreshLayout.isRefreshing = false
+                        when (model.status) {
+                            0 -> {
+                                userStatusModel = model
+                                // 社員一覧取得
+                                EtOfficeGetStuffListPost()
                                 viewModel.mLoading.value = false
                             }
+                            else -> {
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message
+                                    )
+                                    viewModel.mLoading.value = false
+                                }
+                            }
                         }
+
+                        loading = false
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
-                )
-            }
+
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+                        loading = false
+                        binding.swipeRefreshLayout.isRefreshing = false
+                        viewModel.mLoading.value = false
+                    }
+                }
+
+            )
         }
+
     }
 
     /**
@@ -163,52 +159,49 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      */
     private fun EtOfficeGetStuffListPost() {
         if (!isAdded) return
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                loading = true
-                Api.EtOfficeGetStuffList(
-                    context = requireActivity(),
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.IO).launch {
+            loading = true
+            Api.EtOfficeGetStuffList(
+                context = requireActivity(),
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
 
-                                when (model.status) {
-                                    0 -> {
-                                        makeDispInfo(model, userStatusModel)
-                                        mAdapter.notifyDataUpdateList(dispInfoList)
+                        when (model.status) {
+                            0 -> {
+                                makeDispInfo(model, userStatusModel)
+                                mAdapter.notifyDataUpdateList(dispInfoList)
 
-                                        viewModel.mLoading.value = false
-                                    }
-                                    else -> {
-                                        viewModel.mLoading.value = false
-
-                                        activity?.let {
-                                            Tools.showErrorDialog(
-                                                it,
-                                                model.message
-                                            )
-                                        }
-                                    }
-                                }
-
-                                loading = false
-                                binding.swipeRefreshLayout.isRefreshing = false
-                            }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
                                 viewModel.mLoading.value = false
-                                Log.e(TAG, "onFailure:$data")
-                                loading = false
-                                binding.swipeRefreshLayout.isRefreshing = false
+                            }
+                            else -> {
+                                viewModel.mLoading.value = false
+
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message
+                                    )
+                                }
                             }
                         }
+
+                        loading = false
+                        binding.swipeRefreshLayout.isRefreshing = false
                     }
-                )
-            }
+
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        viewModel.mLoading.value = false
+                        Log.e(TAG, "onFailure:$data")
+                        loading = false
+                        binding.swipeRefreshLayout.isRefreshing = false
+                    }
+                }
+
+            )
         }
+
     }
 
     /**

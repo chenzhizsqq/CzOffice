@@ -89,81 +89,75 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
     private fun EtOfficeGetUserLocationPost() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeGetUserLocation(
-                    context = this@MyPagePlaceSettingActivity,
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeGetUserLocation(
+                context = this@MyPagePlaceSettingActivity,
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
 
-                                when (model.status) {
-                                    0 -> {
-                                        EtOfficeGetUserLocationResult(model.result)
-                                    }
-                                    else -> {
-                                        Tools.showErrorDialog(
-                                            this@MyPagePlaceSettingActivity,
-                                            model.message
-                                        )
-                                    }
-                                }
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeGetUserLocationResult(model.result)
                             }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
+                            else -> {
+                                Tools.showErrorDialog(
+                                    this@MyPagePlaceSettingActivity,
+                                    model.message
+                                )
                             }
+
                         }
                     }
-                )
-            }
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+
+                    }
+                }
+            )
         }
+
     }
 
     private fun EtOfficeSetUserLocationPost(location: String, longitude: Double, latitude: Double) {
         if (gpsTracker.canGetLocation()) {
-            GlobalScope.launch {
-                withContext(Dispatchers.IO) {
-                    Api.EtOfficeSetUserLocation(
-                        context = this@MyPagePlaceSettingActivity,
-                        longitude = longitude,
-                        latitude = latitude,
-                        location = location,
-                        onSuccess = { model ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    when (model.status) {
-                                        0 -> {
-                                            Tools.showAlertDialog(
-                                                this@MyPagePlaceSettingActivity,
-                                                getString(R.string.MESSAGE),
-                                                "登録しました。"
-                                            )
-                                            EtOfficeGetUserLocationPost()
-                                        }
+            CoroutineScope(Dispatchers.IO).launch {
+                Api.EtOfficeSetUserLocation(
+                    context = this@MyPagePlaceSettingActivity,
+                    longitude = longitude,
+                    latitude = latitude,
+                    location = location,
+                    onSuccess = { model ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            when (model.status) {
+                                0 -> {
+                                    Tools.showAlertDialog(
+                                        this@MyPagePlaceSettingActivity,
+                                        getString(R.string.MESSAGE),
+                                        "登録しました。"
+                                    )
+                                    EtOfficeGetUserLocationPost()
+                                }
 
-                                        else -> {
-                                            Tools.showErrorDialog(
-                                                this@MyPagePlaceSettingActivity,
-                                                model.message
-                                            )
-                                        }
-                                    }
+                                else -> {
+                                    Tools.showErrorDialog(
+                                        this@MyPagePlaceSettingActivity,
+                                        model.message
+                                    )
                                 }
                             }
-                        },
-                        onFailure = { error, data ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    Log.e(TAG, "onFailure:$data")
-                                }
-                            }
+
                         }
-                    )
-                }
+                    },
+                    onFailure = { error, data ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Log.e(TAG, "onFailure:$data")
+                        }
+
+                    }
+                )
+
             }
         } else {
             gpsTracker.showSettingsAlert()

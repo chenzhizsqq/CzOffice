@@ -73,74 +73,68 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
 
     private fun EtOfficeGetTenantPost() {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeGetTenant(
-                    context = this@MyPageChangeCompanyActivity,
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeGetTenant(
+                context = this@MyPageChangeCompanyActivity,
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
 
-                                when (model.status) {
-                                    0 -> {
-                                        EtOfficeGetTenantResult(model.result)
-                                    }
-                                    else -> {
-                                        Tools.showErrorDialog(
-                                            this@MyPageChangeCompanyActivity,
-                                            model.message
-                                        )
-                                    }
-                                }
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeGetTenantResult(model.result)
                             }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
+                            else -> {
+                                Tools.showErrorDialog(
+                                    this@MyPageChangeCompanyActivity,
+                                    model.message
+                                )
                             }
                         }
                     }
-                )
-            }
+
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+                    }
+
+                }
+            )
         }
+
 
     }
 
     private fun EtOfficeSetTenantPost(tenantid: String) {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeSetTenant(
-                    context = this@MyPageChangeCompanyActivity,
-                    tenant = tenantid,
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                when (model.status) {
-                                    0 -> {
-                                        EtOfficeSetTenantResult(model.result)
-                                    }
-                                    else -> {
-                                        Tools.showErrorDialog(
-                                            this@MyPageChangeCompanyActivity,
-                                            model.message
-                                        )
-                                    }
-                                }
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeSetTenant(
+                context = this@MyPageChangeCompanyActivity,
+                tenant = tenantid,
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeSetTenantResult(model.result)
                             }
-                        }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                Log.e(TAG, "onFailure:$data")
+                            else -> {
+                                Tools.showErrorDialog(
+                                    this@MyPageChangeCompanyActivity,
+                                    model.message
+                                )
                             }
                         }
                     }
-                )
-            }
+
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+                    }
+                }
+
+            )
         }
+
     }
 
     // UI更新

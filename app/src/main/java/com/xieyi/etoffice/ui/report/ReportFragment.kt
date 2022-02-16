@@ -20,10 +20,9 @@ import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class ReportFragment : BaseFragment(),
@@ -118,44 +117,38 @@ class ReportFragment : BaseFragment(),
 
 
     private fun EtOfficeGetReportListPost(startym: String, months: String) {
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                Api.EtOfficeGetReportList(
-                    context = requireActivity(),
-                    startym = startym,
-                    months = months,
-                    onSuccess = { model ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                when (model.status) {
-                                    0 -> {
-                                        EtOfficeGetReportListResult(model.result)
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeGetReportList(
+                context = requireActivity(),
+                startym = startym,
+                months = months,
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        when (model.status) {
+                            0 -> {
+                                EtOfficeGetReportListResult(model.result)
 
-                                        viewModel.mLoading.value = false
-                                    }
-                                    else -> {
-                                        viewModel.mLoading.value = false
-                                        activity?.let {
-                                            Tools.showErrorDialog(
-                                                it,
-                                                model.message
-                                            )
-                                        }
-                                    }
+                                viewModel.mLoading.value = false
+                            }
+                            else -> {
+                                viewModel.mLoading.value = false
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message
+                                    )
                                 }
                             }
                         }
-                    },
-                    onFailure = { error, data ->
-                        GlobalScope.launch {
-                            withContext(Dispatchers.Main) {
-                                viewModel.mLoading.value = false
-                                Log.e(TAG, "onFailure:$data")
-                            }
-                        }
                     }
-                )
-            }
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        viewModel.mLoading.value = false
+                        Log.e(TAG, "onFailure:$data")
+                    }
+                }
+            )
         }
     }
 
@@ -163,43 +156,37 @@ class ReportFragment : BaseFragment(),
         //指定された　発信
         loading = true
         if (arrayListYmd.size > 0) {
-            GlobalScope.launch {
-                withContext(Dispatchers.IO) {
-                    Api.EtOfficeSetApprovalJsk(
-                        context = requireActivity(),
-                        ymdArray = arrayListYmd,
-                        onSuccess = { model ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    when (model.status) {
-                                        0 -> {
-                                            EtOfficeGetReportListPost("", "")
-                                        }
-                                        else -> {
-                                            activity?.let {
-                                                Tools.showErrorDialog(
-                                                    it,
-                                                    model.message
-                                                )
-                                            }
-                                        }
+            CoroutineScope(Dispatchers.IO).launch {
+                Api.EtOfficeSetApprovalJsk(
+                    context = requireActivity(),
+                    ymdArray = arrayListYmd,
+                    onSuccess = { model ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            when (model.status) {
+                                0 -> {
+                                    EtOfficeGetReportListPost("", "")
+                                }
+                                else -> {
+                                    activity?.let {
+                                        Tools.showErrorDialog(
+                                            it,
+                                            model.message
+                                        )
                                     }
-                                    loading = false
-                                    binding.swipeRefreshLayout.isRefreshing = false
                                 }
                             }
-                        },
-                        onFailure = { error, data ->
-                            GlobalScope.launch {
-                                withContext(Dispatchers.Main) {
-                                    Log.e(TAG, "onFailure:$data")
-                                    loading = false
-                                    binding.swipeRefreshLayout.isRefreshing = false
-                                }
-                            }
+                            loading = false
+                            binding.swipeRefreshLayout.isRefreshing = false
                         }
-                    )
-                }
+                    },
+                    onFailure = { error, data ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Log.e(TAG, "onFailure:$data")
+                            loading = false
+                            binding.swipeRefreshLayout.isRefreshing = false
+                        }
+                    }
+                )
             }
         }
     }
