@@ -51,6 +51,7 @@
             android:layout_marginStart="80dp"
             android:textColor="@color/black"
             android:gravity="center|left"
+            tools:ignore="SpeakableTextPresentCheck"
             />
         <TextView
             android:id="@+id/set_user_status"
@@ -120,6 +121,7 @@
             android:background="@drawable/bg_edittext"
             android:textColor="@color/black"
             android:gravity="center|left"
+            tools:ignore="SpeakableTextPresentCheck"
             />
         <TextView
             android:id="@+id/set_user_location"

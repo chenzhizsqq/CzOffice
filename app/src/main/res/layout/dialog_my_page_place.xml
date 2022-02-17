@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/ic_round_edge_grey"
@@ -52,7 +54,8 @@
                     android:inputType="text"
                     android:ems="10"
                     android:maxLength="50"
-                    android:background="@drawable/bg_edittext"/>
+                    android:background="@drawable/bg_edittext"
+                    tools:ignore="SpeakableTextPresentCheck"/>
             </LinearLayout>
         </LinearLayout>
         <View

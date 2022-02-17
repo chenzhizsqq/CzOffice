@@ -21,6 +21,8 @@ import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
+import com.xieyi.etoffice.common.initClearButtonWithAction
+import com.xieyi.etoffice.common.setupClearButtonWithAction
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -117,6 +119,12 @@ class ReportAddDialog : DialogFragment(), View.OnClickListener {
         viewModel.projectCd.observe(this, androidx.lifecycle.Observer {
             viewModel.getProjectWbsOption()
         })
+
+        //EditText，编辑框(EditText)右侧追加一个自动清除按钮，输入内容后删除按钮表示，可以清除内容。
+        binding.etPlace.initClearButtonWithAction()
+        binding.etWorkDetail.initClearButtonWithAction()
+        binding.etPlace.setupClearButtonWithAction()
+        binding.etWorkDetail.setupClearButtonWithAction()
 
         return binding.root
     }
