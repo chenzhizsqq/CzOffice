@@ -7,8 +7,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
@@ -97,19 +95,21 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         judgeLoginEnable()
 
 
-        addRightCancelDrawable(binding.userName)
+        //EditText，编辑框(EditText)右侧追加一个自动清除按钮，输入内容后删除按钮表示，可以清除内容。
+        Tools.addRightCancelDrawable(this, binding.userName)
         binding.userName.makeClearableEditText(null, null)
 
-        addRightCancelDrawable(binding.password)
+        //EditText，编辑框(EditText)右侧追加一个自动清除按钮，输入内容后删除按钮表示，可以清除内容。
+        Tools.addRightCancelDrawable(this, binding.password)
         binding.password.makeClearableEditText(null, null)
 
     }
 
-    private fun addRightCancelDrawable(editText: EditText) {
-        val cancel = ContextCompat.getDrawable(this, R.drawable.ic_cancel_black_24dp)
-        cancel?.setBounds(0,0, cancel.intrinsicWidth, cancel.intrinsicHeight)
-        editText.setCompoundDrawables(null, null, cancel, null)
-    }
+//    private fun addRightCancelDrawable(editText: EditText) {
+//        val cancel = ContextCompat.getDrawable(this, R.drawable.ic_cancel_black_24dp)
+//        cancel?.setBounds(0,0, cancel.intrinsicWidth, cancel.intrinsicHeight)
+//        editText.setCompoundDrawables(null, null, cancel, null)
+//    }
 
     /**
      * ログイン可能かを判断

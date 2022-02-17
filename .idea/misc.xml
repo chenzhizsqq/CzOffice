@@ -7,7 +7,9 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2296195652173913" />
         <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_my_page_place.xml" value="0.25" />
         <entry key="app/src/main/res/layout/get_status_list.xml" value="0.12239583333333333" />
+        <entry key="app/src/main/res/layout/get_work_status_info.xml" value="0.1" />
       </map>
     </option>
   </component>

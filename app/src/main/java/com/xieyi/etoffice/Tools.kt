@@ -11,7 +11,9 @@ import android.text.SpannableString
 import android.text.style.AlignmentSpan
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -364,5 +366,14 @@ object Tools {
         Handler(Looper.getMainLooper()).post {
             alertDialog.show()
         }
+    }
+
+    /**
+     * EditText，编辑框(EditText)右侧追加一个自动清除按钮，输入内容后删除按钮表示，可以清除内容。
+     */
+    fun addRightCancelDrawable(context: Context,editText: EditText) {
+        val cancel = ContextCompat.getDrawable(context, R.drawable.ic_cancel_black_24dp)
+        cancel?.setBounds(0,0, cancel.intrinsicWidth, cancel.intrinsicHeight)
+        editText.setCompoundDrawables(null, null, cancel, null)
     }
 }
