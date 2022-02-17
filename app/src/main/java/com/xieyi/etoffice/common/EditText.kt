@@ -10,12 +10,10 @@ import android.widget.EditText
 import com.xieyi.etoffice.R
 
 
-fun EditText.initClearButtonWithAction(){
+fun EditText.setupClearButtonWithAction() {
+
     val clearIcon = if (this.editableText?.isNotEmpty() == true) R.drawable.ic_cancel_black_24dp else 0
     setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
-}
-
-fun EditText.setupClearButtonWithAction() {
 
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {

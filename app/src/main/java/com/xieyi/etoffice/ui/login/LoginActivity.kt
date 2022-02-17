@@ -11,7 +11,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
-import com.xieyi.etoffice.common.initClearButtonWithAction
 import com.xieyi.etoffice.common.model.LoginResultInfo
 import com.xieyi.etoffice.common.setupClearButtonWithAction
 import com.xieyi.etoffice.databinding.ActivityLoginBinding
@@ -97,8 +96,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
 
         //EditText，编辑框(EditText)右侧追加一个自动清除按钮，输入内容后删除按钮表示，可以清除内容。
-        binding.userName.initClearButtonWithAction()
-        binding.password.initClearButtonWithAction()
         binding.userName.setupClearButtonWithAction()
         binding.password.setupClearButtonWithAction()
 
