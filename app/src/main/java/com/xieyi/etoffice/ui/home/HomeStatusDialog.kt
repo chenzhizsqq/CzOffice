@@ -165,7 +165,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                         CoroutineScope(Dispatchers.Main).launch {
                             when (model.status) {
                                 0 -> {
-                                    //Tools.showMsg(binding.root, "更新しました。")
+                                    Tools.showMsg(binding.root, "更新しました。")
+                                    dialog!!.dismiss()
                                 }
                                 else -> {
                                     activity?.let {

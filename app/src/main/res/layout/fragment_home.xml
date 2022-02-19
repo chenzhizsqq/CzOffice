@@ -89,7 +89,7 @@
                         android:id="@+id/text_time"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:textSize="25sp"
+                        android:textSize="23sp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:text="2021.06.28"
@@ -100,7 +100,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:text="お疲れ様です"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
@@ -118,7 +118,7 @@
                         android:id="@+id/state"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:textSize="40sp"
+                        android:textSize="38sp"
                         android:textColor="@color/white"
 
                         android:layout_height="wrap_content"
@@ -163,6 +163,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/fragment_home_on_duty"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
@@ -185,9 +186,9 @@
                         android:id="@+id/tv_outside_duty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:gravity="center"
                         android:text="@string/fragment_home_outside_duty"
+                        android:textSize="12sp"
                         android:textColor="@color/iphone_button_color"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -212,6 +213,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_rest"
+                        android:textSize="12sp"
                         android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
                 <LinearLayout
@@ -235,6 +237,7 @@
                         android:textStyle="bold"
                         android:gravity="center"
                         android:text="@string/fragment_home_moving"
+                        android:textSize="12sp"
                         android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
                 <LinearLayout
@@ -256,9 +259,9 @@
                         android:id="@+id/tv_meeting"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:textStyle="bold"
                         android:gravity="center"
+                        android:textSize="12sp"
                         android:text="@string/fragment_home_meeting"
                         android:textColor="@color/iphone_button_color" />
                 </LinearLayout>
