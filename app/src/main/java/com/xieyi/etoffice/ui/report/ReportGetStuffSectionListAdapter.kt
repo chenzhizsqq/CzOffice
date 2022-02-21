@@ -33,12 +33,12 @@ class ReportGetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>,
         // セクション名
         val mView: View = if (viewType == 1) {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.section_header_sectionname, parent, false)
+                .inflate(R.layout.report_section_header_sectionname, parent, false)
         }
         // 社員情報
         else {
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.get_section_stuff_list, parent, false)
+                .inflate(R.layout.report_get_section_stuff_list, parent, false)
         }
 
         return SectionListViewHolder(mView)

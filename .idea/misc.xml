@@ -19,7 +19,9 @@
         <entry key="app/src/main/res/layout/get_stuff_section_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_stuff_stuff_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_work_status_info.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/report_get_section_stuff_list.xml" value="0.11752786220871327" />
         <entry key="app/src/main/res/layout/report_get_stuff_stuff_list.xml" value="0.11752786220871327" />
+        <entry key="app/src/main/res/layout/report_section_header_sectionname.xml" value="0.11752786220871327" />
         <entry key="app/src/main/res/layout/section_header_sectionname.xml" value="0.1" />
       </map>
     </option>
