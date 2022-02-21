@@ -3,9 +3,11 @@ package com.xieyi.etoffice
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEachIndexed
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -23,6 +25,9 @@ class MainActivity : BaseActivity() {
     //fragのリスト
     private val listFrag = ArrayList<Int>()
 
+    //与MainActivity共同的ViewModel
+    private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -36,12 +41,13 @@ class MainActivity : BaseActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
                 R.id.navigation_home,
-            R.id.navigation_notifications,
-            R.id.member_fragment,
-            R.id.report_fragment,
-            R.id.MyPageFragment
+                R.id.navigation_notifications,
+                R.id.member_fragment,
+                R.id.report_fragment,
+                R.id.MyPageFragment
             )
         )
 
@@ -63,6 +69,16 @@ class MainActivity : BaseActivity() {
 
         //初回登録した後、KEY削除します
         Tools.sharedPreRemove(Config.FragKey)
+
+        //把reportFrag页改名字
+        viewModel.reportFragTitle.observe(this, Observer {
+            binding.navView.menu.forEachIndexed { index, item ->
+                when (index) {
+                    3 -> item.title = it
+                }
+            }
+        })
+
     }
 
     //选择frag登录

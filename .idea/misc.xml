@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/dialog_report_add.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_report_fragment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_report_fragment_member.xml" value="0.11752786220871327" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14356884057971014" />
         <entry key="app/src/main/res/layout/fragment_member.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_report.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_section_stuff_list.xml" value="0.1" />
@@ -25,6 +26,7 @@
         <entry key="app/src/main/res/layout/report_get_stuff_stuff_list.xml" value="0.11752786220871327" />
         <entry key="app/src/main/res/layout/report_section_header_sectionname.xml" value="0.1" />
         <entry key="app/src/main/res/layout/section_header_sectionname.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24166666666666667" />
       </map>
     </option>
   </component>

@@ -1,9 +1,10 @@
 package com.xieyi.etoffice.base
 
-import android.content.BroadcastReceiver
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.chepsi.callbackdemo.Variables
+import com.xieyi.etoffice.MainActivityViewModel
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 
@@ -12,7 +13,9 @@ import com.xieyi.etoffice.Tools
  * フラグメント共通処理をここで処理する。
  */
 open class BaseFragment  : Fragment() {
-    lateinit var broadcastReceiver: BroadcastReceiver
+
+    //与MainActivity共同的ViewModel
+    private val sharedVM: MainActivityViewModel by activityViewModels()
 
     /**
      * Network判断
@@ -28,6 +31,8 @@ open class BaseFragment  : Fragment() {
         if (!isNetworkConnected()){
             Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
         }
+
+        sharedVM.reportFragTitle.value = "日报"
     }
 
 }

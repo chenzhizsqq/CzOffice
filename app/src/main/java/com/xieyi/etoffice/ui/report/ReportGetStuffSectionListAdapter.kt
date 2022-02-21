@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.xieyi.etoffice.R
@@ -58,6 +57,9 @@ class ReportGetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>,
         else {
             holder.tv_userkana?.text = list[position].userStatusInfo?.userkana
             holder.tv_username?.text = list[position].userStatusInfo?.username
+            holder.tv_username?.setOnClickListener {
+                list[position].userStatusInfo?.username?.let { it1 -> listener.onClick(it1) }
+            }
         }
     }
 
@@ -73,7 +75,7 @@ class ReportGetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>,
     private lateinit var listener: OnAdapterListener
 
     interface OnAdapterListener {
-        fun onClick(phoneNumber: String)
+        fun onClick(userName: String)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {

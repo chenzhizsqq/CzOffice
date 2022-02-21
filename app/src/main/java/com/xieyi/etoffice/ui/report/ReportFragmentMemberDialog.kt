@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.xieyi.etoffice.MainActivityViewModel
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.Api
@@ -31,6 +31,9 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
     private lateinit var viewModel: ReportMemberViewModel
     private lateinit var userStatusModel: UserStatusModel
     private var dispInfoList: ArrayList<StuffStatusDispInfo> = ArrayList<StuffStatusDispInfo>()
+
+    //与MainActivity共同的ViewModel
+    private val sharedVM: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,18 +102,15 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
         })
 
         mAdapter.setOnAdapterListener(object : ReportGetStuffSectionListAdapter.OnAdapterListener {
-            override fun onClick(phoneNumber: String) {
-                //确定是否有电话号码
-                if (phoneNumber == "") {
+            override fun onClick(userName: String) {
+                //确定是否有fragTitle
+                if (userName == "") {
                     Tools.showErrorDialog(
                         requireActivity(),
-                        getString(R.string.no_telephone_number)
+                        "fragTitle empty"
                     )
                 } else {
-                    val activity = context as FragmentActivity
-                    val fm: FragmentManager = activity.supportFragmentManager
-                    val mReportMemberTelDialog = ReportMemberTelDialog(phoneNumber)
-                    fm.let { it1 -> mReportMemberTelDialog.show(it1, "mReportMemberTelDialog") }
+                    sharedVM.reportFragTitle.value = userName
                 }
             }
         })
