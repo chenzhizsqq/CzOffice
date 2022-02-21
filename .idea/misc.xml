@@ -10,8 +10,17 @@
         <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.13949275362318841" />
         <entry key="app/src/main/res/layout/dialog_my_page_place.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_report_add.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_report_fragment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_report_fragment_member.xml" value="0.11752786220871327" />
+        <entry key="app/src/main/res/layout/fragment_member.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_report.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/get_section_stuff_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_status_list.xml" value="0.12239583333333333" />
+        <entry key="app/src/main/res/layout/get_stuff_section_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/get_stuff_stuff_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_work_status_info.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/report_get_stuff_stuff_list.xml" value="0.11752786220871327" />
+        <entry key="app/src/main/res/layout/section_header_sectionname.xml" value="0.1" />
       </map>
     </option>
   </component>

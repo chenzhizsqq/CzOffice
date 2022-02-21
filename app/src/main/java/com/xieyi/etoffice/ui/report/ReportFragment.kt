@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -219,17 +218,17 @@ class ReportFragment : BaseFragment(),
     private fun topMenu() {
 
         //出勤記録を表示します
-//        binding.people.setOnClickListener {
-//            val mHomeReportDialog = HomeReportDialog()
-//
-//            val fragmentManager = this@ReportFragment.parentFragmentManager
-//            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
-//        }
+        binding.people.setOnClickListener {
+            val mReportFragmentMemberDialog = ReportFragmentMemberDialog()
+
+            val fragmentManager = this@ReportFragment.parentFragmentManager
+            fragmentManager.let { it1 -> mReportFragmentMemberDialog.show(it1, "mHomeReportDialog") }
+        }
 
         //メンバーページに切り替えます
-        binding.people.setOnClickListener { view ->
-            Navigation.findNavController(view).navigate(R.id.member_fragment)
-        }
+//        binding.people.setOnClickListener { view ->
+//            Navigation.findNavController(view).navigate(R.id.member_fragment)
+//        }
 
 
         viewModel.visibility.observe(viewLifecycleOwner, {
