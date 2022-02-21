@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_edittext.xml" value="0.2324074074074074" />
+        <entry key="app/src/main/res/drawable/bg_edittext_focused.xml" value="0.2578125" />
         <entry key="app/src/main/res/drawable/ic_cancel_black_24dp.xml" value="0.25833333333333336" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2296195652173913" />
@@ -19,9 +21,9 @@
         <entry key="app/src/main/res/layout/get_stuff_section_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_stuff_stuff_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/get_work_status_info.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/report_get_section_stuff_list.xml" value="0.11752786220871327" />
+        <entry key="app/src/main/res/layout/report_get_section_stuff_list.xml" value="0.335" />
         <entry key="app/src/main/res/layout/report_get_stuff_stuff_list.xml" value="0.11752786220871327" />
-        <entry key="app/src/main/res/layout/report_section_header_sectionname.xml" value="0.11752786220871327" />
+        <entry key="app/src/main/res/layout/report_section_header_sectionname.xml" value="0.1" />
         <entry key="app/src/main/res/layout/section_header_sectionname.xml" value="0.1" />
       </map>
     </option>

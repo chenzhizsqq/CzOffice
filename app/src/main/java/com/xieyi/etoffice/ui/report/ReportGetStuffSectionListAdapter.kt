@@ -18,12 +18,6 @@ class ReportGetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>,
     inner class SectionListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv_userkana: TextView? = view.findViewById(R.id.userkana)
         val tv_username: TextView? = view.findViewById(R.id.username)
-        val tv_phone: TextView? = view.findViewById(R.id.phone)
-        val tv_mail: TextView? = view.findViewById(R.id.mail)
-        val tv_status: TextView? = view.findViewById(R.id.status)
-        val tv_status_icon: TextView? = view.findViewById(R.id.status_icon)
-        val tv_place: TextView? = view.findViewById(R.id.place)
-        val ll: LinearLayout? = view.findViewById(R.id.ll)
         val sectionName: TextView? = view.findViewById(R.id.txtViewSectionName)
     }
 
@@ -64,37 +58,6 @@ class ReportGetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>,
         else {
             holder.tv_userkana?.text = list[position].userStatusInfo?.userkana
             holder.tv_username?.text = list[position].userStatusInfo?.username
-            holder.tv_phone?.text = list[position].stuffInfo?.phone
-            holder.tv_mail?.text = list[position].stuffInfo?.mail
-
-            holder.tv_status_icon?.text = "●"
-
-            var status = list[position].userStatusInfo?.statustext
-            var memoText = list[position].userStatusInfo?.memo
-
-            if (status == null || status.length == 0) {
-                status = context.getString(R.string.MSG10)
-            }
-            holder.tv_status?.text = status + " " + (memoText ?: "")
-
-            var location = list[position].userStatusInfo?.location
-            if (location == null || location.length == 0) {
-                location = context.getString(R.string.MSG07)
-            }
-            holder.tv_place?.text = location
-            holder.ll?.setOnClickListener {
-                //确定是否有电话号码
-//                if (list[position].stuffInfo?.phone == "") {
-//                    Tools.showErrorDialog(context, context.getString(R.string.no_telephone_number))
-//                } else {
-//                    val activity = context as FragmentActivity
-//                    val fm: FragmentManager = activity.supportFragmentManager
-//                    val mMemberTelDialog = MemberTelDialog(list[position].stuffInfo!!.phone)
-//                    fm.let { it1 -> mMemberTelDialog.show(it1, "mMemberTelDialog") }
-//                }
-
-                list[position].stuffInfo?.phone?.let { it1 -> listener.onClick(it1) }
-            }
         }
     }
 
