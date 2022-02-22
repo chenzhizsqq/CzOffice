@@ -17,16 +17,16 @@ open class FullScreenDialogBaseFragment : DialogFragment() {
     ): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        //フルスクリーン　Full screen
-        val window = dialog!!.window
-        window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        val attributes = window.attributes
-        attributes.gravity = Gravity.BOTTOM //下方
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
-        window.attributes = attributes
-
-        //类似iphone的，从下到上的动画效果
-        window.setWindowAnimations(R.style.BottomDialogAnimation)
+//        //フルスクリーン　Full screen
+//        val window = dialog!!.window
+//        window!!.setBackgroundDrawableResource(android.R.color.transparent)
+//        val attributes = window.attributes
+//        attributes.gravity = Gravity.BOTTOM //下方
+//        attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
+//        window.attributes = attributes
+//
+//        //类似iphone的，从下到上的动画效果
+//        window.setWindowAnimations(R.style.BottomDialogAnimation)
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -50,6 +50,9 @@ open class FullScreenDialogBaseFragment : DialogFragment() {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         }
+
+        //类似iphone的，从下到上的动画效果
+        dialog?.window?.setWindowAnimations(R.style.BottomDialogAnimation)
     }
 
 
