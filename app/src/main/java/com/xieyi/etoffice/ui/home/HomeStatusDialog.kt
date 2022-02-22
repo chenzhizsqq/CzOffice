@@ -8,17 +8,17 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import androidx.fragment.app.DialogFragment
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.FullScreenDialogBaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.setupClearButtonWithAction
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
 import kotlinx.coroutines.*
 
 
-class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment() {
+class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDialogBaseFragment() {
 
     private val TAG = "HomeStatusDialog"
 
@@ -35,7 +35,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
     private lateinit var gpsTracker: GpsTracker
 
 
-    var listener: OnDialogListener? = null
+    lateinit var listener: OnDialogListener
 
     interface OnDialogListener {
         fun onClick(userLocation: String, memo: String)
@@ -68,21 +68,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
 
         gpsCheck()
 
-        //フルスクリーン　Full screen
-        val window = dialog!!.window
-        window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        val attributes = window.attributes
-        attributes.gravity = Gravity.BOTTOM //下方
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
-        window.attributes = attributes
-
-        //类似iphone的，从下到上的动画效果
-        window.setWindowAnimations(R.style.BottomDialogAnimation)
-
-
         //ボタン　保存後に閉じる
         binding.btnCancelAndClose.setOnClickListener {
-
             listener?.onClick(
                 binding.userLocation.text.toString(),
                 binding.userStatusMemo.text.toString()
@@ -166,6 +153,10 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : DialogFragment
                             when (model.status) {
                                 0 -> {
                                     Tools.showMsg(binding.root, "更新しました。")
+                                    listener?.onClick(
+                                        statusvalue,
+                                        statustext
+                                    )
                                     dialog!!.dismiss()
                                 }
                                 else -> {

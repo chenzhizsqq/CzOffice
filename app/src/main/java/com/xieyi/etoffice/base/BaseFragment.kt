@@ -12,7 +12,7 @@ import com.xieyi.etoffice.Tools
  * ベースフラグメント
  * フラグメント共通処理をここで処理する。
  */
-open class BaseFragment  : Fragment() {
+open class BaseFragment : Fragment() {
 
     //与MainActivity共同的ViewModel
     open val sharedVM: MainActivityViewModel by activityViewModels()
@@ -28,8 +28,8 @@ open class BaseFragment  : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!isNetworkConnected()){
-            Tools.showErrorDialog(requireActivity(),getString(R.string.MSG05))
+        if (!isNetworkConnected()) {
+            Tools.showErrorDialog(requireActivity(), getString(R.string.MSG05))
         }
 
         sharedVM.reportFragTitle.value = "日报"

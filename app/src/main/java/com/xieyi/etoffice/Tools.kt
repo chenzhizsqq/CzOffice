@@ -32,7 +32,7 @@ object Tools {
         return rStr
     }
 
-    fun srcContent(src: String, maxLength: Int,lastStr:String): String {
+    fun srcContent(src: String, maxLength: Int, lastStr: String): String {
         var rString = src
         if (rString.length > maxLength) {
             rString = src.substring(0, maxLength)
@@ -77,9 +77,9 @@ object Tools {
      *
      * @param _data
      */
-    fun allDateTime(_data: String):String {
+    fun allDateTime(_data: String): String {
         var str = ""
-        str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}" +
+        str = "${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}" +
                 " ${dateGetHH(_data)}:${dateGetMM(_data)}:${dateGetSS(_data)}"
 
         return str
@@ -92,9 +92,9 @@ object Tools {
      *
      * @param _data
      */
-    fun allDate(_data: String):String {
+    fun allDate(_data: String): String {
         var str = ""
-        str="${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}"
+        str = "${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}"
 
         return str
     }
@@ -102,7 +102,7 @@ object Tools {
 
 
     //long long log
-    fun  logE(tag:String, msg:String) {
+    fun logE(tag: String, msg: String) {
         var logMessage = msg
         var max_str_length = 2001 - tag.length;
         //大于4000时
@@ -115,16 +115,16 @@ object Tools {
     }
 
     fun getNow(): String {
-        if (android.os.Build.VERSION.SDK_INT >= 24){
+        if (android.os.Build.VERSION.SDK_INT >= 24) {
             return SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS").format(Date())
-        }else{
+        } else {
             val tms = Calendar.getInstance()
             return tms.get(Calendar.YEAR).toString() + "-" +
                     tms.get(Calendar.MONTH).toString() + "-" +
                     tms.get(Calendar.DAY_OF_MONTH).toString() + " " +
                     tms.get(Calendar.HOUR_OF_DAY).toString() + ":" +
-                    tms.get(Calendar.MINUTE).toString() +":" +
-                    tms.get(Calendar.SECOND).toString() +"." +
+                    tms.get(Calendar.MINUTE).toString() + ":" +
+                    tms.get(Calendar.SECOND).toString() + "." +
                     tms.get(Calendar.MILLISECOND).toString()
         }
 
@@ -135,11 +135,11 @@ object Tools {
      *
      * @param s:相隔字符
      */
-    fun getDate(s:String): String {
-        if (android.os.Build.VERSION.SDK_INT >= 24){
-            val pattern:String ="yyyy"+s+"MM"+s+"dd"
+    fun getDate(s: String): String {
+        if (android.os.Build.VERSION.SDK_INT >= 24) {
+            val pattern: String = "yyyy" + s + "MM" + s + "dd"
             return SimpleDateFormat(pattern).format(Date())
-        }else{
+        } else {
             val tms = Calendar.getInstance()
             return tms.get(Calendar.YEAR).toString() + s +
                     tms.get(Calendar.MONTH).toString() + s +
@@ -153,9 +153,9 @@ object Tools {
      * 获取现在的日期
      */
     fun getDate(): String {
-        if (android.os.Build.VERSION.SDK_INT >= 24){
+        if (android.os.Build.VERSION.SDK_INT >= 24) {
             return SimpleDateFormat("yyyyMMdd").format(Date())
-        }else{
+        } else {
             val tms = Calendar.getInstance()
             return tms.get(Calendar.YEAR).toString() +
                     tms.get(Calendar.MONTH).toString() +
@@ -170,7 +170,7 @@ object Tools {
      * @param view: View
      * @param msg:String
      */
-    fun showMsg(view: View, msg:String){
+    fun showMsg(view: View, msg: String) {
         Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
             .setAction("Action", null)
             .show()
@@ -178,10 +178,8 @@ object Tools {
 
 
     fun msgAlertDialog(
-        context:Context
-        ,title:String
-        ,message:String
-        ,buttonMsg:String  ){
+        context: Context, title: String, message: String, buttonMsg: String
+    ) {
 
         AlertDialog.Builder(context)
             .setTitle(title)
@@ -197,8 +195,11 @@ object Tools {
      * @param key:String
      * @param value:String
      */
-    fun sharedPrePut(key:String,value:String){
-        val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, AppCompatActivity.MODE_PRIVATE)
+    fun sharedPrePut(key: String, value: String) {
+        val prefs = EtOfficeApp.context.getSharedPreferences(
+            Config.EtOfficeUser,
+            AppCompatActivity.MODE_PRIVATE
+        )
 
         val editor = prefs.edit()
         editor.apply() {
@@ -223,8 +224,11 @@ object Tools {
      * @param key:String
      * @param value:Int
      */
-    fun sharedPrePut(key:String,value:Int){
-        val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, AppCompatActivity.MODE_PRIVATE)
+    fun sharedPrePut(key: String, value: Int) {
+        val prefs = EtOfficeApp.context.getSharedPreferences(
+            Config.EtOfficeUser,
+            AppCompatActivity.MODE_PRIVATE
+        )
 
         val editor = prefs.edit()
         editor.apply() {
@@ -248,8 +252,9 @@ object Tools {
      *
      * @param key
      */
-    fun sharedPreRemove(key: String){
-        val pref = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+    fun sharedPreRemove(key: String) {
+        val pref =
+            EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = pref.edit()
         editor.remove(key)
         editor.apply()
@@ -371,9 +376,9 @@ object Tools {
     /**
      * EditText，编辑框(EditText)右侧追加一个自动清除按钮，输入内容后删除按钮表示，可以清除内容。
      */
-    fun addRightCancelDrawable(context: Context,editText: EditText) {
+    fun addRightCancelDrawable(context: Context, editText: EditText) {
         val cancel = ContextCompat.getDrawable(context, R.drawable.ic_cancel_black_24dp)
-        cancel?.setBounds(0,0, cancel.intrinsicWidth, cancel.intrinsicHeight)
+        cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
         editText.setCompoundDrawables(null, null, cancel, null)
     }
 }

@@ -1,7 +1,5 @@
 package com.xieyi.etoffice.common
 
-import android.annotation.SuppressLint
-import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
@@ -12,12 +10,14 @@ import com.xieyi.etoffice.R
 
 fun EditText.setupClearButtonWithAction() {
 
-    val clearIcon = if (this.editableText?.isNotEmpty() == true) R.drawable.ic_cancel_black_24dp else 0
+    val clearIcon =
+        if (this.editableText?.isNotEmpty() == true) R.drawable.ic_cancel_black_24dp else 0
     setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
 
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {
-            val clearIcon = if (editable?.isNotEmpty() == true) R.drawable.ic_cancel_black_24dp else 0
+            val clearIcon =
+                if (editable?.isNotEmpty() == true) R.drawable.ic_cancel_black_24dp else 0
             setCompoundDrawablesWithIntrinsicBounds(0, 0, clearIcon, 0)
         }
 

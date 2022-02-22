@@ -11,9 +11,9 @@ import android.graphics.PorterDuffXfermode;
 import android.util.AttributeSet;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-
 import com.xieyi.etoffice.R;
+
+import androidx.annotation.Nullable;
 
 public class CustomCheckBox extends View {
     /**
@@ -98,6 +98,11 @@ public class CustomCheckBox extends View {
     public CustomCheckBox(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
+    }
+
+    public static int dip2px(Context context, float dipValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 
     private void init(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -190,6 +195,60 @@ public class CustomCheckBox extends View {
         canvas.restoreToCount(layerId);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(handleMeasure(widthMeasureSpec), handleMeasure(heightMeasureSpec));
+    }
+
+    /**
+     * 处理MeasureSpec
+     */
+    private int handleMeasure(int measureSpec) {
+        int result = DEFAULT_MIN_WIDTH;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+        if (specMode == MeasureSpec.EXACTLY) {
+            result = specSize;
+        } else {
+            //处理wrap_content的情况
+            if (specMode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, specSize);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener l) {
+        super.setOnClickListener(new OnClickWrapper(l));
+    }
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public CustomCheckBox setCheck(boolean check) {
+        isCheck = check;
+        if (mCheckListener != null) {
+            mCheckListener.onCheckChange(check);
+        }
+        return this;
+    }
+
+    public void setOnCheckChangeListener(OnCheckChangeListener listener) {
+        mCheckListener = listener;
+    }
+
+    public interface OnCheckChangeListener {
+        /**
+         * 切换时回调
+         *
+         * @param isCheck 是否选中
+         */
+        void onCheckChange(boolean isCheck);
+    }
+
     private class BaseStyleStrategy {
         /**
          * 画圆形背景
@@ -274,40 +333,6 @@ public class CustomCheckBox extends View {
         }
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(handleMeasure(widthMeasureSpec), handleMeasure(heightMeasureSpec));
-    }
-
-    /**
-     * 处理MeasureSpec
-     */
-    private int handleMeasure(int measureSpec) {
-        int result = DEFAULT_MIN_WIDTH;
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize = MeasureSpec.getSize(measureSpec);
-        if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize;
-        } else {
-            //处理wrap_content的情况
-            if (specMode == MeasureSpec.AT_MOST) {
-                result = Math.min(result, specSize);
-            }
-        }
-        return result;
-    }
-
-    public static int dip2px(Context context, float dipValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
-    }
-
-    @Override
-    public void setOnClickListener(@Nullable OnClickListener l) {
-        super.setOnClickListener(new OnClickWrapper(l));
-    }
-
     /**
      * 点击事件包裹，避免外部设置点击事件将内部的切换事件替换
      */
@@ -332,30 +357,5 @@ public class CustomCheckBox extends View {
                 mOriginListener.onClick(view);
             }
         }
-    }
-
-    public boolean isCheck() {
-        return isCheck;
-    }
-
-    public CustomCheckBox setCheck(boolean check) {
-        isCheck = check;
-        if (mCheckListener != null) {
-            mCheckListener.onCheckChange(check);
-        }
-        return this;
-    }
-
-    public interface OnCheckChangeListener {
-        /**
-         * 切换时回调
-         *
-         * @param isCheck 是否选中
-         */
-        void onCheckChange(boolean isCheck);
-    }
-
-    public void setOnCheckChangeListener(OnCheckChangeListener listener) {
-        mCheckListener = listener;
     }
 }

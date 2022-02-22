@@ -15,7 +15,8 @@ class Api {
          * 共通パラメータを設定
          */
         private fun setCommonParam(jsonObject: JSONObject) {
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val token: String? = prefs.getString("token", "")
             val tenantid: String? = prefs.getString("tenantid", "")
             val hpid: String? = prefs.getString("hpid", "")
@@ -304,7 +305,8 @@ class Api {
             val url: String = Config.ApiUrl
 
 
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val token: String? = prefs.getString("token", "")
 
             val jsonObject = JSONObject()
@@ -358,7 +360,7 @@ class Api {
 
             jsonObject.put("count", count.toString())
 
-            if(lasttime != null) {
+            if (lasttime != null) {
                 jsonObject.put("lasttime", lasttime!!)
                 jsonObject.put("lastsubid", lastsubid!!)
             }
@@ -566,7 +568,8 @@ class Api {
             setCommonParam(jsonObject)
 
 
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val userid: String? = prefs.getString("userid", "")
 
             jsonObject.put("userid", userid)
@@ -615,7 +618,8 @@ class Api {
             jsonObject.put("app", "EtOfficeGetReportInfo")
             setCommonParam(jsonObject)
 
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val userid: String? = prefs.getString("userid", "")
 
             jsonObject.put("userid", userid)
@@ -660,7 +664,8 @@ class Api {
             jsonObject.put("app", "EtOfficeGetProject")
             setCommonParam(jsonObject)
 
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val userid: String? = prefs.getString("userid", "")
 
             jsonObject.put("userid", userid)
@@ -719,7 +724,8 @@ class Api {
             jsonObject.put("app", "EtOfficeSetReport")
             setCommonParam(jsonObject)
 
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val userid: String? = prefs.getString("userid", "")
 
             jsonObject.put("userid", userid)
@@ -774,7 +780,8 @@ class Api {
             setCommonParam(jsonObject)
 
 
-            val prefs = EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+            val prefs =
+                EtOfficeApp.context.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
             val userid: String? = prefs.getString("userid", "")
 
             jsonObject.put("userid", userid)
@@ -835,7 +842,6 @@ class Api {
                 }
             )
         }
-
 
 
     }

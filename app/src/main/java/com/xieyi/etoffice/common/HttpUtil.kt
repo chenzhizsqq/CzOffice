@@ -290,7 +290,7 @@ class HttpUtil {
                 .build()
             val spec1 = ConnectionSpec.Builder(ConnectionSpec.CLEARTEXT).build()
             return clientBuilder.connectionSpecs(listOf(spec, spec1)).build()
-           // return clientBuilder.build()
+            // return clientBuilder.build()
         }
 
         /**

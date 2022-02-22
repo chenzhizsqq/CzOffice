@@ -7,4 +7,4 @@ data class MessageInfo(
     val content: String,        // 内容
     val updatetime: String,     // 日時yyyyMMddHHmmss
     val subid: String,          // 同一日時に複数件の場合、連番(1～)
-):Serializable
+) : Serializable

@@ -10,7 +10,10 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 
 
-class ReportGetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val context: Context) :
+class ReportGetStuffSectionListAdapter(
+    var list: ArrayList<StuffStatusDispInfo>,
+    val context: Context
+) :
     RecyclerView.Adapter<ReportGetStuffSectionListAdapter.SectionListViewHolder>() {
     val TAG: String = "GetStuffSectionListAdapter"
 

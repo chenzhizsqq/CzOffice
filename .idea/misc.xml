@@ -9,7 +9,8 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2296195652173913" />
         <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.13949275362318841" />
+        <entry key="app/src/main/res/layout/dialog_home_report.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_my_page_place.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_report_add.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_report_fragment.xml" value="0.1" />

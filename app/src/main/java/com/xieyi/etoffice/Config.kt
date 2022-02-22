@@ -4,6 +4,7 @@ class Config {
     companion object {
         const val appName = "EtOffice"
         const val ApiUrl = "https://ssl.ethp.net/EthpJson.aspx"
+
         // 連打判断間隔msec
         const val DOUBLE_CLICK_INTERVAL = 500L
 
