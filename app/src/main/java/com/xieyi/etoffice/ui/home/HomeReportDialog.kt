@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.FullScreenDialogBaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.StatusInfo
 import com.xieyi.etoffice.databinding.DialogHomeReportBinding
@@ -19,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class HomeReportDialog : DialogFragment(),
+class HomeReportDialog : FullScreenDialogBaseFragment(),
     SwipeRefreshLayout.OnRefreshListener {
     private val TAG: String = "HomeReportDialog"
 
@@ -35,18 +36,6 @@ class HomeReportDialog : DialogFragment(),
         @Nullable savedInstanceState: Bundle?
     ): View {
         binding = DialogHomeReportBinding.inflate(inflater, container, false)
-
-        //フルスクリーン　Full screen
-        val window = dialog!!.window
-        window!!.setBackgroundDrawableResource(android.R.color.transparent)
-        val attributes = window.attributes
-        attributes.gravity = Gravity.BOTTOM //下方
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT //满屏
-        window.attributes = attributes
-
-        //类似iphone的，从下到上的动画效果
-        window.setWindowAnimations(R.style.BottomDialogAnimation)
-
 
         //ボタン　保存後に閉じる
         val btnSaveAndClose = binding.btnSaveAndClose
