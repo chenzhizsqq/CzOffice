@@ -15,20 +15,17 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:background="@color/white"
-        android:padding="5dp"
-        android:id="@+id/ll"
-        >
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,47 +35,40 @@
 
             <TextView
                 android:id="@+id/status_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:text="2021.06.28 02:24:17"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+            \
+
+            <TextView
+                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2021.06.28 02:24:17"
-                android:paddingEnd="10dp"
-                android:textSize="16sp"
-                android:textColor="#000000"
-                android:gravity="center|left"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="right"
-                >
-                <TextView
-                    android:id="@+id/status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="10dp"
-                    android:text="勤務中"
-                    android:textSize="16sp"
-                    android:gravity="center|right"
-                    />
-                <TextView
-                    android:id="@+id/memo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="自宅"
-                    android:textSize="16sp"
-                    android:singleLine="true"
-                    android:maxEms="10"
-                    android:ellipsize="end"
-                    android:gravity="center|right"
-                    />
-            </LinearLayout>
+                android:paddingLeft="10dp"
+                android:text="勤務中"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/memo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center|right"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:text="。。。。。。。。。。。。。。。。。。。。。。。"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/iphone_line_bg"/>
+            android:background="@color/iphone_line_bg" />
     </LinearLayout>
 </FrameLayout>
