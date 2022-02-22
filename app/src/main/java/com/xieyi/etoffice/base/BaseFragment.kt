@@ -15,7 +15,7 @@ import com.xieyi.etoffice.Tools
 open class BaseFragment  : Fragment() {
 
     //与MainActivity共同的ViewModel
-    private val sharedVM: MainActivityViewModel by activityViewModels()
+    open val sharedVM: MainActivityViewModel by activityViewModels()
 
     /**
      * Network判断

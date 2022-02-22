@@ -7,9 +7,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -110,43 +109,51 @@ class ReportFragment : BaseFragment(),
 
         EtOfficeGetReportListPost("", "")
 
+        //与MainActivity共同的ViewModel
+        sharedVM.reportFragTitle.observe(viewLifecycleOwner, Observer {
+            Log.e(TAG, "onCreateView: sharedVM.reportFragTitle.observe(viewLifecycleOwner:$it")
+            EtOfficeGetReportListPost("", "")
+        })
+
         return binding.root
     }
 
 
     private fun EtOfficeGetReportListPost(startym: String, months: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            Api.EtOfficeGetReportList(
-                context = requireActivity(),
-                startym = startym,
-                months = months,
-                onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
-                        when (model.status) {
-                            0 -> {
-                                EtOfficeGetReportListResult(model.result)
+            activity?.let {
+                Api.EtOfficeGetReportList(
+                    context = it,
+                    startym = startym,
+                    months = months,
+                    onSuccess = { model ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            when (model.status) {
+                                0 -> {
+                                    EtOfficeGetReportListResult(model.result)
 
-                                viewModel.mLoading.value = false
-                            }
-                            else -> {
-                                viewModel.mLoading.value = false
-                                activity?.let {
-                                    Tools.showErrorDialog(
-                                        it,
-                                        model.message
-                                    )
+                                    viewModel.mLoading.value = false
+                                }
+                                else -> {
+                                    viewModel.mLoading.value = false
+                                    activity?.let {
+                                        Tools.showErrorDialog(
+                                            it,
+                                            model.message
+                                        )
+                                    }
                                 }
                             }
                         }
+                    },
+                    onFailure = { error, data ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            viewModel.mLoading.value = false
+                            Log.e(TAG, "onFailure:$data")
+                        }
                     }
-                },
-                onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
-                        viewModel.mLoading.value = false
-                        Log.e(TAG, "onFailure:$data")
-                    }
-                }
-            )
+                )
+            }
         }
     }
 
@@ -221,7 +228,12 @@ class ReportFragment : BaseFragment(),
             val mReportFragmentMemberDialog = ReportFragmentMemberDialog()
 
             val fragmentManager = this@ReportFragment.parentFragmentManager
-            fragmentManager.let { it1 -> mReportFragmentMemberDialog.show(it1, "mHomeReportDialog") }
+            fragmentManager.let { it1 ->
+                mReportFragmentMemberDialog.show(
+                    it1,
+                    "mHomeReportDialog"
+                )
+            }
         }
 
         //メンバーページに切り替えます

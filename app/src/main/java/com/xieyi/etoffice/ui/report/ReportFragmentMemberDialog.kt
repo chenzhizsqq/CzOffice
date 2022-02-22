@@ -111,6 +111,9 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                     )
                 } else {
                     sharedVM.reportFragTitle.value = userName
+
+                    //点击后退出Dialog
+                    dismiss()
                 }
             }
         })
