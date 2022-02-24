@@ -6,6 +6,36 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/ll_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/submit"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="18sp"/>
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/CANCEL"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:textSize="18sp"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/report_title"
             android:layout_width="0dp"
@@ -15,8 +45,8 @@
             android:textColor="#222"
             android:textStyle="bold"
             android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/ll_button"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
@@ -248,56 +278,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label_report"/>
-
-        <TextView
-            android:id="@+id/tv1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_save"
-            app:layout_constraintTop_toBottomOf="@+id/et_workDetail"/>
-
-        <Button
-            android:id="@+id/btn_save"
-            android:layout_width="120dp"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:text="@string/submit"
-            android:textSize="18dp"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/tv1"
-            app:layout_constraintRight_toLeftOf="@+id/tv2"
-            app:layout_constraintTop_toBottomOf="@+id/et_workDetail"/>
-
-        <TextView
-            android:id="@+id/tv2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/btn_save"
-            app:layout_constraintRight_toLeftOf="@+id/btn_cancel"
-            app:layout_constraintTop_toBottomOf="@+id/et_workDetail"/>
-
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="120dp"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:text="@string/CANCEL"
-            android:textSize="18dp"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/tv2"
-            app:layout_constraintRight_toLeftOf="@+id/tv3"
-            app:layout_constraintTop_toBottomOf="@+id/et_workDetail"/>
-        <TextView
-            android:id="@+id/tv3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/btn_cancel"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_workDetail"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

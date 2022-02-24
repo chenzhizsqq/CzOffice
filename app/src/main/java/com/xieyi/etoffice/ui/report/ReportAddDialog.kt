@@ -20,6 +20,7 @@ import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.base.FullScreenDialogBaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.setupClearButtonWithAction
 import com.xieyi.etoffice.databinding.DialogReportAddBinding
@@ -28,7 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class ReportAddDialog : DialogFragment(), View.OnClickListener {
+class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
     private val TAG = "ReportAddDialog"
     private var _binding: DialogReportAddBinding? = null
     private val binding get() = _binding!!
