@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.member
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,29 @@ class GetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val c
                 status = context.getString(R.string.MSG10)
             }
             holder.tv_status?.text = status + " " + (memoText ?: "")
+
+            //メンバー一览出勤状态按照出勤状态的不同圆点设置的颜色不一样。
+            when (status){
+                //绿色：出勤
+                "勤務中" -> {
+                    holder.tv_status_icon?.setTextColor(Color.GREEN)
+                }
+
+                //棕色：不明状态
+                "不明な状態" -> {
+                    holder.tv_status_icon?.setTextColor(Color.parseColor("#E14B00"))
+                }
+
+                //灰色：休息/勤务外
+                "休憩中","勤務外" -> {
+                    holder.tv_status_icon?.setTextColor(Color.GRAY)
+                }
+
+                //蓝色：会议/移动中
+                "会議中","移動中" -> {
+                    holder.tv_status_icon?.setTextColor(Color.BLUE)
+                }
+            }
 
             var location = list[position].userStatusInfo?.location
             if (location == null || location.length == 0) {
