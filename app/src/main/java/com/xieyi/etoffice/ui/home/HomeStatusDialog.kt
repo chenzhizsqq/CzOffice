@@ -80,8 +80,12 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         //状態表示
         binding.state.text = mStatustext
 
-        //set_user_Status
+        //更新按钮点击后，画面添加一个蒙版，按钮不能二次点击。 点击前
+        binding.mengBan.visibility = View.GONE
+        binding.setUserStatus.isClickable = true
+        binding.setUserLocation.isClickable = true
 
+        //set_user_Status
         binding.setUserStatus.setOnClickListener {
             if (binding.userStatusMemo.text.toString().isEmpty()) {
                 activity?.let { it1 ->
@@ -103,6 +107,11 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
             )
             binding.userLocation.text.clear()
             binding.userStatusMemo.text.clear()
+
+            //更新按钮点击后，画面添加一个蒙版，按钮不能二次点击。 点击后
+            binding.mengBan.visibility = View.VISIBLE
+            binding.setUserStatus.isClickable = false
+            binding.setUserLocation.isClickable = false
         }
 
         //set_user_location

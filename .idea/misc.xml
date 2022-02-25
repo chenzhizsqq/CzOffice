@@ -5,9 +5,16 @@
       <map>
         <entry key="app/src/main/res/drawable/bg_edittext.xml" value="0.2324074074074074" />
         <entry key="app/src/main/res/drawable/bg_edittext_focused.xml" value="0.2578125" />
+        <entry key="app/src/main/res/drawable/bg_edittext_normal.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/drawable/ic_add_button_foreground.xml" value="0.21296296296296297" />
         <entry key="app/src/main/res/drawable/ic_cancel_black_24dp.xml" value="0.25833333333333336" />
+        <entry key="app/src/main/res/drawable/ic_checkbox.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/drawable/ic_click_on_foreground.xml" value="0.21296296296296297" />
+        <entry key="app/src/main/res/drawable/ic_launcher_main_page_2_background.xml" value="0.22962962962962963" />
+        <entry key="app/src/main/res/drawable/ic_round_edge_blue.xml" value="0.22962962962962963" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2296195652173913" />
+        <entry key="app/src/main/res/layout/activity_my_page_place_setting.xml" value="0.13496376811594202" />
         <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_home_report.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.1" />
@@ -29,6 +36,7 @@
         <entry key="app/src/main/res/layout/report_section_header_sectionname.xml" value="0.1" />
         <entry key="app/src/main/res/layout/section_header_sectionname.xml" value="0.1" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24166666666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_main_page_2.xml" value="0.22962962962962963" />
       </map>
     </option>
   </component>

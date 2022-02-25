@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.xieyi.etoffice.R
@@ -199,6 +200,9 @@ class HomeFragment : BaseFragment() {
         mHomeStatusDialog.setOnDialogListener(object : HomeStatusDialog.OnDialogListener {
             override fun onClick(userLocation: String, memo: String) {
                 dataPost()
+
+                //更新成功后，给用户提示一个信息。页面返回到主页面。
+                Toast.makeText(activity, "更新しました", Toast.LENGTH_SHORT).show()
             }
         })
     }
