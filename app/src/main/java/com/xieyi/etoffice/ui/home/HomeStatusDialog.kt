@@ -70,10 +70,10 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
         //ボタン　保存後に閉じる
         binding.btnCancelAndClose.setOnClickListener {
-            listener?.onClick(
-                binding.userLocation.text.toString(),
-                binding.userStatusMemo.text.toString()
-            )
+//            listener?.onClick(
+//                binding.userLocation.text.toString(),
+//                binding.userStatusMemo.text.toString()
+//            )
             dialog!!.dismiss()
         }
 
