@@ -79,7 +79,7 @@ class GetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val c
             holder.tv_status?.text = status + " " + (memoText ?: "")
 
             //メンバー一览出勤状态按照出勤状态的不同圆点设置的颜色不一样。
-            when (status){
+            when (status) {
                 //绿色：出勤
                 "勤務中" -> {
                     holder.tv_status_icon?.setTextColor(Color.GREEN)
@@ -91,12 +91,12 @@ class GetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val c
                 }
 
                 //灰色：休息/勤务外
-                "休憩中","勤務外" -> {
+                "休憩中", "勤務外" -> {
                     holder.tv_status_icon?.setTextColor(Color.GRAY)
                 }
 
                 //蓝色：会议/移动中
-                "会議中","移動中" -> {
+                "会議中", "移動中" -> {
                     holder.tv_status_icon?.setTextColor(Color.BLUE)
                 }
             }

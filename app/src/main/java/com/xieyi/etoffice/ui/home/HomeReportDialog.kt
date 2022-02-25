@@ -2,14 +2,14 @@ package com.xieyi.etoffice.ui.home
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.FullScreenDialogBaseFragment
 import com.xieyi.etoffice.common.Api

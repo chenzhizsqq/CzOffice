@@ -38,7 +38,7 @@ class GetStatusListAdapter(
         holder.statusTime.text = Tools.allDateTime(info.statustime)
         holder.status.text = info.statustext
         //holder.memo.text = info.memo
-        holder.memo.text = Tools.srcContent(info.memo,8,"...")
+        holder.memo.text = Tools.srcContent(info.memo, 8, "...")
 
 
     }
