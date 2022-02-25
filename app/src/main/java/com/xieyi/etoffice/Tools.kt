@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock.elapsedRealtime
 import android.text.Layout
 import android.text.SpannableString
 import android.text.style.AlignmentSpan
@@ -381,4 +382,32 @@ object Tools {
         cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
         editText.setCompoundDrawables(null, null, cancel, null)
     }
+
+}
+
+abstract class DoubleClickListener(
+    private val doubleClickQualificationTime: Long = 200
+) : View.OnClickListener {
+
+    private var timestampLastClick = 0L
+
+    /***/
+    override fun onClick(v: View) {
+        if ((elapsedRealtime() - timestampLastClick) < doubleClickQualificationTime)
+            onDoubleClick(v)
+        timestampLastClick = elapsedRealtime();
+    }
+
+    /** When the view is double clicked */
+    abstract fun onDoubleClick(v: View)
+}
+
+inline fun View.setOnDoubleClickListener(
+    crossinline onDoubleClick: (View) -> Unit
+) {
+    setOnClickListener(object : DoubleClickListener() {
+        override fun onDoubleClick(v: View) {
+            onDoubleClick(v)
+        }
+    })
 }

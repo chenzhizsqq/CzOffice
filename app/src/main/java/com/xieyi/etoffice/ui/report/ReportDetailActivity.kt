@@ -11,10 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.xieyi.etoffice.Config
-import com.xieyi.etoffice.MainActivity
-import com.xieyi.etoffice.R
-import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportResult
@@ -130,10 +127,8 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         }
 
 
-
-        binding.messageSend.setOnClickListener {
-
-            hideKeyboard(binding.messageEdit)
+        binding.messageSend.setOnDoubleClickListener{
+            hideKeyboard(binding.messageEdit.getWindowToken())
 
             //EtOfficeSetComment
             //データ更新
@@ -153,6 +148,29 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                 }
             }
         }
+
+//        binding.messageSend.setOnClickListener {
+//
+//            hideKeyboard(binding.messageEdit)
+//
+//            //EtOfficeSetComment
+//            //データ更新
+//            when {
+//                binding.messageEdit.text.length > 150 -> {
+//                    Tools.showErrorDialog(this, getString(R.string.MSG17))
+//                }
+//                binding.messageEdit.text.trim().isEmpty() -> {
+//                    //Tools.showErrorDialog(this, getString(R.string.no_text))
+//                }
+//                else -> {
+//                    EtOfficeSetCommentPost(
+//                        date,
+//                        binding.messageEdit.text.toString()
+//                    )
+//                    binding.messageEdit.text.clear()
+//                }
+//            }
+//        }
 
         //record_date
         binding.recordDate.setOnClickListener {
@@ -288,14 +306,6 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         //実績：
         binding.worktime.text = result.worktime
 
-    }
-
-    private fun hideKeyboard(v: View) {
-        val imm: InputMethodManager =
-            v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (imm.isActive) {
-            imm.hideSoftInputFromWindow(v.applicationWindowToken, 0)
-        }
     }
 
     override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int) {
