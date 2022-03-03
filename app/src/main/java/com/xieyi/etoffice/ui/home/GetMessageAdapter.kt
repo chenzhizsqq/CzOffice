@@ -16,7 +16,7 @@ class GetMessageAdapter(var list: List<MessageInfo>) :
 
 
     fun notifyDataChange(list: List<MessageInfo>) {
-        this.list = list as ArrayList<MessageInfo>
+        this.list = list
         notifyDataSetChanged()
     }
 
