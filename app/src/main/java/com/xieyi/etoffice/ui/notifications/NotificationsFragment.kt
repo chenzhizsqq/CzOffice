@@ -46,9 +46,6 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
         // ViewBinding
         binding = FragmentNotificationsBinding.inflate(inflater, container, false)
 
-        //データ存在の確認表示
-        binding.recycleView.setEmptyView(binding.listEmpty)
-
         viewModel =
             ViewModelProvider(this).get(NotificationsViewModel::class.java)
         viewModel.text.observe(viewLifecycleOwner, Observer {
@@ -173,11 +170,16 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                         if (data.status == 0 && data.result.messagelist.isNotEmpty()) {
                             viewModel.appendMessage(data.result.messagelist)
 
-                            var lastMessage = data.result.messagelist.last()
+                            val lastMessage = data.result.messagelist.last()
                             viewModel.lastsubid = lastMessage.subid
                             viewModel.lasttime = lastMessage.updatetime
 
                             adapter.notifyDataChange(viewModel.messageList)
+                        }
+
+                        if (data.result.messagelist.isEmpty()){
+                            //データ存在の確認表示
+                            binding.recycleView.setEmptyView(binding.listEmpty)
                         }
 
                         binding.swipeRefreshLayout.isRefreshing = false
