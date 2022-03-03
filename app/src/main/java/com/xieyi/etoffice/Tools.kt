@@ -386,7 +386,7 @@ object Tools {
 }
 
 abstract class DoubleClickListener(
-    private val doubleClickQualificationTime: Long = 200
+    private val doubleClickQualificationTime: Long = 1000
 ) : View.OnClickListener {
 
     private var timestampLastClick = 0L
