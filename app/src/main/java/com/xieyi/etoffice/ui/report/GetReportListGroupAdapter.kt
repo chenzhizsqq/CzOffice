@@ -14,7 +14,7 @@ import com.xieyi.etoffice.databinding.GetReportListGroupBinding
 class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter.ViewHolder>() {
     val TAG: String = "GetReportListGroupAdapter"
 
-    var list = ArrayList<GroupInfo>()
+    var list = listOf<GroupInfo>()
     var arrayListYmd = ArrayList<String>()
     lateinit var activity: Activity
     lateinit var viewModel: ReportViewModel
@@ -31,7 +31,7 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
         viewModel: ReportViewModel,
         lifecycleOwner: LifecycleOwner
     ) {
-        this.list = list as ArrayList<GroupInfo>
+        this.list = list
         this.arrayListYmd = arrayListYmd
         this.activity = activity
         this.viewModel = viewModel

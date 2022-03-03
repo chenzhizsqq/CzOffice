@@ -168,10 +168,9 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
                             0 -> {
                                 makeDispInfo(model, userStatusModel)
                                 mAdapter.notifyDataUpdateList(dispInfoList)
-                                if (dispInfoList.isEmpty()){
-                                    //データ存在の確認表示
-                                    binding.recyclerViewStuffList.setEmptyView(binding.listEmpty)
-                                }
+
+                                //データ存在の確認表示
+                                binding.recyclerViewStuffList.setEmptyView(binding.listEmpty)
 
                                 viewModel.mLoading.value = false
                             }

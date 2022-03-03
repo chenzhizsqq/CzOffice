@@ -184,15 +184,13 @@ class HomeFragment : BaseFragment() {
 
         if (result.recordlist.isNotEmpty()) {
             binding.state.text = result.recordlist[0].statustext
-        }else{
-            //データ存在の確認表示
-            binding.recyclerView.setEmptyView(binding.listEmpty)
         }
 
-        if(result.messagelist.isEmpty()){
-            //データ存在の確認表示
-            binding.recyclerMessage.setEmptyView(binding.listMessageEmpty)
-        }
+        //データ存在の確認表示
+        binding.recyclerView.setEmptyView(binding.listEmpty)
+
+        //データ存在の確認表示
+        binding.recyclerMessage.setEmptyView(binding.listMessageEmpty)
     }
 
     private fun showStatusDialog(statusvalue: String, statustext: String) {

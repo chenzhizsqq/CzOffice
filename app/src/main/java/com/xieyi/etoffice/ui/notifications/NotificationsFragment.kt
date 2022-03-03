@@ -177,10 +177,8 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                             adapter.notifyDataChange(viewModel.messageList)
                         }
 
-                        if (data.result.messagelist.isEmpty()){
-                            //データ存在の確認表示
-                            binding.recycleView.setEmptyView(binding.listEmpty)
-                        }
+                        //データ存在の確認表示
+                        binding.recycleView.setEmptyView(binding.listEmpty)
 
                         binding.swipeRefreshLayout.isRefreshing = false
                         loading = false

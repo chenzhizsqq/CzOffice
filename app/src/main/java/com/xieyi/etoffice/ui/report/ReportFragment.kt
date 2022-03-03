@@ -52,10 +52,6 @@ class ReportFragment : BaseFragment(),
         // Listenerをセット
         mSwipeRefreshLayout.setOnRefreshListener(this)
 
-        //データ存在の確認表示
-        binding.recyclerViewGetReport.setEmptyView(binding.listEmpty)
-
-
         mRecyclerView = binding.recyclerViewGetReport
 
         mAdapter = GetReportListGroupAdapter()
@@ -131,6 +127,9 @@ class ReportFragment : BaseFragment(),
                             when (model.status) {
                                 0 -> {
                                     EtOfficeGetReportListResult(model.result)
+
+                                    //データ存在の確認表示
+                                    binding.recyclerViewGetReport.setEmptyView(binding.listEmpty)
 
                                     viewModel.mLoading.value = false
                                 }

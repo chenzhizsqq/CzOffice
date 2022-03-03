@@ -69,9 +69,6 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
         // Listenerをセット
         binding.swipeRefreshLayout.setOnRefreshListener(this)
 
-        //データ存在の確認表示
-        binding.recyclerViewStuffList.setEmptyView(binding.listEmpty)
-
         initRecyclerView()
 
 
@@ -183,6 +180,9 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                             0 -> {
                                 makeDispInfo(model, userStatusModel)
                                 mAdapter.notifyDataUpdateList(dispInfoList)
+
+                                //データ存在の確認表示
+                                binding.recyclerViewStuffList.setEmptyView(binding.listEmpty)
 
                                 viewModel.mLoading.value = false
                             }

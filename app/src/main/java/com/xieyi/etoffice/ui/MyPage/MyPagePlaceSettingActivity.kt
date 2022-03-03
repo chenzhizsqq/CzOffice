@@ -168,10 +168,10 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         if (result.locationlist.isNotEmpty()) {
             //record_title
             binding.recordTitle.text = EtOfficeApp.context.getString(R.string.REGIESTERED)
-        }else{
-            //データ存在の確認表示
-            binding.recyclerView.setEmptyView(binding.listEmpty)
         }
+
+        //データ存在の確認表示
+        binding.recyclerView.setEmptyView(binding.listEmpty)
     }
 
     override fun onRefresh() {
