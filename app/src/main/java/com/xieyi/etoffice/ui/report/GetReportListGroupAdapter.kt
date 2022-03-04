@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -56,6 +57,13 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
             GetReportListGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        binding.root.setOnClickListener {
+            val location = IntArray(2)
+            it.getLocationOnScreen(location)
+            Log.e(TAG, "binding.root.setOnClickListener: x:"+location[0] +" y:"+ location[1] )
+        }
+
         return ViewHolder(binding)
     }
 
