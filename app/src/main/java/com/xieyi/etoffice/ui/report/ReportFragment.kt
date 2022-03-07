@@ -4,9 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +34,10 @@ class ReportFragment : BaseFragment(),
     private val arrayListYmd = ArrayList<String>()
 
     private lateinit var viewModel: ReportViewModel
+
+    private var mReportStateList = ArrayList<ReportState>()
+
+    private var mLastScrolledY = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +74,30 @@ class ReportFragment : BaseFragment(),
                     Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
                     EtOfficeGetReportListPost("", "")
                 }
+
+                viewModel.mIsScrolled.value = true
             }
+        })
+
+        //滚动状态 最後のScrolledY
+        mLastScrolledY = -1
+
+        viewModel.mLiveDataReportState.observe(viewLifecycleOwner,{
+//            Log.e(TAG, "viewModel.mLiveDataStateList.observe: "
+//                    +" it.mScrolledName:"
+//                    +it.mScrolledName
+//                    +" it.mScrolledY:"
+//                    +it.mScrolledY
+//                    +" it.mPosition:"
+//                    +it.mPosition)
+            if (it.mScrolledY in 1..231
+                && mLastScrolledY != it.mScrolledY
+                && binding.dateTitle.text != it.mScrolledName
+            ){
+                mLastScrolledY = it.mScrolledY
+                binding.dateTitle.text = it.mScrolledName
+            }
+
         })
 
         mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener {

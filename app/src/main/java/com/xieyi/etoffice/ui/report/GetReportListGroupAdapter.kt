@@ -1,7 +1,6 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -58,12 +57,6 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
         binding =
             GetReportListGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        binding.root.setOnClickListener {
-            val location = IntArray(2)
-            it.getLocationOnScreen(location)
-            Log.e(TAG, "binding.root.setOnClickListener: x:"+location[0] +" y:"+ location[1] )
-        }
-
         return ViewHolder(binding)
     }
 
@@ -90,6 +83,18 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
             override fun onClick(yyyymmdd: String, isApproved: Boolean) {
                 listener.onClick(yyyymmdd, isApproved)
             }
+        })
+
+        viewModel.mIsScrolled.observe(lifecycleOwner,{
+
+            val location = IntArray(2)
+            holder.month.getLocationOnScreen(location)
+
+            val stateList = ReportState()
+            stateList.mScrolledName = holder.month.text.toString()
+            stateList.mScrolledY = location[1]
+            stateList.mPosition = position
+            viewModel.mLiveDataReportState.value = stateList
         })
     }
 }

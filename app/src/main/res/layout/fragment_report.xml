@@ -125,7 +125,7 @@
         app:layout_constraintTop_toTopOf="parent"
         >
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar123"
+            android:id="@+id/date_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/iphone_top_menu_bg"
@@ -136,12 +136,11 @@
                 android:orientation="horizontal"
                 >
                 <TextView
-                    android:id="@+id/title123"
+                    android:id="@+id/date_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="@dimen/title_bar_size_sub"
                     android:gravity="left|center"
-                    android:text="@string/title_report"
                     android:textColor="@color/black" />
             </LinearLayout>
 

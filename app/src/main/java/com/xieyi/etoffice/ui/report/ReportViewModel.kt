@@ -41,4 +41,17 @@ class ReportViewModel : ViewModel() {
     //绑定loading状态
     val mLoading = MutableLiveData(false)
     val liveDataLoading: LiveData<Boolean> = mLoading
+
+    //滚动状态
+    val mIsScrolled = MutableLiveData(false)
+    private val _reportState = ReportState()
+    val mLiveDataReportState = MutableLiveData(_reportState)
+
+}
+
+//滚动状态
+class ReportState {
+    var mScrolledY=0
+    var mScrolledName=""
+    var mPosition=-1
 }
