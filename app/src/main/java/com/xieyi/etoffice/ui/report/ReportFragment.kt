@@ -35,8 +35,6 @@ class ReportFragment : BaseFragment(),
 
     private lateinit var viewModel: ReportViewModel
 
-    private var mReportStateList = ArrayList<ReportState>()
-
     private var mLastScrolledY = -1
 
     override fun onCreateView(
@@ -81,6 +79,7 @@ class ReportFragment : BaseFragment(),
 
         //滚动状态 最後のScrolledY
         mLastScrolledY = -1
+        binding.smallAppBarLayout.visibility = View.GONE
 
         viewModel.mLiveDataReportState.observe(viewLifecycleOwner,{
 //            Log.e(TAG, "viewModel.mLiveDataStateList.observe: "
@@ -90,14 +89,14 @@ class ReportFragment : BaseFragment(),
 //                    +it.mScrolledY
 //                    +" it.mPosition:"
 //                    +it.mPosition)
-            if (it.mScrolledY in 1..231
+            if (it.mScrolledY in 1..230
                 && mLastScrolledY != it.mScrolledY
                 && binding.dateTitle.text != it.mScrolledName
             ){
                 mLastScrolledY = it.mScrolledY
                 binding.dateTitle.text = it.mScrolledName
+                binding.smallAppBarLayout.visibility = View.VISIBLE
             }
-
         })
 
         mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener {
