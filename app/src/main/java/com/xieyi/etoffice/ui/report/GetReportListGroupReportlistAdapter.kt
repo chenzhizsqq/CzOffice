@@ -1,6 +1,7 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.Activity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,18 +15,40 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.ReportListnfo
 import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
-
-//EtOfficeGetReportList.json result-group-reportlist
-class GetReportListGroupReportlistAdapter(
-    val list: List<ReportListnfo>,
-    var arrayListYmd: ArrayList<String>,
-    val activity: Activity,
-    val viewModel: ReportViewModel,
-    val lifecycleOwner: LifecycleOwner
-) : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
+class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
     val TAG: String = "GetReportListGroupReportlistAdapter"
 
+
+    var list = listOf<ReportListnfo>()
+    private var arrayListYmd= ArrayList<String>()
+    lateinit var activity: Activity
+    lateinit var viewModel: ReportViewModel
+    lateinit var lifecycleOwner: LifecycleOwner
+
     private lateinit var binding: GetReportListGroupReportlistBinding
+
+
+    fun notifyDataSetChanged(
+        list: List<ReportListnfo>,
+        arrayListYmd: ArrayList<String>,
+        activity: Activity,
+        viewModel: ReportViewModel,
+        lifecycleOwner: LifecycleOwner
+    ) {
+        Log.e(TAG, "notifyDataSetChanged: begin", )
+        this.list = listOf()
+        this.list = list
+        Log.e(TAG, "notifyDataSetChanged: list:"+this.list.toString() )
+
+        this.arrayListYmd.clear()
+        this.arrayListYmd = arrayListYmd
+        Log.e(TAG, "notifyDataSetChanged: arrayListYmd:"+this.arrayListYmd.toString() )
+
+        this.activity = activity
+        this.viewModel = viewModel
+        this.lifecycleOwner = lifecycleOwner
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(binding: GetReportListGroupReportlistBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -65,6 +88,7 @@ class GetReportListGroupReportlistAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        Log.e(TAG, "!!! onBindViewHolder: list:"+this.list.toString() )
         holder.yyyymmdd.text = Tools.allDate(list[position].yyyymmdd)
         holder.approval.text = list[position].approval
         if (holder.approval.text.isEmpty()) {

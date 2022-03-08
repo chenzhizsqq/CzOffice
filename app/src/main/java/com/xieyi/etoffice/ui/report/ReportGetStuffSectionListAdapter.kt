@@ -61,8 +61,12 @@ class ReportGetStuffSectionListAdapter(
             holder.tv_userkana?.text = list[position].userStatusInfo?.userkana
             holder.tv_username?.text = list[position].userStatusInfo?.username
             holder.tv_username?.setOnClickListener {
-                list[position].userStatusInfo?.username?.let { it1 -> listener.onClick(it1) }
+                list[position].userStatusInfo?.username?.let {
+                        it1 -> list[position].userStatusInfo?.userid?.let { it2 ->
+                    listener.onClick(it1,it2)
+                } }
             }
+
         }
     }
 
@@ -78,7 +82,7 @@ class ReportGetStuffSectionListAdapter(
     private lateinit var listener: OnAdapterListener
 
     interface OnAdapterListener {
-        fun onClick(userName: String)
+        fun onClick(userName: String,userid:String)
     }
 
     fun setOnAdapterListener(adapterListener: OnAdapterListener) {

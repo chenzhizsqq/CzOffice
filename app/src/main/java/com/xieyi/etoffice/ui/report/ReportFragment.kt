@@ -70,7 +70,7 @@ class ReportFragment : BaseFragment(),
                 if (lastVisibleItemPosition + 1 == binding.recyclerViewGetReport.adapter?.itemCount && !loading) {
                     loading = true
                     Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
-                    EtOfficeGetReportListPost("", "")
+                    EtOfficeGetReportListPost("")
                 }
 
                 viewModel.mIsScrolled.value = true
@@ -127,30 +127,34 @@ class ReportFragment : BaseFragment(),
         topMenu()
 
 
-        EtOfficeGetReportListPost("", "")
+        EtOfficeGetReportListPost("")
 
         //与MainActivity共同的ViewModel
         sharedVM.reportFragTitle.observe(viewLifecycleOwner, Observer {
             Log.e(TAG, "onCreateView: sharedVM.reportFragTitle.observe(viewLifecycleOwner:$it")
-            EtOfficeGetReportListPost("", "")
+            //EtOfficeGetReportListPost("")
         })
 
         return binding.root
     }
 
 
-    private fun EtOfficeGetReportListPost(startym: String, months: String) {
+    private fun EtOfficeGetReportListPost(userid: String) {
         CoroutineScope(Dispatchers.IO).launch {
             activity?.let {
                 Api.EtOfficeGetReportList(
                     context = it,
-                    startym = startym,
-                    months = months,
+                    userid = userid,
                     onSuccess = { model ->
                         CoroutineScope(Dispatchers.Main).launch {
                             when (model.status) {
                                 0 -> {
+                                    if (model.result.group.isEmpty()){
+                                        binding.smallAppBarLayout.visibility = View.GONE
+                                    }
                                     EtOfficeGetReportListResult(model.result)
+                                    Log.e(TAG, "EtOfficeGetReportListPost: userid:"+userid )
+                                    Log.e(TAG, "EtOfficeGetReportListPost: model.result:"+model.result.toString() )
 
                                     //データ存在の確認表示
                                     binding.recyclerViewGetReport.setEmptyView(binding.listEmpty)
@@ -192,7 +196,7 @@ class ReportFragment : BaseFragment(),
                         CoroutineScope(Dispatchers.Main).launch {
                             when (model.status) {
                                 0 -> {
-                                    EtOfficeGetReportListPost("", "")
+                                    EtOfficeGetReportListPost("")
                                 }
                                 else -> {
                                     activity?.let {
@@ -222,6 +226,7 @@ class ReportFragment : BaseFragment(),
     private fun EtOfficeGetReportListResult(result: ReportListResult) {
         viewModel.allSelectChangeFalse()
         activity?.let {
+            Log.e(TAG, "EtOfficeGetReportListResult: result:"+result.toString() )
             mAdapter.notifyDataSetChanged(
                 result.group, arrayListYmd, it, viewModel, viewLifecycleOwner
             )
@@ -257,6 +262,15 @@ class ReportFragment : BaseFragment(),
                     "mHomeReportDialog"
                 )
             }
+
+            mReportFragmentMemberDialog.setOnDialogListener(object :ReportFragmentMemberDialog.OnDialogListener{
+                override fun onClick(userid: String) {
+                    viewModel.mLoading.value = true
+                    EtOfficeGetReportListPost(userid)
+                    Log.e(TAG, "!!! mReportFragmentMemberDialog onClick: userid:"+userid )
+                }
+
+            })
         }
 
         //メンバーページに切り替えます
@@ -326,6 +340,6 @@ class ReportFragment : BaseFragment(),
     override fun onRefresh() {
         Log.e(TAG, "onRefresh: begin")
         mSwipeRefreshLayout.isRefreshing = false
-        EtOfficeGetReportListPost("", "")
+        EtOfficeGetReportListPost("")
     }
 }

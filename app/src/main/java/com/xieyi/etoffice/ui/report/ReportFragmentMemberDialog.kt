@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefreshListener {
 
-    private val TAG = "MemberFragment"
+    private val TAG = "ReportFragmentMemberDialog"
     private lateinit var mAdapter: ReportGetStuffSectionListAdapter
     private lateinit var binding: DialogReportFragmentMemberBinding
     private var loading: Boolean = false
@@ -34,6 +34,17 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
 
     //与MainActivity共同的ViewModel
     private val sharedVM: MainActivityViewModel by activityViewModels()
+
+    //与ReportFragment联系
+    lateinit var listener: OnDialogListener
+
+    interface OnDialogListener {
+        fun onClick(userid: String)
+    }
+
+    fun setOnDialogListener(dialogListener: OnDialogListener) {
+        this.listener = dialogListener
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,7 +110,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
         })
 
         mAdapter.setOnAdapterListener(object : ReportGetStuffSectionListAdapter.OnAdapterListener {
-            override fun onClick(userName: String) {
+            override fun onClick(userName: String, userid: String) {
                 //确定是否有fragTitle
                 if (userName == "") {
                     Tools.showErrorDialog(
@@ -108,6 +119,9 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                     )
                 } else {
                     sharedVM.reportFragTitle.value = userName
+
+                    Log.e(TAG, "userid: "+userid )
+                    listener.onClick(userid)
 
                     //点击后退出Dialog
                     dismiss()
@@ -227,7 +241,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
         dispInfoList.clear()
         for (section in stuffListMode.result.sectionlist) {
             // 部門名
-            var info = StuffStatusDispInfo(
+            val info = StuffStatusDispInfo(
                 section.sectioncd,
                 section.sectionname,
                 null,
@@ -239,13 +253,13 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
             for (stuffInfo in section.stufflist) {
                 for (userStatusInfo in userStatusModel.result.userstatuslist) {
                     if (stuffInfo.userid == userStatusInfo.userid) {
-                        var info = StuffStatusDispInfo(
+                        val mStuffStatusDispInfo = StuffStatusDispInfo(
                             section.sectioncd,
                             section.sectionname,
                             stuffInfo,
                             userStatusInfo
                         )
-                        dispInfoList.add(info)
+                        dispInfoList.add(mStuffStatusDispInfo)
                         break
                     }
                 }

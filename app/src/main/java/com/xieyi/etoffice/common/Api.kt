@@ -469,16 +469,16 @@ class Api {
          * 日報一覧取得
          *
          * @param context:          コンテキスト
-         * @param startym:          読込開始年月(最初に空白指定:前月)
-         * @param months:           読込月数(最初に空白指定:本日まで)
+         * @param userid:           ユーザーID
          * @param onSuccess:        成功コールバック
          * @param onFailure:        失敗コールバック
          */
         @Suppress("UNCHECKED_CAST")
         fun EtOfficeGetReportList(
             context: Context,
-            startym: String,
-            months: String,
+//            startym: String,
+//            months: String,
+            userid: String,
             onSuccess: onSuccess<ReportListModel>,
             onFailure: onFailure<ResultType, Any>
         ) {
@@ -488,8 +488,11 @@ class Api {
             jsonObject.put("app", "EtOfficeGetReportList")
             setCommonParam(jsonObject)
 
-            jsonObject.put("startym", startym)
-            jsonObject.put("months", months)
+//            jsonObject.put("startym", startym)
+//            jsonObject.put("months", months)
+
+            //userid: String
+            jsonObject.put("userid", userid)
 
             HttpUtil.callAsyncHttp(
                 context = context,
