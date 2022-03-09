@@ -57,6 +57,10 @@ class ReportFragment : BaseFragment(),
         mAdapter = GetReportListGroupAdapter()
         mRecyclerView.adapter = mAdapter
 
+        //滚动状态 最後のScrolledY
+        mLastScrolledY = -1
+        binding.smallAppBarLayout.visibility = View.GONE
+
 
 
         binding.recyclerViewGetReport.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -77,9 +81,6 @@ class ReportFragment : BaseFragment(),
             }
         })
 
-        //滚动状态 最後のScrolledY
-        mLastScrolledY = -1
-        binding.smallAppBarLayout.visibility = View.GONE
 
         viewModel.mLiveDataReportState.observe(viewLifecycleOwner,{
 //            Log.e(TAG, "viewModel.mLiveDataStateList.observe: "
@@ -131,8 +132,7 @@ class ReportFragment : BaseFragment(),
 
         //与MainActivity共同的ViewModel
         sharedVM.reportFragTitle.observe(viewLifecycleOwner, Observer {
-            Log.e(TAG, "onCreateView: sharedVM.reportFragTitle.observe(viewLifecycleOwner:$it")
-            //EtOfficeGetReportListPost("")
+            binding.title.text = it
         })
 
         return binding.root
@@ -153,8 +153,6 @@ class ReportFragment : BaseFragment(),
                                         binding.smallAppBarLayout.visibility = View.GONE
                                     }
                                     EtOfficeGetReportListResult(model.result)
-                                    Log.e(TAG, "EtOfficeGetReportListPost: userid:"+userid )
-                                    Log.e(TAG, "EtOfficeGetReportListPost: model.result:"+model.result.toString() )
 
                                     //データ存在の確認表示
                                     binding.recyclerViewGetReport.setEmptyView(binding.listEmpty)
@@ -226,7 +224,6 @@ class ReportFragment : BaseFragment(),
     private fun EtOfficeGetReportListResult(result: ReportListResult) {
         viewModel.allSelectChangeFalse()
         activity?.let {
-            Log.e(TAG, "EtOfficeGetReportListResult: result:"+result.toString() )
             mAdapter.notifyDataSetChanged(
                 result.group, arrayListYmd, it, viewModel, viewLifecycleOwner
             )
@@ -265,9 +262,17 @@ class ReportFragment : BaseFragment(),
 
             mReportFragmentMemberDialog.setOnDialogListener(object :ReportFragmentMemberDialog.OnDialogListener{
                 override fun onClick(userid: String) {
+
+                    //滚动状态 最後のScrolledY
+                    mLastScrolledY = -1
+                    binding.smallAppBarLayout.visibility = View.GONE
+
+                    //reInit
+                    mAdapter = GetReportListGroupAdapter()
+                    mRecyclerView.adapter = mAdapter
+
                     viewModel.mLoading.value = true
                     EtOfficeGetReportListPost(userid)
-                    Log.e(TAG, "!!! mReportFragmentMemberDialog onClick: userid:"+userid )
                 }
 
             })

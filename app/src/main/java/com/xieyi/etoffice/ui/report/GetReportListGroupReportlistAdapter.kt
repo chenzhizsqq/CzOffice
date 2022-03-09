@@ -35,14 +35,11 @@ class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGr
         viewModel: ReportViewModel,
         lifecycleOwner: LifecycleOwner
     ) {
-        Log.e(TAG, "notifyDataSetChanged: begin", )
         this.list = listOf()
         this.list = list
-        Log.e(TAG, "notifyDataSetChanged: list:"+this.list.toString() )
 
         this.arrayListYmd.clear()
         this.arrayListYmd = arrayListYmd
-        Log.e(TAG, "notifyDataSetChanged: arrayListYmd:"+this.arrayListYmd.toString() )
 
         this.activity = activity
         this.viewModel = viewModel
@@ -88,7 +85,6 @@ class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGr
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        Log.e(TAG, "!!! onBindViewHolder: list:"+this.list.toString() )
         holder.yyyymmdd.text = Tools.allDate(list[position].yyyymmdd)
         holder.approval.text = list[position].approval
         if (holder.approval.text.isEmpty()) {

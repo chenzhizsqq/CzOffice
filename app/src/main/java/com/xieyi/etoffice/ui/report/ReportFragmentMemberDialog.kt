@@ -120,7 +120,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                 } else {
                     sharedVM.reportFragTitle.value = userName
 
-                    Log.e(TAG, "userid: "+userid )
+                    Log.d(TAG, "userid: "+userid )
                     listener.onClick(userid)
 
                     //点击后退出Dialog
