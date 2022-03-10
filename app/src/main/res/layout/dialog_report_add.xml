@@ -12,42 +12,57 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
+            android:padding="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             >
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="1dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/submit"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:textSize="18sp"/>
-
-                <Button
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
                     android:id="@+id/btn_cancel"
-                    android:layout_width="wrap_content"
+                    android:gravity="start">
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:layout_marginStart="5dp"
+                            app:srcCompat="@drawable/ic_launcher_arrow_left_foreground"
+                            />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/CANCEL"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:textSize="18sp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                        <TextView
+                            android:id="@+id/report_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="44dp"
+                            android:text="@string/title_report_add"
+                            android:textSize="20sp"
+                            android:textColor="#222"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                        <Button
+                            android:id="@+id/btn_save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="@string/submit"
+                            android:textSize="18sp"/>
+                </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/report_title"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:text="@string/title_report_add"
-            android:textSize="20dp"
-            android:textColor="#222"
-            android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/ll_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
             android:id="@+id/label_project"
@@ -55,9 +70,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@string/project"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="#555"
-            app:layout_constraintTop_toBottomOf="@+id/report_title"
+            app:layout_constraintTop_toBottomOf="@+id/ll_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
         <TextView
@@ -71,7 +86,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/selected"
-            android:textSize="14dp"
+            android:textSize="14sp"
             android:textColor="#FFFFFF"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/label_project"
@@ -146,12 +161,13 @@
                     android:layout_height="44dp"
                     android:gravity="center"
                     android:text="@string/selected"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     app:layout_constraintHorizontal_weight="1.5"
                     app:layout_constraintLeft_toRightOf="@+id/label_worktime"
                     app:layout_constraintRight_toLeftOf="@+id/label_place"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/label_place"
@@ -168,16 +184,16 @@
                     android:id="@+id/et_place"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_edittext"
                     android:ems="10"
-                    android:singleLine="true"
                     android:inputType="text"
                     android:maxLength="50"
-                    android:background="@drawable/bg_edittext"
-                    tools:ignore="SpeakableTextPresentCheck"
+                    android:singleLine="true"
                     app:layout_constraintHorizontal_weight="1.5"
                     app:layout_constraintLeft_toRightOf="@+id/label_place"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -195,9 +211,9 @@
         <Button
             android:id="@+id/btn_starttime"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="@string/selected"
             android:textSize="14dp"
@@ -216,7 +232,7 @@
             android:id="@+id/label_line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="〜"
@@ -228,13 +244,13 @@
         <Button
             android:id="@+id/btn_endtime"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_marginLeft="16dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="30dp"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="30dp"
             android:gravity="center"
             android:text="@string/selected"
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:layout_constraintHorizontal_weight="8"
             app:layout_constraintLeft_toRightOf="@+id/label_line"
             app:layout_constraintRight_toRightOf="parent"
@@ -251,10 +267,10 @@
             android:id="@+id/label_report"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:text="@string/report"
             android:layout_marginTop="26dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/label_region"/>
