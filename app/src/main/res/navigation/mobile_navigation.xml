@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.xieyi.etoffice.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/MESSAGE"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/member_fragment"

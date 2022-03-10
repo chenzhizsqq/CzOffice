@@ -122,7 +122,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
         if (updateArray.length() > 0) {
             activity?.let {
                 AlertDialog.Builder(it).apply {
-                    setTitle(R.string.remind_message)
+                    setTitle(R.string.MESSAGE)
                     setMessage(R.string.MSG13)
                     setCancelable(false)
                     setPositiveButton(R.string.CONFIRM) { _, _ ->
@@ -247,7 +247,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                         var itemArray = JSONArray().put(message.updatetime + message.subid)
                         activity?.let {
                             AlertDialog.Builder(it).apply {
-                                setTitle(R.string.remind_message)
+                                setTitle(R.string.MESSAGE)
                                 setMessage(R.string.MSG13)
                                 setCancelable(false)
                                 setPositiveButton(R.string.CONFIRM) { _, _ ->
@@ -265,7 +265,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                         var itemArray = JSONArray().put(message.updatetime + message.subid)
                         activity?.let {
                             AlertDialog.Builder(it).apply {
-                                setTitle(R.string.remind_message)
+                                setTitle(R.string.MESSAGE)
                                 setMessage(R.string.MSG13)
                                 setCancelable(false)
                                 setPositiveButton(R.string.CONFIRM) { _, _ ->

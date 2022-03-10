@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/message_normal"
-        android:title="@string/title_notifications" />
+        android:title="@string/MESSAGE" />
     <item
         android:id="@+id/member_fragment"
         android:icon="@drawable/member_normal"
