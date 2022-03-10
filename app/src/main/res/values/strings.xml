@@ -151,4 +151,5 @@
     <string name="MSG17">入力したメッセージが長すぎます。</string>
     <string name="MSG18">現在選択されている情報を承認しますか？</string>
     <string name="MSG19">削除する日報が選択されていません。</string>
+    <string name="activity_report_detail_予定内容">予定内容</string>
 </resources>

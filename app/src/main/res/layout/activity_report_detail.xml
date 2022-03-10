@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:gravity="center|left"
-                        android:text="予定内容"
+                        android:text="@string/activity_report_detail_予定内容"
                         android:textColor="#000000"/>
                 </LinearLayout>
 
