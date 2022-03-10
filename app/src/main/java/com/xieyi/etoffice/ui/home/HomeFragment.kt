@@ -204,7 +204,7 @@ class HomeFragment : BaseFragment() {
                 dataPost()
 
                 //更新成功后，给用户提示一个信息。页面返回到主页面。
-                Toast.makeText(activity, "更新しました", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, R.string.UPDATE_SUCCESS, Toast.LENGTH_SHORT).show()
             }
         })
     }

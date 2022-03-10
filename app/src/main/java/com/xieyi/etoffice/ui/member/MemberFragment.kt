@@ -89,7 +89,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         mAdapter.setOnAdapterListener(object : GetStuffSectionListAdapter.OnAdapterListener {
             override fun onClick(phoneNumber: String) {
                 //确定是否有电话号码
-                if (phoneNumber == "") {
+                if (phoneNumber.isBlank()) {
                     Tools.showErrorDialog(
                         requireActivity(),
                         getString(R.string.no_telephone_number)

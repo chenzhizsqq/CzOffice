@@ -133,7 +133,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                                     Tools.showAlertDialog(
                                         this@MyPagePlaceSettingActivity,
                                         getString(R.string.MESSAGE),
-                                        "登録しました。"
+                                        getString(R.string.LOGIN_SUCCESS)
                                     )
                                     EtOfficeGetUserLocationPost()
                                 }

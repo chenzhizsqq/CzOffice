@@ -105,4 +105,8 @@
     <string name="MSG19">削除する日報が選択されていません。</string>
     <string name="CHANGE">切り替え</string>
     <string name="WORK_RECORD">出勤記録</string>
+    <string name="UPDATE_SUCCESS">更新しました</string>
+    <string name="LOGIN_SUCCESS">登録しました。</string>
+    <string name="REPORT_TITLE">日报</string>
+
 </resources>

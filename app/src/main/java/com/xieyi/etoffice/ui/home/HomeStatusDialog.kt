@@ -161,8 +161,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                         CoroutineScope(Dispatchers.Main).launch {
                             when (model.status) {
                                 0 -> {
-                                    Tools.showMsg(binding.root, "更新しました。")
-                                    listener?.onClick(
+                                    Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
+                                    listener.onClick(
                                         statusvalue,
                                         statustext
                                     )

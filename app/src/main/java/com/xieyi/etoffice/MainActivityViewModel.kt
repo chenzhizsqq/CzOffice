@@ -6,6 +6,6 @@ import androidx.lifecycle.ViewModel
 class MainActivityViewModel : ViewModel() {
 
     val reportFragTitle = MutableLiveData<String>().apply {
-        value = "日报"
+        value = R.string.REPORT_TITLE.toString()
     }
 }
