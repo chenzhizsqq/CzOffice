@@ -54,14 +54,7 @@ class ReportFragment : BaseFragment(),
 
         mRecyclerView = binding.recyclerViewGetReport
 
-        mAdapter = GetReportListGroupAdapter()
-        mRecyclerView.adapter = mAdapter
-
-        //滚动状态 最後のScrolledY
-        mLastScrolledY = -1
-        binding.smallAppBarLayout.visibility = View.GONE
-
-
+        AdapterInit()
 
         binding.recyclerViewGetReport.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -74,7 +67,7 @@ class ReportFragment : BaseFragment(),
                 if (lastVisibleItemPosition + 1 == binding.recyclerViewGetReport.adapter?.itemCount && !loading) {
                     loading = true
                     Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
-                    EtOfficeGetReportListPost("")
+                    EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
                 }
 
                 viewModel.mIsScrolled.value = true
@@ -100,19 +93,6 @@ class ReportFragment : BaseFragment(),
             }
         })
 
-        mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener {
-            override fun onClick(yyyymmdd: String, isApproved: Boolean) {
-                if (viewModel.visibility.value == View.GONE) {
-                    Tools.sharedPrePut(Config.FragKey, 3)
-                    val intent = Intent(activity, ReportDetailActivity::class.java)
-                    intent.putExtra("ReportFragmentYMD", yyyymmdd)
-                    intent.putExtra("isApproved", isApproved)
-                    activity?.startActivity(intent)
-                    activity?.finish()
-                }
-            }
-        })
-
 
         viewModel.liveDataLoading.observe(viewLifecycleOwner, {
             if (it) {
@@ -127,8 +107,10 @@ class ReportFragment : BaseFragment(),
 
         topMenu()
 
-
-        EtOfficeGetReportListPost("")
+        EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
+        if (Tools.sharedPreGetString(ReportFragment.userNameKey).isNotBlank()) {
+            sharedVM.reportFragTitle.value = Tools.sharedPreGetString(ReportFragment.userNameKey)
+        }
 
         //与MainActivity共同的ViewModel
         sharedVM.reportFragTitle.observe(viewLifecycleOwner, Observer {
@@ -194,7 +176,7 @@ class ReportFragment : BaseFragment(),
                         CoroutineScope(Dispatchers.Main).launch {
                             when (model.status) {
                                 0 -> {
-                                    EtOfficeGetReportListPost("")
+                                    EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
                                 }
                                 else -> {
                                     activity?.let {
@@ -263,16 +245,11 @@ class ReportFragment : BaseFragment(),
             mReportFragmentMemberDialog.setOnDialogListener(object :ReportFragmentMemberDialog.OnDialogListener{
                 override fun onClick(userid: String) {
 
-                    //滚动状态 最後のScrolledY
-                    mLastScrolledY = -1
-                    binding.smallAppBarLayout.visibility = View.GONE
-
-                    //reInit
-                    mAdapter = GetReportListGroupAdapter()
-                    mRecyclerView.adapter = mAdapter
+                    AdapterInit()
 
                     viewModel.mLoading.value = true
                     EtOfficeGetReportListPost(userid)
+                    Tools.sharedPrePut(ReportFragment.userIdKey, userid)
                 }
 
             })
@@ -312,6 +289,27 @@ class ReportFragment : BaseFragment(),
         }
     }
 
+    private fun AdapterInit() {
+        mAdapter = GetReportListGroupAdapter()
+        mRecyclerView.adapter = mAdapter
+
+        //滚动状态 最後のScrolledY
+        mLastScrolledY = -1
+        binding.smallAppBarLayout.visibility = View.GONE
+
+        mAdapter.setOnAdapterListener(object : GetReportListGroupAdapter.OnAdapterListener {
+            override fun onClick(yyyymmdd: String, isApproved: Boolean) {
+                if (viewModel.visibility.value == View.GONE) {
+                    Tools.sharedPrePut(Config.FragKey, 3)
+                    val intent = Intent(activity, ReportDetailActivity::class.java)
+                    intent.putExtra("ReportFragmentYMD", yyyymmdd)
+                    intent.putExtra("isApproved", isApproved)
+                    activity?.startActivity(intent)
+                }
+            }
+        })
+    }
+
 
     private fun commitAlertDialog() {
 
@@ -340,11 +338,13 @@ class ReportFragment : BaseFragment(),
         fun newInstance(): ReportFragment {
             return ReportFragment()
         }
+        const val userNameKey = "ReportFragment_userNameKey"
+        const val userIdKey = "ReportFragment_userIdKey"
     }
 
     override fun onRefresh() {
         Log.e(TAG, "onRefresh: begin")
         mSwipeRefreshLayout.isRefreshing = false
-        EtOfficeGetReportListPost("")
+        EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
     }
 }

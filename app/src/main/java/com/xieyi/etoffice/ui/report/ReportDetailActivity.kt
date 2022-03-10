@@ -120,8 +120,6 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
         //returnpHome
         binding.returnHome.setOnClickListener {
-            val intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
-            startActivity(intent)
             finish()
 
         }

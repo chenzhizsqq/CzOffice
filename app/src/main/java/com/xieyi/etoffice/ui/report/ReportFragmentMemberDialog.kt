@@ -119,6 +119,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                     )
                 } else {
                     sharedVM.reportFragTitle.value = userName
+                    Tools.sharedPrePut(ReportFragment.userNameKey,userName)
 
                     Log.d(TAG, "userid: "+userid )
                     listener.onClick(userid)

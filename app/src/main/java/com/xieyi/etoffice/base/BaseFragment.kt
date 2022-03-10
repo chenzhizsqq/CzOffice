@@ -7,6 +7,7 @@ import com.chepsi.callbackdemo.Variables
 import com.xieyi.etoffice.MainActivityViewModel
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.ui.report.ReportFragment
 
 /**
  * ベースフラグメント
@@ -32,7 +33,11 @@ open class BaseFragment : Fragment() {
             Tools.showErrorDialog(requireActivity(), getString(R.string.MSG05))
         }
 
-        sharedVM.reportFragTitle.value = "日报"
+        if (javaClass.simpleName!="ReportFragment"){
+            sharedVM.reportFragTitle.value = "日报"
+            Tools.sharedPreRemove(ReportFragment.userNameKey)
+            Tools.sharedPreRemove(ReportFragment.userIdKey)
+        }
     }
 
 }
