@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">EtOffice</string>
-    <string name="title_activity_main">EtOffice</string>
-    <string name="error">エラー</string>
+    <string name="title_activity_main">MainActivity</string>
     <string name="login">ログイン</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>
@@ -13,9 +12,6 @@
     <string name="title_my_page_change_company">切り替え</string>
     <string name="title_member_fragment">メンバー</string>
     <string name="change_company_title">切り替え</string>
-    <string name="project_require">プロジェクト名を選択する</string>
-    <string name="wbs_require">作業コードを選択してください</string>
-    <string name="workTime_require">工数を入力してください</string>
     <string name="title_report_add">日報追加</string>
     <string name="project">プロジェクト名</string>
     <string name="selected">選択する</string>
