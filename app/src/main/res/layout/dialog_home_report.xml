@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="@string/dialog_home_report_title"
+            android:text="@string/WORK_RECORD"
             android:textSize="16sp"
             android:textColor="#222"
             android:textStyle="bold"

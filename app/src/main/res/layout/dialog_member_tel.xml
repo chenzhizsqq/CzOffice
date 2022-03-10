@@ -40,7 +40,7 @@
             android:id="@+id/call_tel"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:text="@string/dialog_home_report_title"
+            android:text="@string/WORK_RECORD"
             android:textSize="20dp"
             android:textColor="@color/iphone_button_color"
             android:gravity="center"

@@ -37,7 +37,7 @@
         </activity>
         <activity
             android:name=".ui.MyPage.MyPageChangeCompanyActivity"
-            android:label="@string/title_my_page_change_company"
+            android:label="@string/CHANGE"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MyPage.MyPagePlaceSettingActivity"

@@ -69,7 +69,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/change_company_title"
+                        android:text="@string/CHANGE"
                         android:textSize="@dimen/title_bar_size_sub"
                         android:textColor="@color/black"
                         android:gravity="center"
