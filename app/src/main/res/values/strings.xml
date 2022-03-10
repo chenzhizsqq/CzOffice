@@ -2,7 +2,6 @@
     <string name="app_name">EtOffice</string>
     <string name="title_activity_main">EtOffice</string>
     <string name="error">エラー</string>
-    <string name="ok">ＯＫ</string>
     <string name="login">ログイン</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>
@@ -11,9 +10,7 @@
     <string name="title_notifications">メッセージ</string>
     <string name="title_report">日報</string>
     <string name="title_my_page">マイページ</string>
-    <string name="title_my_page_place_setting">作業場所管理</string>
     <string name="title_my_page_change_company">切り替え</string>
-    <string name="title_report_detail">日報詳しい</string>
     <string name="title_member_fragment">メンバー</string>
     <string name="change_company_title">切り替え</string>
     <string name="project_require">プロジェクト名を選択する</string>
@@ -50,20 +47,11 @@
     <string name="activity_report_detail_buttom_title">追加する</string>
     <string name="message_send">送信</string>
     <string name="button_cancel">取消</string>
-    <string name="dialog_confirm_title">Confirm</string>
-    <string name="dialog_confirm_content">Confirm?</string>
-    <string name="dialog_confirm_cancel">Cancel</string>
-    <string name="dialog_confirm_ok">OK</string>
     <string name="dialog_home_report_close">閉じる</string>
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
     <string name="dialog_home_status_please_input_location">地名を入力してください。</string>
     <string name="dialog_home_status_btn_cancel_and_close">キャンセル</string>
-    <string name="dialog_my_page_logout_title">Message</string>
-    <string name="dialog_my_page_logout_content">Do you want to log out?</string>
-    <string name="dialog_my_page_logout_cancel">Cancel</string>
-    <string name="dialog_my_page_logout_ok">OK</string>
-    <string name="fragment_home_title">ホーム</string>
     <string name="fragment_home_common_function">共通機能</string>
     <string name="fragment_home_visit_record">出勤記録</string>
     <string name="fragment_home_message">Message</string>
@@ -91,7 +79,6 @@
     <string name="fragment_home_rest">休憩中</string>
     <string name="fragment_home_moving">移動中</string>
     <string name="fragment_home_meeting">会議中</string>
-    <string name="HomeReportDialogTag">HomeReportDialog</string>
     <string name="unacknowledged">未承認</string>
     <string name="Approved">承認済み</string>
     <string name="Edit">Edit</string>
