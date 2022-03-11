@@ -44,7 +44,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
         val returnHome = binding.returnHome
         returnHome.setOnClickListener {
 
-            val intent: Intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
+            val intent = Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
 
@@ -183,7 +183,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
                 }.apply()
 
                 //会社选中之后直接跳转到【我的】页面
-                val intent: Intent =
+                val intent =
                     Intent(this@MyPageChangeCompanyActivity, MainActivity::class.java)
                 startActivity(intent)
                 finish()

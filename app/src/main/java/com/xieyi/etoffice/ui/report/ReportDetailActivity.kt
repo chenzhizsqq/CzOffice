@@ -2,12 +2,10 @@ package com.xieyi.etoffice.ui.report
 
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -190,8 +188,8 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         //メンバーページに切り替えます
         binding.people.setOnClickListener {
             Tools.sharedPrePut(Config.FragKey, 2)
-            val intent = Intent(this@ReportDetailActivity, MainActivity::class.java)
-            startActivity(intent)
+            val mIntent = Intent(this@ReportDetailActivity, MainActivity::class.java)
+            startActivity(mIntent)
             finish()
         }
 

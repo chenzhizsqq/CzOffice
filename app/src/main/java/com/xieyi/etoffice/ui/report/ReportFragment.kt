@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -67,7 +66,7 @@ class ReportFragment : BaseFragment(),
                 if (lastVisibleItemPosition + 1 == binding.recyclerViewGetReport.adapter?.itemCount && !loading) {
                     loading = true
                     Log.d(TAG, "EtOfficeGetStuffListPost calling ...dx:" + dx + "   dy:" + dy)
-                    EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
+                    EtOfficeGetReportListPost(Tools.sharedPreGetString(userIdKey))
                 }
 
                 viewModel.mIsScrolled.value = true
@@ -107,13 +106,13 @@ class ReportFragment : BaseFragment(),
 
         topMenu()
 
-        EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
-        if (Tools.sharedPreGetString(ReportFragment.userNameKey).isNotBlank()) {
-            sharedVM.reportFragTitle.value = Tools.sharedPreGetString(ReportFragment.userNameKey)
+        EtOfficeGetReportListPost(Tools.sharedPreGetString(userIdKey))
+        if (Tools.sharedPreGetString(userNameKey).isNotBlank()) {
+            sharedVM.reportFragTitle.value = Tools.sharedPreGetString(userNameKey)
         }
 
         //与MainActivity共同的ViewModel
-        sharedVM.reportFragTitle.observe(viewLifecycleOwner, Observer {
+        sharedVM.reportFragTitle.observe(viewLifecycleOwner, {
             binding.title.text = it
         })
 
@@ -176,7 +175,7 @@ class ReportFragment : BaseFragment(),
                         CoroutineScope(Dispatchers.Main).launch {
                             when (model.status) {
                                 0 -> {
-                                    EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
+                                    EtOfficeGetReportListPost(Tools.sharedPreGetString(userIdKey))
                                 }
                                 else -> {
                                     activity?.let {
@@ -249,7 +248,7 @@ class ReportFragment : BaseFragment(),
 
                     viewModel.mLoading.value = true
                     EtOfficeGetReportListPost(userid)
-                    Tools.sharedPrePut(ReportFragment.userIdKey, userid)
+                    Tools.sharedPrePut(userIdKey, userid)
                 }
 
             })
@@ -274,13 +273,13 @@ class ReportFragment : BaseFragment(),
             }
         })
 
-        binding.edit.setOnClickListener(View.OnClickListener {
+        binding.edit.setOnClickListener {
             viewModel.visibilityChange()
-        })
+        }
 
-        binding.cancel.setOnClickListener(View.OnClickListener {
+        binding.cancel.setOnClickListener {
             viewModel.visibilityChange()
-        })
+        }
 
         //commit click
         binding.commit.setOnClickListener {
@@ -345,6 +344,6 @@ class ReportFragment : BaseFragment(),
     override fun onRefresh() {
         Log.e(TAG, "onRefresh: begin")
         mSwipeRefreshLayout.isRefreshing = false
-        EtOfficeGetReportListPost(Tools.sharedPreGetString(ReportFragment.userIdKey))
+        EtOfficeGetReportListPost(Tools.sharedPreGetString(userIdKey))
     }
 }

@@ -11,8 +11,8 @@ class OptionsPickerAdapter(context: Context, resourceId: Int, data: List<OptionI
     ArrayAdapter<OptionItemModel>(context, resourceId, data) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var viewHolder: ViewHolder?
-        var view: View
+        val viewHolder: ViewHolder?
+        val view: View
 
         if (convertView == null) {
             view = View.inflate(context, R.layout.option_item, null)

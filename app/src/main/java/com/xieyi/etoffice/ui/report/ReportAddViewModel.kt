@@ -13,15 +13,13 @@ class ReportAddViewModel : ViewModel() {
     var reportAddDate = ""
     var wbsPickerData = ArrayList<OptionItemModel>()
     fun getProjectWbsOption() {
-        if (projectList != null) {
-            for (i in 0 until projectList.size) {
-                var itemCd = projectList[i].projectcd
-                if (itemCd == projectCd.value) {
-                    for (wbs in projectList[i].wbslist) {
-                        wbsPickerData.add(OptionItemModel(wbs.wbscd, wbs.wbsname))
-                    }
-                    break
+        for (i in 0 until projectList.size) {
+            val itemCd = projectList[i].projectcd
+            if (itemCd == projectCd.value) {
+                for (wbs in projectList[i].wbslist) {
+                    wbsPickerData.add(OptionItemModel(wbs.wbscd, wbs.wbsname))
                 }
+                break
             }
         }
     }
@@ -29,7 +27,7 @@ class ReportAddViewModel : ViewModel() {
     val projectPickerData = ArrayList<OptionItemModel>()
     fun initProjectOption() {
         for (i in 0 until projectList.size) {
-            var code = projectList[i].projectcd
+            val code = projectList[i].projectcd
             val name = projectList[i].projectname
             projectPickerData.add(OptionItemModel(code, name))
         }

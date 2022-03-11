@@ -215,7 +215,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
         dispInfoList.clear()
         for (section in stuffListMode.result.sectionlist) {
             // 部門名
-            var info = StuffStatusDispInfo(
+            val info = StuffStatusDispInfo(
                 section.sectioncd,
                 section.sectionname,
                 null,
@@ -227,13 +227,13 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
             for (stuffInfo in section.stufflist) {
                 for (userStatusInfo in userStatusModel.result.userstatuslist) {
                     if (stuffInfo.userid == userStatusInfo.userid) {
-                        var info = StuffStatusDispInfo(
+                        val mStuffStatusDispInfo = StuffStatusDispInfo(
                             section.sectioncd,
                             section.sectionname,
                             stuffInfo,
                             userStatusInfo
                         )
-                        dispInfoList.add(info)
+                        dispInfoList.add(mStuffStatusDispInfo)
                         break
                     }
                 }

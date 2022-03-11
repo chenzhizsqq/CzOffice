@@ -46,7 +46,7 @@ class GetStatusListAdapter(
     /**
      * データ更新
      *
-     * @param list ステータスリスト
+     * @param recordList ステータスリスト
      */
     fun updateData(recordList: List<StatusInfo>) {
         this.list = recordList

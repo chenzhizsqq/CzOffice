@@ -60,9 +60,9 @@ class GetTenantAdapter : RecyclerView.Adapter<GetTenantAdapter.ViewHolder>() {
             holder.iv_clicked.visibility = View.GONE
         }
 
-        holder.ll.setOnClickListener(View.OnClickListener {
+        holder.ll.setOnClickListener {
             listener.onClick(list[position].tenantid)
-        })
+        }
 
 
     }

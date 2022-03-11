@@ -115,7 +115,7 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
         searchProject()
 
         // 工程Cd改变时，重新取得作业Cd
-        viewModel.projectCd.observe(this, androidx.lifecycle.Observer {
+        viewModel.projectCd.observe(this, {
             viewModel.getProjectWbsOption()
         })
 
@@ -163,7 +163,7 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
             }
             // 作业选择
             R.id.wbs_picker -> {
-                var projectcd = binding.projectCode.text.toString()
+                val projectcd = binding.projectCode.text.toString()
                 if (projectcd.isEmpty()) {
                     activity?.let { Tools.showErrorDialog(it, getString(R.string.MSG14)) }
                     return
@@ -188,21 +188,21 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
                 dialog!!.dismiss()
             }
             R.id.btn_save -> {
-                var projectCd = binding.projectCode.text
+                val projectCd = binding.projectCode.text
                 if (projectCd.isEmpty()) {
                     activity?.let {
                         Tools.showErrorDialog(it, getString(R.string.MSG14))
                     }
                     return
                 }
-                var wbsCode = binding.wbsCode.text
+                val wbsCode = binding.wbsCode.text
                 if (wbsCode.isEmpty()) {
                     activity?.let {
                         Tools.showErrorDialog(it, getString(R.string.MSG15))
                     }
                     return
                 }
-                var worktime = binding.tvWorktime.text
+                val worktime = binding.tvWorktime.text
                 if (worktime.isEmpty()) {
                     activity?.let {
                         Tools.showErrorDialog(it, getString(R.string.MSG16))
@@ -231,11 +231,10 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
     }
 
     private fun initTimePicker(clickView: Button, valueView: TextView) {
-        OptionsPickerView.Builder(context,
-            OptionsPickerView.OnOptionsSelectListener { options1, options2, options3, v ->
-                clickView.text = viewModel.hourList[options1] + ":" + viewModel.minuteList[options2]
-                valueView.text = viewModel.hourList[options1] + viewModel.minuteList[options2]
-            })
+        OptionsPickerView.Builder(context) { options1, options2, options3, v ->
+            clickView.text = viewModel.hourList[options1] + ":" + viewModel.minuteList[options2]
+            valueView.text = viewModel.hourList[options1] + viewModel.minuteList[options2]
+        }
             .setDividerColor(Color.LTGRAY)//设置分割线的颜色
             .setSelectOptions(8, 0, 0)//默认选中项
             .setTextColorCenter(Color.BLACK) //设置选中项文字颜色

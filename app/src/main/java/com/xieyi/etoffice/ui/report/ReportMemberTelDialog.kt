@@ -45,11 +45,11 @@ class ReportMemberTelDialog(val telNumber: String) : DialogFragment() {
         binding.callTel.text = telNumber
 
         val REQUEST_CALL_PERMISSION = 10111 //電話　申し込む
-        binding.callTel.setOnClickListener(View.OnClickListener {
+        binding.callTel.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     requireActivity(),
                     Manifest.permission.CALL_PHONE
-                ) !== PackageManager.PERMISSION_GRANTED
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
                 // CALL_PHONE 権利　ない
                 ActivityCompat.requestPermissions(
@@ -63,7 +63,7 @@ class ReportMemberTelDialog(val telNumber: String) : DialogFragment() {
                 val intent = Intent(Intent.ACTION_CALL, uri)
                 it.context.startActivity(intent)
             }
-        })
+        }
 
         //ボタン　保存後に閉じる
         val btnSaveAndClose = binding.btnSaveAndClose

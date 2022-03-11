@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.*
 import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,13 +41,13 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // ViewBinding
         binding = FragmentNotificationsBinding.inflate(inflater, container, false)
 
         viewModel =
             ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        viewModel.text.observe(viewLifecycleOwner, Observer {
+        viewModel.text.observe(viewLifecycleOwner, {
             binding.titleNotifications.text = it
         })
 
@@ -103,7 +102,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 adapter.notifyDataChange(viewModel.messageList)
             }
             R.id.delete -> {
-                deleteData(view)
+                deleteData()
             }
         }
     }
@@ -111,10 +110,10 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
     /**
      * 一览行操作，删除数据
      */
-    private fun deleteData(view: View) {
-        var updateArray = JSONArray()
+    private fun deleteData() {
+        val updateArray = JSONArray()
         val checkStatus = adapter.getCheckStatus()
-        for ((index, value) in checkStatus) {
+        for ((_, value) in checkStatus) {
             if (value.isNotEmpty()) {
                 updateArray.put(value)
             }
@@ -217,8 +216,8 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = binding.recycleView.layoutManager as LinearLayoutManager
-                val lastVisibleItemPosition: Int = layoutManager.findLastVisibleItemPosition()
+                val mLayoutManager = binding.recycleView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition: Int = mLayoutManager.findLastVisibleItemPosition()
 
                 if (lastVisibleItemPosition + 1 == binding.recycleView.adapter?.itemCount && !loading) {
                     Log.d(TAG, "loading more...")
@@ -244,7 +243,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 viewModel.checkedPosition = position
                 alertDialog.setOnDeleteClick(object : NotificationsAlertDialog.OnDeleteListener {
                     override fun onDeleteClick(message: MessageInfo) {
-                        var itemArray = JSONArray().put(message.updatetime + message.subid)
+                        val itemArray = JSONArray().put(message.updatetime + message.subid)
                         activity?.let {
                             AlertDialog.Builder(it).apply {
                                 setTitle(R.string.MESSAGE)
@@ -262,7 +261,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
                 alertDialog.setOnArchiveClick(object : NotificationsAlertDialog.OnArchiveListener {
                     override fun onArchiveClick(message: MessageInfo) {
-                        var itemArray = JSONArray().put(message.updatetime + message.subid)
+                        val itemArray = JSONArray().put(message.updatetime + message.subid)
                         activity?.let {
                             AlertDialog.Builder(it).apply {
                                 setTitle(R.string.MESSAGE)
@@ -294,8 +293,8 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
                 onSuccess = { data ->
                     CoroutineScope(Dispatchers.Main).launch {
                         // 成功結果処理
-                        var checkStatus = adapter.getCheckStatus()
-                        var statusMap =
+                        val checkStatus = adapter.getCheckStatus()
+                        val statusMap =
                             adapter.getCheckStatus().clone() as HashMap<Int, String>
                         val msgListTmp =
                             viewModel.messageList.clone() as ArrayList<MessageInfo>

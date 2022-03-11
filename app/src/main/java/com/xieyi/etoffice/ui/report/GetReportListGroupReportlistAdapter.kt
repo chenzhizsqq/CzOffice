@@ -1,7 +1,6 @@
 package com.xieyi.etoffice.ui.report
 
 import android.app.Activity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +14,7 @@ import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.ReportListnfo
 import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
+
 class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
     val TAG: String = "GetReportListGroupReportlistAdapter"
 
@@ -101,7 +101,7 @@ class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGr
         holder.checkbox.tag = list[position].yyyymmdd
 
 
-        holder.ll.setOnClickListener(View.OnClickListener {
+        holder.ll.setOnClickListener {
             if (viewModel.visibility.value == View.GONE) {
                 if (holder.approval.text.isEmpty()) {
                     listener.onClick(list[position].yyyymmdd, false)
@@ -112,7 +112,7 @@ class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGr
                 holder.checkbox.isChecked = !holder.checkbox.isChecked
             }
 
-        })
+        }
 
         viewModel.allSelect.observe(lifecycleOwner, {
             holder.checkbox.isChecked = it

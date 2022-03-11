@@ -58,7 +58,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
         //returnpHome
         binding.returnHome.setOnClickListener {
-            val intent: Intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
+            val intent = Intent(this@MyPagePlaceSettingActivity, MainActivity::class.java)
             startActivity(intent)
             finish()
 

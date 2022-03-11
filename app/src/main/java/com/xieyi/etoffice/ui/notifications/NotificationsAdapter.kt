@@ -52,12 +52,12 @@ class NotificationsAdapter(private var messagelist: List<MessageInfo>) :
         val binding =
             NotificationsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding)
-        viewHolder.itemView.setOnClickListener(View.OnClickListener {
+        viewHolder.itemView.setOnClickListener {
             if (onItemClickListener != null) {
                 val position = viewHolder.adapterPosition
                 onItemClickListener.onItemClick(position)
             }
-        })
+        }
         return viewHolder
     }
 

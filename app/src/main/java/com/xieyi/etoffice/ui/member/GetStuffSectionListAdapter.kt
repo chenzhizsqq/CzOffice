@@ -71,7 +71,7 @@ class GetStuffSectionListAdapter(var list: ArrayList<StuffStatusDispInfo>, val c
             holder.tv_status_icon?.text = "●"
 
             var status = list[position].userStatusInfo?.statustext
-            var memoText = list[position].userStatusInfo?.memo
+            val memoText = list[position].userStatusInfo?.memo
 
             if (status == null || status.length == 0) {
                 status = context.getString(R.string.MSG10)

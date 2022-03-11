@@ -115,7 +115,7 @@ class MyPageFragment : BaseFragment() {
 
     private fun initView() {
         //Place　Setting
-        binding.placeManagement.setOnClickListener(View.OnClickListener {
+        binding.placeManagement.setOnClickListener {
 
             Tools.sharedPrePut(Config.FragKey, 4)
             //EtOfficeApp.selectUi = 4
@@ -123,21 +123,21 @@ class MyPageFragment : BaseFragment() {
             startActivity(intent)
             activity?.finish()
 
-        })
+        }
 
         //change　company
-        binding.changeCompany.setOnClickListener(View.OnClickListener {
+        binding.changeCompany.setOnClickListener {
 
             Tools.sharedPrePut(Config.FragKey, 4)
             //EtOfficeApp.selectUi = 4
             val intent = Intent(activity, MyPageChangeCompanyActivity::class.java)
             startActivity(intent)
             activity?.finish()
-        })
+        }
 
 
         //ログアウト
-        binding.SYSTEMInfo.setOnClickListener(View.OnClickListener {
+        binding.SYSTEMInfo.setOnClickListener {
             activity?.let { it1 ->
                 Tools.showConfirmDialog(it1,
                     getString(R.string.CONFIRM),
@@ -151,7 +151,7 @@ class MyPageFragment : BaseFragment() {
                     }
                 )
             }
-        })
+        }
     }
 
     /**
@@ -163,7 +163,7 @@ class MyPageFragment : BaseFragment() {
             Config.EtOfficeUser,
             AppCompatActivity.MODE_PRIVATE
         )
-        userInfo?.edit()?.clear()?.commit()
+        userInfo?.edit()?.clear()?.apply()
 
         //消除所有的Activity
         val intent = Intent(activity, LoginActivity::class.java)

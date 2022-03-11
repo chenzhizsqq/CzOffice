@@ -20,7 +20,7 @@ class OptionsPickerDialog : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = DialogBottomPickerBinding.inflate(inflater, container, false)
 
         val bundle = arguments
