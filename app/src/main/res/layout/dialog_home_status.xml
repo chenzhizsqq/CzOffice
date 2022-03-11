@@ -67,7 +67,7 @@
                 <EditText
                     android:id="@+id/user_status_memo"
                     android:layout_width="150dp"
-                    android:layout_height="44dp"
+                    android:layout_height="48dp"
                     android:singleLine="true"
                     android:hint="@string/dialog_home_status_user_status_memo_hint"
                     android:textSize="12sp"
@@ -137,7 +137,7 @@
                 <EditText
                     android:id="@+id/user_location"
                     android:layout_width="150dp"
-                    android:layout_height="44dp"
+                    android:layout_height="48dp"
                     android:hint="@string/dialog_home_status_user_location_hint"
                     android:textSize="12sp"
                     android:singleLine="true"
