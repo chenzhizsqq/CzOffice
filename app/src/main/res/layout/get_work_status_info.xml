@@ -37,7 +37,7 @@
             android:gravity="center"
             android:height="30dp"
             android:background="@color/iphone_line_bg"
-            android:text="time"
+            android:text="TextView_time"
             android:textColor="@color/black"
             />
         <TextView
@@ -46,7 +46,7 @@
             android:gravity="center"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="location"
+            android:text="TextView_location"
             android:textColor="@color/black"
             android:background="#FFEB3B"
             />

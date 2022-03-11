@@ -235,7 +235,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="〜"
+            android:text="@string/dialog_report_add_time_among"
             app:layout_constraintBaseline_toBaselineOf="@+id/btn_starttime"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toRightOf="@+id/btn_starttime"

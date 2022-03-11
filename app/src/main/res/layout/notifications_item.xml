@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?android:attr/textColorPrimary"
-                android:text="勤務実績変更"
+                android:text="@string/notifications_item_title"
                 android:textSize="18sp"/>
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_alignParentRight="true"
                 android:textColor="?android:attr/textColorPrimary"
                 android:layout_alignBaseline="@+id/msgTitle"
-                android:text="2021.07.15 12:02:08"/>
+                android:text="TextView_msgUpdateTime"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
                 android:textColor="?android:attr/textColorSecondary"
                 android:layout_marginBottom="8dp"
                 android:layout_below="@+id/msgTitle"
-                android:text="中村悠一さんが20120715の勤務実績「通常勤務」09:00-17:30を変更しました。"/>
+                android:text="TextView_msgContent"/>
         </RelativeLayout>
     </LinearLayout>
     <View

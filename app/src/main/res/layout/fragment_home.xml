@@ -67,7 +67,7 @@
                 android:layout_margin="5dp"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
-                android:text="株式会社"
+                android:text="@string/fragment_home_company_name"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -92,7 +92,7 @@
                         android:textSize="23sp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:text="2021.06.28"
+                        android:text="TextView_time"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
 
@@ -101,7 +101,7 @@
                         android:layout_marginRight="5dp"
                         android:textColor="@color/white"
                         android:textSize="17sp"
-                        android:text="お疲れ様です"
+                        android:text="@string/fragment_home_welcome"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
 

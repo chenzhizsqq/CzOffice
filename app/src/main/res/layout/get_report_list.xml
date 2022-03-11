@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="project"
+            android:text="TextView_project"
             android:textColor="@color/black"
             />
         <TextView
@@ -49,7 +49,7 @@
             android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="wbs"
+            android:text="TextView_wbs"
             android:textColor="@color/black"
             />
         <TextView
@@ -57,7 +57,7 @@
             android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="time"
+            android:text="TextView_time"
             android:textColor="@color/black"
             />
         <TextView
@@ -68,7 +68,7 @@
             android:background="@null"
             android:gravity="left|center"
             android:textSize="12sp"
-            android:text="memo"
+            android:text="TextView_memo"
             android:textColor="@color/black"
             tools:ignore="TextViewEdits" />
 

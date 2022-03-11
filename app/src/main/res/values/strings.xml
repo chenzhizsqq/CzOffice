@@ -52,6 +52,13 @@
     <string name="fragment_home_meeting">会議中</string>
     <string name="unacknowledged">未承認</string>
     <string name="Approved">承認済み</string>
+    <string name="notifications_item_title">勤務実績変更</string>
+    <string name="dialog_home_status_no_record_place">未登録場所</string>
+    <string name="fragment_home_company_name">株式会社</string>
+    <string name="fragment_home_welcome">お疲れ様です</string>
+    <string name="dialog_report_add_time_among">〜</string>
+    <string name="get_section_stuff_list_status_icon">●</string>
+    <string name="get_status_list_home_title_no">・</string>
 
     <string name="project_title">プロジェクト：</string>
     <string name="wbs_title">作業コード：</string>

@@ -95,7 +95,7 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="30dp"
-                android:text="未登録場所"
+                android:text="@string/dialog_home_status_no_record_place"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:gravity="center|right"
@@ -111,7 +111,7 @@
                     android:id="@+id/latitude"
                     android:layout_width="150dp"
                     android:layout_height="20dp"
-                    android:text="Latitude"
+                    android:text="TextView_Latitude"
                     android:textColor="@color/black"
                     android:gravity="center|right"
                     />
@@ -120,7 +120,7 @@
                     android:id="@+id/longitude"
                     android:layout_width="150dp"
                     android:layout_height="20dp"
-                    android:text="Longitude"
+                    android:text="TextView_Longitude"
                     android:textColor="@color/black"
                     android:gravity="center|right"
                     />

@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:text="project"
+            android:text="TextView_project"
             android:textColor="@color/black"
             />
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:text="wbs"
+            android:text="TextView_wbs"
             android:textColor="@color/black"
             />
 
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="date"
+                android:text="TextView_date"
                 android:paddingRight="10dp"
                 android:textColor="@color/black"
                 />

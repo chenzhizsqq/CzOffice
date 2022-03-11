@@ -46,7 +46,7 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="title"
+                        android:text="TextView_title"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
                     <TextView
@@ -55,14 +55,14 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:gravity="right"
-                        android:text="updatetime"
+                        android:text="TextView_updatetime"
                         android:textSize="15sp" />
                 </LinearLayout>
                 <TextView
                     android:id="@+id/content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="content"
+                    android:text="TextView_content"
                     android:padding="3dp"
                     android:textSize="12sp" />
             </LinearLayout>

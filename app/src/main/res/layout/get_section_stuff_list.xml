@@ -42,14 +42,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/stuff_list_userkara_font"
-                    android:text="TextView"
+                    android:text="TextView_userkana"
                     />
 
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="TextView_username"
                     android:textSize="@dimen/stuff_list_username_font"
                     android:textColor="@color/black" />
                 <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/stuff_list_phone_font"
-                    android:text="TextView" />
+                    android:text="TextView_phone" />
             </LinearLayout>
 
             <LinearLayout
@@ -79,14 +79,14 @@
                         android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="●"
+                        android:text="@string/get_section_stuff_list_status_icon"
                         android:textSize="@dimen/stuff_list_status_icon_font"
                         android:textColor="@color/system_green" />
                     <TextView
                         android:id="@+id/status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="TextView_status"
                         android:textSize="@dimen/stuff_list_status_font"
                         android:textStyle="bold"  />
                 </LinearLayout>
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/stuff_list_place_font"
-                    android:text=""  />
+                    android:text="TextView_place"  />
 
                 <LinearLayout
                     android:layout_width="180dp"
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:textSize="@dimen/stuff_list_mail_font"
-                        android:text="mail"  />
+                        android:text="TextView_mail"  />
                 </LinearLayout>
             </LinearLayout>
 

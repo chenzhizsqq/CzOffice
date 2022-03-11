@@ -14,7 +14,7 @@
         android:singleLine="true"
         android:textColor="#057dff"
         android:textSize="20sp"
-        android:text="プロジェクト名テストデータ"
+        android:text="TextView_option_name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
