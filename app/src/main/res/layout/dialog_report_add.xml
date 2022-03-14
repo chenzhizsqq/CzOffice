@@ -12,13 +12,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:padding="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             >
                 <LinearLayout
-                    android:layout_width="1dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
@@ -33,7 +34,7 @@
                             />
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="1dp"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -49,16 +50,18 @@
                             android:gravity="center"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="1dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:gravity="center">
-                        <Button
+                    android:gravity="end">
+                        <TextView
                             android:id="@+id/btn_save"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
                             android:gravity="end"
+                            android:textColor="@color/iphone_button_color"
                             android:text="@string/submit"
                             android:textSize="18sp"/>
                 </LinearLayout>
@@ -138,123 +141,111 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/wbs_picker">
-                <TextView
-                    android:id="@+id/label_worktime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|left"
-                    android:text="@string/work_time"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/btn_worktime"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/btn_worktime"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_worktime"
-                    android:visibility="gone"
-                    tools:ignore="MissingConstraints" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="start">
+                        <TextView
+                            android:id="@+id/label_worktime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center|left"
+                            android:text="@string/work_time"
+                            android:width="60dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_worktime"
+                            android:visibility="gone"
+                            tools:ignore="MissingConstraints" />
 
-                <Button
-                    android:id="@+id/btn_worktime"
-                    android:layout_width="0dp"
-                    android:layout_height="44dp"
-                    android:gravity="center"
-                    android:text="@string/selected"
-                    android:textSize="14sp"
-                    app:layout_constraintHorizontal_weight="1.5"
-                    app:layout_constraintLeft_toRightOf="@+id/label_worktime"
-                    app:layout_constraintRight_toLeftOf="@+id/label_place"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck" />
+                        <Button
+                            android:id="@+id/btn_worktime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:text="@string/selected"
+                            android:textSize="14sp"
+                            tools:ignore="TouchTargetSizeCheck" />
 
-                <TextView
-                    android:id="@+id/label_place"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/work_place"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toRightOf="@+id/btn_worktime"
-                    app:layout_constraintRight_toLeftOf="@+id/et_place"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/et_place"/>
+                        <TextView
+                            android:id="@+id/label_place"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:gravity="center"
+                            android:text="@string/work_place"/>
 
-                <EditText
-                    android:id="@+id/et_place"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_edittext"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:maxLength="50"
-                    android:singleLine="true"
-                    app:layout_constraintHorizontal_weight="1.5"
-                    app:layout_constraintLeft_toRightOf="@+id/label_place"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                        <EditText
+                            android:id="@+id/et_place"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_edittext"
+                            android:ems="10"
+                            android:inputType="text"
+                            android:maxLength="50"
+                            android:singleLine="true"
+                            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/label_region"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:text="@string/time_region"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btn_starttime"
-            app:layout_constraintHorizontal_weight="4"
-            app:layout_constraintLeft_toLeftOf="@id/tv_starttime"
-            app:layout_constraintRight_toLeftOf="@+id/btn_starttime"
-            app:layout_constraintTop_toBottomOf="@+id/worktime_layout" />
-
-        <Button
-            android:id="@+id/btn_starttime"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/selected"
-            android:textSize="14dp"
-            app:layout_constraintHorizontal_weight="8"
-            app:layout_constraintLeft_toRightOf="@+id/label_region"
-            app:layout_constraintRight_toLeftOf="@+id/label_line"
-            app:layout_constraintTop_toBottomOf="@+id/worktime_layout" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_starttime"
-            android:visibility="gone"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toBottomOf="@+id/worktime_layout">
 
-        <TextView
-            android:id="@+id/label_line"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/dialog_report_add_time_among"
-            app:layout_constraintBaseline_toBaselineOf="@+id/btn_starttime"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toRightOf="@+id/btn_starttime"
-            app:layout_constraintTop_toBottomOf="@+id/worktime_layout" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="start|center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:width="60dp"
+                            android:text="@string/time_region" />
 
-        <Button
-            android:id="@+id/btn_endtime"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="@string/selected"
-            android:textSize="14sp"
-            app:layout_constraintHorizontal_weight="8"
-            app:layout_constraintLeft_toRightOf="@+id/label_line"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/worktime_layout" />
+                        <Button
+                            android:id="@+id/btn_starttime"
+                            android:layout_width="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:text="@string/selected"
+                            android:textSize="14sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_starttime"
+                            android:visibility="gone"
+                            tools:ignore="MissingConstraints" />
+
+                        <TextView
+                            android:id="@+id/label_line"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginStart="20dp"
+                            android:gravity="center"
+                            android:text="@string/dialog_report_add_time_among" />
+
+                        <Button
+                            android:id="@+id/btn_endtime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:gravity="center"
+                            android:text="@string/selected"
+                            android:textSize="14sp" />
+                </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:layout_width="wrap_content"
