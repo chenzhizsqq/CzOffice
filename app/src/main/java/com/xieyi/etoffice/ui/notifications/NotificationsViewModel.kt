@@ -3,13 +3,14 @@ package com.xieyi.etoffice.ui.notifications
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.xieyi.etoffice.EtOfficeApp
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.common.model.MessageInfo
 
 class NotificationsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = R.string.MESSAGE.toString()
+        value = EtOfficeApp.context.getString(R.string.MESSAGE)
     }
     val text: LiveData<String> = _text
     val searchCount = 50
