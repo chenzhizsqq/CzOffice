@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.*
-import androidx.core.view.children
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xieyi.etoffice.*
@@ -124,7 +123,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         }
 
 
-/*        binding.messageSend.setOnDoubleClickListener{
+        binding.messageSend.setOnDoubleClickListener{
             hideKeyboard(binding.messageEdit.getWindowToken())
 
             //EtOfficeSetComment
@@ -144,32 +143,30 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                     binding.messageEdit.text.clear()
                 }
             }
-        }*/
-
-
-        binding.messageSend.setOnClickListener {
-
-
-            //EtOfficeSetComment
-            //データ更新
-            when {
-                binding.messageEdit.text.length > 150 -> {
-                    Tools.showErrorDialog(this, getString(R.string.MSG17))
-                }
-                binding.messageEdit.text.trim().isEmpty() -> {
-                    //Tools.showErrorDialog(this, getString(R.string.no_text))
-                }
-                else -> {
-                    EtOfficeSetCommentPost(
-                        date,
-                        binding.messageEdit.text.toString()
-                    )
-                    binding.messageEdit.text.clear()
-
-                    hideKeyboard(binding.messageEdit.windowToken)
-                }
-            }
         }
+
+//        binding.messageSend.setOnClickListener {
+//
+//            hideKeyboard(binding.messageEdit)
+//
+//            //EtOfficeSetComment
+//            //データ更新
+//            when {
+//                binding.messageEdit.text.length > 150 -> {
+//                    Tools.showErrorDialog(this, getString(R.string.MSG17))
+//                }
+//                binding.messageEdit.text.trim().isEmpty() -> {
+//                    //Tools.showErrorDialog(this, getString(R.string.no_text))
+//                }
+//                else -> {
+//                    EtOfficeSetCommentPost(
+//                        date,
+//                        binding.messageEdit.text.toString()
+//                    )
+//                    binding.messageEdit.text.clear()
+//                }
+//            }
+//        }
 
         //record_date
         binding.recordDate.setOnClickListener {
