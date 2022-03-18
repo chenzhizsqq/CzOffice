@@ -3,57 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/bg_edittext.xml" value="0.2324074074074074" />
-        <entry key="app/src/main/res/drawable/bg_edittext_focused.xml" value="0.2578125" />
-        <entry key="app/src/main/res/drawable/bg_edittext_normal.xml" value="0.21296296296296297" />
-        <entry key="app/src/main/res/drawable/ic_add_button_foreground.xml" value="0.21296296296296297" />
-        <entry key="app/src/main/res/drawable/ic_cancel_black_24dp.xml" value="0.25833333333333336" />
-        <entry key="app/src/main/res/drawable/ic_checkbox.xml" value="0.21296296296296297" />
-        <entry key="app/src/main/res/drawable/ic_click_on_foreground.xml" value="0.21296296296296297" />
-        <entry key="app/src/main/res/drawable/ic_launcher_main_page_2_background.xml" value="0.22962962962962963" />
-        <entry key="app/src/main/res/drawable/ic_round_edge_blue.xml" value="0.22962962962962963" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2296195652173913" />
-        <entry key="app/src/main/res/layout/activity_my_page_change_company.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/activity_my_page_place_setting.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_start.xml" value="0.13768115942028986" />
-        <entry key="app/src/main/res/layout/dialog_bottom_picker.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/dialog_home_report.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/dialog_member_tel.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/dialog_my_page_place.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/dialog_report_add.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/dialog_report_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/dialog_report_fragment_member.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_member.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_my_page.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_report.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/get_comment_info.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/get_message_list.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/get_plan_work_info.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/get_report_list.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/get_report_list_group.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/get_report_list_group_reportlist.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/get_section_stuff_list.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/get_status_list.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/get_status_list_home.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/get_stuff_section_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/get_stuff_stuff_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/get_tenant_list.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/get_user_location.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/get_work_status_info.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/notifications_custom_dialog.xml" value="0.10478771454381211" />
-        <entry key="app/src/main/res/layout/notifications_item.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/option_item.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/report_get_section_stuff_list.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/report_get_stuff_stuff_list.xml" value="0.11752786220871327" />
-        <entry key="app/src/main/res/layout/report_section_header_sectionname.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/section_header_sectionname.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24166666666666667" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_main_page_2.xml" value="0.22962962962962963" />
+        <entry key="..\:/Users/user/Desktop/ETOffice/EtOffice/app/src/main/res/layout/fragment_member.xml" value="0.1" />
+        <entry key="..\:/Users/user/Desktop/ETOffice/EtOffice/app/src/main/res/layout/notifications_item.xml" value="0.1" />
       </map>
     </option>
   </component>
