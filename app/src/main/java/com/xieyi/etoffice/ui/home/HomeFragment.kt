@@ -40,16 +40,16 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         val textCompanyTitle: TextView = binding.textCompanyTitle
-        homeViewModel.companyTitle.observe(viewLifecycleOwner, {
+        homeViewModel.companyTitle.observe(viewLifecycleOwner) {
             textCompanyTitle.text = it
-        })
+        }
 
         val textDate: TextView = binding.textTime
-        homeViewModel.date.observe(viewLifecycleOwner, {
+        homeViewModel.date.observe(viewLifecycleOwner) {
             textDate.text = it
-        })
+        }
 
-        homeViewModel.liveDataLoading.observe(viewLifecycleOwner, {
+        homeViewModel.liveDataLoading.observe(viewLifecycleOwner) {
             if (it) {
                 binding.scrollViewContent.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
@@ -57,7 +57,7 @@ class HomeFragment : BaseFragment() {
                 binding.scrollViewContent.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
-        })
+        }
         homeViewModel.mLoading.value = true
 
         binding.inWork.setOnClickListener {
