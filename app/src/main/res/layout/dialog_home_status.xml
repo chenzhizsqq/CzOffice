@@ -89,6 +89,7 @@
 
 
             <TextView
+                android:id="@+id/record_place"
                 android:layout_width="150dp"
                 android:layout_height="30dp"
                 android:text="@string/dialog_home_status_no_record_place"

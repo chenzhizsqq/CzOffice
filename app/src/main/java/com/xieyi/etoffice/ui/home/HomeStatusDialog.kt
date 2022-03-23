@@ -4,7 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
@@ -15,7 +18,10 @@ import com.xieyi.etoffice.base.FullScreenDialogBaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.setupClearButtonWithAction
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 
 class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDialogBaseFragment() {
@@ -43,6 +49,12 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
     fun setOnDialogListener(dialogListener: OnDialogListener) {
         this.listener = dialogListener
+    }
+
+    private lateinit var placeArray: ArrayList<Place>
+
+    data class Place(val name: String, val distance: Int) : Comparable<Place> {
+        override fun compareTo(other: Place): Int = this.distance - other.distance
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -136,7 +148,77 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         binding.userLocation.setupClearButtonWithAction()
         binding.userStatusMemo.setupClearButtonWithAction()
 
+        //获取已经记录的地址名字和经纬度
+        EtOfficeGetUserLocationPost()
+
         return binding.root
+    }
+
+
+    private fun EtOfficeGetUserLocationPost() {
+        CoroutineScope(Dispatchers.IO).launch {
+            Api.EtOfficeGetUserLocation(
+                context = requireActivity(),
+                onSuccess = { model ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        when (model.status) {
+                            0 -> {
+                                val latitude = binding.latitude.text
+                                val longitude = binding.longitude.text
+
+                                placeArray = ArrayList()
+
+                                model.result.locationlist.forEach {
+                                    if (latitude.isNotEmpty() &&
+                                        longitude.isNotEmpty() &&
+                                        it.latitude.isNotEmpty() &&
+                                        it.longitude.isNotEmpty() &&
+                                        abs(
+                                            it.latitude.toDouble() - latitude.toString().toDouble()
+                                        ) < 0.01
+                                        && abs(
+                                            it.longitude.toDouble() - longitude.toString()
+                                                .toDouble()
+                                        ) < 0.01
+                                    ) {
+                                        /*Log.d(TAG, "EtOfficeGetUserLocationPost: "+it.location
+                                                + "latitude:" + it.latitude
+                                                + "longitude:" + it.longitude )*/
+
+                                        val distance = abs(
+                                            it.latitude.toDouble() - latitude.toString().toDouble()
+                                        ) * abs(
+                                            it.longitude.toDouble() - longitude.toString()
+                                                .toDouble()
+                                        ) * 100000
+
+                                        placeArray.add(Place(it.location, distance.toInt()))
+                                    }
+                                }
+                                if (placeArray.isNotEmpty()) {
+                                    binding.recordPlace.text = placeArray.minOrNull()?.name
+                                    binding.userLocation.setText(placeArray.minOrNull()?.name)
+                                }
+                            }
+                            else -> {
+                                Tools.showErrorDialog(
+                                    requireActivity(),
+                                    model.message
+                                )
+                            }
+
+                        }
+                    }
+                },
+                onFailure = { error, data ->
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Log.e(TAG, "onFailure:$data")
+
+                    }
+                }
+            )
+        }
+
     }
 
     private fun EtOfficeSetUserStatusPost(
