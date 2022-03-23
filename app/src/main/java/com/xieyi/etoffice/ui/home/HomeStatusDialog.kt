@@ -169,7 +169,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                                 placeArray = ArrayList()
 
                                 model.result.locationlist.forEach {
-                                    if (latitude.isNotEmpty() &&
+                                    if (it.location.isNotEmpty() &&
+                                        latitude.isNotEmpty() &&
                                         longitude.isNotEmpty() &&
                                         it.latitude.isNotEmpty() &&
                                         it.longitude.isNotEmpty() &&
