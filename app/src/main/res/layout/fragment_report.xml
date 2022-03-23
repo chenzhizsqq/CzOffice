@@ -28,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
                 <LinearLayout
                     android:layout_width="1dp"
                     android:layout_weight="1"
@@ -42,7 +43,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/all_select"
-                        android:textColor="@color/iphone_button_color" />
+                        android:textColor="@color/iphone_button_color"
+                        tools:ignore="NestedWeights" />
                     <TextView
                         android:id="@+id/commit"
                         android:layout_width="1dp"
@@ -60,44 +62,48 @@
                     >
                     <TextView
                         android:id="@+id/title"
-                        android:layout_width="1dp"
+                        android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/title_bar_size_sub"
                         android:gravity="center"
                         android:text="@string/title_report"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        tools:ignore="NestedWeights" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="1dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="right|center"
+                    android:gravity="end|center"
                     >
                     <ImageView
                         android:id="@+id/people"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:gravity="center"
-                        app:srcCompat="@drawable/ic_launcher_group_foreground" />
+                        app:srcCompat="@drawable/ic_launcher_group_foreground"
+                        android:contentDescription="@string/dialog_report_add_time_among" />
                     <ImageView
                         android:id="@+id/edit"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginEnd="20dp"
                         android:gravity="center"
-                        app:srcCompat="@drawable/edit" />
+                        app:srcCompat="@drawable/edit"
+                        android:contentDescription="@string/dialog_report_add_time_among" />
                     <TextView
                         android:id="@+id/cancel"
                         android:visibility="gone"
-                        android:layout_width="1dp"
+                        android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/EDIT"
-                        android:textColor="@color/iphone_button_color" />
+                        android:textColor="@color/iphone_button_color"
+                        tools:ignore="NestedWeights" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -129,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="@dimen/title_bar_size_sub"
-                    android:gravity="left|center"
+                    android:gravity="start|center"
                     android:textColor="@color/black" />
             </LinearLayout>
 
@@ -137,7 +143,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
