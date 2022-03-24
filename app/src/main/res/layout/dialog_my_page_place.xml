@@ -55,7 +55,8 @@
                     android:ems="10"
                     android:maxLength="50"
                     android:background="@drawable/bg_edittext"
-                    tools:ignore="SpeakableTextPresentCheck"/>
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:autofillHints="" />
             </LinearLayout>
         </LinearLayout>
         <View
