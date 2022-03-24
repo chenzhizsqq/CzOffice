@@ -24,8 +24,7 @@
     <color name="iphone_view_bg">#E5E5E9</color>
     <!--    iphone style-->
 
-
-
+    <color name="ic_app_icon_background">#FFFFFF</color>
 
 
 </resources>
