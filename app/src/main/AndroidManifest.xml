@@ -38,11 +38,11 @@
             android:screenOrientation="fullSensor">
         </activity>
         <activity
-            android:name=".ui.MyPage.MyPageChangeCompanyActivity"
+            android:name=".ui.myPage.MyPageChangeCompanyActivity"
             android:label="@string/CHANGE"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".ui.MyPage.MyPagePlaceSettingActivity"
+            android:name=".ui.myPage.MyPagePlaceSettingActivity"
             android:label="@string/PLACEMANAGE"
             android:screenOrientation="fullSensor" />
         <activity

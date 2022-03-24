@@ -1,4 +1,4 @@
-package com.xieyi.etoffice.ui.MyPage
+package com.xieyi.etoffice.ui.myPage
 
 import android.content.Intent
 import android.os.Bundle

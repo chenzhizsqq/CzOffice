@@ -1,4 +1,4 @@
-package com.xieyi.etoffice.ui.MyPage
+package com.xieyi.etoffice.ui.myPage
 
 import android.view.LayoutInflater
 import android.view.View

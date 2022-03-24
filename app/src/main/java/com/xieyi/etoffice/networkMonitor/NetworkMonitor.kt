@@ -1,4 +1,4 @@
-package com.chepsi.callbackdemo
+package com.xieyi.etoffice.networkMonitor
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -7,6 +7,7 @@ import android.net.NetworkInfo
 import android.net.NetworkRequest
 import androidx.annotation.RequiresPermission
 import com.xieyi.etoffice.base.BaseActivity
+import com.xieyi.etoffice.networkMonitor.Variables
 
 class NetworkMonitor
 @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)

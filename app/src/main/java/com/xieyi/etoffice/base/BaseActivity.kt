@@ -9,8 +9,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.chepsi.callbackdemo.NetworkMonitor
-import com.chepsi.callbackdemo.Variables
+import com.xieyi.etoffice.networkMonitor.NetworkMonitor
+import com.xieyi.etoffice.networkMonitor.Variables
 import com.xieyi.etoffice.Config.Companion.DOUBLE_CLICK_INTERVAL
 
 /**
