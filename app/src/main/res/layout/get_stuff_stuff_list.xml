@@ -30,7 +30,7 @@
                 android:layout_height="50dp"
                 android:paddingEnd="10dp"
                 android:gravity="left"
-                app:srcCompat="@drawable/mypage_normal" />
+                app:srcCompat="@mipmap/mypage_normal" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

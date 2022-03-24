@@ -3,24 +3,24 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/home_normal"
+        android:icon="@mipmap/home_normal"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/message_normal"
+        android:icon="@mipmap/message_normal"
         android:title="@string/MESSAGE" />
     <item
         android:id="@+id/member_fragment"
-        android:icon="@drawable/member_normal"
+        android:icon="@mipmap/member_normal"
         android:title="@string/title_member_fragment" />
     <item
         android:id="@+id/report_fragment"
-        android:icon="@drawable/report_normal"
+        android:icon="@mipmap/report_normal"
         android:title="@string/title_report" />
     <item
         android:id="@+id/MyPageFragment"
-        android:icon="@drawable/mypage_normal"
+        android:icon="@mipmap/mypage_normal"
         android:title="@string/title_my_page" />
 
 </menu>

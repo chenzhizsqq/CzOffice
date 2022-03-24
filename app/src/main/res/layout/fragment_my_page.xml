@@ -74,7 +74,7 @@
                     android:id="@+id/imageView_MyPage_Logo"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/mypage_sel"/>
+                    app:srcCompat="@mipmap/mypage_sel"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

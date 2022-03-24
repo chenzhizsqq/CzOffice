@@ -51,7 +51,7 @@
                 android:id="@+id/edit"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                app:srcCompat="@drawable/edit"
+                app:srcCompat="@mipmap/edit"
                 android:layout_gravity="end"
                 android:layout_marginRight="16dp"
                 android:visibility="visible"/>
