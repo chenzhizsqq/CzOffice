@@ -43,7 +43,7 @@
                 android:textSize="14dp"
                 android:paddingStart="5dp"
                 android:textColor="#000000"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 />
             <TextView
                 android:id="@+id/status_time"
@@ -64,7 +64,7 @@
                 android:paddingEnd="5dp"
                 android:text="TextView_status"
                 android:textSize="14sp"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 />
             <TextView
                 android:id="@+id/memo"
@@ -75,7 +75,7 @@
                 android:singleLine="true"
                 android:maxEms="10"
                 android:ellipsize="end"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 />
         </LinearLayout>
 

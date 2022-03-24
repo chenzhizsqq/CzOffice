@@ -10,7 +10,7 @@
         android:id="@+id/txtViewSectionName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="left|center"
+        android:layout_gravity="start|center"
         android:background="@color/iphone_line_bg_dark"
         android:paddingStart="20dp"
         android:gravity="start|center"

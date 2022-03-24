@@ -96,7 +96,7 @@
                 android:text="@string/dialog_home_status_no_record_place"
                 android:textSize="20sp"
                 android:textColor="@color/black"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                     android:layout_height="20dp"
                     android:text="TextView_Latitude"
                     android:textColor="@color/black"
-                    android:gravity="center|right"
+                    android:gravity="center|end"
                     />
 
                 <TextView
@@ -120,7 +120,7 @@
                     android:layout_height="20dp"
                     android:text="TextView_Longitude"
                     android:textColor="@color/black"
-                    android:gravity="center|right"
+                    android:gravity="center|end"
                     />
             </LinearLayout>
             <LinearLayout
