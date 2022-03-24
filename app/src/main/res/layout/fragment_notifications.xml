@@ -27,7 +27,7 @@
                 android:textSize="16sp"
                 android:visibility="gone"
                 android:textColor="@color/iphone_button_color"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"/>
 
             <TextView
                 android:id="@+id/delete"
@@ -36,7 +36,7 @@
                 android:text="@string/DELETE"
                 android:textColor="@color/iphone_button_color"
                 android:layout_gravity="left"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:textSize="16sp"
                 android:visibility="gone"/>
             <TextView
@@ -53,8 +53,9 @@
                 android:layout_height="25dp"
                 app:srcCompat="@mipmap/edit"
                 android:layout_gravity="end"
-                android:layout_marginRight="16dp"
-                android:visibility="visible"/>
+                android:layout_marginEnd="16dp"
+                android:visibility="visible"
+                android:contentDescription="@string/ContentDescription" />
 
             <TextView
                 android:id="@+id/cancel"
@@ -62,8 +63,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/CANCEL"
                 android:textColor="@color/iphone_button_color"
-                android:layout_gravity="right"
-                android:layout_marginRight="16dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
                 android:textSize="16sp"
                 android:visibility="gone"/>
 

@@ -15,6 +15,7 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -25,7 +26,8 @@
         android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="5dp">
+        android:padding="5dp"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +40,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 android:text="TextView_time"
                 android:textColor="#000000"
                 android:textSize="16sp" />
@@ -48,8 +50,8 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:paddingLeft="10dp"
+                android:gravity="end"
+                android:paddingStart="10dp"
                 android:text="TextView_status"
                 android:textSize="16sp" />
 
@@ -59,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:gravity="center|right"
+                android:gravity="center|end"
                 android:maxEms="10"
                 android:singleLine="true"
                 android:text="TextView_memo"

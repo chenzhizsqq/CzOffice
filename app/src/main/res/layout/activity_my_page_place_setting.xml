@@ -38,15 +38,15 @@
                         android:layout_weight="1"
                         android:layout_height="30dp"
                         android:orientation="horizontal"
-                        android:gravity="left">
+                        android:gravity="start">
 
                         <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:gravity="center"
                             app:srcCompat="@drawable/ic_launcher_arrow_left_foreground"
-                            />
+                            android:contentDescription="@string/ContentDescription" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                             android:text="@string/title_my_page"
                             android:textSize="@dimen/title_bar_return_font"
                             android:textColor="@color/iphone_button_color"
-                            android:gravity="center|left"
+                            android:gravity="center|start"
                             />
 
                 </LinearLayout>
@@ -64,7 +64,7 @@
                     android:layout_weight="1"
                     android:layout_height="30dp"
                     android:orientation="vertical"
-                    android:gravity="left"
+                    android:gravity="start"
                     >
                         <TextView
                             android:layout_width="match_parent"
@@ -80,8 +80,8 @@
                     android:layout_weight="1"
                     android:layout_height="30dp"
                     android:orientation="vertical"
-                    android:paddingRight="10dp"
-                    android:gravity="right"
+                    android:paddingEnd="10dp"
+                    android:gravity="end"
                     >
                         <ImageView
                             android:id="@+id/locationAlertDialog"
@@ -89,7 +89,8 @@
                             android:layout_height="30dp"
                             app:srcCompat="@drawable/ic_launcher_add_foreground"
                             android:textSize="30sp"
-                            android:gravity="right" />
+                            android:gravity="end"
+                            android:contentDescription="@string/ContentDescription" />
 
                 </LinearLayout>
             </LinearLayout>

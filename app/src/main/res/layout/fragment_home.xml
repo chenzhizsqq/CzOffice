@@ -56,7 +56,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="left"
+            android:gravity="start"
             android:padding="5dp"
             android:layout_marginBottom="1dp"
             android:orientation="vertical">
@@ -87,8 +87,8 @@
 
                     <TextView
                         android:id="@+id/text_time"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:textSize="23sp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
@@ -97,8 +97,8 @@
                         android:layout_width="wrap_content" />
 
                     <TextView
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:textColor="@color/white"
                         android:textSize="17sp"
                         android:text="@string/fragment_home_welcome"
@@ -116,8 +116,8 @@
 
                     <TextView
                         android:id="@+id/state"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:textSize="38sp"
                         android:textColor="@color/white"
 
@@ -155,7 +155,8 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/ic_launcher_main_page_1_foreground" />
+                        app:srcCompat="@drawable/ic_launcher_main_page_1_foreground"
+                        android:contentDescription="@string/ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_on_duty"
@@ -180,7 +181,8 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/ic_launcher_main_page_2_foreground" />
+                        app:srcCompat="@drawable/ic_launcher_main_page_2_foreground"
+                        android:contentDescription="@string/ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_outside_duty"
@@ -204,7 +206,8 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/ic_launcher_main_page_3_foreground" />
+                        app:srcCompat="@drawable/ic_launcher_main_page_3_foreground"
+                        android:contentDescription="@string/ContentDescription" />
                     <TextView
                         android:id="@+id/tv_rest"
                         android:layout_width="wrap_content"
@@ -228,7 +231,8 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/ic_launcher_main_page_4_foreground" />
+                        app:srcCompat="@drawable/ic_launcher_main_page_4_foreground"
+                        android:contentDescription="@string/ContentDescription" />
                     <TextView
                         android:id="@+id/tv_moving"
                         android:layout_width="wrap_content"
@@ -253,7 +257,8 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:srcCompat="@drawable/ic_launcher_main_page_5_foreground" />
+                        app:srcCompat="@drawable/ic_launcher_main_page_5_foreground"
+                        android:contentDescription="@string/ContentDescription" />
 
                     <TextView
                         android:id="@+id/tv_meeting"

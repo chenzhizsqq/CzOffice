@@ -27,7 +27,7 @@
         android:gravity="center"
         android:background="@color/white"
         android:paddingTop="5dp"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
         >
 
         <TextView

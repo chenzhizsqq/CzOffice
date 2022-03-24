@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="TextView_date"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:textColor="@color/black"
                 />
             <TextView

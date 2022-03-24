@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:orientation="horizontal">
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/get_status_list_home_title_no"
                 android:textSize="14dp"
-                android:paddingLeft="5dp"
+                android:paddingStart="5dp"
                 android:textColor="#000000"
                 android:gravity="center|right"
                 />
@@ -51,17 +51,17 @@
                 android:layout_height="wrap_content"
                 android:text="TextView_status_time"
                 android:textSize="14sp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:textColor="#000000"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 />
             <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:text="TextView_status"
                 android:textSize="14sp"
                 android:gravity="center|right"

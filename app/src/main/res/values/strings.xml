@@ -115,5 +115,6 @@
     <string name="UPDATE_SUCCESS">更新しました</string>
     <string name="LOGIN_SUCCESS">登録しました。</string>
     <string name="REPORT_TITLE">日报</string>
+    <string name="ContentDescription">画面</string>
 
 </resources>

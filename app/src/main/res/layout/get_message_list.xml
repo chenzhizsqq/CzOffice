@@ -54,7 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:text="TextView_updatetime"
                         android:textSize="15sp" />
                 </LinearLayout>

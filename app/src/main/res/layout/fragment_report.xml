@@ -84,7 +84,7 @@
                         android:layout_height="30dp"
                         android:gravity="center"
                         app:srcCompat="@drawable/ic_launcher_group_foreground"
-                        android:contentDescription="@string/dialog_report_add_time_among" />
+                        android:contentDescription="@string/ContentDescription" />
                     <ImageView
                         android:id="@+id/edit"
                         android:layout_width="25dp"
@@ -93,7 +93,7 @@
                         android:layout_marginEnd="20dp"
                         android:gravity="center"
                         app:srcCompat="@mipmap/edit"
-                        android:contentDescription="@string/dialog_report_add_time_among" />
+                        android:contentDescription="@string/ContentDescription" />
                     <TextView
                         android:id="@+id/cancel"
                         android:visibility="gone"

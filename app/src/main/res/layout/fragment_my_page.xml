@@ -49,14 +49,14 @@
         app:layout_constraintRight_toRightOf="parent"
         android:paddingTop="30dp"
         android:paddingBottom="30dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         >
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|left"
+            android:gravity="center|start"
             android:orientation="vertical"
             android:selectAllOnFocus="true"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,19 +67,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left|center"
+                android:gravity="start|center"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/imageView_MyPage_Logo"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@mipmap/mypage_sel"/>
+                    app:srcCompat="@mipmap/mypage_sel"
+                    android:contentDescription="@string/ContentDescription" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
+                    android:gravity="start"
                     android:padding="20dp"
                     android:orientation="vertical">
                     <TextView
@@ -128,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fragment_my_page_name"
                         android:textColor="@color/black"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:textSize="18sp"
                         android:singleLine="true"/>
 
@@ -136,7 +137,7 @@
                         android:id="@+id/name_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:textSize="18sp"
                         android:singleLine="true"/>
 
@@ -158,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:text="@string/MOBILE"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:textSize="18sp"
                         android:singleLine="true"/>
 
@@ -166,7 +167,7 @@
                         android:id="@+id/mobile_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:textSize="18sp"
                         android:singleLine="true"/>
 
@@ -191,14 +192,14 @@
                         android:textColor="@color/black"
                         android:text="@string/MAIL"
                         android:textSize="18sp"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:singleLine="true"/>
 
                     <TextView
                         android:id="@+id/mail_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:textSize="18sp"
                         android:singleLine="true"/>
 
@@ -221,7 +222,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:textSize="18sp"
                         android:singleLine="true"
                         android:text="@string/PLACEMANAGE"
@@ -231,7 +232,7 @@
                         android:id="@+id/PlaceSettingEnter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:singleLine="true"
                         android:textSize="18sp"
                         android:text="@string/fragment_my_page_more" />
@@ -257,13 +258,13 @@
                         android:text="@string/fragment_my_page_change_company"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:singleLine="true"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
+                        android:gravity="end"
                         android:textSize="18sp"
                         android:text="@string/fragment_my_page_more"
                         android:singleLine="true"/>
@@ -302,7 +303,7 @@
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="@string/SIGNOUT"
-                        android:gravity="left"
+                        android:gravity="start"
                         android:textSize="18sp"
                         android:singleLine="true"/>
 
