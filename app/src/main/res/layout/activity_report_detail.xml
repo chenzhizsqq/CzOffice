@@ -78,7 +78,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="right|center"
+                    android:gravity="end|center"
                     >
                     <ImageView
                         android:id="@+id/people"
@@ -293,7 +293,8 @@
                 android:background="@drawable/bg_edittext"
                 android:ems="50"
                 android:inputType="textPersonName"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck"
+                android:autofillHints="" />
 
             <Button
                 android:id="@+id/message_send"
