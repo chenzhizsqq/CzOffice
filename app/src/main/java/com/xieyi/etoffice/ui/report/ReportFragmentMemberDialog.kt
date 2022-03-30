@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -66,7 +67,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
 
         viewModel =
             ViewModelProvider(this).get(ReportMemberViewModel::class.java)
-        viewModel.liveDataLoading.observe(viewLifecycleOwner, {
+        viewModel.liveDataLoading.observe(viewLifecycleOwner) {
             if (it) {
                 binding.swipeRefreshLayout.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
@@ -74,7 +75,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                 binding.swipeRefreshLayout.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
-        })
+        }
         viewModel.mLoading.value = true
 
         // Listenerをセット
@@ -135,12 +136,12 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
      * ユーザー最新勤務状態の一覧取得
      */
     private fun EtOfficeGetUserStatusPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             loading = true
             Api.EtOfficeGetUserStatus(
                 context = requireActivity(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -166,7 +167,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                         loading = false
                         binding.swipeRefreshLayout.isRefreshing = false
@@ -184,12 +185,12 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
      */
     private fun EtOfficeGetStuffListPost() {
         if (!isAdded) return
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             loading = true
             Api.EtOfficeGetStuffList(
                 context = requireActivity(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -219,7 +220,7 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         viewModel.mLoading.value = false
                         Log.e(TAG, "onFailure:$data")
                         loading = false

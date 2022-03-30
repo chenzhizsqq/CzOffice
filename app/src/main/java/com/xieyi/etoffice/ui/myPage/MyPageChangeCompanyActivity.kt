@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.Config
@@ -71,11 +72,11 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
 
     private fun EtOfficeGetTenantPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetTenant(
                 context = this@MyPageChangeCompanyActivity,
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -95,7 +96,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                     }
 
@@ -107,12 +108,12 @@ class MyPageChangeCompanyActivity : BaseActivity(),
     }
 
     private fun EtOfficeSetTenantPost(tenantid: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeSetTenant(
                 context = this@MyPageChangeCompanyActivity,
                 tenant = tenantid,
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 EtOfficeSetTenantResult(model.result)
@@ -128,7 +129,7 @@ class MyPageChangeCompanyActivity : BaseActivity(),
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                     }
                 }

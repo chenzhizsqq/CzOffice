@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.CompoundButton
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -158,14 +159,14 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
             lastsubid = viewModel.lastsubid
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetMessage(
                 context = requireContext(),
                 lasttime = lasttime,
                 lastsubid = lastsubid,
                 count = viewModel.searchCount,
                 onSuccess = { data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         if (data.status == 0 && data.result.messagelist.isNotEmpty()) {
                             viewModel.appendMessage(data.result.messagelist)
 
@@ -187,7 +188,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         viewModel.mLoading.value = false
                         binding.swipeRefreshLayout.isRefreshing = false
                         loading = false
@@ -285,13 +286,13 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
      * 消息状态更新
      */
     private fun deleteMessagesRequest(readflg: String, updateArray: JSONArray) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeSetMessage(
                 context = requireContext(),
                 updateid = updateArray,
                 readflg = readflg,
                 onSuccess = { data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         // 成功結果処理
                         val checkStatus = adapter.getCheckStatus()
                         val statusMap =
@@ -338,7 +339,7 @@ class NotificationsFragment : BaseFragment(), View.OnClickListener,
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                     }
                 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -112,22 +113,22 @@ class ReportFragment : BaseFragment(),
         }
 
         //与MainActivity共同的ViewModel
-        sharedVM.reportFragTitle.observe(viewLifecycleOwner, {
+        sharedVM.reportFragTitle.observe(viewLifecycleOwner) {
             binding.title.text = it
-        })
+        }
 
         return binding.root
     }
 
 
     private fun EtOfficeGetReportListPost(userid: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             activity?.let {
                 Api.EtOfficeGetReportList(
                     context = it,
                     userid = userid,
                     onSuccess = { model ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             when (model.status) {
                                 0 -> {
                                     if (model.result.group.isEmpty()){
@@ -153,7 +154,7 @@ class ReportFragment : BaseFragment(),
                         }
                     },
                     onFailure = { error, data ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             viewModel.mLoading.value = false
                             Log.e(TAG, "onFailure:$data")
                         }
@@ -167,12 +168,12 @@ class ReportFragment : BaseFragment(),
         //指定された　発信
         loading = true
         if (arrayListYmd.size > 0) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch {
                 Api.EtOfficeSetApprovalJsk(
                     context = requireActivity(),
                     ymdArray = arrayListYmd,
                     onSuccess = { model ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             when (model.status) {
                                 0 -> {
                                     EtOfficeGetReportListPost(Tools.sharedPreGetString(userIdKey))
@@ -191,7 +192,7 @@ class ReportFragment : BaseFragment(),
                         }
                     },
                     onFailure = { error, data ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             Log.e(TAG, "onFailure:$data")
                             loading = false
                             binding.swipeRefreshLayout.isRefreshing = false

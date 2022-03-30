@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -81,13 +82,13 @@ class HomeReportDialog : FullScreenDialogBaseFragment(),
     }
 
     private fun EtOfficeGetStatusListPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             loading = true
             Log.e(TAG, "EtOfficeGetStatusListPost calling...")
             Api.EtOfficeGetStatusList(
                 context = requireActivity(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 mAdapter.updateData(model.result.recordlist)
@@ -108,7 +109,7 @@ class HomeReportDialog : FullScreenDialogBaseFragment(),
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         loading = false
                         binding.swipeRefreshLayout.isRefreshing = false
                         Log.e(TAG, "onFailure:$data")

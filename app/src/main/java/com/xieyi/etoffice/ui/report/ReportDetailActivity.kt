@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
@@ -199,12 +200,12 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
 
 
     private fun EtOfficeGetReportInfoPost(ymd: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetReportInfo(
                 context = this@ReportDetailActivity,
                 ymd = ymd,
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -226,7 +227,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
 
                     }
@@ -258,13 +259,13 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
     }
 
     private fun EtOfficeSetCommentPost(ymd: String, comment: String) {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeSetComment(
                 context = this@ReportDetailActivity,
                 ymd = ymd,
                 comment = comment,
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 EtOfficeGetReportInfoPost(date)
@@ -280,7 +281,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
 
                     }

@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
@@ -118,14 +119,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     // ログイン処理
     private fun login() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeLogin(
                 context = this@LoginActivity,
                 uid = binding.userName.text.toString(),
                 password = binding.password.text.toString(),
                 registrationid = "6",
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 saveUserInfo(model.result)
@@ -145,7 +146,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                         Tools.showErrorDialog(
                             this@LoginActivity,

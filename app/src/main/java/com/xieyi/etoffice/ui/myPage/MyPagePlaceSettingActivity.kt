@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.xieyi.etoffice.*
 import com.xieyi.etoffice.base.BaseActivity
@@ -87,11 +88,11 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
     private fun EtOfficeGetUserLocationPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetUserLocation(
                 context = this@MyPagePlaceSettingActivity,
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -108,7 +109,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
 
                     }
@@ -120,14 +121,14 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
     private fun EtOfficeSetUserLocationPost(location: String, longitude: Double, latitude: Double) {
         if (gpsTracker.canGetLocation()) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch {
                 Api.EtOfficeSetUserLocation(
                     context = this@MyPagePlaceSettingActivity,
                     longitude = longitude,
                     latitude = latitude,
                     location = location,
                     onSuccess = { model ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             when (model.status) {
                                 0 -> {
                                     Tools.showAlertDialog(
@@ -149,7 +150,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                         }
                     },
                     onFailure = { error, data ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             Log.e(TAG, "onFailure:$data")
                         }
 

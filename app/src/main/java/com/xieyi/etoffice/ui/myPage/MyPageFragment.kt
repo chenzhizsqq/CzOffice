@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -37,7 +38,7 @@ class MyPageFragment : BaseFragment() {
         viewModel =
             ViewModelProvider(this).get(MyPageViewModel::class.java)
 
-        viewModel.liveDataLoading.observe(viewLifecycleOwner, {
+        viewModel.liveDataLoading.observe(viewLifecycleOwner) {
             if (it) {
                 binding.scrollViewContent.visibility = View.GONE
                 binding.llProgressbar.visibility = View.VISIBLE
@@ -45,7 +46,7 @@ class MyPageFragment : BaseFragment() {
                 binding.scrollViewContent.visibility = View.VISIBLE
                 binding.llProgressbar.visibility = View.GONE
             }
-        })
+        }
         viewModel.mLoading.value = true
 
         initView()
@@ -58,11 +59,11 @@ class MyPageFragment : BaseFragment() {
 
 
     private fun EtOfficeUserInfoPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeUserInfo(
                 context = requireContext(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 EtOfficeUserInfoResult(model.result)
@@ -83,7 +84,7 @@ class MyPageFragment : BaseFragment() {
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         viewModel.mLoading.value = false
                         Log.e(TAG, "onFailure:$data")
                     }

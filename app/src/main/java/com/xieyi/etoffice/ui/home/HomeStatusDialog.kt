@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.lifecycle.lifecycleScope
 import com.xieyi.etoffice.GpsTracker
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
@@ -156,11 +157,11 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
 
     private fun EtOfficeGetUserLocationPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetUserLocation(
                 context = requireActivity(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 val latitude = binding.latitude.text
@@ -212,7 +213,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
 
                     }
@@ -231,7 +232,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         memo: String
     ) {
         if (gpsTracker.canGetLocation()) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch {
                 Api.EtOfficeSetUserStatus(
                     context = requireActivity(),
                     location = location,
@@ -241,7 +242,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                     statustext = statustext,
                     memo = memo,
                     onSuccess = { model ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             when (model.status) {
                                 0 -> {
                                     Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
@@ -264,7 +265,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                         }
                     },
                     onFailure = { error, data ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             Log.e(TAG, "onFailure:$data")
 
                         }
@@ -279,14 +280,14 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
     private fun EtOfficeSetUserLocationPost(location: String) {
         if (gpsTracker.canGetLocation()) {
-            CoroutineScope(Dispatchers.IO).launch {
+            lifecycleScope.launch {
                 Api.EtOfficeSetUserLocation(
                     context = requireActivity(),
                     location = location,
                     latitude = latitude,
                     longitude = longitude,
                     onSuccess = { model ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
 
                             when (model.status) {
                                 0 -> {
@@ -311,7 +312,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
                     },
                     onFailure = { error, data ->
-                        CoroutineScope(Dispatchers.Main).launch {
+                        lifecycleScope.launch {
                             Log.e(TAG, "onFailure:$data")
 
                         }

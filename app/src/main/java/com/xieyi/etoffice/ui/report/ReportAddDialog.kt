@@ -14,6 +14,7 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bigkoo.pickerview.OptionsPickerView
 import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.EtOfficeApp
@@ -255,7 +256,7 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
      * 日報登録
      **/
     private fun sendSetReport() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeSetReport(
                 context = requireContext(),
                 ymd = viewModel.reportAddDate,
@@ -267,7 +268,7 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
                 place = binding.etPlace.text.toString(),
                 memo = binding.etWorkDetail.text.toString(),
                 onSuccess = { data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         if (data.status == 0) {
                             listener?.onClick()
                             dialog!!.dismiss()
@@ -278,7 +279,7 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                         //CommonUtil.handleError(it, error, data)
                     }
@@ -293,12 +294,12 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
      * プロジェクト一覧
      * */
     private fun searchProject() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetProject(
                 context = requireContext(),
                 ymd = viewModel.reportAddDate,
                 onSuccess = { data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         if (data.status == 0) {
                             viewModel.projectList.clear()
                             for (project in data.result.projectlist) {
@@ -309,7 +310,7 @@ class ReportAddDialog : FullScreenDialogBaseFragment(), View.OnClickListener {
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                         //CommonUtil.handleError(it, error, data)
                     }

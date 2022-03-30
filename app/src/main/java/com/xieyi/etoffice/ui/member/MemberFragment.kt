@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -108,12 +109,12 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      * ユーザー最新勤務状態の一覧取得
      */
     private fun EtOfficeGetUserStatusPost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             loading = true
             Api.EtOfficeGetUserStatus(
                 context = requireActivity(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -139,7 +140,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         Log.e(TAG, "onFailure:$data")
                         loading = false
                         binding.swipeRefreshLayout.isRefreshing = false
@@ -157,12 +158,12 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
      */
     private fun EtOfficeGetStuffListPost() {
         if (!isAdded) return
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             loading = true
             Api.EtOfficeGetStuffList(
                 context = requireActivity(),
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
 
                         when (model.status) {
                             0 -> {
@@ -192,7 +193,7 @@ class MemberFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         viewModel.mLoading.value = false
                         Log.e(TAG, "onFailure:$data")
                         loading = false

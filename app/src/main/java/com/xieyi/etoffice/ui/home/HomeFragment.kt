@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseFragment
@@ -140,14 +141,14 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun EtOfficeGetMessagePost() {
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch {
             Api.EtOfficeGetMessage(
                 context = requireActivity(),
                 count = 5,
                 lasttime = "",
                 lastsubid = "",
                 onSuccess = { model ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         when (model.status) {
                             0 -> {
                                 EtOfficeGetMessageResult(model.result)
@@ -167,7 +168,7 @@ class HomeFragment : BaseFragment() {
                     }
                 },
                 onFailure = { error, data ->
-                    CoroutineScope(Dispatchers.Main).launch {
+                    lifecycleScope.launch {
                         homeViewModel.mLoading.value = false
                         Log.e(TAG, "onFailure:$data")
                     }
