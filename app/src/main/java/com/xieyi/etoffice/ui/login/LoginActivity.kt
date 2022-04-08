@@ -37,6 +37,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         if (!isNetworkConnected()) {
             Tools.showErrorDialog(this, getString(R.string.MSG05))
         }
+
+        //GPS check Permission
+        Tools.checkLocationPermission(this)
     }
 
     override fun onClick(view: View?) {

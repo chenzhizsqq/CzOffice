@@ -20,8 +20,6 @@ import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.FragmentMemberBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 

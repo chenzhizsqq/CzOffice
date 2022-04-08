@@ -7,7 +7,6 @@ import android.net.NetworkInfo
 import android.net.NetworkRequest
 import androidx.annotation.RequiresPermission
 import com.xieyi.etoffice.base.BaseActivity
-import com.xieyi.etoffice.networkMonitor.Variables
 
 class NetworkMonitor
 @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)

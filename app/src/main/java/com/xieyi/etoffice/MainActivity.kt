@@ -1,11 +1,7 @@
 package com.xieyi.etoffice
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.forEachIndexed
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -32,9 +28,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        //gps検査する
-        gpsCheck()
 
         val navView: BottomNavigationView = binding.navView
 
@@ -78,7 +71,6 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
-
     }
 
     //选择frag登录
@@ -86,26 +78,6 @@ class MainActivity : BaseActivity() {
         val mNavigationView: BottomNavigationView = binding.navView
         mNavigationView.menu.getItem(index).isChecked = true;
         mNavigationView.menu.performIdentifierAction(listFrag[index], index)
-    }
-
-
-    //gps検査する
-    private fun gpsCheck() {
-        try {
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    101
-                )
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 
 

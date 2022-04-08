@@ -109,7 +109,7 @@
                     android:id="@+id/latitude"
                     android:layout_width="150dp"
                     android:layout_height="20dp"
-                    android:text="TextView_Latitude"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:gravity="center|end"
                     />
@@ -118,7 +118,7 @@
                     android:id="@+id/longitude"
                     android:layout_width="150dp"
                     android:layout_height="20dp"
-                    android:text="TextView_Longitude"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:gravity="center|end"
                     />

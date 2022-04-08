@@ -15,12 +15,13 @@ import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.common.model.ReportListnfo
 import com.xieyi.etoffice.databinding.GetReportListGroupReportlistBinding
 
-class GetReportListGroupReportlistAdapter : RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
+class GetReportListGroupReportlistAdapter :
+    RecyclerView.Adapter<GetReportListGroupReportlistAdapter.ViewHolder>() {
     val TAG: String = "GetReportListGroupReportlistAdapter"
 
 
     var list = listOf<ReportListnfo>()
-    private var arrayListYmd= ArrayList<String>()
+    private var arrayListYmd = ArrayList<String>()
     lateinit var activity: Activity
     lateinit var viewModel: ReportViewModel
     lateinit var lifecycleOwner: LifecycleOwner

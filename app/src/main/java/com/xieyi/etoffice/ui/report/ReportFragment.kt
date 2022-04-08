@@ -15,8 +15,6 @@ import com.xieyi.etoffice.base.BaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.ReportListResult
 import com.xieyi.etoffice.databinding.FragmentReportBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -75,7 +73,7 @@ class ReportFragment : BaseFragment(),
         })
 
 
-        viewModel.mLiveDataReportState.observe(viewLifecycleOwner,{
+        viewModel.mLiveDataReportState.observe(viewLifecycleOwner, {
 //            Log.e(TAG, "viewModel.mLiveDataStateList.observe: "
 //                    +" it.mScrolledName:"
 //                    +it.mScrolledName
@@ -86,7 +84,7 @@ class ReportFragment : BaseFragment(),
             if (it.mScrolledY in 1..230
                 && mLastScrolledY != it.mScrolledY
                 && binding.dateTitle.text != it.mScrolledName
-            ){
+            ) {
                 mLastScrolledY = it.mScrolledY
                 binding.dateTitle.text = it.mScrolledName
                 binding.smallAppBarLayout.visibility = View.VISIBLE
@@ -131,7 +129,7 @@ class ReportFragment : BaseFragment(),
                         lifecycleScope.launch {
                             when (model.status) {
                                 0 -> {
-                                    if (model.result.group.isEmpty()){
+                                    if (model.result.group.isEmpty()) {
                                         binding.smallAppBarLayout.visibility = View.GONE
                                     }
                                     EtOfficeGetReportListResult(model.result)
@@ -242,7 +240,8 @@ class ReportFragment : BaseFragment(),
                 )
             }
 
-            mReportFragmentMemberDialog.setOnDialogListener(object :ReportFragmentMemberDialog.OnDialogListener{
+            mReportFragmentMemberDialog.setOnDialogListener(object :
+                ReportFragmentMemberDialog.OnDialogListener {
                 override fun onClick(userid: String) {
 
                     AdapterInit()
@@ -338,6 +337,7 @@ class ReportFragment : BaseFragment(),
         fun newInstance(): ReportFragment {
             return ReportFragment()
         }
+
         const val userNameKey = "ReportFragment_userNameKey"
         const val userIdKey = "ReportFragment_userIdKey"
     }

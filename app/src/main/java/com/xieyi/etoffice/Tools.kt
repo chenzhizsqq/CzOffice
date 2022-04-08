@@ -1,9 +1,12 @@
 package com.xieyi.etoffice
 
+import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock.elapsedRealtime
@@ -14,6 +17,7 @@ import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import java.text.ParseException
@@ -381,6 +385,39 @@ object Tools {
         val cancel = ContextCompat.getDrawable(context, R.drawable.ic_cancel_black_24dp)
         cancel?.setBounds(0, 0, cancel.intrinsicWidth, cancel.intrinsicHeight)
         editText.setCompoundDrawables(null, null, cancel, null)
+    }
+
+
+    fun checkSinglePermission(permission: String): Boolean =
+        ContextCompat.checkSelfPermission(
+            EtOfficeApp.context,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
+
+
+    fun checkLocationPermission(activity: Activity) {
+        if (!checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+            || !checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        ) {
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                Config.REQUEST_CODE_LOCATION_KEY
+            )
+        }
+    }
+
+
+    fun isHaveLocationPermission(): Boolean {
+        if (checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+            && checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)
+        ) {
+            return true
+        }
+        return false
     }
 
 }

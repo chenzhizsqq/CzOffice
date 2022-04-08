@@ -18,8 +18,6 @@ import com.xieyi.etoffice.common.model.StuffListModel
 import com.xieyi.etoffice.common.model.StuffStatusDispInfo
 import com.xieyi.etoffice.common.model.UserStatusModel
 import com.xieyi.etoffice.databinding.DialogReportFragmentMemberBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -120,9 +118,9 @@ class ReportFragmentMemberDialog : DialogFragment(), SwipeRefreshLayout.OnRefres
                     )
                 } else {
                     sharedVM.reportFragTitle.value = userName
-                    Tools.sharedPrePut(ReportFragment.userNameKey,userName)
+                    Tools.sharedPrePut(ReportFragment.userNameKey, userName)
 
-                    Log.d(TAG, "userid: "+userid )
+                    Log.d(TAG, "userid: " + userid)
                     listener.onClick(userid)
 
                     //点击后退出Dialog

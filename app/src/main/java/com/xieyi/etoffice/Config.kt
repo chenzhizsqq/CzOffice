@@ -24,6 +24,8 @@ class Config {
          * 程序开发，强行添加的代码
          */
         const val isCode = true
+
+        const val REQUEST_CODE_LOCATION_KEY = 10008
     }
 
 }

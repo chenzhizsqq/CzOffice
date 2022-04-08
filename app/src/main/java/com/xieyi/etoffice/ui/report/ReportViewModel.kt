@@ -51,7 +51,7 @@ class ReportViewModel : ViewModel() {
 
 //滚动状态
 class ReportState {
-    var mScrolledY=0
-    var mScrolledName=""
-    var mPosition=-1
+    var mScrolledY = 0
+    var mScrolledName = ""
+    var mPosition = -1
 }

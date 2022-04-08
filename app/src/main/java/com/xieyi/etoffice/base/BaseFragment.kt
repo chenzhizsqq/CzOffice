@@ -3,10 +3,10 @@ package com.xieyi.etoffice.base
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.xieyi.etoffice.networkMonitor.Variables
 import com.xieyi.etoffice.MainActivityViewModel
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
+import com.xieyi.etoffice.networkMonitor.Variables
 import com.xieyi.etoffice.ui.report.ReportFragment
 
 /**
@@ -33,7 +33,7 @@ open class BaseFragment : Fragment() {
             Tools.showErrorDialog(requireActivity(), getString(R.string.MSG05))
         }
 
-        if (javaClass.simpleName!="ReportFragment"){
+        if (javaClass.simpleName != "ReportFragment") {
             sharedVM.reportFragTitle.value = "日报"
             Tools.sharedPreRemove(ReportFragment.userNameKey)
             Tools.sharedPreRemove(ReportFragment.userIdKey)

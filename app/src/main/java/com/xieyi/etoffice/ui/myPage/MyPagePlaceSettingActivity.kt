@@ -18,24 +18,9 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     SwipeRefreshLayout.OnRefreshListener {
     private val TAG = "MyPagePlaceSettingActivity"
 
-    private lateinit var gpsTracker: GpsTracker
-    private var latitude = 0.0
-    private var longitude = 0.0
 
     private lateinit var mAdapter: GetUserLocationAdapter
     private lateinit var binding: ActivityMyPagePlaceSettingBinding
-
-    private fun gpsCheck(): Boolean {
-
-        if (gpsTracker.canGetLocation()) {
-            latitude = gpsTracker.latitude
-            longitude = gpsTracker.longitude
-            return true
-        } else {
-            gpsTracker.showSettingsAlert()
-        }
-        return false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +53,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
         //locationAlertDialog
         binding.locationAlertDialog.setOnClickListener {
 
-            if (gpsCheck()) {
+            if (Tools.isHaveLocationPermission()) {
                 val mMyPagePlaceDialog = MyPagePlaceDialog()
 
                 val fm: FragmentManager = supportFragmentManager
@@ -79,12 +64,11 @@ class MyPagePlaceSettingActivity : BaseActivity(),
                         EtOfficeSetUserLocationPost(location, longitude, latitude)
                     }
                 })
+            } else {
+                Tools.checkLocationPermission(this)
             }
 
         }
-
-        gpsTracker = GpsTracker(this@MyPagePlaceSettingActivity)
-        gpsCheck()
     }
 
     private fun EtOfficeGetUserLocationPost() {
@@ -120,7 +104,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
     }
 
     private fun EtOfficeSetUserLocationPost(location: String, longitude: Double, latitude: Double) {
-        if (gpsTracker.canGetLocation()) {
+        if (Tools.isHaveLocationPermission()) {
             lifecycleScope.launch {
                 Api.EtOfficeSetUserLocation(
                     context = this@MyPagePlaceSettingActivity,
@@ -159,7 +143,7 @@ class MyPagePlaceSettingActivity : BaseActivity(),
 
             }
         } else {
-            gpsTracker.showSettingsAlert()
+            Tools.checkLocationPermission(this)
         }
     }
 

@@ -12,15 +12,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.lifecycle.lifecycleScope
-import com.xieyi.etoffice.GpsTracker
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.FullScreenDialogBaseFragment
 import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.setupClearButtonWithAction
 import com.xieyi.etoffice.databinding.DialogHomeStatusBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
@@ -38,8 +37,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
     private var latitude = 0.0
 
     private lateinit var binding: DialogHomeStatusBinding
-
-    private lateinit var gpsTracker: GpsTracker
+//
+//    private lateinit var gpsTracker: GpsTracker
 
 
     lateinit var listener: OnDialogListener
@@ -77,9 +76,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DialogHomeStatusBinding.inflate(inflater, container, false)
-
-        gpsCheck()
 
         //ボタン　保存後に閉じる
         binding.btnCancelAndClose.setOnClickListener {
@@ -149,8 +147,22 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         binding.userLocation.setupClearButtonWithAction()
         binding.userStatusMemo.setupClearButtonWithAction()
 
-        //获取已经记录的地址名字和经纬度
-        EtOfficeGetUserLocationPost()
+        //GPS check setting
+        gpsInit()
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                super.onLocationResult(p0)
+                for (location in p0.locations) {
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    binding.latitude.text = latitude.toString()
+                    binding.longitude.text = longitude.toString()
+
+                    //获取已经记录的地址名字和经纬度
+                    EtOfficeGetUserLocationPost()
+                }
+            }
+        }
 
         return binding.root
     }
@@ -231,7 +243,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         statustext: String,
         memo: String
     ) {
-        if (gpsTracker.canGetLocation()) {
+        if (Tools.isHaveLocationPermission()) {
             lifecycleScope.launch {
                 Api.EtOfficeSetUserStatus(
                     context = requireActivity(),
@@ -274,66 +286,66 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
             }
         } else {
-            gpsTracker.showSettingsAlert()
+            Tools.checkLocationPermission(requireActivity())
         }
     }
 
     private fun EtOfficeSetUserLocationPost(location: String) {
-        if (gpsTracker.canGetLocation()) {
-            lifecycleScope.launch {
-                Api.EtOfficeSetUserLocation(
-                    context = requireActivity(),
-                    location = location,
-                    latitude = latitude,
-                    longitude = longitude,
-                    onSuccess = { model ->
-                        lifecycleScope.launch {
+//        if (gpsTracker.canGetLocation()) {
+        lifecycleScope.launch {
+            Api.EtOfficeSetUserLocation(
+                context = requireActivity(),
+                location = location,
+                latitude = latitude,
+                longitude = longitude,
+                onSuccess = { model ->
+                    lifecycleScope.launch {
 
-                            when (model.status) {
-                                0 -> {
-                                    activity?.let {
-                                        Tools.showAlertDialog(
-                                            it,
-                                            it.getString(R.string.MESSAGE),
-                                            getString(R.string.MSG11)
-                                        )
-                                    }
+                        when (model.status) {
+                            0 -> {
+                                activity?.let {
+                                    Tools.showAlertDialog(
+                                        it,
+                                        it.getString(R.string.MESSAGE),
+                                        getString(R.string.MSG11)
+                                    )
                                 }
-                                else -> {
-                                    activity?.let {
-                                        Tools.showErrorDialog(
-                                            it,
-                                            model.message
-                                        )
-                                    }
+                            }
+                            else -> {
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message
+                                    )
                                 }
                             }
                         }
-
-                    },
-                    onFailure = { error, data ->
-                        lifecycleScope.launch {
-                            Log.e(TAG, "onFailure:$data")
-
-                        }
                     }
-                )
-            }
 
-        } else {
-            gpsTracker.showSettingsAlert()
+                },
+                onFailure = { error, data ->
+                    lifecycleScope.launch {
+                        Log.e(TAG, "onFailure:$data")
+
+                    }
+                }
+            )
         }
+
+//        } else {
+//            gpsTracker.showSettingsAlert()
+//        }
     }
 
-    private fun gpsCheck() {
-        gpsTracker = GpsTracker(activity)
-        if (gpsTracker.canGetLocation()) {
-            latitude = gpsTracker.latitude
-            longitude = gpsTracker.longitude
-            binding.latitude.text = latitude.toString()
-            binding.longitude.text = longitude.toString()
-        } else {
-            gpsTracker.showSettingsAlert()
-        }
-    }
+//    private fun gpsCheck() {
+//        gpsTracker = GpsTracker(activity)
+//        if (gpsTracker.canGetLocation()) {
+//            latitude = gpsTracker.latitude
+//            longitude = gpsTracker.longitude
+//            binding.latitude.text = latitude.toString()
+//            binding.longitude.text = longitude.toString()
+//        } else {
+//            gpsTracker.showSettingsAlert()
+//        }
+//    }
 }

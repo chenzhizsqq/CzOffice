@@ -17,8 +17,6 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.UserInfoResult
 import com.xieyi.etoffice.databinding.FragmentMyPageBinding
 import com.xieyi.etoffice.ui.login.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 

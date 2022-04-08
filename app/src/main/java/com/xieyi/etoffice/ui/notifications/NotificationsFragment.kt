@@ -17,8 +17,6 @@ import com.xieyi.etoffice.common.Api
 import com.xieyi.etoffice.common.model.MessageInfo
 import com.xieyi.etoffice.common.model.SetMessageModel
 import com.xieyi.etoffice.databinding.FragmentNotificationsBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import java.util.*

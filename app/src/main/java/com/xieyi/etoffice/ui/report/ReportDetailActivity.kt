@@ -124,7 +124,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         }
 
 
-        binding.messageSend.setOnDoubleClickListener{
+        binding.messageSend.setOnDoubleClickListener {
             hideKeyboard(binding.messageEdit.getWindowToken())
 
             //EtOfficeSetComment

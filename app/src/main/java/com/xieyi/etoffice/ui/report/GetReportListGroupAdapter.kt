@@ -90,7 +90,7 @@ class GetReportListGroupAdapter : RecyclerView.Adapter<GetReportListGroupAdapter
             }
         })
 
-        viewModel.mIsScrolled.observe(lifecycleOwner,{
+        viewModel.mIsScrolled.observe(lifecycleOwner, {
 
             val location = IntArray(2)
             holder.month.getLocationOnScreen(location)
