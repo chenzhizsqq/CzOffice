@@ -32,10 +32,10 @@ open class FullScreenDialogBaseFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.setOnTouchListener { _, _ ->
-            if (isCancelable) dismiss()
-            true
-        }
+//        view.setOnTouchListener { _, _ ->
+//            if (isCancelable) dismiss()
+//            true
+//        }
     }
 
     override fun onStart() {
