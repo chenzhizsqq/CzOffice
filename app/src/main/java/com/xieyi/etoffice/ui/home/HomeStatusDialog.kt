@@ -303,13 +303,13 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
                         when (model.status) {
                             0 -> {
-                                activity?.let {
-                                    Tools.showAlertDialog(
-                                        it,
-                                        it.getString(R.string.MESSAGE),
-                                        getString(R.string.MSG11)
-                                    )
-                                }
+//                                activity?.let {
+//                                    Tools.showAlertDialog(
+//                                        it,
+//                                        it.getString(R.string.MESSAGE),
+//                                        getString(R.string.MSG11)
+//                                    )
+//                                }
                             }
                             else -> {
                                 activity?.let {
