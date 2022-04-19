@@ -37,9 +37,6 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
     private var latitude = 0.0
 
     private lateinit var binding: DialogHomeStatusBinding
-//
-//    private lateinit var gpsTracker: GpsTracker
-
 
     lateinit var listener: OnDialogListener
 
@@ -81,10 +78,6 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
         //ボタン　保存後に閉じる
         binding.btnCancelAndClose.setOnClickListener {
-//            listener?.onClick(
-//                binding.userLocation.text.toString(),
-//                binding.userStatusMemo.text.toString()
-//            )
             dialog!!.dismiss()
         }
 
@@ -303,13 +296,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
                         when (model.status) {
                             0 -> {
-//                                activity?.let {
-//                                    Tools.showAlertDialog(
-//                                        it,
-//                                        it.getString(R.string.MESSAGE),
-//                                        getString(R.string.MSG11)
-//                                    )
-//                                }
+
                             }
                             else -> {
                                 activity?.let {
@@ -331,21 +318,5 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                 }
             )
         }
-
-//        } else {
-//            gpsTracker.showSettingsAlert()
-//        }
     }
-
-//    private fun gpsCheck() {
-//        gpsTracker = GpsTracker(activity)
-//        if (gpsTracker.canGetLocation()) {
-//            latitude = gpsTracker.latitude
-//            longitude = gpsTracker.longitude
-//            binding.latitude.text = latitude.toString()
-//            binding.longitude.text = longitude.toString()
-//        } else {
-//            gpsTracker.showSettingsAlert()
-//        }
-//    }
 }

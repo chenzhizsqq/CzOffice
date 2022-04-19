@@ -100,10 +100,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         binding.addView.setOnClickListener {
 
             val fm: FragmentManager = supportFragmentManager
-            //            val dialog: ReportAddDialog =
-            //                ReportAddDialog.newInstance()
-            //            dialog.show(fm, "ReportAddDialog")
-            //ReportAddDialog.actionStart(fm, date)
+
             val bundle = Bundle()
             bundle.putString("reportDate", date)
             val reportAddDialog = ReportAddDialog()
@@ -153,14 +150,6 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
             val newFragment = DatePick(year, month, day)
             newFragment.show(supportFragmentManager, "datePicker")
         }
-
-        //出勤記録を表示します
-//        binding.people.setOnClickListener {
-//            val mHomeReportDialog = HomeReportDialog()
-//
-//            val fragmentManager = this@ReportDetailActivity.supportFragmentManager
-//            fragmentManager.let { it1 -> mHomeReportDialog.show(it1, "mHomeReportDialog") }
-//        }
 
         //メンバーページに切り替えます
         binding.people.setOnClickListener {

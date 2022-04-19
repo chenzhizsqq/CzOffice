@@ -30,14 +30,6 @@ open class FullScreenDialogBaseFragment : DialogFragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        view.setOnTouchListener { _, _ ->
-//            if (isCancelable) dismiss()
-//            true
-//        }
-    }
-
     override fun onStart() {
         super.onStart()
         // ダイアログを全画面にする
