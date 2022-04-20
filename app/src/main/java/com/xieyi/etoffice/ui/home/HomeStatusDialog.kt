@@ -152,7 +152,9 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                     binding.longitude.text = longitude.toString()
 
                     //获取已经记录的地址名字和经纬度
-                    EtOfficeGetUserLocationPost()
+                    if(binding.userLocation.text.isBlank()){
+                        EtOfficeGetUserLocationPost()
+                    }
                 }
             }
         }
@@ -296,7 +298,7 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
                         when (model.status) {
                             0 -> {
-
+                                Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
                             }
                             else -> {
                                 activity?.let {
