@@ -77,6 +77,7 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         //”承認”の状態を確認
         isApproved = intent.getBooleanExtra("isApproved", false)
         if (isApproved) {
+            binding.llApproved.visibility = View.GONE
             binding.isApproved.visibility = View.GONE
         }
         intent.removeExtra("isApproved")
