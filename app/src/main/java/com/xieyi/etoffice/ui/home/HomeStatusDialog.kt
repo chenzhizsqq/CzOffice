@@ -190,9 +190,6 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                                                 .toDouble()
                                         ) < 0.01
                                     ) {
-                                        /*Log.d(TAG, "EtOfficeGetUserLocationPost: "+it.location
-                                                + "latitude:" + it.latitude
-                                                + "longitude:" + it.longitude )*/
 
                                         val distance = abs(
                                             it.latitude.toDouble() - latitude.toString().toDouble()
