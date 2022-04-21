@@ -79,6 +79,9 @@ class ReportDetailActivity : BaseActivity(), DatePickerDialog.OnDateSetListener 
         if (isApproved) {
             binding.llApproved.visibility = View.GONE
             binding.isApproved.visibility = View.GONE
+        }else{
+            binding.llApproved.visibility = View.VISIBLE
+            binding.isApproved.visibility = View.VISIBLE
         }
         intent.removeExtra("isApproved")
 
