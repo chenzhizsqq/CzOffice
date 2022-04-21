@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.lifecycle.lifecycleScope
@@ -295,7 +296,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
                         when (model.status) {
                             0 -> {
-                                Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
+                                //Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
+                                Toast.makeText(activity, R.string.UPDATE_SUCCESS, Toast.LENGTH_SHORT).show()
                             }
                             else -> {
                                 activity?.let {
