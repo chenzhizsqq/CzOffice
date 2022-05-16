@@ -413,7 +413,7 @@ object Tools {
 
     fun isHaveLocationPermission(): Boolean {
         if (checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-            && checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            || checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)
         ) {
             return true
         }

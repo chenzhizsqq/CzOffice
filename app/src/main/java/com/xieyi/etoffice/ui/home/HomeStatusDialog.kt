@@ -92,15 +92,15 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
         //set_user_Status
         binding.setUserStatus.setOnClickListener {
-            if (binding.userStatusMemo.text.toString().isEmpty()) {
-                activity?.let { it1 ->
-                    Tools.showErrorDialog(
-                        it1,
-                        getString(R.string.no_memo)
-                    )
-                }
-                return@setOnClickListener
-            }
+//            if (binding.userStatusMemo.text.toString().isEmpty()) {
+//                activity?.let { it1 ->
+//                    Tools.showErrorDialog(
+//                        it1,
+//                        getString(R.string.no_memo)
+//                    )
+//                }
+//                return@setOnClickListener
+//            }
 
             EtOfficeSetUserStatusPost(
                 longitude,
@@ -160,7 +160,58 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
             }
         }
 
+        //在GPS没有设置权限的情况下，默认表示上次的地址信息。
+        fusedLocationClient.flushLocations().continueWith {
+            it.addOnFailureListener {
+                if (latitude == 0.0 && longitude == 0.0) {
+                    EtOfficeGetUserLocationPost_No_GPS()
+                }
+            }
+
+            it.addOnCompleteListener {
+                if (latitude == 0.0 && longitude == 0.0){
+                    EtOfficeGetUserLocationPost_No_GPS()
+                }
+            }
+        }
+
         return binding.root
+    }
+
+    //在GPS没有设置权限的情况下
+    private fun EtOfficeGetUserLocationPost_No_GPS() {
+        lifecycleScope.launch {
+            Api.EtOfficeGetUserLocation(
+                context = requireActivity(),
+                onSuccess = { model ->
+                    lifecycleScope.launch {
+                        when (model.status) {
+                            0 -> {
+                                if (model.result.locationlist.isNotEmpty()){
+
+                                    val lastIndex = model.result.locationlist.lastIndex
+                                    binding.recordPlace.text = model.result.locationlist[lastIndex].location
+                                    binding.userLocation.setText(model.result.locationlist[lastIndex].location)
+                                }
+                            }
+                            else -> {
+                                Tools.showErrorDialog(
+                                    requireActivity(),
+                                    model.message
+                                )
+                            }
+
+                        }
+                    }
+                },
+                onFailure = { error, data ->
+                    lifecycleScope.launch {
+                        Log.e(TAG, "onFailure:$data")
+
+                    }
+                }
+            )
+        }
     }
 
 
@@ -236,50 +287,46 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
         statustext: String,
         memo: String
     ) {
-        if (Tools.isHaveLocationPermission()) {
-            lifecycleScope.launch {
-                Api.EtOfficeSetUserStatus(
-                    context = requireActivity(),
-                    location = location,
-                    longitude = longitude,
-                    latitude = latitude,
-                    statusvalue = statusvalue,
-                    statustext = statustext,
-                    memo = memo,
-                    onSuccess = { model ->
-                        lifecycleScope.launch {
-                            when (model.status) {
-                                0 -> {
-                                    Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
-                                    listener.onClick(
-                                        statusvalue,
-                                        statustext
+        lifecycleScope.launch {
+            Api.EtOfficeSetUserStatus(
+                context = requireActivity(),
+                location = location,
+                longitude = longitude,
+                latitude = latitude,
+                statusvalue = statusvalue,
+                statustext = statustext,
+                memo = memo,
+                onSuccess = { model ->
+                    lifecycleScope.launch {
+                        when (model.status) {
+                            0 -> {
+                                Tools.showMsg(binding.root, getString(R.string.UPDATE_SUCCESS))
+                                listener.onClick(
+                                    statusvalue,
+                                    statustext
+                                )
+                                dialog!!.dismiss()
+                            }
+                            else -> {
+                                activity?.let {
+                                    Tools.showErrorDialog(
+                                        it,
+                                        model.message
                                     )
-                                    dialog!!.dismiss()
-                                }
-                                else -> {
-                                    activity?.let {
-                                        Tools.showErrorDialog(
-                                            it,
-                                            model.message
-                                        )
-                                    }
                                 }
                             }
-
                         }
-                    },
-                    onFailure = { error, data ->
-                        lifecycleScope.launch {
-                            Log.e(TAG, "onFailure:$data")
 
-                        }
                     }
-                )
+                },
+                onFailure = { error, data ->
+                    lifecycleScope.launch {
+                        Log.e(TAG, "onFailure:$data")
 
-            }
-        } else {
-            Tools.checkLocationPermission(requireActivity())
+                    }
+                }
+            )
+
         }
     }
 

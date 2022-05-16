@@ -47,7 +47,7 @@ open class FullScreenDialogBaseFragment : DialogFragment() {
 
     }
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var locationCallback: LocationCallback
 
     fun gpsInit() {
