@@ -102,14 +102,14 @@
     <string name="MSG09">正しいエイリアスを入力してください。</string>
     <string name="MSG10">不明な状態</string>
     <string name="MSG11">地名を入力してください。</string>
-    <string name="MSG12">削除するメッセージが選択されていません。</string>
+    <string name="MSG12">承認するメッセージが選択されていません。</string>
     <string name="MSG13">現在選択されている情報を削除しますか？</string>
     <string name="MSG14">プロジェクト名を選択してください。</string>
     <string name="MSG15">作業コードを選択してください。</string>
     <string name="MSG16">工数を入力してください。</string>
     <string name="MSG17">入力したメッセージが長すぎます。</string>
     <string name="MSG18">現在選択されている情報を承認しますか？</string>
-    <string name="MSG19">削除する日報が選択されていません。</string>
+    <string name="MSG19">承認する日報が選択されていません。</string>
     <string name="CHANGE">切り替え</string>
     <string name="WORK_RECORD">出勤記録</string>
     <string name="UPDATE_SUCCESS">更新しました</string>
