@@ -27,7 +27,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (Config.isCode) {
+        if (BuildConfig.DEBUG)  {
             binding.userName.setText("demo1@xieyi.co.jp")
             binding.password.setText("pass")
         }
