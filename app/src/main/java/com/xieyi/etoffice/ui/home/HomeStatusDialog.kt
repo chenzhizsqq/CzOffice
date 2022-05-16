@@ -132,6 +132,8 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                 return@setOnClickListener
             }
 
+            Tools.sharedPrePut( lastLocationKey , binding.userLocation.text.toString())
+
             EtOfficeSetUserLocationPost(binding.userLocation.text.toString())
             binding.userLocation.text.clear()
             binding.userStatusMemo.text.clear()
@@ -180,38 +182,11 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
 
     //在GPS没有设置权限的情况下
     private fun EtOfficeGetUserLocationPost_No_GPS() {
-        lifecycleScope.launch {
-            Api.EtOfficeGetUserLocation(
-                context = requireActivity(),
-                onSuccess = { model ->
-                    lifecycleScope.launch {
-                        when (model.status) {
-                            0 -> {
-                                if (model.result.locationlist.isNotEmpty()){
 
-                                    val lastIndex = model.result.locationlist.lastIndex
-                                    binding.recordPlace.text = model.result.locationlist[lastIndex].location
-                                    binding.userLocation.setText(model.result.locationlist[lastIndex].location)
-                                }
-                            }
-                            else -> {
-                                Tools.showErrorDialog(
-                                    requireActivity(),
-                                    model.message
-                                )
-                            }
-
-                        }
-                    }
-                },
-                onFailure = { error, data ->
-                    lifecycleScope.launch {
-                        Log.e(TAG, "onFailure:$data")
-
-                    }
-                }
-            )
-        }
+        binding.recordPlace.text =
+            Tools.sharedPreGetString( lastLocationKey )
+        binding.userLocation.setText(
+            Tools.sharedPreGetString( lastLocationKey ))
     }
 
 
@@ -366,5 +341,12 @@ class HomeStatusDialog(statusvalue: String, statustext: String) : FullScreenDial
                 }
             )
         }
+    }
+
+
+
+    companion object {
+
+        const val lastLocationKey = "HomeStatusDialog_lastLocationKey"
     }
 }
