@@ -51,7 +51,7 @@
         <entry key="app/src/main/res/drawable/ic_cancel_black_24dp.xml" value="0.24074074074074073" />
         <entry key="app/src/main/res/drawable/ic_launcher_arrow_left_foreground.xml" value="0.22592592592592592" />
         <entry key="app/src/main/res/layout/activity_my_page_change_company.xml" value="0.21157407407407408" />
-        <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.21157407407407408" />
         <entry key="app/src/main/res/layout/dialog_home_report.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_my_page_place.xml" value="0.165" />
