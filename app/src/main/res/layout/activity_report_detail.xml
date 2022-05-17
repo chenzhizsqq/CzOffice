@@ -105,162 +105,167 @@
         app:layout_constraintRight_toRightOf="parent"
         android:background="@color/white"
         >
-        <!--内容-->
         <LinearLayout
-            android:id="@+id/record_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="vertical">
-    <!--        date-->
+            <!--内容-->
             <LinearLayout
+                android:id="@+id/record_linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:gravity="right"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/record_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/ic_round_edge_grey"
-                    android:gravity="center"
-                    android:textColor="@color/iphone_button_color"
-                    android:textSize="20sp" />
-            </LinearLayout>
-    <!--        予定：-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/iphone_view_bg"
-                android:padding="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:gravity="center|start"
-                    android:text="@string/activity_report_detail_予定"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:id="@+id/appointment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:gravity="center|start"
-                    android:text="@string/activity_report_detail_予定内容"
-                    android:textColor="#000000"/>
-            </LinearLayout>
-
-
-<!--            planworklist-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_planworklist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="10dp"
-                android:gravity="center"
-                app:layoutManager="LinearLayoutManager" />
-
-
-    <!--        実績：-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/iphone_view_bg"
-                android:padding="10dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:gravity="center|start"
-                    android:text="@string/activity_report_detail_実績"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:id="@+id/worktime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:gravity="center|start"
-                    android:text="TextView_worktime"
-                    android:textColor="#000000"/>
-            </LinearLayout>
-
-
-            <!--        workstatuslis -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_workstatuslist"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:gravity="center"
-                app:layoutManager="LinearLayoutManager" />
-
-
-
-
-
-            <LinearLayout
-                android:id="@+id/llApproved"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:minHeight="120dp"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:orientation="horizontal">
-                <!--                add button-->
+                android:orientation="vertical">
+        <!--        date-->
                 <LinearLayout
-                    android:id="@+id/isApproved"
-                    android:gravity="center"
-                    android:background="@drawable/ic_round_edge_grey"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/addView"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="10dp"
+                    android:background="@color/white"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/record_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_round_edge_grey"
                         android:gravity="center"
-                        app:srcCompat="@drawable/ic_add_button_foreground"
-                        android:contentDescription="@string/ContentDescription" />
+                        android:textColor="@color/iphone_button_color"
+                        android:textSize="20sp" />
+                </LinearLayout>
+        <!--        予定：-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/iphone_view_bg"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_report_detail_buttom_title"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        />
+                        android:textSize="20sp"
+                        android:gravity="center|start"
+                        android:text="@string/activity_report_detail_予定"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:id="@+id/appointment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:gravity="center|start"
+                        android:text="@string/activity_report_detail_予定内容"
+                        android:textColor="#000000"/>
                 </LinearLayout>
 
-                <!--        reportlist -->
+
+    <!--            planworklist-->
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_reportlist"
+                    android:id="@+id/recycler_view_planworklist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:gravity="center"
+                    app:layoutManager="LinearLayoutManager" />
+
+
+        <!--        実績：-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/iphone_view_bg"
+                    android:padding="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:gravity="center|start"
+                        android:text="@string/activity_report_detail_実績"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:id="@+id/worktime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:gravity="center|start"
+                        android:text="TextView_worktime"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+                <!--        workstatuslis -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_workstatuslist"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    app:layoutManager="LinearLayoutManager" />
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llApproved"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minHeight="120dp"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="horizontal">
+                    <!--                add button-->
+                    <LinearLayout
+                        android:id="@+id/isApproved"
+                        android:gravity="center"
+                        android:background="@drawable/ic_round_edge_grey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/addView"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            app:srcCompat="@drawable/ic_add_button_foreground"
+                            android:contentDescription="@string/ContentDescription" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/activity_report_detail_buttom_title"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:gravity="center"
+                            />
+                    </LinearLayout>
+
+                    <!--        reportlist -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view_reportlist"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        app:layoutManager="LinearLayoutManager" />
+                </LinearLayout>
+
+
+                <!--        commentlist -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_commentlist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     app:layoutManager="LinearLayoutManager" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="center"
+                    android:orientation="vertical"/>
             </LinearLayout>
-
-
-            <!--        commentlist -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_commentlist"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                app:layoutManager="LinearLayoutManager" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:gravity="center"
-                android:orientation="vertical"/>
+            <!--内容-->
         </LinearLayout>
-        <!--内容-->
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
