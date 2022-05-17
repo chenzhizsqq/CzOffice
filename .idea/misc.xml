@@ -49,9 +49,12 @@
         <entry key="..\:/Users/user/Desktop/ETOffice/EtOffice/app/src/main/res/mipmap-anydpi-v26/ic_launcher_plus.xml" value="0.1" />
         <entry key="..\:/Users/user/Desktop/ETOffice/EtOffice/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_cancel_black_24dp.xml" value="0.24074074074074073" />
+        <entry key="app/src/main/res/drawable/ic_launcher_arrow_left_foreground.xml" value="0.22592592592592592" />
+        <entry key="app/src/main/res/layout/activity_my_page_change_company.xml" value="0.21157407407407408" />
         <entry key="app/src/main/res/layout/activity_report_detail.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.1408514492753623" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1052393857271906" />
+        <entry key="app/src/main/res/layout/dialog_home_report.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/dialog_home_status.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_member.xml" value="0.3236111111111111" />
         <entry key="app/src/main/res/layout/fragment_my_page.xml" value="0.1052393857271906" />
         <entry key="app/src/main/res/layout/fragment_report.xml" value="0.3236111111111111" />

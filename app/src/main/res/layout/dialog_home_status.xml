@@ -19,19 +19,27 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/btn_cancel_and_close"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/btn_cancel_and_close"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:gravity="center"
                     app:srcCompat="@drawable/ic_launcher_arrow_left_foreground"
                     android:contentDescription="@string/ContentDescription" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/title_bar_return_font"
+                    android:gravity="start"
+                    android:text="@string/title_home"
+                    android:textColor="@color/iphone_button_color" />
             </LinearLayout>
 
 
