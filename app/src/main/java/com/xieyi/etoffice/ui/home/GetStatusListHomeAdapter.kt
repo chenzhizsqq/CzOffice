@@ -41,7 +41,7 @@ class GetStatusListHomeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.statusTime.text = Tools.allDateTime(list[position].statustime)
+        holder.statusTime.text = Tools.getDateYMDHS(list[position].statustime)
         holder.status.text = list[position].statustext
         holder.memo.text = list[position].memo
         holder.ll.setOnClickListener {

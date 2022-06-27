@@ -35,7 +35,7 @@ class GetStatusListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = list[position]
 
-        holder.statusTime.text = Tools.allDateTime(info.statustime)
+        holder.statusTime.text = Tools.getDateYMDHS(info.statustime)
         holder.status.text = info.statustext
         //holder.memo.text = info.memo
         holder.memo.text = Tools.srcContent(info.memo, 8, "...")

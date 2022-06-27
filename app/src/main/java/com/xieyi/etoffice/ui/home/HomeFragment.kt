@@ -1,5 +1,6 @@
 package com.xieyi.etoffice.ui.home
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.xieyi.etoffice.Config
 import com.xieyi.etoffice.R
 import com.xieyi.etoffice.Tools
 import com.xieyi.etoffice.base.BaseFragment
@@ -127,9 +129,16 @@ class HomeFragment : BaseFragment() {
             }
         })
 
-
         //ページを更新
         dataPost()
+
+        // ユーザ名表示
+        // 读取用户信息，如果已经登录了，直接跳转到Main画面
+        val prefs = activity?.getSharedPreferences(Config.EtOfficeUser, Context.MODE_PRIVATE)
+        val userName = prefs?.getString("username", "")
+        if (userName != null){
+            binding.userName.text = userName
+        }
 
         return binding.root
     }
@@ -138,13 +147,14 @@ class HomeFragment : BaseFragment() {
     //ページを更新
     private fun dataPost() {
         EtOfficeGetMessagePost()
+        EtOfficeGetTenantPost()
     }
 
     private fun EtOfficeGetMessagePost() {
         lifecycleScope.launch {
             Api.EtOfficeGetMessage(
                 context = requireActivity(),
-                count = 5,
+                count = 4,
                 lasttime = "",
                 lastsubid = "",
                 onSuccess = { model ->
@@ -178,13 +188,50 @@ class HomeFragment : BaseFragment() {
         }
     }
 
+    private fun EtOfficeGetTenantPost() {
+        lifecycleScope.launch {
+            Api.EtOfficeGetTenant(
+                context = requireContext(),
+                onSuccess = { model ->
+                    lifecycleScope.launch {
+                        when (model.status) {
+                            0 -> {
+                                for(record in model.result.tenantlist ) {
+                                    if(record.startflg.equals("1")){
+                                        binding.textCompanyTitle.text = record.tenantname
+                                        break
+                                    }
+                                }
+                            }
+                            else -> {
+                                Tools.showErrorDialog(
+                                    requireContext(),
+                                    model.message
+                                )
+                            }
+                        }
+                    }
+
+                },
+                onFailure = { error, data ->
+                    lifecycleScope.launch {
+                        Log.e(TAG, "onFailure:$data")
+                    }
+
+                }
+            )
+        }
+
+
+    }
+
     // Message UI更新
     private fun EtOfficeGetMessageResult(result: MessageResult) {
         mGetMessageAdapter.notifyDataChange(result.messagelist)
         mGetStatusListHomeAdapter.notifyDataChange(result.recordlist)
 
         if (result.recordlist.isNotEmpty()) {
-            binding.state.text = result.recordlist[0].statustext
+            binding.state.text = getDispSatus(result.recordlist[0].statusvalue)
         }
 
         //データ存在の確認表示
@@ -245,5 +292,48 @@ class HomeFragment : BaseFragment() {
             )
         )
     }
+    // MARK: - 勤務状態から表示するステータス文字列を取得
+    fun getDispSatus(statusValue: String) : String {
 
+        when (statusValue) {
+            // 勤務開始
+            "1" -> {
+                return "勤務中"
+            }
+            // 勤務終了
+            "2" -> {
+                return "勤務外"
+            }
+            // 休憩開始
+            "3" -> {
+                return "休憩中"
+            }
+            // 休憩終了
+            "4" -> {
+                return "勤務中"
+            }
+            // 会議開始
+            "5" -> {
+                return "会議中"
+            }
+            // 会議終了
+            "6" -> {
+                return "勤務中"
+                // 移動開始
+            }
+            "7" -> {
+                return "移動中"
+            }
+            // 移動終了
+            "8" -> {
+                "勤務中"
+
+            }
+            else -> {
+                return ""
+            }
+        }
+
+        return ""
+    }
 }

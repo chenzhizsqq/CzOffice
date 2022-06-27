@@ -34,7 +34,7 @@
     <string name="dialog_home_report_close">閉じる</string>
     <string name="dialog_home_status_set_user_status">更新</string>
     <string name="dialog_home_status_set_user_location">地名登録</string>
-    <string name="fragment_home_common_function">共通機能</string>
+    <string name="fragment_home_common_function">勤務状態変更登録</string>
     <string name="fragment_my_page_name">名前</string>
     <string name="fragment_my_page_change_company">会社を切り替え</string>
     <string name="fragment_my_page_more"><![CDATA[＞]]></string>
@@ -85,7 +85,7 @@
 
     <!--    MARK: - MESSAGE-->
     <string name="ERROR">エラー</string>
-    <string name="MESSAGE">メッセージ</string>
+    <string name="MESSAGE">新着メッセージ</string>
     <string name="OK">ＯＫ</string>
     <string name="CONFIRM">確認</string>
     <string name="CANCEL">キャンセル</string>
@@ -102,16 +102,16 @@
     <string name="MSG09">正しいエイリアスを入力してください。</string>
     <string name="MSG10">不明な状態</string>
     <string name="MSG11">地名を入力してください。</string>
-    <string name="MSG12">承認するメッセージが選択されていません。</string>
+    <string name="MSG12">削除するメッセージが選択されていません。</string>
     <string name="MSG13">現在選択されている情報を削除しますか？</string>
     <string name="MSG14">プロジェクト名を選択してください。</string>
     <string name="MSG15">作業コードを選択してください。</string>
     <string name="MSG16">工数を入力してください。</string>
     <string name="MSG17">入力したメッセージが長すぎます。</string>
     <string name="MSG18">現在選択されている情報を承認しますか？</string>
-    <string name="MSG19">承認する日報が選択されていません。</string>
+    <string name="MSG19">削除する日報が選択されていません。</string>
     <string name="CHANGE">切り替え</string>
-    <string name="WORK_RECORD">出勤記録</string>
+    <string name="WORK_RECORD">勤務状態変更履歴</string>
     <string name="UPDATE_SUCCESS">更新しました</string>
     <string name="LOGIN_SUCCESS">登録しました。</string>
     <string name="REPORT_TITLE">日报</string>

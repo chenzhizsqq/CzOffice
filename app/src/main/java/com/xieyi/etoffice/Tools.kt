@@ -89,8 +89,20 @@ object Tools {
 
         return str
     }
-    //例子：输入：20210715165656     输出：2021.07.15 16:56:56
 
+    //例子：输入：20210715165656     输出：2021.07.15 16:56:56
+    /**
+     * 转换日期和时间的显示格式
+     *
+     * @param _data
+     */
+    fun getDateYMDHS(_data: String): String {
+        var str = ""
+        str = "${dateGetYear(_data)}.${dateGetMonth(_data)}.${dateGetDay(_data)}" +
+                " ${dateGetHH(_data)}:${dateGetMM(_data)}"
+
+        return str
+    }
 
     /**
      * 转换日期的显示格式
@@ -413,7 +425,7 @@ object Tools {
 
     fun isHaveLocationPermission(): Boolean {
         if (checkSinglePermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-            || checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            && checkSinglePermission(Manifest.permission.ACCESS_FINE_LOCATION)
         ) {
             return true
         }
