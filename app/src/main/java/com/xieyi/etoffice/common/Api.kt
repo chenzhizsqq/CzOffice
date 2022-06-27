@@ -550,7 +550,7 @@ class Api {
         }
 
         /**
-         * 社員一覧取得
+         * 勤務実績承認
          *
          * @param context:          コンテキスト
          * @param ymdArray:         更新対象: 要素年月日[ymd]の配列
@@ -693,7 +693,7 @@ class Api {
         }
 
         /**
-         * プロジェクト一覧
+         * 日報登録
          *
          * @param context:          コンテキスト
          * @param ymd:              対象年月日

@@ -60,6 +60,7 @@
         <entry key="app/src/main/res/layout/fragment_member.xml" value="0.3236111111111111" />
         <entry key="app/src/main/res/layout/fragment_my_page.xml" value="0.1052393857271906" />
         <entry key="app/src/main/res/layout/fragment_report.xml" value="0.3236111111111111" />
+        <entry key="app/src/main/res/layout/get_message_list.xml" value="0.19814814814814816" />
         <entry key="app/src/main/res/layout/get_report_list_group_reportlist.xml" value="0.20867579908675798" />
         <entry key="app/src/main/res/layout/get_section_stuff_list.xml" value="0.20867579908675798" />
         <entry key="app/src/main/res/layout/report_get_section_stuff_list.xml" value="0.20867579908675798" />
